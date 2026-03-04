@@ -7,6 +7,7 @@ import {
   useMemo,
   type ReactNode,
 } from 'react';
+import { getRoutes } from '@/lib/constants/routes';
 import type { Locale } from './config';
 import { getMessages } from './messages';
 
@@ -63,4 +64,11 @@ export function useTranslations() {
 
 export function useLocale() {
   return useI18n().locale;
+}
+
+/** Локаль + переводы + роуты для текущей локали (упрощает повторяющийся код в компонентах). */
+export function useLocaleRoutes() {
+  const { locale, t } = useI18n();
+  const routes = useMemo(() => getRoutes(locale), [locale]);
+  return { locale, t, routes };
 }

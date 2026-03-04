@@ -5,8 +5,7 @@ import { PageContentRenderer } from '@/components/content/PageContentRenderer';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { NavButton } from '@/components/ui/NavButton';
 import { CHAPTER_IDS } from '@/lib/constants/chapters';
-import { getRoutes } from '@/lib/constants/routes';
-import { useLocale, useTranslations } from '@/lib/i18n/context';
+import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import type { PageContent, Spread } from '@/lib/types/spread';
 import { useSpreadState } from '@/hooks/useSpreadState';
@@ -27,9 +26,7 @@ export function SpreadNavigation({
 }: SpreadNavigationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const locale = useLocale();
-  const t = useTranslations();
-  const routes = getRoutes(locale);
+  const { t, routes } = useLocaleRoutes();
   const defaultState = useSpreadState(spreads.length);
   const personId = searchParams.get('id');
   const isPersony = chapterSlug === CHAPTER_IDS.PERSONS;

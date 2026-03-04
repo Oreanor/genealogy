@@ -4,12 +4,12 @@ import { getSpreadsForChapter } from '@/lib/data/spreads';
 import { getChapterBySlug } from '@/lib/utils/chapter';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import { LOCALES } from '@/lib/i18n/config';
 import { getMessages } from '@/lib/i18n/messages';
 import { isLocale } from '@/lib/i18n/config';
 
 export function generateStaticParams() {
-  const locales = ['ru', 'en', 'de', 'fr', 'es', 'it', 'pt', 'nl', 'uk', 'pl'] as const;
-  return locales.flatMap((locale) =>
+  return LOCALES.flatMap((locale) =>
     CHAPTERS.map((ch) => ({ locale, slug: ch.id }))
   );
 }

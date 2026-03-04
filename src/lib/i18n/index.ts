@@ -6,4 +6,5 @@ export {
   useI18n,
   useTranslations,
   useLocale,
+  useLocaleRoutes,
 } from './context';

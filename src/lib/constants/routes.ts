@@ -14,5 +14,3 @@ export function getRoutes(locale: LocaleParam) {
   } as const;
 }
 
-/** Дефолтные роуты без локали (для обратной совместимости в тестах). Используйте getRoutes(locale) в приложении. */
-export const ROUTES = getRoutes('ru');

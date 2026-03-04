@@ -2,18 +2,15 @@
 
 import { CHAPTERS, COVER_IMAGE } from '@/lib/constants/chapters';
 import { FAMILY_SURNAME } from '@/lib/constants/owner';
-import { getRoutes } from '@/lib/constants/routes';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-import { useLocale, useTranslations } from '@/lib/i18n/context';
+import { useLocaleRoutes } from '@/lib/i18n/context';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BookPage } from './BookPage';
 import { BookSpread } from './BookSpread';
 
 export function TitleSpread() {
-  const locale = useLocale();
-  const t = useTranslations();
-  const routes = getRoutes(locale);
+  const { t, routes } = useLocaleRoutes();
   const bookTitle = t('bookTitleTemplate', { surname: FAMILY_SURNAME });
 
   return (

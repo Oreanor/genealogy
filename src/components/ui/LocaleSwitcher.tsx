@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 import { LOCALES } from '@/lib/i18n/config';
 import { useLocale } from '@/lib/i18n/context';
+import { getPathSegments } from '@/lib/utils/path';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { usePathname, useRouter } from 'next/navigation';
 
 const LOCALE_LABELS: Record<string, string> = {
@@ -33,21 +35,11 @@ export function LocaleSwitcher() {
   const currentLocale = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, [open]);
+  useClickOutside(ref, () => setOpen(false), open);
 
   if (!pathname) return null;
 
-  const segments = pathname.split('/').filter(Boolean);
+  const segments = getPathSegments(pathname);
   const basePath = segments.slice(1).join('/');
 
   const goToLocale = (locale: string) => {

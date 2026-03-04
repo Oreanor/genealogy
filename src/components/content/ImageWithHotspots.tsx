@@ -1,7 +1,6 @@
 'use client';
 
-import { getRoutes } from '@/lib/constants/routes';
-import { useLocale, useTranslations } from '@/lib/i18n/context';
+import { useLocaleRoutes } from '@/lib/i18n/context';
 import { polygonPoints } from '@/lib/utils/svg';
 import type { ImageConfig } from '@/lib/types/spread';
 import Image from 'next/image';
@@ -14,9 +13,7 @@ interface ImageWithHotspotsProps {
 
 export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsProps) {
   const router = useRouter();
-  const locale = useLocale();
-  const t = useTranslations();
-  const routes = getRoutes(locale);
+  const { t, routes } = useLocaleRoutes();
   const hasPolygons = config.hotspots?.some((h) => h.shape === 'polygon');
   const hasRects = config.hotspots?.some((h) => h.shape === 'rect');
 

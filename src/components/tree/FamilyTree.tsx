@@ -1,8 +1,7 @@
 'use client';
 
 import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
-import { getRoutes } from '@/lib/constants/routes';
-import { useLocale } from '@/lib/i18n/context';
+import { useLocaleRoutes } from '@/lib/i18n/context';
 import { buildTreeMatrix } from '@/lib/utils/tree';
 import { useRouter } from 'next/navigation';
 import { TreeNode } from './TreeNode';
@@ -28,8 +27,7 @@ function getNodePosition(level: number, index: number, totalLevels: number) {
 
 export function FamilyTree() {
   const router = useRouter();
-  const locale = useLocale();
-  const routes = getRoutes(locale);
+  const { routes } = useLocaleRoutes();
   const matrix = buildTreeMatrix(ROOT_PERSON_ID);
   const totalLevels = matrix.length;
 

@@ -23,19 +23,3 @@ export function getTreeRoleKey(
       return '';
   }
 }
-
-/** «Сын X и Y» или «Дочь X и Y» */
-export function formatChildOf(person: Person, getParentName: (id: string) => string): string {
-  if (person.parentIds.length === 0) return '';
-  const role = person.gender === 'f' ? 'Дочь' : 'Сын';
-  const names = person.parentIds.map(getParentName).filter(Boolean);
-  if (names.length === 0) return '';
-  return `${role} ${names.join(' и ')}`;
-}
-
-/** «Отец X, Y» или «Мать X, Y» */
-export function formatParentOf(person: Person, childNames: string[]): string {
-  if (childNames.length === 0) return '';
-  const role = person.gender === 'f' ? 'Мать' : 'Отец';
-  return `${role} ${childNames.join(', ')}`;
-}

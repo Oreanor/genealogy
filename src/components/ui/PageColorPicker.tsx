@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 import {
   contrastColor,
@@ -86,16 +87,7 @@ export function PageColorPicker() {
     globalThis.dispatchEvent(new CustomEvent(STORAGE_UPDATE_EVENT));
   };
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, [open]);
+  useClickOutside(ref, () => setOpen(false), open);
 
   return (
     <div className="relative" ref={ref}>

@@ -1,11 +1,10 @@
 'use client';
 
-import { getRoutes } from '@/lib/constants/routes';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById } from '@/lib/data/persons';
 import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
-import { useLocale, useTranslations } from '@/lib/i18n/context';
+import { useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
 
 interface PersonCardProps {
@@ -13,9 +12,7 @@ interface PersonCardProps {
 }
 
 export function PersonCard({ person }: PersonCardProps) {
-  const locale = useLocale();
-  const t = useTranslations();
-  const routes = getRoutes(locale);
+  const { t, routes } = useLocaleRoutes();
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
   const cousins = getCousins(person.id);

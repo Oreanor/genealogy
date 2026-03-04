@@ -6,6 +6,14 @@ vi.mock('./TocBookmark', () => ({
   TocBookmark: () => <a href="/">Оглавление</a>,
 }));
 
+vi.mock('@/components/ui/PageColorPickerClient', () => ({
+  PageColorPicker: () => null,
+}));
+
+vi.mock('@/components/ui/LocaleSwitcher', () => ({
+  LocaleSwitcher: () => null,
+}));
+
 describe('BookLayout', () => {
   it('renders children', () => {
     render(<BookLayout>Content</BookLayout>);
