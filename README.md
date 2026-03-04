@@ -1,6 +1,6 @@
-# Родословная семьи Никонец
+# Родословная вашей семьи
 
-Интерактивный альбом-книга о семье на Next.js. Пользователь листает развороты книги, переходит по главам и на карточки персон из древа или с интерактивных фото.
+Интерактивный альбом-книга о генеалогии **вашей семьи** на Next.js. Не привязан к одной фамилии: в одном конфиге задаёте фамилию «хозяина» альбома — заголовок и описание подставляются во всех языках. Пользователь листает развороты, переходит по главам и на карточки персон из древа или с интерактивных фото.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
@@ -10,12 +10,20 @@
 
 ## Возможности
 
-- **Титульный разворот** — название, обложка, оглавление глав
+- **Титульный разворот** — название семьи, обложка, оглавление глав
 - **Семейное древо** — до 6 уровней (от «я» до прапрапрадедов)
 - **Персоны** — разворот на одну персону, навигация между ними
 - **История, Фото, Другие материалы** — главы с гипертекстом и разворотами
 - **Интерактивные фото** — кликабельные зоны (rect/polygon) → переход к персоне
+- **Мультиязычность** — русский, английский, немецкий, французский, испанский, итальянский, португальский, нидерландский, украинский, польский; выбор языка сохраняется
+- **Настройки** — цвет страниц и язык в localStorage (одна «настройка» на всё)
 - **Адаптивный интерфейс** — удобно на планшетах и десктопах
+
+## Настройка под свою семью
+
+- **Фамилия и бренд** — в `src/lib/constants/owner.ts` задаёте `FAMILY_SURNAME`. Заголовок книги («Родословная семьи …») и описание строятся из неё во всех локалях.
+- **Данные** — в `src/data/persons.json` и `src/data/pages.json` храните своих персон и развороты; имена и тексты — ваши, без привязки к конкретной фамилии в коде.
+- **Корень древа** — в `src/lib/constants/chapters.ts` задаётся `ROOT_PERSON_ID` (персона «я»).
 
 ## Быстрый старт
 
@@ -24,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Откройте [http://localhost:3000](http://localhost:3000).
+Откройте [http://localhost:3000](http://localhost:3000) — откроется главная в выбранной локали (по умолчанию редирект на `/ru`). Язык переключается кнопкой в правом верхнем углу (рядом с выбором цвета страниц).
 
 ## Скрипты
 
@@ -35,7 +43,7 @@ npm run dev
 | `npm run start` | Запуск production-сборки |
 | `npm run test` | Запуск тестов |
 | `npm run test:watch` | Тесты в watch-режиме |
-| `npm run test:coverage` | Покрытие кода тестами (~91%) |
+| `npm run test:coverage` | Покрытие кода тестами (пороги 90% / branches 79%) |
 | `npm run type-check` | Проверка типов TypeScript |
 | `npm run lint` | Проверка ESLint |
 
@@ -43,29 +51,37 @@ npm run dev
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── page.tsx            # Главная (титульный разворот)
-│   └── glava/[slug]/       # Главы: /glava/semejnoe-drevo, /glava/persony, ...
+├── app/
+│   ├── layout.tsx              # Корневой layout
+│   └── [locale]/               # Локали: /ru, /en, ...
+│       ├── layout.tsx          # I18nProvider, SetDocumentLang
+│       ├── page.tsx            # Главная (титульный разворот)
+│       └── glava/[slug]/       # Главы: /ru/glava/semejnoe-drevo, ...
 ├── components/
-│   ├── book/               # BookLayout, BookSpread, SpreadNavigation, TitleSpread
-│   ├── content/            # RichText, ContentBlocks, ImageWithHotspots, PersonCard
-│   ├── tree/               # FamilyTree, TreeNode
-│   └── ui/                 # NavButton
+│   ├── book/                   # BookLayout, BookSpread, SpreadNavigation, TitleSpread, TocBookmark
+│   ├── content/                # RichText, ContentBlocks, ImageWithHotspots, PersonCard
+│   ├── tree/                   # FamilyTree, TreeNode
+│   └── ui/                     # NavButton, PageColorPicker, LocaleSwitcher
 ├── data/
-│   ├── pages.json          # Развороты по главам
-│   └── persons.json        # Персоны и древо
+│   ├── pages.json              # Развороты по главам
+│   └── persons.json           # Персоны и связи (ваши данные)
 ├── lib/
-│   ├── constants/          # chapters, routes
-│   ├── data/               # persons, pages, spreads
-│   ├── types/              # Person, Spread, PageContent
-│   └── utils/              # tree, svg, chapter, pageContent
-└── hooks/
-    └── useSpreadState.ts   # Текущий разворот
+│   ├── constants/              # chapters, routes, owner, storage
+│   ├── i18n/                   # локали, сообщения, useLocaleRoutes
+│   ├── data/                   # persons, pages, spreads
+│   ├── types/
+│   └── utils/
+├── hooks/
+│   ├── useSpreadState.ts
+│   └── useClickOutside.ts
+└── middleware.ts               # Редирект / и /glava/* на /{locale}/...
 ```
 
 ## Данные
 
 ### Персоны (`src/data/persons.json`)
+
+Ваши персоны: id, имя, годы, место рождения, род занятий, `parentIds` для построения древа. Фамилия в заголовке книги берётся из конфига, а не из этих записей.
 
 ```json
 {
@@ -74,13 +90,14 @@ src/
   "birthYears": "1925–1998",
   "birthPlace": "д. Заозерье",
   "occupation": "учитель",
-  "parentIds": ["person-2", "person-3"]
+  "parentIds": ["person-2", "person-3"],
+  "gender": "m"
 }
 ```
 
 ### Развороты (`src/data/pages.json`)
 
-Каждая запись — левая и правая страница разворота с блоками контента (paragraph, heading, list), изображениями и hotspots. Глава «Персоны» собирается из списка персон: один разворот = одна персона.
+Левая и правая страница разворота с блоками контента (paragraph, heading, list), изображениями и hotspots. Глава «Персоны» собирается из списка персон: один разворот = одна персона.
 
 ## Деплой
 
@@ -90,8 +107,8 @@ src/
 
 ### Standalone / Docker
 
-См. [DEPLOY.md](DEPLOY.md).
+См. [DEPLOY.md](DEPLOY.md) (если есть в репозитории).
 
 ## Спецификация
 
-Подробное описание: [SPEC.md](SPEC.md).
+Подробное описание: [SPEC.md](SPEC.md) (если есть в репозитории).
