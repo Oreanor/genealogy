@@ -5,7 +5,7 @@ import { CHAPTER_IDS } from '@/lib/constants/chapters';
 describe('getSpreadsForChapter', () => {
   it('returns person-based spreads for persony', () => {
     const spreads = getSpreadsForChapter(CHAPTER_IDS.PERSONS);
-    const personsCount = 4; // from persons.json
+    const personsCount = 16; // from persons.json
     expect(spreads).toHaveLength(personsCount);
     spreads.forEach((s, i) => {
       expect(s.left).toHaveProperty('personId');

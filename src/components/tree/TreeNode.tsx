@@ -1,32 +1,89 @@
+'use client';
+
+import { getTreeRole } from '@/lib/utils/relationship';
 import type { Person } from '@/lib/types/person';
 
-const NODE_SCALE = 1.8;
-const ELLIPSE = { cx: 0, cy: -0.45, rx: 0.85, ry: 1.1 };
-const PLAQUE = { x: -1.15, y: 0.4, width: 2.3, height: 1.15, rx: 0.18 };
-const MAX_NAME_LEN = 18;
-const MAX_YEARS_LEN = 20;
+export const NODE_SCALE = 1.8;
+const ELLIPSE_RX = 1.7;
+const ELLIPSE_RY = 2.2;
+const ELLIPSE_CY = -0.45;
+const ELLIPSE = { cx: 0, cy: ELLIPSE_CY, rx: ELLIPSE_RX, ry: ELLIPSE_RY };
+const OVAL_TOP = ELLIPSE_CY - ELLIPSE_RY;
+const OVAL_BOTTOM = ELLIPSE_CY + ELLIPSE_RY;
+const PLAQUE_OVERLAP = 0.2;
+const PLAQUE_Y = OVAL_BOTTOM - PLAQUE_OVERLAP;
+const PLAQUE_PADDING_TOP = 0.12;
+const PLAQUE_PADDING_SIDE = 0.4;
+const LINE_GAP = 0.08; // отступ между строками
+const PLAQUE_HEIGHT = 2.0;
+export const PLAQUE_BOTTOM_OFFSET = PLAQUE_Y + PLAQUE_HEIGHT;
+export const OVAL_TOP_OFFSET = OVAL_TOP;
+const PLAQUE_RX = 0.22;
+const CHAR_WIDTH = 0.38;
+const MIN_PLAQUE_WIDTH = 2.8;
+const MAX_NAME_LEN = 22;
+const MAX_YEARS_LEN = 24;
+
+function plaqueWidth(texts: string[]): number {
+  const maxLen = Math.max(0, ...texts.map((t) => t.length));
+  return Math.max(MIN_PLAQUE_WIDTH, maxLen * CHAR_WIDTH + 0.6);
+}
 
 export interface TreeNodeProps {
   person: Person | null;
   x: number;
   y: number;
   scale: number;
+  level: number;
+  index: number;
+  siblings?: Person[];
   onPersonClick: (personId: string) => void;
+  onSiblingsBadgeClick?: (siblings: Person[], e: React.MouseEvent) => void;
 }
 
 function truncate(text: string, maxLen: number): string {
   return text.length > maxLen ? `${text.slice(0, maxLen - 1)}…` : text;
 }
 
-export function TreeNode({ person, x, y, scale, onPersonClick }: TreeNodeProps) {
+const FONT_ROLE = 0.42;
+const FONT_NAME = 0.56;
+const FONT_YEARS = 0.4;
+
+export function TreeNode({
+  person,
+  x,
+  y,
+  scale,
+  level,
+  index,
+  siblings = [],
+  onPersonClick,
+  onSiblingsBadgeClick,
+}: TreeNodeProps) {
   const hasPerson = !!person;
   const personId = person?.id ?? `empty-${x}-${y}`;
+  const role = getTreeRole(level, index, person);
   const displayName = truncate(person?.name ?? 'неизв.', MAX_NAME_LEN);
   const displayYears = person?.birthYears
     ? truncate(person.birthYears, MAX_YEARS_LEN)
     : '';
 
+  const pW = plaqueWidth([role, displayName, displayYears].filter(Boolean)) + PLAQUE_PADDING_SIDE;
+  const plaqueX = -pW / 2;
+  const showBadge = siblings.length > 0 && onSiblingsBadgeClick;
+
+  const yRole = role ? PLAQUE_Y + PLAQUE_PADDING_TOP + FONT_ROLE : 0;
+  const yName = role
+    ? yRole + FONT_ROLE + LINE_GAP + FONT_NAME
+    : PLAQUE_Y + PLAQUE_PADDING_TOP + FONT_NAME;
+  const yYears = displayYears ? yName + FONT_NAME + LINE_GAP + FONT_YEARS : 0;
+
   const effectiveScale = scale * NODE_SCALE;
+
+  const handleBadgeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onSiblingsBadgeClick?.(siblings, e);
+  };
 
   return (
     <g
@@ -48,10 +105,10 @@ export function TreeNode({ person, x, y, scale, onPersonClick }: TreeNodeProps) 
     >
       {hasPerson && (
         <rect
-          x="-1.2"
-          y="-1.6"
-          width="2.4"
-          height="2.8"
+          x={plaqueX - 0.2}
+          y={OVAL_TOP - 0.1}
+          width={pW + 0.4}
+          height={PLAQUE_BOTTOM_OFFSET - OVAL_TOP + 0.3}
           fill="transparent"
           aria-hidden
         />
@@ -65,38 +122,87 @@ export function TreeNode({ person, x, y, scale, onPersonClick }: TreeNodeProps) 
         <g clipPath={`url(#oval-${personId})`}>
           <image
             href={person.photoUrl}
-            x="-0.85"
-            y="-1.55"
-            width="1.7"
-            height="2.2"
+            x={-ELLIPSE_RX}
+            y={OVAL_TOP}
+            width={ELLIPSE_RX * 2}
+            height={ELLIPSE_RY * 2}
             preserveAspectRatio="xMidYMid slice"
           />
         </g>
       ) : (
         <ellipse
           {...ELLIPSE}
-          fill="#fef9c3"
-          stroke="#78716c"
+          fill="var(--paper)"
+          stroke="var(--tree-stroke)"
           strokeWidth="0.1"
         />
       )}
       <rect
-        x={PLAQUE.x}
-        y={PLAQUE.y}
-        width={PLAQUE.width}
-        height={PLAQUE.height}
-        rx={PLAQUE.rx}
-        fill="#fef3c7"
-        stroke="#b45309"
+        x={plaqueX}
+        y={PLAQUE_Y}
+        width={pW}
+        height={PLAQUE_HEIGHT}
+        rx={PLAQUE_RX}
+        fill="var(--tree-plaque-fill)"
+        stroke="var(--tree-plaque-stroke)"
         strokeWidth="0.1"
       />
-      <text x="0" y="0.78" textAnchor="middle" fontSize="0.34" fill="#1c1917" fontWeight="600">
+      {role && (
+        <text
+          x="0"
+          y={yRole}
+          textAnchor="middle"
+          fontSize={FONT_ROLE}
+          fill="var(--tree-stroke)"
+        >
+          {role}
+        </text>
+      )}
+      <text
+        x="0"
+        y={yName}
+        textAnchor="middle"
+        fontSize={FONT_NAME}
+        fill="var(--ink)"
+        fontWeight="600"
+      >
         {displayName}
       </text>
       {displayYears && (
-        <text x="0" y="1.05" textAnchor="middle" fontSize="0.26" fill="#78716c">
+        <text
+          x="0"
+          y={yYears}
+          textAnchor="middle"
+          fontSize={FONT_YEARS}
+          fill="var(--tree-stroke)"
+        >
           {displayYears}
         </text>
+      )}
+      {showBadge && (
+        <g
+          onClick={handleBadgeClick}
+          style={{ cursor: 'pointer', pointerEvents: 'all' }}
+          className="hover:opacity-80"
+        >
+          <rect
+            x={plaqueX + pW - 0.75}
+            y={PLAQUE_Y + 0.1}
+            width="0.65"
+            height="0.5"
+            rx="0.12"
+            fill="var(--accent)"
+          />
+          <text
+            x={plaqueX + pW - 0.42}
+            y={PLAQUE_Y + 0.42}
+            textAnchor="middle"
+            fontSize="0.32"
+            fill="var(--nav-btn-ink)"
+          >
+            +{siblings.length}
+          </text>
+        </g>
       )}
     </g>
   );

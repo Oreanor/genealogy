@@ -3,14 +3,15 @@ import { getChildren, getSiblings, getRoots } from './person';
 
 describe('person utils', () => {
   describe('getChildren', () => {
-    it('returns children of person-1', () => {
-      const children = getChildren('person-1');
-      expect(children).toHaveLength(1);
-      expect(children[0]!.id).toBe('person-4');
+    it('returns children of person-2', () => {
+      const children = getChildren('person-2');
+      expect(children).toHaveLength(2);
+      const ids = children.map((c) => c.id).sort();
+      expect(ids).toEqual(['person-1', 'person-14']);
     });
 
     it('returns empty for person with no children', () => {
-      expect(getChildren('person-4')).toEqual([]);
+      expect(getChildren('person-1')).toEqual([]);
     });
 
     it('returns empty for unknown id', () => {
@@ -23,10 +24,10 @@ describe('person utils', () => {
       expect(getSiblings('person-2')).toEqual([]);
     });
 
-    it('returns siblings when both share same parent', () => {
+    it('returns siblings when both share same parents', () => {
       const siblings = getSiblings('person-1');
-      // person-1 has parents person-2, person-3; person-4 has parent person-1 — different parents
-      expect(siblings).toEqual([]);
+      expect(siblings).toHaveLength(1);
+      expect(siblings[0]!.id).toBe('person-14');
     });
 
     it('returns empty for unknown id', () => {

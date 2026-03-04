@@ -5,7 +5,8 @@
     "birthYears": "1925–1998",
     "birthPlace": "д. Заозерье",
     "occupation": "учитель",
-    "parentIds": ["person-2", "person-3"]
+    "parentIds": ["person-2", "person-3"],
+    "gender": "m"
   },
   {
     "id": "person-2",
@@ -13,22 +14,133 @@
     "birthYears": "1895–1960",
     "birthPlace": "д. Заозерье",
     "occupation": "крестьянин",
-    "parentIds": []
+    "parentIds": ["person-4", "person-5"],
+    "gender": "m"
   },
   {
     "id": "person-3",
-    "name": "Мария Никонец",
+    "name": "Мария Николаевна Никонец",
     "birthYears": "1900–1985",
     "birthPlace": "д. Заозерье",
     "occupation": "домохозяйка",
-    "parentIds": []
+    "parentIds": ["person-6", "person-7"],
+    "gender": "f"
   },
   {
     "id": "person-4",
-    "name": "Анна Ивановна Никонец",
-    "birthYears": "1950–",
+    "name": "Василий Петрович Никонец",
+    "birthYears": "1865–1930",
     "birthPlace": "д. Заозерье",
-    "occupation": "врач",
-    "parentIds": ["person-1"]
+    "occupation": "крестьянин",
+    "parentIds": ["person-8", "person-9"],
+    "gender": "m"
+  },
+  {
+    "id": "person-5",
+    "name": "Анастасия Игнатьевна Никонец",
+    "birthYears": "1870–1942",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": ["person-10", "person-11"],
+    "gender": "f"
+  },
+  {
+    "id": "person-6",
+    "name": "Николай Сидорович",
+    "birthYears": "1868–1935",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": ["person-12", "person-13"],
+    "gender": "m"
+  },
+  {
+    "id": "person-7",
+    "name": "Елена Фёдоровна",
+    "birthYears": "1872–1948",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": [],
+    "gender": "f"
+  },
+  {
+    "id": "person-8",
+    "name": "Пётр Васильевич Никонец",
+    "birthYears": "1840–1910",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": [],
+    "gender": "m"
+  },
+  {
+    "id": "person-9",
+    "name": "Марфа Никонец",
+    "birthYears": "1845–1912",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": [],
+    "gender": "f"
+  },
+  {
+    "id": "person-10",
+    "name": "Игнат Никонец",
+    "birthYears": "1820–1890",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": [],
+    "gender": "m"
+  },
+  {
+    "id": "person-11",
+    "name": "Прасковья Никонец",
+    "birthYears": "1825–1895",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": [],
+    "gender": "f"
+  },
+  {
+    "id": "person-12",
+    "name": "Сидор Николаевич",
+    "birthYears": "1842–1905",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": [],
+    "gender": "m"
+  },
+  {
+    "id": "person-13",
+    "name": "Пелагея Сидорова",
+    "birthYears": "1848–1918",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": [],
+    "gender": "f"
+  },
+  {
+    "id": "person-14",
+    "name": "Николай Петрович Никонец",
+    "birthYears": "1928–2005",
+    "birthPlace": "д. Заозерье",
+    "occupation": "механик",
+    "parentIds": ["person-2", "person-3"],
+    "gender": "m"
+  },
+  {
+    "id": "person-15",
+    "name": "Ольга Николаевна",
+    "birthYears": "1898–1975",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": ["person-6", "person-7"],
+    "gender": "f"
+  },
+  {
+    "id": "person-16",
+    "name": "Анна Николаевна",
+    "birthYears": "1903–1980",
+    "birthPlace": "д. Заозерье",
+    "occupation": "учительница",
+    "parentIds": ["person-6", "person-7"],
+    "gender": "f"
   }
 ]

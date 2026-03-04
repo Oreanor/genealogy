@@ -16,7 +16,7 @@ describe('TreeNode', () => {
   it('renders person name and years in svg', () => {
     const { container } = render(
       <svg>
-        <TreeNode person={person} x={0} y={0} scale={1} onPersonClick={() => {}} />
+        <TreeNode person={person} x={0} y={0} scale={1} level={0} index={0} onPersonClick={() => {}} />
       </svg>
     );
     const texts = container.querySelectorAll('text');
@@ -28,7 +28,7 @@ describe('TreeNode', () => {
   it('renders unknown when person is null', () => {
     const { container } = render(
       <svg>
-        <TreeNode person={null} x={0} y={0} scale={1} onPersonClick={() => {}} />
+        <TreeNode person={null} x={0} y={0} scale={1} level={1} index={0} onPersonClick={() => {}} />
       </svg>
     );
     expect(container.textContent).toContain('неизв.');
@@ -38,7 +38,7 @@ describe('TreeNode', () => {
     const onPersonClick = vi.fn();
     const { container } = render(
       <svg>
-        <TreeNode person={person} x={0} y={0} scale={1} onPersonClick={onPersonClick} />
+        <TreeNode person={person} x={0} y={0} scale={1} level={0} index={0} onPersonClick={onPersonClick} />
       </svg>
     );
     const g = container.querySelector('g');
@@ -51,7 +51,7 @@ describe('TreeNode', () => {
     const onPersonClick = vi.fn();
     const { container } = render(
       <svg>
-        <TreeNode person={null} x={0} y={0} scale={1} onPersonClick={onPersonClick} />
+        <TreeNode person={null} x={0} y={0} scale={1} level={1} index={0} onPersonClick={onPersonClick} />
       </svg>
     );
     const g = container.querySelector('g');
@@ -63,7 +63,7 @@ describe('TreeNode', () => {
     const longName: Person = { ...person, name: 'Очень длинное имя персоны для проверки' };
     const { container } = render(
       <svg>
-        <TreeNode person={longName} x={0} y={0} scale={1} onPersonClick={() => {}} />
+        <TreeNode person={longName} x={0} y={0} scale={1} level={0} index={0} onPersonClick={() => {}} />
       </svg>
     );
     expect(container.textContent).toContain('…');
