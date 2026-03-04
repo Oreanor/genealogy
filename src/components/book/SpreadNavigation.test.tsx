@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { SpreadNavigation } from './SpreadNavigation';
+import { withI18n } from '@/lib/i18n/test-utils';
 
 const mockPush = vi.fn();
 let searchParams: Record<string, string | null> = { spread: '0', id: null };
@@ -21,17 +22,24 @@ describe('SpreadNavigation', () => {
       {
         spreadIndex: 0,
         left: {
-          blocks: [{ type: 'paragraph', content: [{ type: 'text', value: 'Test' }] }],
+          blocks: [
+            {
+              type: 'paragraph' as const,
+              content: [{ type: 'text' as const, value: 'Test' }],
+            },
+          ],
         },
         right: {},
       },
     ];
     render(
-      <SpreadNavigation
-        chapterSlug="istoriya"
-        chapterTitle="История"
-        spreads={spreads}
-      />
+      withI18n(
+        <SpreadNavigation
+          chapterSlug="istoriya"
+          chapterTitle="История"
+          spreads={spreads}
+        />
+      )
     );
     expect(screen.getByText('История')).toBeInTheDocument();
     expect(screen.getByText('Test')).toBeInTheDocument();
@@ -43,11 +51,13 @@ describe('SpreadNavigation', () => {
       { spreadIndex: 0, left: { personId: 'person-1' }, right: {} },
     ];
     render(
-      <SpreadNavigation
-        chapterSlug="persony"
-        chapterTitle="Персоны"
-        spreads={spreads}
-      />
+      withI18n(
+        <SpreadNavigation
+          chapterSlug="persony"
+          chapterTitle="Персоны"
+          spreads={spreads}
+        />
+      )
     );
     expect(screen.getByRole('heading', { name: /Иван Петрович/ })).toBeInTheDocument();
   });
@@ -58,11 +68,13 @@ describe('SpreadNavigation', () => {
       { spreadIndex: 1, left: {}, right: {} },
     ];
     render(
-      <SpreadNavigation
-        chapterSlug="istoriya"
-        chapterTitle="X"
-        spreads={spreads}
-      />
+      withI18n(
+        <SpreadNavigation
+          chapterSlug="istoriya"
+          chapterTitle="X"
+          spreads={spreads}
+        />
+      )
     );
     expect(screen.getByRole('button', { name: /Назад/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Вперёд/ })).toBeInTheDocument();

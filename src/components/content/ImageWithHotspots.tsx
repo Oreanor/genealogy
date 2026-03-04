@@ -1,6 +1,7 @@
 'use client';
 
-import { ROUTES } from '@/lib/constants/routes';
+import { getRoutes } from '@/lib/constants/routes';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { polygonPoints } from '@/lib/utils/svg';
 import type { ImageConfig } from '@/lib/types/spread';
 import Image from 'next/image';
@@ -13,11 +14,14 @@ interface ImageWithHotspotsProps {
 
 export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsProps) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations();
+  const routes = getRoutes(locale);
   const hasPolygons = config.hotspots?.some((h) => h.shape === 'polygon');
   const hasRects = config.hotspots?.some((h) => h.shape === 'rect');
 
   const handleHotspotClick = (personId: string) => {
-    router.push(ROUTES.person(personId));
+    router.push(routes.person(personId));
   };
 
   return (
@@ -41,7 +45,8 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
                 key={`${hotspot.personId}-${index}`}
                 points={polygonPoints(hotspot.coords)}
                 fill="transparent"
-                className="stroke-amber-500/50 stroke-2 transition-colors hover:fill-amber-400/30"
+                style={{ stroke: 'var(--hotspot-stroke)' }}
+                className="stroke-2 transition-colors hover:fill-[var(--hotspot-fill-hover)]"
                 onClick={() => handleHotspotClick(hotspot.personId)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -51,7 +56,7 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label="Перейти к персоне"
+                aria-label={t('goToPerson')}
               />
             ))}
         </svg>
@@ -64,14 +69,14 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
               key={`${hotspot.personId}-${index}`}
               type="button"
               onClick={() => handleHotspotClick(hotspot.personId)}
-              className="absolute cursor-pointer border-2 border-amber-500/50 bg-amber-400/10 transition-colors hover:bg-amber-400/30 focus:outline-none focus:ring-2 focus:ring-amber-600"
+              className="absolute cursor-pointer border-2 border-[var(--hotspot-stroke)] bg-[var(--hotspot-fill)] transition-colors hover:bg-[var(--hotspot-fill-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               style={{
                 left: `${hotspot.coords[0]}%`,
                 top: `${hotspot.coords[1]}%`,
                 width: `${hotspot.coords[2] - hotspot.coords[0]}%`,
                 height: `${hotspot.coords[3] - hotspot.coords[1]}%`,
               }}
-              aria-label="Перейти к персоне"
+              aria-label={t('goToPerson')}
             />
           ))}
     </div>

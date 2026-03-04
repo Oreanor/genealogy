@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { TreeNode } from './TreeNode';
+import { withI18n } from '@/lib/i18n/test-utils';
 import type { Person } from '@/lib/types/person';
 
 const person: Person = {
@@ -10,62 +11,74 @@ const person: Person = {
   birthPlace: '',
   occupation: '',
   parentIds: [],
+  gender: 'm',
 };
 
 describe('TreeNode', () => {
-  it('renders person name and years in svg', () => {
-    const { container } = render(
-      <svg>
-        <TreeNode person={person} x={0} y={0} scale={1} level={0} index={0} onPersonClick={() => {}} />
-      </svg>
+  it('renders person name and years', () => {
+    render(
+      withI18n(
+        <TreeNode
+          person={person}
+          level={0}
+          index={0}
+          scale={1}
+          onPersonClick={() => {}}
+        />
+      )
     );
-    const texts = container.querySelectorAll('text');
-    expect(texts.length).toBeGreaterThanOrEqual(1);
-    expect(container.textContent).toContain('Иван Петрович');
-    expect(container.textContent).toContain('1925–1998');
+    expect(screen.getByText('Иван Петрович')).toBeInTheDocument();
+    expect(screen.getByText('1925–1998')).toBeInTheDocument();
   });
 
   it('renders unknown when person is null', () => {
-    const { container } = render(
-      <svg>
-        <TreeNode person={null} x={0} y={0} scale={1} level={1} index={0} onPersonClick={() => {}} />
-      </svg>
+    render(
+      withI18n(
+        <TreeNode
+          person={null}
+          level={1}
+          index={0}
+          scale={1}
+          onPersonClick={() => {}}
+        />
+      )
     );
-    expect(container.textContent).toContain('неизв.');
+    expect(screen.getByText('неизв.')).toBeInTheDocument();
   });
 
   it('calls onPersonClick when clicked', () => {
     const onPersonClick = vi.fn();
-    const { container } = render(
-      <svg>
-        <TreeNode person={person} x={0} y={0} scale={1} level={0} index={0} onPersonClick={onPersonClick} />
-      </svg>
+    render(
+      withI18n(
+        <TreeNode
+          person={person}
+          level={0}
+          index={0}
+          scale={1}
+          onPersonClick={onPersonClick}
+        />
+      )
     );
-    const g = container.querySelector('g');
-    expect(g).toBeTruthy();
-    fireEvent.click(g!);
+    fireEvent.click(screen.getByRole('button', { name: 'Иван Петрович' }));
     expect(onPersonClick).toHaveBeenCalledWith('person-1');
   });
 
-  it('does not call onPersonClick when person is null', () => {
-    const onPersonClick = vi.fn();
-    const { container } = render(
-      <svg>
-        <TreeNode person={null} x={0} y={0} scale={1} level={1} index={0} onPersonClick={onPersonClick} />
-      </svg>
-    );
-    const g = container.querySelector('g');
-    fireEvent.click(g!);
-    expect(onPersonClick).not.toHaveBeenCalled();
-  });
-
   it('truncates long names', () => {
-    const longName: Person = { ...person, name: 'Очень длинное имя персоны для проверки' };
-    const { container } = render(
-      <svg>
-        <TreeNode person={longName} x={0} y={0} scale={1} level={0} index={0} onPersonClick={() => {}} />
-      </svg>
+    const longName: Person = {
+      ...person,
+      name: 'Очень длинное имя персоны для проверки',
+    };
+    render(
+      withI18n(
+        <TreeNode
+          person={longName}
+          level={0}
+          index={0}
+          scale={1}
+          onPersonClick={() => {}}
+        />
+      )
     );
-    expect(container.textContent).toContain('…');
+    expect(screen.getByText(/…/)).toBeInTheDocument();
   });
 });

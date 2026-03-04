@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { ImageConfig } from '@/lib/types/spread';
 import { hasPageContent } from './pageContent';
 
 describe('hasPageContent', () => {
@@ -24,7 +25,7 @@ describe('hasPageContent', () => {
 
   it('returns false when image has no src', () => {
     expect(hasPageContent({ image: { src: '' } })).toBe(false);
-    expect(hasPageContent({ image: {} })).toBe(false);
+    expect(hasPageContent({ image: {} as ImageConfig })).toBe(false);
   });
 
   it('returns true when both blocks and image present', () => {

@@ -1,5 +1,6 @@
-import Link from 'next/link';
+import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import type { RichTextNode } from '@/lib/types/spread';
+import Link from 'next/link';
 
 interface RichTextProps {
   nodes: RichTextNode[];
@@ -26,7 +27,7 @@ function renderNode(node: RichTextNode, index: number): React.ReactNode {
         <Link
           key={index}
           href={node.href}
-          className="text-amber-800 underline hover:text-amber-900"
+          className={CONTENT_LINK_CLASS}
         >
           {node.children.map((n, i) => renderNode(n, i))}
         </Link>

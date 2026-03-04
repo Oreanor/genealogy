@@ -46,7 +46,7 @@
   },
   {
     "id": "person-6",
-    "name": "Николай Сидорович",
+    "name": "Николай Сидорович Сидоров",
     "birthYears": "1868–1935",
     "birthPlace": "д. Заозерье",
     "occupation": "крестьянин",
@@ -55,7 +55,7 @@
   },
   {
     "id": "person-7",
-    "name": "Елена Фёдоровна",
+    "name": "Елена Фёдоровна Сидорова",
     "birthYears": "1872–1948",
     "birthPlace": "д. Заозерье",
     "occupation": "домохозяйка",
@@ -68,7 +68,7 @@
     "birthYears": "1840–1910",
     "birthPlace": "д. Заозерье",
     "occupation": "крестьянин",
-    "parentIds": [],
+    "parentIds": ["person-19"],
     "gender": "m"
   },
   {
@@ -79,6 +79,15 @@
     "occupation": "домохозяйка",
     "parentIds": [],
     "gender": "f"
+  },
+  {
+    "id": "person-19",
+    "name": "Василий Никонец",
+    "birthYears": "1812–1878",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": [],
+    "gender": "m"
   },
   {
     "id": "person-10",
@@ -100,7 +109,7 @@
   },
   {
     "id": "person-12",
-    "name": "Сидор Николаевич",
+    "name": "Сидор Николаевич Сидоров",
     "birthYears": "1842–1905",
     "birthPlace": "д. Заозерье",
     "occupation": "крестьянин",
@@ -127,7 +136,7 @@
   },
   {
     "id": "person-15",
-    "name": "Ольга Николаевна",
+    "name": "Ольга Николаевна Сидорова",
     "birthYears": "1898–1975",
     "birthPlace": "д. Заозерье",
     "occupation": "домохозяйка",
@@ -136,11 +145,29 @@
   },
   {
     "id": "person-16",
-    "name": "Анна Николаевна",
+    "name": "Анна Николаевна Сидорова",
     "birthYears": "1903–1980",
     "birthPlace": "д. Заозерье",
     "occupation": "учительница",
     "parentIds": ["person-6", "person-7"],
     "gender": "f"
+  },
+  {
+    "id": "person-17",
+    "name": "Степан Иванович Иванов",
+    "birthYears": "1895–1965",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": [],
+    "gender": "m"
+  },
+  {
+    "id": "person-18",
+    "name": "Алексей Степанович Иванов",
+    "birthYears": "1930–2010",
+    "birthPlace": "д. Заозерье",
+    "occupation": "инженер",
+    "parentIds": ["person-17", "person-15"],
+    "gender": "m"
   }
 ]

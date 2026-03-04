@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { BOOK_TITLE } from '@/lib/constants/chapters';
+import {
+  getDefaultBookTitle,
+  getDefaultMetaDescription,
+} from '@/lib/constants/owner';
 import './globals.css';
 
 const geistSans = Geist({
@@ -14,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: BOOK_TITLE,
-  description: 'Интерактивный альбом-книга о родословной семьи',
+  title: getDefaultBookTitle(),
+  description: getDefaultMetaDescription(),
 };
 
 export const viewport = {

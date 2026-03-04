@@ -3,16 +3,32 @@
 :root {
   --background: #fefce8;
   --foreground: #292524;
+
+  /* Шкала тона: 4 яркости от выбранного paper */
   --paper: #fef9c3;
+  --paper-light: #fefbd8;
+  --book-bg: #bebb92;
+  --accent: #8b7c3d;
+  --accent-hover: #6b5e2e;
+
   --ink: #1c1917;
-  --book-bg: #bebb92; /* фон вокруг страниц (темнее paper) */
-  --nav-btn: #8b7c3d; /* кнопки навигации (тон paper) */
-  --nav-btn-hover: #6b5e2e;
-  --nav-btn-ink: #ffffff; /* текст на кнопках: чёрный на светлых, белый на тёмных */
-  --tree-stroke: var(--nav-btn); /* линии и второстепенный текст в дереве */
-  --tree-plaque-fill: #fefbd8; /* осветлённый paper для плашек */
-  --tree-plaque-stroke: var(--nav-btn);
-  --accent: var(--nav-btn); /* бейдж, обводки */
+  --ink-muted: rgba(28, 25, 23, 0.75);
+  --link: var(--ink);
+  --link-hover: var(--ink-muted);
+  --nav-btn: var(--accent);
+  --nav-btn-hover: var(--accent-hover);
+  --nav-btn-ink: #ffffff;
+
+  --tree-stroke: var(--accent);
+  --tree-plaque-fill: var(--paper-light);
+  --tree-plaque-stroke: var(--accent);
+
+  --border: rgba(107, 94, 46, 0.4);
+  --border-subtle: rgba(139, 124, 61, 0.2);
+  --surface: #ffffff;
+  --hotspot-stroke: rgba(139, 124, 61, 0.5);
+  --hotspot-fill: rgba(139, 124, 61, 0.15);
+  --hotspot-fill-hover: rgba(139, 124, 61, 0.3);
 }
 
 @theme inline {

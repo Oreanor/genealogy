@@ -1,7 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { contrastColor, darkenColor, lightenColor } from '@/lib/utils/color';
+import { STORAGE_KEYS } from '@/lib/constants/storage';
+import {
+  contrastColor,
+  darkenColor,
+  hexToRgba,
+  lightenColor,
+} from '@/lib/utils/color';
 
 const PALETTE = [
   '#ffffff', '#e5e7eb', '#9ca3af', '#374151', // белый, серый, тёмно-серый
@@ -11,13 +17,12 @@ const PALETTE = [
 ];
 
 const DEFAULT_PAPER = '#fef9c3';
-const STORAGE_KEY = 'genealogy-paper-color';
 const STORAGE_UPDATE_EVENT = 'genealogy-paper-storage-update';
 
 function getStoredPaper(): string {
   if (typeof window === 'undefined') return DEFAULT_PAPER;
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = localStorage.getItem(STORAGE_KEYS.paperColor);
     if (stored && PALETTE.includes(stored)) return stored;
   } catch {
     // ignore
@@ -46,25 +51,38 @@ export function PageColorPicker() {
 
   useEffect(() => {
     const ink = contrastColor(paper);
+    const paperLight = lightenColor(paper, 0.35);
     const bookBg = darkenColor(paper, 0.25);
-    const navBtn = darkenColor(paper, 0.5);
-    const navBtnHover = darkenColor(paper, 0.6);
-    const navBtnInk = contrastColor(navBtn);
-    const treePlaqueFill = lightenColor(paper, 0.35);
-    document.documentElement.style.setProperty('--paper', paper);
-    document.documentElement.style.setProperty('--ink', ink);
-    document.documentElement.style.setProperty('--book-bg', bookBg);
-    document.documentElement.style.setProperty('--nav-btn', navBtn);
-    document.documentElement.style.setProperty('--nav-btn-hover', navBtnHover);
-    document.documentElement.style.setProperty('--nav-btn-ink', navBtnInk);
-    document.documentElement.style.setProperty('--tree-stroke', navBtn);
-    document.documentElement.style.setProperty('--tree-plaque-fill', treePlaqueFill);
-    document.documentElement.style.setProperty('--tree-plaque-stroke', navBtn);
-    document.documentElement.style.setProperty('--accent', navBtn);
+    const accent = darkenColor(paper, 0.5);
+    const accentHover = darkenColor(paper, 0.6);
+    const isDark = ink === '#ffffff';
+    const theme: Record<string, string> = {
+      paper,
+      'paper-light': paperLight,
+      ink,
+      link: ink,
+      'link-hover': isDark ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.75)',
+      'book-bg': bookBg,
+      accent,
+      'accent-hover': accentHover,
+      'nav-btn-ink': contrastColor(accent),
+      'tree-plaque-fill': paperLight,
+      border: hexToRgba(accentHover, 0.4),
+      'border-subtle': hexToRgba(accent, 0.2),
+      surface: paperLight,
+      'ink-muted': isDark ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.75)',
+      'hotspot-stroke': hexToRgba(accent, 0.5),
+      'hotspot-fill': hexToRgba(accent, 0.15),
+      'hotspot-fill-hover': hexToRgba(accent, 0.3),
+    };
+    const root = document.documentElement.style;
+    Object.entries(theme).forEach(([key, value]) =>
+      root.setProperty(`--${key}`, value)
+    );
   }, [paper]);
 
   const setPaper = (color: string) => {
-    localStorage.setItem(STORAGE_KEY, color);
+    localStorage.setItem(STORAGE_KEYS.paperColor, color);
     globalThis.dispatchEvent(new CustomEvent(STORAGE_UPDATE_EVENT));
   };
 
@@ -80,21 +98,21 @@ export function PageColorPicker() {
   }, [open]);
 
   return (
-    <div className="absolute right-2 top-[2vh] z-20" ref={ref}>
+    <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border-2 border-amber-800/40 bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
         aria-label="Цвет страниц"
         aria-expanded={open}
       >
         <span
-          className="h-4 w-4 rounded border border-amber-900/20 md:h-5 md:w-5"
+          className="h-4 w-4 rounded border border-[var(--border-subtle)] md:h-5 md:w-5"
           style={{ backgroundColor: paper }}
         />
       </button>
       {open && (
-        <div className="absolute right-0 top-full mt-2 grid w-[220px] grid-cols-4 gap-3 rounded-xl border border-amber-800/30 bg-white p-4 shadow-xl">
+        <div className="absolute right-0 top-full mt-2 grid w-[220px] grid-cols-4 gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl">
           {PALETTE.map((color) => (
             <button
               key={color}
@@ -103,10 +121,10 @@ export function PageColorPicker() {
                 setPaper(color);
                 setOpen(false);
               }}
-              className="h-11 w-11 shrink-0 rounded-lg border-2 transition-transform hover:scale-105"
+              className="h-11 w-11 shrink-0 cursor-pointer rounded-lg border-2 transition-transform hover:scale-105"
               style={{
                 backgroundColor: color,
-                borderColor: color === paper ? '#b45309' : 'rgba(0,0,0,0.1)',
+                borderColor: color === paper ? 'var(--accent)' : 'rgba(0,0,0,0.1)',
               }}
               aria-label={`Цвет ${color}`}
             />

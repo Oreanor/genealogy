@@ -5,7 +5,8 @@ import { PageContentRenderer } from '@/components/content/PageContentRenderer';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { NavButton } from '@/components/ui/NavButton';
 import { CHAPTER_IDS } from '@/lib/constants/chapters';
-import { ROUTES } from '@/lib/constants/routes';
+import { getRoutes } from '@/lib/constants/routes';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import type { PageContent, Spread } from '@/lib/types/spread';
 import { useSpreadState } from '@/hooks/useSpreadState';
@@ -26,6 +27,9 @@ export function SpreadNavigation({
 }: SpreadNavigationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const locale = useLocale();
+  const t = useTranslations();
+  const routes = getRoutes(locale);
   const defaultState = useSpreadState(spreads.length);
   const personId = searchParams.get('id');
   const isPersony = chapterSlug === CHAPTER_IDS.PERSONS;
@@ -43,17 +47,17 @@ export function SpreadNavigation({
 
   const goPrev = () => {
     if (isPersony && persons[safeIndex - 1]) {
-      router.push(ROUTES.person(persons[safeIndex - 1].id));
+      router.push(routes.person(persons[safeIndex - 1].id));
     } else {
-      router.push(ROUTES.chapterSpread(chapterSlug, safeIndex - 1));
+      router.push(routes.chapterSpread(chapterSlug, safeIndex - 1));
     }
   };
 
   const goNext = () => {
     if (isPersony && persons[safeIndex + 1]) {
-      router.push(ROUTES.person(persons[safeIndex + 1].id));
+      router.push(routes.person(persons[safeIndex + 1].id));
     } else {
-      router.push(ROUTES.chapterSpread(chapterSlug, safeIndex + 1));
+      router.push(routes.chapterSpread(chapterSlug, safeIndex + 1));
     }
   };
 
@@ -92,8 +96,11 @@ export function SpreadNavigation({
             <PageContentRenderer content={content} />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <p className="text-amber-700/80">
-                Разворот {safeIndex + 1}, {isLeft ? 'левая' : 'правая'} страница
+              <p className="text-[var(--ink-muted)]">
+                {t('spreadPage', {
+                  n: String(safeIndex + 1),
+                  side: isLeft ? t('spreadLeft') : t('spreadRight'),
+                })}
               </p>
             </div>
           )}
@@ -111,7 +118,7 @@ export function SpreadNavigation({
           isTreeSpread ? (
             <BookPage>
               <h1 className="mb-2 text-center text-xl font-semibold text-[var(--ink)]">
-                Семейное древо
+                {t('treeTitle')}
               </h1>
               <FamilyTree />
             </BookPage>
@@ -123,15 +130,15 @@ export function SpreadNavigation({
         <div className="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-none">
           <div className="pointer-events-auto">
             <NavButton onClick={goPrev} disabled={!hasPrev}>
-              ← Назад
+              ← {t('back')}
             </NavButton>
           </div>
-          <span className="text-sm font-medium text-amber-900/90 drop-shadow-sm">
+          <span className="text-sm font-medium text-[var(--ink)] drop-shadow-sm">
             {safeIndex + 1} / {spreads.length}
           </span>
           <div className="pointer-events-auto">
             <NavButton onClick={goNext} disabled={!hasNext}>
-              Вперёд →
+              {t('next')} →
             </NavButton>
           </div>
         </div>

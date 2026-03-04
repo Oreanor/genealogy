@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { TitleSpread } from './TitleSpread';
+import { withI18n } from '@/lib/i18n/test-utils';
 
 vi.mock('next/link', () => ({
   default: ({ children, href }: { children: React.ReactNode; href: string }) => (
@@ -14,20 +15,20 @@ vi.mock('next/image', () => ({
 
 describe('TitleSpread', () => {
   it('renders book title', () => {
-    render(<TitleSpread />);
+    render(withI18n(<TitleSpread />));
     expect(screen.getByRole('heading', { name: /Родословная/ })).toBeInTheDocument();
   });
 
   it('renders table of contents heading', () => {
-    render(<TitleSpread />);
+    render(withI18n(<TitleSpread />));
     expect(screen.getByRole('heading', { name: 'Оглавление' })).toBeInTheDocument();
   });
 
   it('renders chapter links', () => {
-    render(<TitleSpread />);
+    render(withI18n(<TitleSpread />));
     expect(screen.getByRole('link', { name: 'Семейное древо' })).toHaveAttribute(
       'href',
-      '/glava/semejnoe-drevo'
+      '/ru/glava/semejnoe-drevo'
     );
   });
 });

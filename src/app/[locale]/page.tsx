@@ -1,6 +1,6 @@
 import { BookLayout, TitleSpread } from '@/components/book';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <BookLayout>
       <TitleSpread />

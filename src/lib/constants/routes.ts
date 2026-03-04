@@ -1,9 +1,18 @@
 import { CHAPTER_IDS } from './chapters';
 
-export const ROUTES = {
-  home: '/',
-  chapter: (slug: string) => `/glava/${slug}`,
-  chapterSpread: (slug: string, spreadIndex: number) =>
-    `/glava/${slug}?spread=${spreadIndex}`,
-  person: (personId: string) => `/glava/${CHAPTER_IDS.PERSONS}?id=${personId}`,
-} as const;
+/** Локаль для построения путей. Тип строки, т.к. вызывается и с locale из params. */
+type LocaleParam = string;
+
+export function getRoutes(locale: LocaleParam) {
+  return {
+    home: `/${locale}`,
+    chapter: (slug: string) => `/${locale}/glava/${slug}`,
+    chapterSpread: (slug: string, spreadIndex: number) =>
+      `/${locale}/glava/${slug}?spread=${spreadIndex}`,
+    person: (personId: string) =>
+      `/${locale}/glava/${CHAPTER_IDS.PERSONS}?id=${personId}`,
+  } as const;
+}
+
+/** Дефолтные роуты без локали (для обратной совместимости в тестах). Используйте getRoutes(locale) в приложении. */
+export const ROUTES = getRoutes('ru');

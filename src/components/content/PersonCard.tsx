@@ -1,34 +1,51 @@
-import { ROUTES } from '@/lib/constants/routes';
-import { getPersonById } from '@/lib/data/persons';
-import { getChildren, getSiblings } from '@/lib/utils/person';
-import type { Person } from '@/lib/types/person';
-import Link from 'next/link';
+'use client';
 
-const linkClass = 'text-amber-800 underline hover:text-amber-900';
+import { getRoutes } from '@/lib/constants/routes';
+import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+import { getPersonById } from '@/lib/data/persons';
+import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/utils/person';
+import type { Person } from '@/lib/types/person';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
+import Link from 'next/link';
 
 interface PersonCardProps {
   person: Person;
 }
 
 export function PersonCard({ person }: PersonCardProps) {
+  const locale = useLocale();
+  const t = useTranslations();
+  const routes = getRoutes(locale);
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
+  const cousins = getCousins(person.id);
   const parents = person.parentIds
     .map((id) => getPersonById(id))
     .filter((p): p is Person => p != null);
+  const spouse = getSpouse(person.id);
 
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-2xl font-semibold text-[var(--ink)]">{person.name}</h2>
-      {(parents.length > 0 || children.length > 0 || siblings.length > 0) && (
+      {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
         <div className="space-y-2 text-[var(--ink)]">
+          {spouse && (
+            <p>
+              <span className="font-medium">
+                {spouse.gender === 'f' ? t('spouseF') : t('spouseM')}
+              </span>{' '}
+              <Link href={routes.person(spouse.id)} className={CONTENT_LINK_CLASS}>
+                {spouse.name}
+              </Link>
+            </p>
+          )}
           {parents.length > 0 && (
             <p>
-              <span className="font-medium">Родители:</span>{' '}
+              <span className="font-medium">{t('parents')}</span>{' '}
               {parents.map((p, i) => (
                 <span key={p.id}>
                   {i > 0 && ', '}
-                  <Link href={ROUTES.person(p.id)} className={linkClass}>
+                  <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
                     {p.name}
                   </Link>
                 </span>
@@ -37,11 +54,11 @@ export function PersonCard({ person }: PersonCardProps) {
           )}
           {children.length > 0 && (
             <p>
-              <span className="font-medium">Дети:</span>{' '}
+              <span className="font-medium">{t('children')}</span>{' '}
               {children.map((c, i) => (
                 <span key={c.id}>
                   {i > 0 && ', '}
-                  <Link href={ROUTES.person(c.id)} className={linkClass}>
+                  <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
                     {c.name}
                   </Link>
                 </span>
@@ -50,12 +67,25 @@ export function PersonCard({ person }: PersonCardProps) {
           )}
           {siblings.length > 0 && (
             <p>
-              <span className="font-medium">Братья и сёстры:</span>{' '}
+              <span className="font-medium">{t('siblings')}</span>{' '}
               {siblings.map((s, i) => (
                 <span key={s.id}>
                   {i > 0 && ', '}
-                  <Link href={ROUTES.person(s.id)} className={linkClass}>
+                  <Link href={routes.person(s.id)} className={CONTENT_LINK_CLASS}>
                     {s.name}
+                  </Link>
+                </span>
+              ))}
+            </p>
+          )}
+          {cousins.length > 0 && (
+            <p>
+              <span className="font-medium">{t('cousins')}</span>{' '}
+              {cousins.map((c, i) => (
+                <span key={c.id}>
+                  {i > 0 && ', '}
+                  <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
+                    {c.name}
                   </Link>
                 </span>
               ))}
@@ -65,17 +95,17 @@ export function PersonCard({ person }: PersonCardProps) {
       )}
       {person.birthYears && (
         <p className="text-[var(--ink)]">
-          <span className="font-medium">Годы:</span> {person.birthYears}
+          <span className="font-medium">{t('years')}</span> {person.birthYears}
         </p>
       )}
       {person.birthPlace && (
         <p className="text-[var(--ink)]">
-          <span className="font-medium">Место рождения:</span> {person.birthPlace}
+          <span className="font-medium">{t('birthPlace')}</span> {person.birthPlace}
         </p>
       )}
       {person.occupation && (
         <p className="text-[var(--ink)]">
-          <span className="font-medium">Род занятий:</span> {person.occupation}
+          <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
       )}
     </div>

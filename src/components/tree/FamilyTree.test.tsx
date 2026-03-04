@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { FamilyTree } from './FamilyTree';
+import { withI18n } from '@/lib/i18n/test-utils';
 
 const mockPush = vi.fn();
 vi.mock('next/navigation', () => ({
@@ -10,21 +11,20 @@ vi.mock('next/navigation', () => ({
 describe('FamilyTree', () => {
   beforeEach(() => mockPush.mockClear());
 
-  it('renders svg', () => {
-    const { container } = render(<FamilyTree />);
-    expect(container.querySelector('svg')).toBeInTheDocument();
+  it('renders tree container', () => {
+    const { container } = render(withI18n(<FamilyTree />));
+    expect(container.firstChild).toBeInTheDocument();
   });
 
   it('renders person nodes', () => {
-    const { container } = render(<FamilyTree />);
+    const { container } = render(withI18n(<FamilyTree />));
     expect(container.textContent).toContain('Иван Петрович');
   });
 
   it('navigates to person on node click', () => {
-    const { container } = render(<FamilyTree />);
-    const nodes = container.querySelectorAll('g[role="button"]');
-    expect(nodes.length).toBeGreaterThan(0);
-    fireEvent.click(nodes[0]!);
+    render(withI18n(<FamilyTree />));
+    const btn = screen.getByRole('button', { name: 'Иван Петрович Никонец' });
+    fireEvent.click(btn);
     expect(mockPush).toHaveBeenCalled();
   });
 });

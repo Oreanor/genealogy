@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { PersonCard } from './PersonCard';
+import { withI18n } from '@/lib/i18n/test-utils';
 import type { Person } from '@/lib/types/person';
 
 const person: Person = {
@@ -14,28 +15,28 @@ const person: Person = {
 
 describe('PersonCard', () => {
   it('renders person name', () => {
-    render(<PersonCard person={person} />);
+    render(withI18n(<PersonCard person={person} />));
     expect(screen.getByRole('heading', { name: 'Иван Петрович' })).toBeInTheDocument();
   });
 
   it('renders birth years when present', () => {
-    render(<PersonCard person={person} />);
+    render(withI18n(<PersonCard person={person} />));
     expect(screen.getByText(/1925–1998/)).toBeInTheDocument();
   });
 
   it('renders birth place when present', () => {
-    render(<PersonCard person={person} />);
+    render(withI18n(<PersonCard person={person} />));
     expect(screen.getByText(/д\. Заозерье/)).toBeInTheDocument();
   });
 
   it('renders occupation when present', () => {
-    render(<PersonCard person={person} />);
+    render(withI18n(<PersonCard person={person} />));
     expect(screen.getByText(/учитель/)).toBeInTheDocument();
   });
 
   it('omits optional fields when absent', () => {
     const minimal: Person = { id: 'p2', name: 'X', parentIds: [] };
-    render(<PersonCard person={minimal} />);
+    render(withI18n(<PersonCard person={minimal} />));
     expect(screen.getByRole('heading', { name: 'X' })).toBeInTheDocument();
     expect(screen.queryByText(/Годы:/)).not.toBeInTheDocument();
   });

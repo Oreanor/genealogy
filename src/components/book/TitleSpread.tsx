@@ -1,34 +1,40 @@
-import {
-  BOOK_TITLE,
-  CHAPTERS,
-  COVER_IMAGE,
-} from '@/lib/constants/chapters';
-import { ROUTES } from '@/lib/constants/routes';
+'use client';
+
+import { CHAPTERS, COVER_IMAGE } from '@/lib/constants/chapters';
+import { FAMILY_SURNAME } from '@/lib/constants/owner';
+import { getRoutes } from '@/lib/constants/routes';
+import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BookPage } from './BookPage';
 import { BookSpread } from './BookSpread';
 
 export function TitleSpread() {
+  const locale = useLocale();
+  const t = useTranslations();
+  const routes = getRoutes(locale);
+  const bookTitle = t('bookTitleTemplate', { surname: FAMILY_SURNAME });
+
   return (
     <BookSpread
       left={
         <BookPage>
           <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl">
-            {BOOK_TITLE}
+            {bookTitle}
           </h1>
           <div className="mt-8 flex flex-1 items-center justify-center">
             {COVER_IMAGE ? (
               <div className="relative aspect-[3/4] w-full max-w-xs overflow-hidden rounded">
                 <Image
                   src={COVER_IMAGE}
-                  alt={BOOK_TITLE}
+                  alt={bookTitle}
                   fill
                   className="object-cover"
                 />
               </div>
             ) : (
-              <div className="aspect-[3/4] w-full max-w-xs rounded border border-amber-300/50 bg-amber-50/50" />
+              <div className="aspect-[3/4] w-full max-w-xs rounded border border-[var(--border-subtle)] bg-[var(--paper-light)]" />
             )}
           </div>
         </BookPage>
@@ -37,16 +43,16 @@ export function TitleSpread() {
         <BookPage>
           <div className="flex flex-1 flex-col items-center justify-start">
             <h2 className="mb-6 text-lg font-medium text-[var(--ink)]">
-              Оглавление
+              {t('tocTitle')}
             </h2>
             <nav className="flex flex-col items-center gap-3 text-center">
               {CHAPTERS.map((ch) => (
                 <Link
                   key={ch.id}
-                  href={ROUTES.chapter(ch.id)}
-                  className="text-[var(--ink)] hover:underline"
+                  href={routes.chapter(ch.id)}
+                  className={CONTENT_LINK_CLASS}
                 >
-                  {ch.title}
+                  {t(`chapters_${ch.id}`)}
                 </Link>
               ))}
             </nav>
