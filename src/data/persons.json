@@ -1,0 +1,34 @@
+[
+  {
+    "id": "person-1",
+    "name": "Иван Петрович Никонец",
+    "birthYears": "1925–1998",
+    "birthPlace": "д. Заозерье",
+    "occupation": "учитель",
+    "parentIds": ["person-2", "person-3"]
+  },
+  {
+    "id": "person-2",
+    "name": "Пётр Никонец",
+    "birthYears": "1895–1960",
+    "birthPlace": "д. Заозерье",
+    "occupation": "крестьянин",
+    "parentIds": []
+  },
+  {
+    "id": "person-3",
+    "name": "Мария Никонец",
+    "birthYears": "1900–1985",
+    "birthPlace": "д. Заозерье",
+    "occupation": "домохозяйка",
+    "parentIds": []
+  },
+  {
+    "id": "person-4",
+    "name": "Анна Ивановна Никонец",
+    "birthYears": "1950–",
+    "birthPlace": "д. Заозерье",
+    "occupation": "врач",
+    "parentIds": ["person-1"]
+  }
+]
