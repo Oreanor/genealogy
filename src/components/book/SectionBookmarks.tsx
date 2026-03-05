@@ -6,7 +6,7 @@ import type { SectionId } from '@/lib/constants/sections';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-/** Bookmarks at top-right of book: Tree, History, Photos, Persons. Visually protrude from the top edge. */
+/** Bookmarks at top-left of book: Tree, History, Photos, Persons. Visually protrude from the top edge. */
 export function SectionBookmarks() {
   const { t } = useLocaleRoutes();
   const pathname = usePathname();
@@ -16,7 +16,7 @@ export function SectionBookmarks() {
 
   return (
     <nav
-      className="z-30 mr-4 flex flex-row flex-wrap justify-end gap-1 md:mr-6"
+      className="z-30 ml-4 flex flex-row flex-wrap justify-start gap-1 md:ml-6"
       aria-label={t('navAria')}
     >
       {SECTIONS.map(({ id, i18nKey }) => {

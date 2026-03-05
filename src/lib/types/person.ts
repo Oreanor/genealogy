@@ -9,8 +9,12 @@ export interface Person {
   deathDate?: string;
   birthPlace?: string;
   occupation?: string;
-  photoUrl?: string;
-  parentIds: string[];
+  /** Preferred photo src for avatar (from photos where person is in people). */
+  avatarPhotoSrc?: string;
+  /** Father's person id (tree slot 0). */
+  fatherId?: string;
+  /** Mother's person id (tree slot 1). */
+  motherId?: string;
   /** For tree and card roles: son/daughter, father/mother */
   gender?: 'm' | 'f';
 }

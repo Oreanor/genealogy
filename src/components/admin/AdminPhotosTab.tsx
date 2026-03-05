@@ -1,14 +1,17 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getPersons } from '@/lib/data/persons';
 import { getFullName } from '@/lib/utils/person';
 import { useTranslations } from '@/lib/i18n/context';
-import type { PhotoCategory, PhotoEntry, PhotoPersonShape } from '@/lib/types/photo';
-import { PhotoHotspotEditor } from './PhotoHotspotEditor';
+import type { PhotoCategory, PhotoEntry } from '@/lib/types/photo';
 import { Button, Input, Select } from '@/components/ui/atoms';
 
-const DRAWABLE_SHAPES: PhotoPersonShape[] = ['point', 'circle', 'rect'];
+const DRAG_THRESHOLD_PX = 5;
+
+function pxToPercent(value: number, total: number): number {
+  return total > 0 ? Math.max(0, Math.min(100, (value / total) * 100)) : 0;
+}
 
 function slugFromSrc(src: string): string {
   return src.replace(/^\/photos\//, '').replace(/\//g, '-').replace(/\.(jpg|jpeg|png|gif|webp)$/i, '') || 'photo';
@@ -16,12 +19,8 @@ function slugFromSrc(src: string): string {
 
 function isNew(photo: PhotoEntry): boolean {
   const hasCaption = Boolean(photo.caption?.trim());
-  const hasPerson = Boolean(photo.personId);
   const hasPeople = Boolean(photo.people?.length);
-  const cat = photo.category ?? 'related';
-  if (cat === 'personal' && hasPerson) return false;
-  if (cat === 'group' && hasPeople) return false;
-  if (hasCaption || hasPerson || hasPeople) return false;
+  if (hasCaption || hasPeople) return false;
   return true;
 }
 
@@ -32,11 +31,16 @@ interface AdminPhotosTabProps {
 
 type PeopleEditorState = { photoIdx: number; personIdx: number | null };
 
+const CUSTOM_PERSON_VALUE = '__custom__';
+
 export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabProps) {
   const t = useTranslations();
   const [loading, setLoading] = useState(true);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
   const [peopleEditor, setPeopleEditor] = useState<PeopleEditorState | null>(null);
+  const [editingPersonId, setEditingPersonId] = useState('');
+  const [editingLabel, setEditingLabel] = useState('');
+  const [editingCoords, setEditingCoords] = useState<number[]>([]);
   const [photos, setPhotos] = useState<PhotoEntry[]>(() =>
     structuredClone(initialPhotos.length > 0 ? initialPhotos : [])
   );
@@ -82,16 +86,20 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
     (
       photoIdx: number,
       personIdx: number | null,
-      data: { personId: string; shape: PhotoPersonShape; coords: number[] }
+      data: { personId?: string; label?: string; coords: number[] }
     ) => {
       setPhotos((prev) => {
         const next = [...prev];
         const photo = next[photoIdx]!;
         const people = [...(photo.people ?? [])];
+        const useCustom =
+          data.personId === CUSTOM_PERSON_VALUE ||
+          (!data.personId && (data.label ?? '').trim());
         const entry = {
-          personId: data.personId,
-          shape: data.shape,
-          coords: data.coords.length ? data.coords : undefined,
+          ...(useCustom
+            ? { label: (data.label ?? '').trim() || undefined }
+            : { personId: data.personId }),
+          coords: data.coords.length >= 4 ? data.coords : undefined,
         };
         if (personIdx === null) {
           people.push(entry);
@@ -152,11 +160,6 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-(--border-subtle) bg-(--surface) p-3 text-sm text-(--ink)">
-        <p className="font-medium">{t('adminHowItWorks')}</p>
-        <p className="mt-1 text-(--ink-muted)">{t('adminPhotosHowItWorks')}</p>
-        <p className="mt-1 text-(--ink-muted)">{t('adminSaveReminder')}</p>
-      </div>
       <div className="flex gap-2">
         <Button variant="secondary" onClick={() => window.location.reload()}>
           {t('adminRefreshList')}
@@ -194,38 +197,47 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
           photoIdx={selectedPhotoIdx}
           persons={persons}
           onUpdate={(field, value) => updatePhoto(selectedPhotoIdx, field, value)}
-          onOpenAddPerson={() => setPeopleEditor({ photoIdx: selectedPhotoIdx, personIdx: null })}
-          onOpenEditPerson={(personIdx) =>
-            setPeopleEditor({ photoIdx: selectedPhotoIdx, personIdx })
-          }
+          onOpenAddPerson={() => {
+            setPeopleEditor({ photoIdx: selectedPhotoIdx, personIdx: null });
+            setEditingPersonId(persons[0]?.id ?? '');
+            setEditingLabel('');
+            setEditingCoords([]);
+          }}
+          onOpenEditPerson={(personIdx) => {
+            setPeopleEditor({ photoIdx: selectedPhotoIdx, personIdx });
+            const photo = photos[selectedPhotoIdx]!;
+            const entry = photo.people?.[personIdx];
+            const hasPerson = entry?.personId;
+            setEditingPersonId(hasPerson ? entry.personId! : CUSTOM_PERSON_VALUE);
+            setEditingLabel(entry?.label ?? '');
+            setEditingCoords(
+              entry?.coords && entry.coords.length >= 4 ? [...entry.coords] : []
+            );
+          }}
           onRemovePerson={removePersonFromPhoto}
           onClose={() => setSelectedPhotoIdx(null)}
+          faceEditMode={
+            peopleEditor !== null && peopleEditor.photoIdx === selectedPhotoIdx
+          }
+          editingPersonId={editingPersonId}
+          editingLabel={editingLabel}
+          editingCoords={editingCoords}
+          onEditingPersonIdChange={setEditingPersonId}
+          onEditingLabelChange={setEditingLabel}
+          onEditingCoordsChange={setEditingCoords}
+          onSavePerson={() => {
+            if (peopleEditor === null) return;
+            savePersonFromLightbox(peopleEditor.photoIdx, peopleEditor.personIdx, {
+              personId: editingPersonId,
+              label: editingLabel,
+              coords: editingCoords,
+            });
+            setPeopleEditor(null);
+          }}
+          onCancelPerson={() => setPeopleEditor(null)}
+          isAddMode={peopleEditor !== null && peopleEditor.personIdx === null}
         />
       )}
-
-      {peopleEditor && (() => {
-        const photo = photos[peopleEditor.photoIdx]!;
-        const existing =
-          peopleEditor.personIdx !== null ? photo.people?.[peopleEditor.personIdx] : null;
-        const initialPersonId = existing?.personId ?? persons[0]?.id ?? '';
-        const initialShape: PhotoPersonShape =
-          existing?.shape && DRAWABLE_SHAPES.includes(existing.shape) ? existing.shape : 'rect';
-        const initialCoords = existing?.coords ?? [];
-        return (
-          <PeopleEditorLightbox
-            key={`${peopleEditor.photoIdx}-${peopleEditor.personIdx}`}
-            photoSrc={photo.src}
-            initialPersonId={initialPersonId}
-            initialShape={initialShape}
-            initialCoords={initialCoords}
-            persons={persons}
-            onSave={(data) =>
-              savePersonFromLightbox(peopleEditor.photoIdx, peopleEditor.personIdx, data)
-            }
-            onClose={() => setPeopleEditor(null)}
-          />
-        );
-      })()}
     </div>
   );
 }
@@ -239,6 +251,16 @@ interface PhotoEditLightboxProps {
   onOpenEditPerson: (personIdx: number) => void;
   onRemovePerson: (photoIdx: number, personIdx: number) => void;
   onClose: () => void;
+  faceEditMode?: boolean;
+  editingPersonId?: string;
+  editingLabel?: string;
+  editingCoords?: number[];
+  onEditingPersonIdChange?: (id: string) => void;
+  onEditingLabelChange?: (value: string) => void;
+  onEditingCoordsChange?: (coords: number[]) => void;
+  onSavePerson?: () => void;
+  onCancelPerson?: () => void;
+  isAddMode?: boolean;
 }
 
 function PhotoEditLightbox({
@@ -250,8 +272,111 @@ function PhotoEditLightbox({
   onOpenEditPerson,
   onRemovePerson,
   onClose,
+  faceEditMode = false,
+  editingPersonId = '',
+  editingLabel = '',
+  editingCoords = [],
+  onEditingPersonIdChange,
+  onEditingLabelChange,
+  onEditingCoordsChange,
+  onSavePerson,
+  onCancelPerson,
+  isAddMode = false,
 }: PhotoEditLightboxProps) {
   const t = useTranslations();
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const [firstPoint, setFirstPoint] = useState<{ x: number; y: number } | null>(null);
+  const [dragStart, setDragStart] = useState<{ x: number; y: number; clientX: number; clientY: number } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [liveRect, setLiveRect] = useState<number[] | null>(null);
+
+  const getPoint = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>): { x: number; y: number } => {
+      const rect = leftPanelRef.current?.getBoundingClientRect();
+      if (!rect) return { x: 0, y: 0 };
+      const x = pxToPercent(e.clientX - rect.left, rect.width);
+      const y = pxToPercent(e.clientY - rect.top, rect.height);
+      return { x, y };
+    },
+    []
+  );
+
+  const commitRect = useCallback(
+    (a: { x: number; y: number }, b: { x: number; y: number }) => {
+      const left = Math.min(a.x, b.x);
+      const top = Math.min(a.y, b.y);
+      const right = Math.max(a.x, b.x);
+      const bottom = Math.max(a.y, b.y);
+      const coords = [left, top, right, bottom];
+      onEditingCoordsChange?.(coords);
+      setFirstPoint(null);
+      setLiveRect(null);
+    },
+    [onEditingCoordsChange]
+  );
+
+  const handleLeftMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!faceEditMode || e.button !== 0) return;
+      const pt = getPoint(e);
+      setDragStart({ ...pt, clientX: e.clientX, clientY: e.clientY });
+      setIsDragging(false);
+    },
+    [faceEditMode, getPoint]
+  );
+
+  const handleLeftMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!faceEditMode || !dragStart) return;
+      const pt = getPoint(e);
+      const dist = Math.sqrt(
+        (e.clientX - dragStart.clientX) ** 2 + (e.clientY - dragStart.clientY) ** 2
+      );
+      if (!isDragging && dist > DRAG_THRESHOLD_PX) {
+        setIsDragging(true);
+      }
+      if (isDragging) {
+        const left = Math.min(dragStart.x, pt.x);
+        const top = Math.min(dragStart.y, pt.y);
+        const right = Math.max(dragStart.x, pt.x);
+        const bottom = Math.max(dragStart.y, pt.y);
+        setLiveRect([left, top, right, bottom]);
+      }
+    },
+    [faceEditMode, dragStart, isDragging, getPoint]
+  );
+
+  const handleLeftMouseUp = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!faceEditMode || e.button !== 0) return;
+      const pt = getPoint(e);
+      if (isDragging && dragStart) {
+        commitRect(dragStart, pt);
+        setDragStart(null);
+        setIsDragging(false);
+        return;
+      }
+      if (firstPoint) {
+        commitRect(firstPoint, pt);
+        setFirstPoint(null);
+      } else {
+        setFirstPoint(pt);
+      }
+      setDragStart(null);
+      setLiveRect(null);
+    },
+    [faceEditMode, firstPoint, isDragging, dragStart, getPoint, commitRect]
+  );
+
+  const handleLeftMouseLeave = useCallback(() => {
+    if (!isDragging) return;
+    setDragStart(null);
+    setIsDragging(false);
+    setLiveRect(null);
+  }, [isDragging]);
+
+  const displayCoords = liveRect ?? (editingCoords.length >= 4 ? editingCoords : null);
+  const hasFirstPoint = firstPoint !== null;
 
   return (
     <div
@@ -276,12 +401,39 @@ function PhotoEditLightbox({
         </Button>
 
         <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center rounded-lg bg-(--paper-light) p-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={photo.src}
-            alt=""
-            className="max-h-[85vh] max-w-full object-contain"
-          />
+          <div
+            ref={leftPanelRef}
+            className={`relative inline-block max-h-[85vh] max-w-full ${faceEditMode ? 'cursor-crosshair' : ''}`}
+            onMouseDown={faceEditMode ? handleLeftMouseDown : undefined}
+            onMouseMove={faceEditMode ? handleLeftMouseMove : undefined}
+            onMouseUp={faceEditMode ? handleLeftMouseUp : undefined}
+            onMouseLeave={faceEditMode ? handleLeftMouseLeave : undefined}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={photo.src}
+              alt=""
+              className="block max-h-[85vh] max-w-full select-none object-contain pointer-events-none"
+              draggable={false}
+            />
+            {faceEditMode && hasFirstPoint && (
+              <div
+                className="absolute pointer-events-none h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-[var(--accent)] shadow-md"
+                style={{ left: `${firstPoint.x}%`, top: `${firstPoint.y}%` }}
+              />
+            )}
+            {faceEditMode && displayCoords && displayCoords.length >= 4 && (
+              <div
+                className="absolute pointer-events-none border-2 border-[var(--accent)] bg-[var(--hotspot-fill)]"
+                style={{
+                  left: `${displayCoords[0]}%`,
+                  top: `${displayCoords[1]}%`,
+                  width: `${displayCoords[2]! - displayCoords[0]!}%`,
+                  height: `${displayCoords[3]! - displayCoords[1]!}%`,
+                }}
+              />
+            )}
+          </div>
         </div>
 
         <div className="flex w-80 shrink-0 flex-col gap-4 overflow-y-auto pt-12">
@@ -313,67 +465,87 @@ function PhotoEditLightbox({
             </Select>
           </div>
 
-          {(photo.category === 'personal' || photo.category === 'related') && (
-            <div>
-              <label className="mb-1 block text-sm font-medium text-(--ink)">
-                {t('adminPhotoPersonId')}
-              </label>
-              <Select
-                value={photo.personId ?? ''}
-                onChange={(e) => onUpdate('personId', e.target.value || undefined)}
-                className="bg-[var(--paper)] px-3 py-2"
-              >
-                <option value="">—</option>
-                {persons.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {getFullName(p) || p.id}
-                  </option>
-                ))}
-              </Select>
-            </div>
-          )}
-
           <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-(--ink)">
                 {t('adminPeopleOnPhoto')}
               </span>
-            <Button variant="ghost" size="sm" onClick={onOpenAddPerson} className="text-sm text-[var(--accent)] hover:underline">
-              {t('adminAdd')}
-            </Button>
+              {!faceEditMode && (
+                <Button variant="ghost" size="sm" onClick={onOpenAddPerson} className="text-sm text-[var(--accent)] hover:underline">
+                  {t('adminAdd')}
+                </Button>
+              )}
             </div>
-            <ul className="space-y-1">
-              {(photo.people ?? []).map((person, personIdx) => {
-                const name = persons.find((p) => p.id === person.personId);
-                const shapeLabel =
-                  person.shape === 'point'
-                    ? t('adminPhotoPoint')
-                    : person.shape === 'circle'
-                      ? t('adminPhotoCircle')
-                      : person.shape === 'polygon'
-                        ? t('adminPolygon')
-                        : t('adminRect');
-                return (
-                  <li
-                    key={personIdx}
-                    className="flex flex-wrap items-center gap-2 rounded border border-(--border-subtle) px-2 py-1.5 text-sm"
+            {faceEditMode ? (
+              <div className="space-y-3 rounded border border-(--border-subtle) bg-(--paper-light) p-3">
+                <p className="text-xs text-(--ink-muted)">{t('adminPhotoFaceRectHint')}</p>
+                <div>
+                  <label className="mb-1 block text-sm font-medium text-(--ink)">
+                    {t('adminPhotoPersonId')}
+                  </label>
+                  <Select
+                    value={editingPersonId}
+                    onChange={(e) => onEditingPersonIdChange?.(e.target.value)}
+                    className="bg-[var(--paper)] px-3 py-2 w-full"
                   >
-                    <span className="text-(--ink)">
-                      {name ? getFullName(name) : person.personId}
-                    </span>
-                    <span className="rounded bg-(--paper-light) px-1.5 py-0.5 text-xs text-(--ink-muted)">
-                      {shapeLabel}
-                    </span>
-                    <Button variant="ghost" size="sm" onClick={() => onOpenEditPerson(personIdx)} className="text-[var(--accent)] hover:underline">
-                      {t('adminEdit')}
-                    </Button>
-                    <Button variant="danger" size="sm" onClick={() => onRemovePerson(photoIdx, personIdx)}>
-                      ✕
-                    </Button>
-                  </li>
-                );
-              })}
-            </ul>
+                    {persons.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {getFullName(p) || p.id}
+                      </option>
+                    ))}
+                    <option value={CUSTOM_PERSON_VALUE}>{t('adminPhotoCustomName')}</option>
+                  </Select>
+                </div>
+                {editingPersonId === CUSTOM_PERSON_VALUE && (
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-(--ink)">
+                      {t('adminPhotoCustomNameLabel')}
+                    </label>
+                    <Input
+                      type="text"
+                      value={editingLabel}
+                      onChange={(e) => onEditingLabelChange?.(e.target.value)}
+                      placeholder={t('adminPhotoCustomNamePlaceholder')}
+                      className="bg-[var(--paper)] px-3 py-2 w-full"
+                    />
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <Button variant="primary" size="sm" onClick={onSavePerson}>
+                    {t('adminDone')}
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={onCancelPerson}>
+                    {t('adminCancel')}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <ul className="space-y-1">
+                {(photo.people ?? []).map((person, personIdx) => {
+                  const displayName = person.personId
+                    ? (persons.find((p) => p.id === person.personId)
+                        ? getFullName(persons.find((p) => p.id === person.personId)!)
+                        : person.personId)
+                    : (person.label ?? '—');
+                  return (
+                    <li
+                      key={personIdx}
+                      className="flex flex-wrap items-center gap-2 rounded border border-(--border-subtle) px-2 py-1.5 text-sm"
+                    >
+                      <span className="text-(--ink)">
+                        {displayName}
+                      </span>
+                      <Button variant="ghost" size="sm" onClick={() => onOpenEditPerson(personIdx)} className="text-[var(--accent)] hover:underline">
+                        {t('adminEdit')}
+                      </Button>
+                      <Button variant="danger" size="sm" onClick={() => onRemovePerson(photoIdx, personIdx)}>
+                        ✕
+                      </Button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
 
           <div className="mt-auto flex justify-end gap-2 pt-4">
@@ -390,93 +562,3 @@ function PhotoEditLightbox({
   );
 }
 
-interface PeopleEditorLightboxProps {
-  photoSrc: string;
-  initialPersonId: string;
-  initialShape: PhotoPersonShape;
-  initialCoords: number[];
-  persons: ReturnType<typeof getPersons>;
-  onSave: (data: {
-    personId: string;
-    shape: PhotoPersonShape;
-    coords: number[];
-  }) => void;
-  onClose: () => void;
-}
-
-function PeopleEditorLightbox({
-  photoSrc,
-  initialPersonId,
-  initialShape,
-  initialCoords,
-  persons,
-  onSave,
-  onClose,
-}: PeopleEditorLightboxProps) {
-  const t = useTranslations();
-  const [personId, setPersonId] = useState(initialPersonId);
-  const [shape, setShape] = useState<PhotoPersonShape>(initialShape);
-  const [coords, setCoords] = useState<number[]>(initialCoords);
-
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setPersonId(initialPersonId);
-      setShape(initialShape);
-      setCoords(initialCoords);
-    }, 0);
-    return () => clearTimeout(id);
-  }, [initialPersonId, initialShape, initialCoords]);
-
-  const handleDone = () => {
-    onSave({ personId, shape, coords });
-  };
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-      role="dialog"
-      aria-modal
-      aria-label={t('adminPeopleOnPhoto')}
-      onClick={onClose}
-    >
-      <div
-        className="flex max-h-[95vh] w-full max-w-4xl flex-col gap-4 overflow-auto rounded-xl border border-(--border) bg-(--surface) p-4"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="text-sm font-medium text-(--ink)">
-            {t('adminPhotoPersonId')}
-          </label>
-          <Select
-            value={personId}
-            onChange={(e) => setPersonId(e.target.value)}
-            className="bg-[var(--paper)] px-3 py-2 max-w-xs"
-          >
-            {persons.map((p) => (
-              <option key={p.id} value={p.id}>
-                {getFullName(p) || p.id}
-              </option>
-            ))}
-          </Select>
-          <div className="flex-1" />
-          <Button variant="primary" onClick={handleDone}>
-            {t('adminDone')}
-          </Button>
-          <Button variant="secondary" onClick={onClose}>
-            {t('adminCancel')}
-          </Button>
-        </div>
-        <PhotoHotspotEditor
-          src={photoSrc}
-          coords={coords}
-          shape={DRAWABLE_SHAPES.includes(shape) ? shape : 'rect'}
-          onChange={(newCoords, newShape) => {
-            setCoords(newCoords);
-            setShape(newShape);
-          }}
-          imageClassName="max-w-4xl"
-        />
-      </div>
-    </div>
-  );
-}

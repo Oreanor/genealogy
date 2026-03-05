@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { Palette } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n/context';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
@@ -161,38 +162,32 @@ export function PageColorPicker() {
     [handleSaturationLightness, handleHue]
   );
 
+  const iconColor = contrastColor(paper);
+
   return (
     <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 cursor-pointer shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        className="flex h-9 w-9 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-[var(--border)] bg-[var(--surface)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
         aria-label={t('tooltipPageColor')}
         aria-expanded={open}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-[var(--ink-muted)]"
+        <Palette
+          className="size-4 shrink-0 md:size-5"
+          style={{ color: iconColor }}
+          strokeWidth={1.5}
           aria-hidden
-        >
-          <path
-            d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"
-            fill={paper}
-            stroke="currentColor"
-          />
-        </svg>
+        />
+        <span
+          className="h-1.5 w-3 rounded-sm border border-[var(--border-subtle)] shrink-0"
+          style={{ backgroundColor: paper }}
+          aria-hidden
+        />
       </button>
       {open && (
         <div
-          className="absolute right-0 top-full mt-2 flex w-[220px] flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-xl"
+          className="absolute left-full top-0 z-[100] ml-2 flex w-[220px] flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-xl"
           data-picker-area
         >
           <div

@@ -6,14 +6,12 @@ const male: Person = {
   id: 'p1',
   firstName: 'A',
   lastName: 'B',
-  parentIds: [],
   gender: 'm',
 };
 const female: Person = {
   id: 'p2',
   firstName: 'C',
   lastName: 'D',
-  parentIds: [],
   gender: 'f',
 };
 

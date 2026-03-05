@@ -1,14 +1,14 @@
-/** Supported locales (language code) */
+/** Supported locales (language code). Display order: ru, en, pt, uk, then the rest. */
 export const LOCALES = [
   'ru',
   'en',
+  'pt',
+  'uk',
   'de',
   'fr',
   'es',
   'it',
-  'pt',
   'nl',
-  'uk',
   'pl',
 ] as const;
 

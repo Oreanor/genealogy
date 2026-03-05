@@ -12,7 +12,6 @@ const person: Person = {
   deathDate: '1998',
   birthPlace: '',
   occupation: '',
-  parentIds: [],
   gender: 'm',
 };
 

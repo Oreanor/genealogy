@@ -10,10 +10,10 @@ interface BookSpreadProps {
 
 /** 2×A5: 296×210 mm. */
 const spreadClass2 =
-  'flex w-full min-w-0 max-h-[calc(100vh-6rem)] max-w-[calc((100vh-6rem)*296/210)] aspect-[296/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
+  'flex w-full min-w-0 max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*296/210)] aspect-[296/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
 /** 3×A5: 444×210 mm. */
 const spreadClassWide =
-  'flex w-full min-w-0 max-h-[calc(100vh-6rem)] max-w-[calc((100vh-6rem)*444/210)] aspect-[444/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
+  'flex w-full min-w-0 max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*444/210)] aspect-[444/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
 
 export function BookSpread({ left, right, fullWidth, wide }: BookSpreadProps) {
   const spreadClass = wide ? spreadClassWide : spreadClass2;

@@ -4,10 +4,6 @@ import { FamilyTree } from './FamilyTree';
 import { withI18n } from '@/lib/i18n/test-utils';
 import { PERSONS_FIXTURE } from '@/lib/data/__fixtures__/persons';
 
-const mockPush = vi.fn();
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: mockPush }),
-}));
 vi.mock('@/lib/data/persons', () => ({
   getPersons: () => PERSONS_FIXTURE,
   getPersonById: (id: string) =>
@@ -15,22 +11,24 @@ vi.mock('@/lib/data/persons', () => ({
 }));
 
 describe('FamilyTree', () => {
-  beforeEach(() => mockPush.mockClear());
+  const onPersonClick = vi.fn();
+
+  beforeEach(() => onPersonClick.mockClear());
 
   it('renders tree container', () => {
-    const { container } = render(withI18n(<FamilyTree />));
+    const { container } = render(withI18n(<FamilyTree onPersonClick={onPersonClick} />));
     expect(container.firstChild).toBeInTheDocument();
   });
 
   it('renders person nodes', () => {
-    const { container } = render(withI18n(<FamilyTree />));
+    const { container } = render(withI18n(<FamilyTree onPersonClick={onPersonClick} />));
     expect(container.textContent).toMatch(/Никонец\s*Иван Петрович/);
   });
 
-  it('navigates to person on node click', () => {
-    render(withI18n(<FamilyTree />));
+  it('calls onPersonClick when node is clicked', () => {
+    render(withI18n(<FamilyTree onPersonClick={onPersonClick} />));
     const btn = screen.getByRole('button', { name: /Никонец\s*Иван Петрович/ });
     fireEvent.click(btn);
-    expect(mockPush).toHaveBeenCalled();
+    expect(onPersonClick).toHaveBeenCalledWith('p001');
   });
 });

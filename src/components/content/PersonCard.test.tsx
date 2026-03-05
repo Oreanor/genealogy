@@ -12,7 +12,6 @@ const person: Person = {
   deathDate: '1998',
   birthPlace: 'д. Заозерье',
   occupation: 'учитель',
-  parentIds: [],
 };
 
 describe('PersonCard', () => {
@@ -37,7 +36,7 @@ describe('PersonCard', () => {
   });
 
   it('omits optional fields when absent', () => {
-    const minimal: Person = { id: 'p2', firstName: 'X', parentIds: [] };
+    const minimal: Person = { id: 'p2', firstName: 'X' };
     render(withI18n(<PersonCard person={minimal} />));
     expect(screen.getByRole('heading', { name: 'X' })).toBeInTheDocument();
     expect(screen.queryByText(/Годы:/)).not.toBeInTheDocument();

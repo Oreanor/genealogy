@@ -109,11 +109,6 @@ export function AdminTextsTab({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] p-3 text-sm text-[var(--ink)]">
-        <p className="font-medium">{t('adminHowItWorks')}</p>
-        <p className="mt-1 text-[var(--ink-muted)]">{t('adminHistoryHowItWorks')}</p>
-        <p className="mt-1 text-[var(--ink-muted)]">{t('adminSaveReminder')}</p>
-      </div>
       <div className="flex h-[70vh] min-h-[400px] gap-4">
       {/* Left: list of titles + add button */}
       <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-[var(--border-subtle)] pr-4">
@@ -152,15 +147,8 @@ export function AdminTextsTab({
               </Button>
             </div>
 
-            <div className="min-h-0 flex-1 flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4">
-              <RichTextEditor
-                value={selectedEntry.richText}
-                onChange={(html) => updateEntry(selectedIdx, 'richText', html)}
-              />
-            </div>
-
-            <div className="shrink-0 flex flex-col gap-1">
-              <span className="text-sm font-medium text-[var(--ink)]">
+            <div className="shrink-0 rounded-lg border border-[var(--border-subtle)] bg-[var(--paper-light)] p-3">
+              <span className="mb-2 block text-sm font-medium text-[var(--ink)]">
                 {t('adminHistoryPersons')}
               </span>
               <div className="flex flex-wrap gap-2">
@@ -183,48 +171,55 @@ export function AdminTextsTab({
                     </span>
                   );
                 })}
-              </div>
-              <div className="relative" ref={pickerRef}>
-                <Button variant="secondary" size="sm" onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}>
-                  + {t('adminAddPerson')}
-                </Button>
-                {pickerOpen && (
-                  <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
-                    <Input
-                      type="text"
-                      value={pickerQuery}
-                      onChange={(e) => setPickerQuery(e.target.value)}
-                      placeholder={t('adminSearchPersons')}
-                      className="rounded-t-lg rounded-b-none border-b border-[var(--border-subtle)] px-3 py-2 placeholder:text-[var(--ink-muted)]"
-                      autoFocus
-                    />
-                    <ul className="max-h-48 overflow-y-auto py-1">
-                      {filteredPersons
-                        .filter((p) => !selectedEntry.personIds.includes(p.id))
-                        .map((p) => (
-                          <li key={p.id}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
-                                addPersonToEntry(selectedIdx, p.id);
-                                setPickerOpen(false);
-                              }}
-                              className="w-full justify-start px-3 py-2"
-                            >
-                              {getFullName(p) || p.id}
-                            </Button>
+                <div className="relative inline-block" ref={pickerRef}>
+                  <Button variant="secondary" size="sm" onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}>
+                    + {t('adminAddPerson')}
+                  </Button>
+                  {pickerOpen && (
+                    <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
+                      <Input
+                        type="text"
+                        value={pickerQuery}
+                        onChange={(e) => setPickerQuery(e.target.value)}
+                        placeholder={t('adminSearchPersons')}
+                        className="rounded-t-lg rounded-b-none border-b border-[var(--border-subtle)] px-3 py-2 placeholder:text-[var(--ink-muted)]"
+                        autoFocus
+                      />
+                      <ul className="max-h-48 overflow-y-auto py-1">
+                        {filteredPersons
+                          .filter((p) => !selectedEntry.personIds.includes(p.id))
+                          .map((p) => (
+                            <li key={p.id}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                  addPersonToEntry(selectedIdx, p.id);
+                                  setPickerOpen(false);
+                                }}
+                                className="w-full justify-start px-3 py-2"
+                              >
+                                {getFullName(p) || p.id}
+                              </Button>
+                            </li>
+                          ))}
+                        {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (
+                          <li className="px-3 py-2 text-sm text-[var(--ink-muted)]">
+                            {t('adminNoPersonsMatch')}
                           </li>
-                        ))}
-                      {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (
-                        <li className="px-3 py-2 text-sm text-[var(--ink-muted)]">
-                          {t('adminNoPersonsMatch')}
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                )}
+                        )}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
+            </div>
+
+            <div className="min-h-0 flex-1 flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4">
+              <RichTextEditor
+                value={selectedEntry.richText}
+                onChange={(html) => updateEntry(selectedIdx, 'richText', html)}
+              />
             </div>
           </>
         ) : (

@@ -2,8 +2,13 @@ import { describe, it, expect } from 'vitest';
 import {
   getPhotos,
   getPhotoById,
+  getPhotoBySrc,
   getPhotosByCategory,
   getPhotosByPerson,
+  getPhotosEligibleForAvatarFromList,
+  getPersonFaceRect,
+  getAvatarForPerson,
+  getAvatarOptionsForPerson,
   getImageLinksByCategory,
 } from './photos';
 
@@ -35,14 +40,17 @@ describe('photos', () => {
     expect(personal.every((p) => p.category === 'personal')).toBe(true);
   });
 
-  it('getPhotosByPerson returns photos with personId or in people', () => {
+  it('getPhotosByPerson returns photos with person in people', () => {
     const list = getPhotosByPerson('non-existent');
     expect(list).toEqual([]);
     const all = getPhotos();
-    const withPerson = all.find((p) => p.personId);
-    if (withPerson?.personId) {
-      const byPerson = getPhotosByPerson(withPerson.personId);
-      expect(byPerson.some((p) => p.personId === withPerson.personId)).toBe(true);
+    const withPeople = all.find((p) => (p.people ?? []).length > 0);
+    if (withPeople?.people?.[0]) {
+      const pid = withPeople.people[0].personId;
+      if (pid) {
+        const byPerson = getPhotosByPerson(pid);
+        expect(byPerson.some((p) => (p.people ?? []).some((pp) => pp.personId === pid))).toBe(true);
+      }
     }
   });
 
@@ -50,5 +58,62 @@ describe('photos', () => {
     const links = getImageLinksByCategory('related');
     expect(Array.isArray(links)).toBe(true);
     expect(links.every((s) => typeof s === 'string' && s.length > 0)).toBe(true);
+  });
+
+  it('getPhotoBySrc finds by src and returns null for missing', () => {
+    const list = getPhotos();
+    const first = list[0];
+    if (first) {
+      expect(getPhotoBySrc(first.src)).toEqual(expect.objectContaining({ src: first.src }));
+    }
+    expect(getPhotoBySrc('/non/existent/path.jpg')).toBeNull();
+  });
+
+  it('getPhotosEligibleForAvatarFromList returns photos where person is in people', () => {
+    const list = [
+      { id: 'a', src: '/a.jpg', category: 'personal' as const, people: [{ personId: 'p1' }] },
+      { id: 'b', src: '/b.jpg', category: 'group' as const, people: [{ personId: 'p1', coords: [0, 0, 10, 10] }] },
+      { id: 'c', src: '/c.jpg', category: 'related' as const },
+    ];
+    const eligible = getPhotosEligibleForAvatarFromList(list, 'p1');
+    expect(eligible).toHaveLength(2);
+    expect(eligible.map((p) => p.id)).toEqual(['a', 'b']);
+    expect(getPhotosEligibleForAvatarFromList(list, 'p99')).toHaveLength(0);
+  });
+
+  it('getPersonFaceRect returns rect coords when coords length >= 4', () => {
+    const photo = { id: 'x', src: '/x.jpg', people: [{ personId: 'p1', coords: [10, 20, 50, 80] }] };
+    expect(getPersonFaceRect(photo, 'p1')).toEqual([10, 20, 50, 80]);
+    expect(getPersonFaceRect(photo, 'p2')).toBeNull();
+    expect(getPersonFaceRect({ ...photo, people: [{ personId: 'p1' }] }, 'p1')).toBeNull();
+  });
+
+  it('getAvatarForPerson returns first eligible photo; preferredPhotoSrc used when valid', () => {
+    expect(getAvatarForPerson('non-existent')).toBeNull();
+    const withPhoto = getPhotos().find((p) => (p.people ?? []).some((pp) => pp.personId));
+    const entry = withPhoto?.people?.find((pp) => pp.personId);
+    if (withPhoto && entry?.personId) {
+      const pid = entry.personId;
+      const avatar = getAvatarForPerson(pid);
+      expect(avatar).not.toBeNull();
+      expect(avatar!.src).toBe(withPhoto.src);
+      const withPreferred = getAvatarForPerson(pid, withPhoto.src);
+      expect(withPreferred?.src).toBe(withPhoto.src);
+    }
+  });
+
+  it('getAvatarOptionsForPerson returns all eligible photos with face rect', () => {
+    const opts = getAvatarOptionsForPerson('non-existent');
+    expect(opts).toEqual([]);
+    const withPhoto = getPhotos().find((p) => (p.people ?? []).some((pp) => pp.personId));
+    const entry = withPhoto?.people?.find((pp) => pp.personId);
+    if (withPhoto && entry?.personId) {
+      const options = getAvatarOptionsForPerson(entry.personId);
+      expect(options.length).toBeGreaterThan(0);
+      options.forEach((o) => {
+        expect(o).toHaveProperty('src');
+        expect(o.faceRect === null || (Array.isArray(o.faceRect) && o.faceRect.length === 4)).toBe(true);
+      });
+    }
   });
 });

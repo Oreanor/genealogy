@@ -5,6 +5,7 @@ import { useTranslations } from '@/lib/i18n/context';
 import { formatLifeDates, getFullName } from '@/lib/utils/person';
 import { getTreeRoleKey } from '@/lib/utils/relationship';
 import type { Person } from '@/lib/types/person';
+import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import Image from 'next/image';
 
 const MAX_NAME_LEN = 22;
@@ -53,15 +54,29 @@ export const TreeNode = memo(function TreeNode({
         style={{ width: '4.1rem', height: '5.3rem' }}
       >
         <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
-          {hasPerson && person.photoUrl ? (
-            <Image
-              src={person.photoUrl}
-              alt=""
-              fill
-              className="object-cover object-top"
-              sizes="5rem"
-            />
-          ) : null}
+          {hasPerson && (() => {
+            const avatar = getAvatarForPerson(person!.id, person!.avatarPhotoSrc);
+            if (!avatar) return null;
+            if (avatar.faceRect) {
+              return (
+                <div
+                  className="absolute inset-0 bg-[var(--tree-plaque-fill)]"
+                  style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
+                  role="img"
+                  aria-hidden
+                />
+              );
+            }
+            return (
+              <Image
+                src={avatar.src}
+                alt=""
+                fill
+                className="object-cover object-top"
+                sizes="5rem"
+              />
+            );
+          })()}
         </div>
       </div>
 
@@ -88,7 +103,7 @@ export const TreeNode = memo(function TreeNode({
   );
 
   const wrapperClass =
-    'flex flex-col items-center origin-top transition-opacity hover:opacity-80';
+    'flex flex-col items-center origin-top';
   const style = { transform: `scale(${scale})`, minWidth: '5rem' };
 
   if (hasPerson) {

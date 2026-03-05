@@ -57,7 +57,7 @@ function toCombinedJson(data: AdminDataSections): string {
 export function AdminPageClient({
   rootPersonId: initialRootPersonId,
   persons,
-  photos,
+  photos: initialPhotos,
   history: initialHistory,
   initialTab,
 }: AdminPageClientProps) {
@@ -65,11 +65,12 @@ export function AdminPageClient({
   const pathname = usePathname();
   const t = useTranslations();
   const [rootPersonId, setRootPersonId] = useState(initialRootPersonId);
+  const [photos, setPhotos] = useState(initialPhotos);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const dataRef = useRef<AdminDataSections>({
     rootPersonId: initialRootPersonId,
     persons,
-    photos,
+    photos: initialPhotos,
     history: initialHistory,
   });
 
@@ -115,6 +116,7 @@ export function AdminPageClient({
           <AdminPersonsTable
             rootPersonId={rootPersonId}
             initialPersons={persons}
+            photos={photos}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, persons: p };
             }}
@@ -137,6 +139,7 @@ export function AdminPageClient({
             initialPhotos={photos}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, photos: p };
+              setPhotos(p);
             }}
           />
         </div>

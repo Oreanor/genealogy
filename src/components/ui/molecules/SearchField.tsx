@@ -1,31 +1,11 @@
 'use client';
 
 import type { InputHTMLAttributes } from 'react';
+import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/atoms';
 
 const WRAPPER_CLASS =
   'flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:outline-none';
-
-const ICON_CLASS = 'size-5 shrink-0 text-[var(--ink-muted)]';
-
-function SearchIcon() {
-  return (
-    <svg
-      className={ICON_CLASS}
-      aria-hidden
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-      />
-    </svg>
-  );
-}
 
 export interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   className?: string;
@@ -34,7 +14,7 @@ export interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElem
 export function SearchField({ className = '', ...rest }: SearchFieldProps) {
   return (
     <div className={WRAPPER_CLASS}>
-      <SearchIcon />
+      <Search className="size-5 shrink-0 text-[var(--ink-muted)]" aria-hidden />
       <Input
         type="search"
         className={`min-w-0 flex-1 border-0 bg-transparent shadow-none focus:ring-0 focus:ring-offset-0 ${className}`.trim()}

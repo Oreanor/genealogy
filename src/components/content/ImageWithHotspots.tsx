@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { polygonPoints } from '@/lib/utils/svg';
 import type { ImageConfig } from '@/lib/types/spread';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
+import { getPersonById } from '@/lib/data/persons';
+import { getFullName } from '@/lib/utils/person';
+import type { LightboxFace } from '@/lib/data/photos';
 
 interface ImageWithHotspotsProps {
   config: ImageConfig;
@@ -32,6 +35,14 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
   const rects = hotspots.filter((h) => h.shape === 'rect' && h.coords.length >= 4);
   const circles = hotspots.filter((h) => h.shape === 'circle' && h.coords.length >= 3);
   const points = hotspots.filter((h) => h.shape === 'point' && h.coords.length >= 2);
+
+  const lightboxFaces: LightboxFace[] = useMemo(() => {
+    const rectHotspots = (config.hotspots ?? []).filter((h) => h.shape === 'rect' && h.coords.length >= 4);
+    return rectHotspots.map((h) => ({
+      coords: [h.coords[0]!, h.coords[1]!, h.coords[2]!, h.coords[3]!] as [number, number, number, number],
+      displayName: getFullName(getPersonById(h.personId) ?? null) || h.personId,
+    }));
+  }, [config.hotspots]);
 
   return (
     <>
@@ -128,6 +139,7 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
       <ImageLightbox
         src={config.src}
         alt={config.alt ?? ''}
+        faces={lightboxFaces}
         open={lightboxOpen}
         onClose={() => setLightboxOpen(false)}
       />

@@ -97,16 +97,16 @@ describe('person utils', () => {
     it('returns persons with no parents', () => {
       const roots = getRoots();
       expect(roots.length).toBeGreaterThanOrEqual(2);
-      expect(roots.every((p) => p.parentIds.length === 0)).toBe(true);
+      expect(roots.every((p) => !p.fatherId && !p.motherId)).toBe(true);
     });
   });
 
   describe('sortPersonsBySurname', () => {
     it('sorts by last name then first name', () => {
       const list = [
-        { id: 'a', firstName: 'B', lastName: 'Y', parentIds: [] as string[] },
-        { id: 'b', firstName: 'A', lastName: 'Z', parentIds: [] as string[] },
-        { id: 'c', firstName: 'X', lastName: 'Y', parentIds: [] as string[] },
+        { id: 'a', firstName: 'B', lastName: 'Y' },
+        { id: 'b', firstName: 'A', lastName: 'Z' },
+        { id: 'c', firstName: 'X', lastName: 'Y' },
       ];
       const sorted = sortPersonsBySurname(list);
       expect(sorted.map((p) => p.lastName)).toEqual(['Y', 'Y', 'Z']);

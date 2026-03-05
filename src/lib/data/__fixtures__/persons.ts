@@ -11,7 +11,8 @@ export const PERSONS_FIXTURE: Person[] = [
     deathDate: '1998',
     birthPlace: 'д. Заозерье',
     occupation: 'учитель',
-    parentIds: ['p002', 'p003'],
+    fatherId: 'p002',
+    motherId: 'p003',
     gender: 'm',
   },
   {
@@ -22,7 +23,6 @@ export const PERSONS_FIXTURE: Person[] = [
     deathDate: '1960',
     birthPlace: '',
     occupation: '',
-    parentIds: [],
     gender: 'm',
   },
   {
@@ -34,7 +34,8 @@ export const PERSONS_FIXTURE: Person[] = [
     deathDate: '1985',
     birthPlace: '',
     occupation: '',
-    parentIds: ['p006', 'p007'],
+    fatherId: 'p006',
+    motherId: 'p007',
     gender: 'f',
   },
   {
@@ -43,7 +44,6 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Васильевич',
     birthPlace: '',
     occupation: '',
-    parentIds: [],
     gender: 'm',
   },
   {
@@ -52,7 +52,8 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Петрович',
     birthPlace: '',
     occupation: '',
-    parentIds: ['p002', 'p003'],
+    fatherId: 'p002',
+    motherId: 'p003',
     gender: 'm',
   },
   {
@@ -61,7 +62,8 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Николаевна',
     birthPlace: '',
     occupation: '',
-    parentIds: ['p006', 'p007'],
+    fatherId: 'p006',
+    motherId: 'p007',
     gender: 'f',
   },
   {
@@ -70,7 +72,6 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Иванович',
     birthPlace: '',
     occupation: '',
-    parentIds: [],
     gender: 'm',
   },
   {
@@ -79,7 +80,8 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Степанович',
     birthPlace: '',
     occupation: '',
-    parentIds: ['p017', 'p015'],
+    fatherId: 'p017',
+    motherId: 'p015',
     gender: 'm',
   },
   {
@@ -88,7 +90,6 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Сидорович',
     birthPlace: '',
     occupation: '',
-    parentIds: [],
     gender: 'm',
   },
   {
@@ -97,7 +98,6 @@ export const PERSONS_FIXTURE: Person[] = [
     patronymic: 'Фёдоровна',
     birthPlace: '',
     occupation: '',
-    parentIds: [],
     gender: 'f',
   },
 ];

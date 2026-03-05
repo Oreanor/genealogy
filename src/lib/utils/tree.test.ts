@@ -17,17 +17,17 @@ describe('buildTreeMatrix', () => {
     expect(matrix[0]![0]?.id).toBe(ROOT_PERSON_ID);
   });
 
-  it('fills parent slots from parentIds', () => {
+  it('fills parent slots from fatherId/motherId', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
     expect(matrix.length).toBeGreaterThanOrEqual(2);
-    // p001 has parentIds: p002, p003
+    // p001 has fatherId p002, motherId p003
     expect(matrix[1]![0]?.id).toBe('p002');
     expect(matrix[1]![1]?.id).toBe('p003');
   });
 
   it('uses null for missing parents', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
-    // p002, p003 have empty parentIds - their parent slots are null
+    // p002, p003 have no fatherId/motherId - their parent slots are null
     const level2 = matrix[2] ?? [];
     expect(level2.filter((p) => p !== null).length).toBeLessThanOrEqual(4);
   });

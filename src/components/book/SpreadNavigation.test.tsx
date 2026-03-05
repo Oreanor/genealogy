@@ -15,6 +15,7 @@ vi.mock('@/lib/data/persons', async () => {
 });
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
+  usePathname: () => '/ru',
   useSearchParams: () => ({
     get: (key: string) => searchParams[key] ?? null,
   }),

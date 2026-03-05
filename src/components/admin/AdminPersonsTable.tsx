@@ -1,10 +1,46 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
 import type { Person } from '@/lib/types/person';
+import { getFullName } from '@/lib/utils/person';
+import {
+  getAvatarForPerson,
+  getAvatarOptionsForPersonFromList,
+  getAvatarCropStyles,
+  type AvatarSource,
+} from '@/lib/data/photos';
+import type { PhotoEntry } from '@/lib/types/photo';
 import { Dialog } from '@/components/ui/molecules/Dialog';
-import { Button, Input, Select } from '@/components/ui/atoms';
+import { Button, Input } from '@/components/ui/atoms';
+
+function FaceThumbnail({ source, size = 40 }: { source: AvatarSource; size?: number }) {
+  const { src, faceRect } = source;
+  const wrapperStyle = { width: size, height: size };
+  if (faceRect) {
+    return (
+      <span
+        className="inline-block overflow-hidden rounded-full bg-[var(--paper-light)]"
+        style={wrapperStyle}
+      >
+        <span
+          className="block h-full w-full"
+          style={getAvatarCropStyles(faceRect, src)}
+          aria-hidden
+        />
+      </span>
+    );
+  }
+  return (
+    <span
+      className="inline-block overflow-hidden rounded-full bg-[var(--paper-light)]"
+      style={wrapperStyle}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" className="h-full w-full object-cover" />
+    </span>
+  );
+}
 
 const PERSON_ID_PAD = 3;
 
@@ -26,8 +62,8 @@ function sortPersonsForEdit(ps: Person[], rootId: string): Person[] {
   });
 }
 
+/** Table columns (no id, no #); Father/Mother rendered separately. */
 const COLUMNS: (keyof Person)[] = [
-  'id',
   'firstName',
   'patronymic',
   'lastName',
@@ -35,8 +71,6 @@ const COLUMNS: (keyof Person)[] = [
   'deathDate',
   'birthPlace',
   'occupation',
-  'photoUrl',
-  'parentIds',
   'gender',
 ];
 
@@ -46,6 +80,9 @@ const COLUMN_LABELS: Partial<Record<keyof Person, string>> = {
   lastName: 'adminLastName',
   birthDate: 'adminBirthDate',
   deathDate: 'adminDeathDate',
+  birthPlace: 'adminBirthPlace',
+  occupation: 'adminOccupation',
+  gender: 'adminGender',
 };
 
 function nextPersonId(persons: Person[]): string {
@@ -59,6 +96,7 @@ function nextPersonId(persons: Person[]): string {
 interface AdminPersonsTableProps {
   rootPersonId: string;
   initialPersons: Person[];
+  photos: PhotoEntry[];
   onDataChange?: (persons: Person[]) => void;
   onRootChange?: (personId: string) => void;
 }
@@ -66,6 +104,7 @@ interface AdminPersonsTableProps {
 export function AdminPersonsTable({
   rootPersonId,
   initialPersons,
+  photos,
   onDataChange,
   onRootChange,
 }: AdminPersonsTableProps) {
@@ -75,6 +114,11 @@ export function AdminPersonsTable({
   );
   const [confirmRootOpen, setConfirmRootOpen] = useState(false);
   const [pendingRootId, setPendingRootId] = useState<string | null>(null);
+  const [confirmDeleteIdx, setConfirmDeleteIdx] = useState<number | null>(null);
+  const [parentPicker, setParentPicker] = useState<{ rowIdx: number; type: 'father' | 'mother' } | null>(null);
+  const [parentPickerQuery, setParentPickerQuery] = useState('');
+  const parentPickerRef = useRef<HTMLDivElement>(null);
+  const [avatarPickerRowIdx, setAvatarPickerRowIdx] = useState<number | null>(null);
 
   useEffect(() => {
     onDataChange?.(persons);
@@ -105,16 +149,47 @@ export function AdminPersonsTable({
     setPersons((prev) => {
       const next = [...prev];
       const p = { ...next[index]! };
-      if (field === 'parentIds') {
-        const v = value as string | string[];
-        p.parentIds = Array.isArray(v) ? v : (typeof v === 'string' ? v.split(/[,\s]+/).filter(Boolean) : []);
-      } else {
-        (p as Record<string, unknown>)[field] = value;
-      }
+      (p as Record<string, unknown>)[field] = value;
       next[index] = p;
       return next;
     });
   }, []);
+
+  const setParent = useCallback((index: number, type: 'father' | 'mother', personId: string) => {
+    setPersons((prev) => {
+      const next = [...prev];
+      const p = { ...next[index]! };
+      if (type === 'father') p.fatherId = personId || undefined;
+      else p.motherId = personId || undefined;
+      next[index] = p;
+      return next;
+    });
+  }, []);
+
+  const getParentId = useCallback((person: Person, type: 'father' | 'mother') => {
+    return type === 'father' ? (person.fatherId ?? '') : (person.motherId ?? '');
+  }, []);
+
+  const filteredPickerPersons = useMemo(() => {
+    if (!parentPickerQuery.trim()) return persons;
+    const q = parentPickerQuery.trim().toLowerCase();
+    return persons.filter((p) => {
+      const name = (getFullName(p) || p.id).toLowerCase();
+      return name.includes(q) || p.id.toLowerCase().includes(q);
+    });
+  }, [persons, parentPickerQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (parentPickerRef.current && !parentPickerRef.current.contains(e.target as Node)) {
+        setParentPicker(null);
+      }
+    };
+    if (parentPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [parentPicker]);
 
   const addRow = useCallback(() => {
     setPersons((prev) => [
@@ -124,7 +199,6 @@ export function AdminPersonsTable({
         firstName: '',
         birthPlace: '',
         occupation: '',
-        parentIds: [],
         gender: 'm',
       },
     ]);
@@ -136,13 +210,6 @@ export function AdminPersonsTable({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] p-3 text-sm text-[var(--ink)]">
-        <p className="font-medium">{t('adminHowItWorks')}</p>
-        <p className="mt-1 text-[var(--ink-muted)]">
-          {t('adminPersonsHint', { id: rootPersonId })}
-        </p>
-        <p className="mt-1 text-[var(--ink-muted)]">{t('adminSaveReminder')}</p>
-      </div>
       <div className="flex flex-wrap gap-2">
         <Button variant="secondary" onClick={addRow}>
           {t('adminAddRow')}
@@ -152,7 +219,7 @@ export function AdminPersonsTable({
         <table className="w-full min-w-[800px] border-collapse text-sm">
           <thead className="sticky top-0 z-10 bg-[var(--surface)] shadow-[0_1px_0_0_var(--border-subtle)]">
             <tr className="border-b border-[var(--border)]">
-              <th className="w-10 p-2 text-left font-medium text-[var(--ink)]">#</th>
+              <th className="w-14 p-2" title={t('adminRemove')} />
               <th className="w-12 border-l border-[var(--border-subtle)] p-2 text-center font-medium text-[var(--ink)]" title={t('adminRootColumn')}>
                 {t('adminRootColumn')}
               </th>
@@ -164,7 +231,15 @@ export function AdminPersonsTable({
                   {COLUMN_LABELS[col] ? t(COLUMN_LABELS[col]!) : col}
                 </th>
               ))}
-              <th className="w-14 p-2" />
+              <th className="w-24 border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+                {t('adminAvatarColumn')}
+              </th>
+              <th className="min-w-[120px] border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+                {t('adminFatherColumn')}
+              </th>
+              <th className="min-w-[120px] border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+                {t('adminMotherColumn')}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -176,7 +251,18 @@ export function AdminPersonsTable({
                 key={person.id + displayIdx}
                 className="border-b border-[var(--border-subtle)] hover:bg-[var(--paper-light)]/50"
               >
-                <td className="p-2 text-[var(--ink-muted)]">{displayIdx + 1}</td>
+                <td className="p-1">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => setConfirmDeleteIdx(actualIdx)}
+                    className="rounded p-1.5"
+                    aria-label={t('adminRemove')}
+                    title={t('adminRemove')}
+                  >
+                    ✕
+                  </Button>
+                </td>
                 <td className="border-l border-[var(--border-subtle)] p-1 text-center">
                   {isRoot ? (
                     <span className="text-[var(--accent)]" title={t('adminRootColumn')}>★</span>
@@ -198,31 +284,19 @@ export function AdminPersonsTable({
                     key={col}
                     className="border-l border-[var(--border-subtle)] p-1"
                   >
-                    {col === 'parentIds' ? (
-                      <Input
-                        type="text"
-                        value={(person.parentIds ?? []).join(', ')}
-                        onChange={(e) =>
-                          updatePerson(
-                            actualIdx,
-                            'parentIds',
-                            e.target.value.split(/[,\s]+/).filter(Boolean)
-                          )
+                    {col === 'gender' ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          updatePerson(actualIdx, 'gender', (person.gender === 'f' ? 'm' : 'f') as 'm' | 'f')
                         }
-                        className="min-w-[100px]"
-                      />
-                    ) : col === 'gender' ? (
-                      <Select
-                        value={String(person.gender ?? '')}
-                        onChange={(e) =>
-                          updatePerson(actualIdx, 'gender', (e.target.value || undefined) as 'm' | 'f' | undefined)
-                        }
-                        className="min-w-[60px]"
+                        className="min-w-[2rem] font-medium"
+                        title={t('adminGender')}
                       >
-                        <option value="">—</option>
-                        <option value="m">m</option>
-                        <option value="f">f</option>
-                      </Select>
+                        {(person.gender ?? 'm') === 'f' ? t('adminGenderF') : t('adminGenderM')}
+                      </Button>
                     ) : (
                       <Input
                         value={String((person as unknown as Record<string, unknown>)[col] ?? '')}
@@ -234,18 +308,97 @@ export function AdminPersonsTable({
                     )}
                   </td>
                 ))}
-                <td className="p-1">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => removeRow(actualIdx)}
-                    className="rounded p-1.5"
-                    aria-label={t('adminDeleteRow')}
-                    title={t('adminDeleteRow')}
-                  >
-                    ✕
-                  </Button>
+                <td className="border-l border-[var(--border-subtle)] p-1 align-middle">
+                  <div className="flex items-center gap-1">
+                    {(() => {
+                      const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
+                      if (avatar) {
+                        return <FaceThumbnail source={avatar} size={32} />;
+                      }
+                      return null;
+                    })()}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setAvatarPickerRowIdx(actualIdx)}
+                      className="shrink-0"
+                    >
+                      {t('adminSelectAvatar')}
+                    </Button>
+                  </div>
                 </td>
+                {(['father', 'mother'] as const).map((type) => {
+                  const parentId = getParentId(person, type);
+                  const parent = parentId ? persons.find((p) => p.id === parentId) : null;
+                  const isOpen = parentPicker?.rowIdx === actualIdx && parentPicker?.type === type;
+                  return (
+                    <td key={type} className="relative border-l border-[var(--border-subtle)] p-1">
+                      <div className="relative min-w-[100px]" ref={isOpen ? parentPickerRef : undefined}>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {
+                            setParentPicker({ rowIdx: actualIdx, type });
+                            setParentPickerQuery('');
+                          }}
+                          className="w-full justify-start truncate font-normal"
+                          title={type === 'father' ? t('adminFatherColumn') : t('adminMotherColumn')}
+                        >
+                          {parent ? getFullName(parent) || parent.id : '—'}
+                        </Button>
+                        {isOpen && (
+                          <div className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-[var(--border)] bg-[var(--paper)] p-2 shadow-lg">
+                            <Input
+                              type="text"
+                              value={parentPickerQuery}
+                              onChange={(e) => setParentPickerQuery(e.target.value)}
+                              placeholder={t('adminSearchPersons')}
+                              className="mb-2"
+                              autoFocus
+                            />
+                            <ul className="max-h-40 overflow-y-auto">
+                              <li>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setParent(actualIdx, type, '');
+                                    setParentPicker(null);
+                                  }}
+                                  className="w-full justify-start"
+                                >
+                                  —
+                                </Button>
+                              </li>
+                              {filteredPickerPersons
+                                .filter((p) => p.id !== person.id)
+                                .map((p) => (
+                                  <li key={p.id}>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => {
+                                        setParent(actualIdx, type, p.id);
+                                        setParentPicker(null);
+                                      }}
+                                      className="w-full justify-start truncate font-normal"
+                                    >
+                                      {getFullName(p) || p.id}
+                                    </Button>
+                                  </li>
+                                ))}
+                              {filteredPickerPersons.filter((p) => p.id !== person.id).length === 0 && parentPickerQuery.trim() && (
+                                <li className="px-2 py-1 text-sm text-[var(--ink-muted)]">
+                                  {t('adminNoPersonsMatch')}
+                                </li>
+                              )}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  );
+                })}
               </tr>
             );
             })}
@@ -263,6 +416,86 @@ export function AdminPersonsTable({
       >
         {t('adminRootChangeConfirm')}
       </Dialog>
+
+      <Dialog
+        open={confirmDeleteIdx !== null}
+        onClose={() => setConfirmDeleteIdx(null)}
+        title={t('adminRemove')}
+        variant="confirm"
+        confirmLabel={t('dialogConfirm')}
+        cancelLabel={t('adminCancel')}
+        onConfirm={() => {
+          if (confirmDeleteIdx !== null) {
+            removeRow(confirmDeleteIdx);
+            setConfirmDeleteIdx(null);
+          }
+        }}
+      >
+        {t('adminDeletePersonConfirm')}
+      </Dialog>
+
+      {avatarPickerRowIdx !== null && (() => {
+        const person = persons[avatarPickerRowIdx]!;
+        const options = getAvatarOptionsForPersonFromList(photos, person.id);
+        return (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+            role="dialog"
+            aria-modal
+            aria-label={t('adminAvatarColumn')}
+          >
+            <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl border-2 border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl">
+              <h2 className="mb-3 text-center text-lg font-semibold text-[var(--ink)]">
+                {t('adminAvatarColumn')}
+              </h2>
+              <p className="mb-3 text-center text-sm text-[var(--ink-muted)]">
+                {getFullName(person) || person.id}
+              </p>
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                {options.length === 0 ? (
+                  <p className="text-center text-[var(--ink-muted)]">{t('adminNoEntries')}</p>
+                ) : (
+                  <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 md:grid-cols-6">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        updatePerson(avatarPickerRowIdx, 'avatarPhotoSrc', undefined);
+                        setAvatarPickerRowIdx(null);
+                      }}
+                      className="flex flex-col items-center gap-1 rounded-lg border-2 border-dashed border-[var(--border-subtle)] p-2 text-[var(--ink-muted)] hover:border-[var(--accent)] hover:bg-[var(--paper-light)]"
+                    >
+                      <span className="text-2xl">—</span>
+                      <span className="text-xs">{t('adminAvatarDefault')}</span>
+                    </button>
+                    {options.map((opt, i) => (
+                      <button
+                        key={`${opt.src}-${i}`}
+                        type="button"
+                        onClick={() => {
+                          updatePerson(avatarPickerRowIdx, 'avatarPhotoSrc', opt.src);
+                          setAvatarPickerRowIdx(null);
+                        }}
+                        className={`flex flex-col items-center gap-1 rounded-lg border-2 p-2 focus:outline-none ${
+                          person.avatarPhotoSrc === opt.src
+                            ? 'border-[var(--accent)] bg-[var(--paper-light)]'
+                            : 'border-[var(--border-subtle)] hover:border-[var(--accent)]'
+                        }`}
+                      >
+                        <FaceThumbnail source={opt} size={56} />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="mt-3 flex justify-center">
+                <Button variant="secondary" onClick={() => setAvatarPickerRowIdx(null)}>
+                  {t('adminCancel')}
+                </Button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }

@@ -3,18 +3,14 @@ export type PhotoCategory =
   | 'group' /** presence in group photo */
   | 'related'; /** other: house, book, document */
 
-export type PhotoPersonShape = 'point' | 'circle' | 'rect' | 'polygon';
-
-export interface PhotoPerson {
-  personId: string;
-  /**
-   * point: [x%, y%]
-   * circle: [cx%, cy%, r%] — face/avatar area
-   * rect: [left%, top%, right%, bottom%]
-   * polygon: [x1,y1, x2,y2, ...]
-   */
+/** One face/zone on photo: either a person from the list or a custom name (e.g. "друг"). */
+export interface PhotoFace {
+  /** Person id from persons list; omit if using label. */
+  personId?: string;
+  /** Custom name when person is not in the list (e.g. "друг", "сосед"). */
+  label?: string;
+  /** Face rect [left%, top%, right%, bottom%] for avatar crop. */
   coords?: number[];
-  shape?: PhotoPersonShape;
 }
 
 export interface PhotoEntry {
@@ -26,8 +22,6 @@ export interface PhotoEntry {
   backCaption?: string;
   /** Category for filtering. Default related on load. */
   category?: PhotoCategory;
-  /** For personal: whose photo. For related: who it relates to. */
-  personId?: string;
-  /** For group: who is on the photo with zones. Optional for personal. */
-  people?: PhotoPerson[];
+  /** Who is on the photo: array of person id + face rect (for avatar crop). */
+  people?: PhotoFace[];
 }

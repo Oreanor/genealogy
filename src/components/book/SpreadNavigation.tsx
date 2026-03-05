@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { PersonCard } from '@/components/content/PersonCard';
 import { PageContentRenderer } from '@/components/content/PageContentRenderer';
 import { HistoryContentRenderer } from '@/components/content/HistoryContentRenderer';
 import { FamilyTree } from '@/components/tree/FamilyTree';
+import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
 import { NavButton } from '@/components/ui/NavButton';
 import { CHAPTER_IDS } from '@/lib/constants/chapters';
 import { useLocaleRoutes } from '@/lib/i18n/context';
@@ -40,8 +42,11 @@ export function SpreadNavigation({
   const hasPrev = isPersony ? safeIndex > 0 : defaultState.hasPrev;
   const hasNext = isPersony ? safeIndex < spreads.length - 1 : defaultState.hasNext;
 
+  const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(null);
   const spread = spreads[safeIndex];
   const personForSpread = spread?.left?.personId ? getPersonById(spread.left.personId) : null;
+  const selectedTreePerson =
+    selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
 
   const goPrev = () => {
     if (isPersony && persons[safeIndex - 1]) {
@@ -122,11 +127,20 @@ export function SpreadNavigation({
               <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
                 {t('treeTitle')}
               </h1>
-              <FamilyTree />
+              <FamilyTree onPersonClick={setSelectedTreePersonId} />
             </BookPage>
           ) : undefined
         }
       />
+
+      {isTreeSpread && selectedTreePerson && (
+        <PersonDetailPanel
+          key={selectedTreePerson.id}
+          person={selectedTreePerson}
+          onClose={() => setSelectedTreePersonId(null)}
+          onSelectPerson={setSelectedTreePersonId}
+        />
+      )}
 
       {spreads.length > 1 && (
         <div className="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-none">

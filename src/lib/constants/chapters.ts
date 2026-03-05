@@ -4,7 +4,7 @@ export const COVER_IMAGE = '';
 export const CHAPTERS = [
   { id: 'family-tree', title: 'Семейное древо' },
   { id: 'persons', title: 'Персоны' },
-  { id: 'history', title: 'Истории' },
+  { id: 'history', title: 'Тексты' },
   { id: 'photos', title: 'Фото' },
 ] as const;
 

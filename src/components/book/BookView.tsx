@@ -11,8 +11,8 @@ import { FamilyTree } from '@/components/tree/FamilyTree';
 import { HistoryContentRenderer } from '@/components/content/HistoryContentRenderer';
 import { PersonCard } from '@/components/content/PersonCard';
 import { getHistoryEntries } from '@/lib/data/history';
-import { getPhotos } from '@/lib/data/photos';
-import { getPersons } from '@/lib/data/persons';
+import { getPhotos, getLightboxFacesFromPhoto } from '@/lib/data/photos';
+import { getPersonById, getPersons } from '@/lib/data/persons';
 import { sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/utils/person';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +21,7 @@ import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { SearchField } from '@/components/ui/molecules/SearchField';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import type { PhotoEntry } from '@/lib/types/photo';
+import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
 
 const PHOTOS_PER_PAGE = 9;
 const PHOTOS_PER_SPREAD = PHOTOS_PER_PAGE * 2;
@@ -35,6 +36,7 @@ export function BookView() {
   const [personsSearch, setPersonsSearch] = useState('');
   const [historySearch, setHistorySearch] = useState('');
   const [photosLightbox, setPhotosLightbox] = useState<PhotoEntry | null>(null);
+  const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(null);
   const pathname = usePathname() ?? '';
   const router = useRouter();
   const sectionParam = searchParams.get('section') ?? '';
@@ -61,18 +63,29 @@ export function BookView() {
   }, [section, historySearch]);
 
   if (section === 'tree') {
+    const selectedTreePerson =
+      selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
     return (
-      <BookSpread
-        wide
-        fullWidth={
-          <BookPage className="p-2 sm:p-3 md:p-4">
-            <h1 className="book-serif mb-1 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
-              {t('treeTitle')}
-            </h1>
-            <FamilyTree />
-          </BookPage>
-        }
-      />
+      <>
+        <BookSpread
+          fullWidth={
+            <BookPage className="p-2 sm:p-3 md:p-4">
+              <h1 className="book-serif mb-1 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+                {t('treeTitle')}
+              </h1>
+              <FamilyTree onPersonClick={setSelectedTreePersonId} />
+            </BookPage>
+          }
+        />
+        {selectedTreePerson && (
+          <PersonDetailPanel
+            key={selectedTreePerson.id}
+            person={selectedTreePerson}
+            onClose={() => setSelectedTreePersonId(null)}
+            onSelectPerson={setSelectedTreePersonId}
+          />
+        )}
+      </>
     );
   }
 
@@ -221,6 +234,7 @@ export function BookView() {
             src={photosLightbox.src}
             alt={photosLightbox.caption ?? photosLightbox.id}
             caption={photosLightbox.caption}
+            faces={getLightboxFacesFromPhoto(photosLightbox, getPersons())}
             open
             onClose={() => setPhotosLightbox(null)}
           />

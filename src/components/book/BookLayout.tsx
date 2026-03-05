@@ -15,36 +15,32 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
   const pathname = usePathname() ?? '';
   const searchParams = useSearchParams();
   const isAdmin = pathname.includes('/admin');
-  const sectionParam = searchParams?.get('section') ?? '';
-  const isTreeSection = sectionParam === '' || sectionParam === 'tree';
-  const bookMaxW = isAdmin
-    ? ''
-    : isTreeSection
-      ? 'max-w-[calc((100vh-6rem)*444/210)]'
-      : 'max-w-[calc((100vh-6rem)*296/210)]';
+  const bookMaxW = isAdmin ? '' : 'max-w-[calc((100vh-6rem)*296/210)]';
 
   return (
     <AdminToolbarProvider>
       <div
-        className={`relative flex bg-(--book-bg) p-1 sm:p-1.5 md:p-3 lg:p-4 ${
+        className={`relative flex bg-(--book-bg) px-1 sm:px-1.5 md:px-3 lg:px-4 ${
           isAdmin
-            ? 'h-screen flex-col overflow-hidden pt-16'
+            ? 'h-screen flex-col overflow-hidden pt-2'
             : alignTop
               ? 'min-h-screen flex-col items-center justify-start pt-16'
-              : 'min-h-screen flex-col items-center justify-center pb-4 md:pb-6'
+              : 'min-h-screen flex-col items-center justify-start pt-2 pb-2 sm:pt-3 sm:pb-3 md:pt-4 md:pb-4'
         }`}
       >
         <BookToolbar />
       <div
-        className={`mx-auto flex w-full max-w-[98%] flex-col items-center gap-0 sm:max-w-[96%] md:max-w-[97%] lg:max-w-7xl ${
-          isAdmin ? 'min-h-0 flex-1 overflow-y-auto' : 'mb-2 md:mb-4'
-        }`}
+        className={
+          isAdmin
+            ? 'ml-12 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 md:ml-16 max-w-none'
+            : 'mx-auto flex w-full max-w-[100%] flex-col items-center gap-0'
+        }
       >
         <div
           className={`flex w-full min-w-0 flex-col ${isAdmin ? 'max-w-full' : bookMaxW}`}
         >
           {!isAdmin && (
-            <div className="flex w-full justify-end pr-0.5 md:pr-1">
+            <div className="flex w-full justify-start pl-0.5 md:pl-1">
               <SectionBookmarks />
             </div>
           )}

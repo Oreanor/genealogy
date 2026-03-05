@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-import { getPersonById } from '@/lib/data/persons';
-import { getPhotosByPerson } from '@/lib/data/photos';
+import { getPersonById, getPersons } from '@/lib/data/persons';
+import { getPhotosByPerson, getLightboxFacesFromPhoto } from '@/lib/data/photos';
+import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { formatLifeDates, getChildren, getCousins, getFullName, getSpouse, getSiblings } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { useLocaleRoutes } from '@/lib/i18n/context';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
@@ -17,13 +19,16 @@ interface PersonCardProps {
 
 export function PersonCard({ person }: PersonCardProps) {
   const { t, routes } = useLocaleRoutes();
+  const pathname = usePathname() ?? '';
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
   const cousins = getCousins(person.id);
   const personPhotos = getPhotosByPerson(person.id);
-  const parents = person.parentIds
-    .map((id) => getPersonById(id))
+  const historyMentions = getHistoryEntriesByPerson(person.id);
+  const parents = [person.fatherId, person.motherId]
+    .filter(Boolean)
+    .map((id) => getPersonById(id as string))
     .filter((p): p is Person => p != null);
   const spouse = getSpouse(person.id);
 
@@ -112,6 +117,23 @@ export function PersonCard({ person }: PersonCardProps) {
           <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
       )}
+      {historyMentions.length > 0 && (
+        <div className="space-y-1">
+          <h3 className="text-sm font-medium text-[var(--ink)]">{t('personMentionedInStories')}</h3>
+          <ul className="flex flex-wrap gap-2">
+            {historyMentions.map(({ entry, index }) => (
+              <li key={index}>
+                <Link
+                  href={`${pathname}?section=history&entry=${index}`}
+                  className={`rounded px-2 py-1 text-sm ${CONTENT_LINK_CLASS}`}
+                >
+                  {entry.title || `${t('chapters_history')} ${index + 1}`}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {personPhotos.length > 0 && (
         <div className="space-y-2">
           <h3 className="text-sm font-medium text-[var(--ink)]">{t('personPhotos')}</h3>
@@ -142,6 +164,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 src={photo.src}
                 alt={photo.caption || ''}
                 caption={photo.caption}
+                faces={getLightboxFacesFromPhoto(photo, getPersons())}
                 open
                 onClose={() => setLightboxIndex(null)}
               />

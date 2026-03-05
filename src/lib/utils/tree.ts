@@ -19,7 +19,7 @@ export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
       } else {
         const parentSlot = matrix[level - 1]![i >> 1];
         const parentIndex = i % 2;
-        const personId = parentSlot?.parentIds[parentIndex];
+        const personId = parentIndex === 0 ? parentSlot?.fatherId : parentSlot?.motherId;
         row.push(personId ? getPersonById(personId) ?? null : null);
       }
     }
@@ -32,7 +32,7 @@ export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
       for (let i = 0; i < 32; i++) {
         const parentSlot = parentRow[i >> 1];
         const parentIndex = i % 2;
-        const personId = parentSlot?.parentIds[parentIndex];
+        const personId = parentIndex === 0 ? parentSlot?.fatherId : parentSlot?.motherId;
         nextRow.push(personId ? getPersonById(personId) ?? null : null);
       }
       if (!nextRow.some((p) => p !== null)) break;

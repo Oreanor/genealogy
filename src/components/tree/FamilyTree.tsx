@@ -1,16 +1,24 @@
 'use client';
 
 import { getRootPersonId } from '@/lib/data/root';
-import { useLocaleRoutes } from '@/lib/i18n/context';
 import { buildTreeMatrix } from '@/lib/utils/tree';
-import { useRouter } from 'next/navigation';
 import { TreeNode } from './TreeNode';
+
+export interface FamilyTreeProps {
+  onPersonClick: (personId: string) => void;
+}
 
 /** Wider value gives more horizontal space between nodes */
 const VIEW_WIDTH = 120;
 /** Row height: nodes spaced more loosely vertically */
 const VIEW_HEIGHT = 98;
 const TREE_TOP_OFFSET = 8;
+
+/** Extra offset down (px) per level so rows don’t overlap: parents 10, grandparents 20, etc. */
+const OFFSET_PX_BY_LEVEL: number[] = [0, 10, 20, 30, 40];
+function getLevelOffsetPx(level: number): number {
+  return OFFSET_PX_BY_LEVEL[level] ?? level * 10;
+}
 
 function getNodePosition(level: number, index: number, totalLevels: number) {
   const count = Math.pow(2, level);
@@ -24,14 +32,9 @@ function getNodePosition(level: number, index: number, totalLevels: number) {
   };
 }
 
-export function FamilyTree() {
-  const router = useRouter();
-  const { routes } = useLocaleRoutes();
+export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
   const matrix = buildTreeMatrix(getRootPersonId());
   const totalLevels = matrix.length;
-
-  const handlePersonClick = (personId: string) =>
-    router.push(routes.person(personId));
 
   return (
     <div
@@ -42,14 +45,16 @@ export function FamilyTree() {
       {matrix.map((row, level) =>
         row.map((person, index) => {
           const pos = getNodePosition(level, index, totalLevels);
+          const offsetPx = getLevelOffsetPx(level);
           return (
             <div
               key={`node-${level}-${index}`}
               className="absolute origin-top"
               style={{
                 left: `${pos.x}%`,
-                top: `${pos.y}%`,
+                top: `calc(${pos.y}% + ${offsetPx}px)`,
                 transform: `translate(-50%, 0)`,
+                zIndex: totalLevels - 1 - level,
               }}
             >
               <TreeNode
@@ -57,7 +62,7 @@ export function FamilyTree() {
                 level={level}
                 index={index}
                 scale={pos.scale}
-                onPersonClick={handlePersonClick}
+                onPersonClick={onPersonClick}
               />
             </div>
           );

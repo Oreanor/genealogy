@@ -31,7 +31,7 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   const rootPersonId = getRootPersonId();
   return (
     <BookLayout alignTop>
-      <div className="w-full max-w-[95%] p-4 sm:max-w-[92%] md:max-w-[94%]">
+      <div className="w-full max-w-[100%] p-4 sm:max-w-[100%] md:max-w-[100%]">
         <h1 className="mb-4 text-2xl font-semibold text-[var(--ink)]">
           {messages.adminTitle ?? 'Admin'}
         </h1>

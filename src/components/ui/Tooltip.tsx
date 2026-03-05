@@ -7,8 +7,8 @@ const HOVER_DELAY_MS = 400;
 interface TooltipProps {
   label: string;
   children: React.ReactNode;
-  /** Position relative to trigger (toolbar buttons are on the right, so left is default) */
-  side?: 'left' | 'top' | 'bottom';
+  /** Position relative to trigger */
+  side?: 'left' | 'right' | 'top' | 'bottom';
 }
 
 export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
@@ -54,9 +54,11 @@ export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
   const positionClass =
     side === 'left'
       ? 'right-full top-1/2 -translate-y-1/2 mr-2'
-      : side === 'top'
-        ? 'bottom-full left-1/2 -translate-x-1/2 mb-2'
-        : 'top-full left-1/2 -translate-x-1/2 mt-2';
+      : side === 'right'
+        ? 'left-full top-1/2 -translate-y-1/2 ml-2'
+        : side === 'top'
+          ? 'bottom-full left-1/2 -translate-x-1/2 mb-2'
+          : 'top-full left-1/2 -translate-x-1/2 mt-2';
 
   return (
     <span
