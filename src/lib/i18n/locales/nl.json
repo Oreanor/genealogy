@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Verwijderen",
   "adminHistoryImages": "Afbeeldingen",
   "adminSigned": "✓ gesigneerd",
-  "adminNew": "nieuw"
+  "adminNew": "nieuw",
+  "adminHistoryHowItWorks": "Links: lijst verhalen. Rechts: editor. Bewerk titel en tekst, koppel personen.",
+  "adminSaveReminder": "Na bewerken kopieer naar klembord of download JSON (knoppen rechts)."
 }

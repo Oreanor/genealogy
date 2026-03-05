@@ -24,6 +24,10 @@ import type { PhotoEntry } from '@/lib/types/photo';
 const PHOTOS_PER_PAGE = 9;
 const PHOTOS_PER_SPREAD = PHOTOS_PER_PAGE * 2;
 
+/** Shared class for section headings inside the book (serif, responsive size) */
+const SECTION_HEADING_CLASS =
+  'book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl';
+
 export function BookView() {
   const searchParams = useSearchParams();
   const { t, routes } = useLocaleRoutes();
@@ -82,7 +86,7 @@ export function BookView() {
       <BookSpread
         left={
           <BookPage>
-            <h1 className="book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+            <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_history')}
             </h1>
             <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">
@@ -113,7 +117,7 @@ export function BookView() {
               {filteredHistoryEntries.length === 0 ? (
                 <li className="text-[var(--ink-muted)]">{t('unknown')}</li>
               ) : (
-                filteredHistoryEntries.map((entry, idx) => {
+                filteredHistoryEntries.map((entry) => {
                   const originalIndex = entries.indexOf(entry);
                   const isSelected = selectedEntry === entry;
                   return (
@@ -249,7 +253,7 @@ export function BookView() {
       <BookSpread
         left={
           <BookPage>
-            <h1 className="book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+            <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_persons')}
             </h1>
             <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">

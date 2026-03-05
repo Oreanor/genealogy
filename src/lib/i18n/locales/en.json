@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Delete",
   "adminHistoryImages": "Images",
   "adminSigned": "✓ signed",
-  "adminNew": "new"
+  "adminNew": "new",
+  "adminHistoryHowItWorks": "Left: list of stories. Right: editor. Edit title and text, link persons to the story.",
+  "adminSaveReminder": "After editing, copy data to clipboard or download JSON (buttons on the right)."
 }

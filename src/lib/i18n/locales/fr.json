@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Supprimer",
   "adminHistoryImages": "Images",
   "adminSigned": "✓ signé",
-  "adminNew": "nouveau"
+  "adminNew": "nouveau",
+  "adminHistoryHowItWorks": "À gauche : liste des récits. À droite : éditeur. Modifiez titre et texte, liez les personnes.",
+  "adminSaveReminder": "Après édition, copiez dans le presse-papiers ou téléchargez le JSON (boutons à droite)."
 }

@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Löschen",
   "adminHistoryImages": "Bilder",
   "adminSigned": "✓ signiert",
-  "adminNew": "neu"
+  "adminNew": "neu",
+  "adminHistoryHowItWorks": "Links: Liste der Geschichten. Rechts: Editor. Titel und Text bearbeiten, Personen verknüpfen.",
+  "adminSaveReminder": "Nach dem Bearbeiten in die Zwischenablage kopieren oder JSON herunterladen (Schaltflächen rechts)."
 }

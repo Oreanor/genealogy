@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Видалити",
   "adminHistoryImages": "Зображення",
   "adminSigned": "✓ підписано",
-  "adminNew": "нове"
+  "adminNew": "нове",
+  "adminHistoryHowItWorks": "Зліва — список історій, справа — редактор. Редагуй назву й текст, прив'язуй персон до історії.",
+  "adminSaveReminder": "Після редагування скопіюйте дані в буфер або завантажте JSON (кнопки справа)."
 }

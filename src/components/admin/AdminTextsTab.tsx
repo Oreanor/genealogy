@@ -107,7 +107,13 @@ export function AdminTextsTab({
   const selectedEntry = selectedIdx !== null ? entries[selectedIdx] ?? null : null;
 
   return (
-    <div className="flex h-[70vh] min-h-[400px] gap-4">
+    <div className="space-y-4">
+      <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] p-3 text-sm text-[var(--ink)]">
+        <p className="font-medium">{t('adminHowItWorks')}</p>
+        <p className="mt-1 text-[var(--ink-muted)]">{t('adminHistoryHowItWorks')}</p>
+        <p className="mt-1 text-[var(--ink-muted)]">{t('adminSaveReminder')}</p>
+      </div>
+      <div className="flex h-[70vh] min-h-[400px] gap-4">
       {/* Left: list of titles + add button */}
       <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-[var(--border-subtle)] pr-4">
         <button
@@ -239,6 +245,7 @@ export function AdminTextsTab({
             {entries.length === 0 ? t('adminNoEntries') : t('adminSelectEntry')}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

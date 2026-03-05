@@ -166,6 +166,7 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
       <div className="rounded-lg border border-(--border-subtle) bg-(--surface) p-3 text-sm text-(--ink)">
         <p className="font-medium">{t('adminHowItWorks')}</p>
         <p className="mt-1 text-(--ink-muted)">{t('adminPhotosHowItWorks')}</p>
+        <p className="mt-1 text-(--ink-muted)">{t('adminSaveReminder')}</p>
       </div>
       <div className="flex gap-2">
         <button

@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Usuń",
   "adminHistoryImages": "Obrazy",
   "adminSigned": "✓ podpisane",
-  "adminNew": "nowe"
+  "adminNew": "nowe",
+  "adminHistoryHowItWorks": "Po lewej: lista historii. Po prawej: edytor. Edytuj tytuł i tekst, przypisz osoby.",
+  "adminSaveReminder": "Po edycji skopiuj do schowka lub pobierz JSON (przyciski po prawej)."
 }

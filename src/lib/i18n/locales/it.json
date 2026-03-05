@@ -110,5 +110,7 @@
   "adminDeleteEntry": "Elimina",
   "adminHistoryImages": "Immagini",
   "adminSigned": "✓ firmato",
-  "adminNew": "nuovo"
+  "adminNew": "nuovo",
+  "adminHistoryHowItWorks": "A sinistra: elenco storie. A destra: editor. Modifica titolo e testo, collega persone.",
+  "adminSaveReminder": "Dopo la modifica copia negli appunti o scarica JSON (pulsanti a destra)."
 }

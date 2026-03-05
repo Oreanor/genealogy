@@ -115,6 +115,7 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
         <p className="mt-1 text-[var(--ink-muted)]">
           {t('adminPersonsHint', { id: ROOT_PERSON_ID })}
         </p>
+        <p className="mt-1 text-[var(--ink-muted)]">{t('adminSaveReminder')}</p>
       </div>
       <div className="flex flex-wrap gap-2">
         <button
