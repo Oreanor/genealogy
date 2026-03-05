@@ -5,7 +5,6 @@ import { useTranslations } from '@/lib/i18n/context';
 import { ADMIN_TAB_IDS, type AdminTabId } from '@/lib/constants/storage';
 import { HelpCircle } from 'lucide-react';
 import { AdminHelpDialog } from './AdminHelpDialog';
-import { Button } from '@/components/ui/atoms';
 
 export type { AdminTabId };
 
@@ -26,37 +25,38 @@ export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
     [onSelect]
   );
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-2">
-        <div className="flex gap-2">
+    <div>
+      <nav className="flex flex-wrap items-end justify-between gap-1 border-b border-(--border)">
+        <div className="flex flex-wrap gap-1">
           {ADMIN_TAB_IDS.map((id) => (
             <button
               key={id}
               type="button"
               data-tabid={id}
               onClick={handleTabClick}
-              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded-t-md px-4 py-2 text-sm font-medium shadow-sm transition-colors ${
                 active === id
-                  ? 'bg-[var(--accent)] text-[var(--nav-btn-ink)]'
-                  : 'bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--paper-light)]'
+                  ? 'bg-(--nav-btn-hover) text-(--nav-btn-ink) -mb-px border-b border-(--nav-btn-hover)'
+                  : 'bg-(--nav-btn) text-(--nav-btn-ink) hover:bg-(--nav-btn-hover)'
               }`}
             >
               {t(id === 'persons' ? 'adminTabPersons' : id === 'texts' ? 'chapters_history' : 'adminTabPhotos')}
             </button>
           ))}
         </div>
-        <Button
-          variant="secondary"
-          size="sm"
+        <button
+          type="button"
           onClick={() => setHelpOpen(true)}
-          className="shrink-0"
+          className="rounded-t-md bg-(--nav-btn) px-3 py-1.5 text-sm font-medium text-(--nav-btn-ink) shadow-sm transition-colors hover:bg-(--nav-btn-hover) flex items-center gap-1.5"
           aria-label={t('adminHelp')}
         >
           <HelpCircle className="size-4" aria-hidden />
-          <span className="ml-1.5">{t('adminHelp')}</span>
-        </Button>
+          {t('adminHelp')}
+        </button>
+      </nav>
+      <div className="pt-4">
+        {children}
       </div>
-      {children}
       {helpOpen && (
         <AdminHelpDialog activeTab={active} onClose={() => setHelpOpen(false)} />
       )}

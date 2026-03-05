@@ -215,7 +215,7 @@ export function AdminPersonsTable({
           {t('adminAddRow')}
         </Button>
       </div>
-      <div className="overflow-auto rounded-xl border border-[var(--border)] bg-[var(--paper)] max-h-[60vh]">
+      <div className="overflow-auto border border-[var(--border)] bg-[var(--paper)] max-h-[calc(100vh-210px)]">
         <table className="w-full min-w-[800px] border-collapse text-sm">
           <thead className="sticky top-0 z-10 bg-[var(--surface)] shadow-[0_1px_0_0_var(--border-subtle)]">
             <tr className="border-b border-[var(--border)]">

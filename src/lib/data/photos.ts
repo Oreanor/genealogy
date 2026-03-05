@@ -30,8 +30,10 @@ const photos: PhotoEntry[] = raw.map((p) => ({
   category: p.category ?? 'related',
 }));
 
-export function getPhotos(): PhotoEntry[] {
-  return photos;
+const visible: PhotoEntry[] = photos.filter((p) => !p.hidden);
+
+export function getPhotos({ includeHidden = false } = {}): PhotoEntry[] {
+  return includeHidden ? photos : visible;
 }
 
 export function getPhotoById(id: string): PhotoEntry | null {
@@ -39,12 +41,12 @@ export function getPhotoById(id: string): PhotoEntry | null {
 }
 
 export function getPhotosByCategory(category: PhotoCategory): PhotoEntry[] {
-  return photos.filter((p) => p.category === category);
+  return visible.filter((p) => p.category === category);
 }
 
 /** Photos linked to a person (in people array). */
 export function getPhotosByPerson(personId: string): PhotoEntry[] {
-  return photos.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId));
+  return visible.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId));
 }
 
 /** Image URLs by category: front (src) and back (backSrc) if present. */
@@ -56,12 +58,12 @@ export function getImageLinksByCategory(category: PhotoCategory): string[] {
 
 /** Photo by src (for avatar lookup). */
 export function getPhotoBySrc(src: string): PhotoEntry | null {
-  return photos.find((p) => p.src === src) ?? null;
+  return visible.find((p) => p.src === src) ?? null;
 }
 
 /** Photos eligible for avatar: personal (this person) or group (this person in people). */
 export function getPhotosEligibleForAvatar(personId: string): PhotoEntry[] {
-  return getPhotosEligibleForAvatarFromList(photos, personId);
+  return getPhotosEligibleForAvatarFromList(visible, personId);
 }
 
 /** Same but from a given list (e.g. admin state). */
@@ -133,7 +135,7 @@ export function getAvatarForPerson(personId: string, preferredPhotoSrc?: string)
 
 /** All avatar options for a person (each photo cropped by face rect). */
 export function getAvatarOptionsForPerson(personId: string): AvatarSource[] {
-  return getAvatarOptionsForPersonFromList(photos, personId);
+  return getAvatarOptionsForPersonFromList(visible, personId);
 }
 
 /** Same from a given list (e.g. admin state). */

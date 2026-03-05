@@ -33,10 +33,10 @@ export function PersonCard({ person }: PersonCardProps) {
   const spouse = getSpouse(person.id);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <h2 className="book-serif text-2xl font-semibold text-[var(--ink)]">{getFullName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
-        <div className="space-y-2 text-[var(--ink)]">
+        <div className="space-y-3 text-[var(--ink)]">
           {spouse && (
             <p>
               <span className="font-medium">
@@ -118,14 +118,14 @@ export function PersonCard({ person }: PersonCardProps) {
         </p>
       )}
       {historyMentions.length > 0 && (
-        <div className="space-y-1">
-          <h3 className="text-sm font-medium text-[var(--ink)]">{t('personMentionedInStories')}</h3>
-          <ul className="flex flex-wrap gap-2">
+        <div className="space-y-2">
+          <h3 className="text-base font-medium text-[var(--ink)]">{t('personMentionedInStories')}</h3>
+          <ul className="flex flex-wrap gap-3">
             {historyMentions.map(({ entry, index }) => (
               <li key={index}>
                 <Link
                   href={`${pathname}?section=history&entry=${index}`}
-                  className={`rounded px-2 py-1 text-sm ${CONTENT_LINK_CLASS}`}
+                  className={`rounded px-3 py-2 text-base ${CONTENT_LINK_CLASS}`}
                 >
                   {entry.title || `${t('chapters_history')} ${index + 1}`}
                 </Link>
@@ -135,9 +135,9 @@ export function PersonCard({ person }: PersonCardProps) {
         </div>
       )}
       {personPhotos.length > 0 && (
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-[var(--ink)]">{t('personPhotos')}</h3>
-          <ul className="flex flex-wrap gap-2">
+        <div className="space-y-3">
+          <h3 className="text-base font-medium text-[var(--ink)]">{t('personPhotos')}</h3>
+          <ul className="flex flex-wrap gap-3">
             {personPhotos.map((photo, index) => (
               <li key={photo.src}>
                 <button

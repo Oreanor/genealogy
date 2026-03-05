@@ -6,4 +6,6 @@ export interface HistoryEntry {
   richText: string;
   /** Person IDs */
   personIds: string[];
+  /** Hidden from book, search, PDF export. */
+  hidden?: boolean;
 }

@@ -7,6 +7,7 @@ import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
 import { BookSpread } from './BookSpread';
 import { BookPage } from './BookPage';
+import { HelpSpread } from './HelpSpread';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { HistoryContentRenderer } from '@/components/content/HistoryContentRenderer';
 import { PersonCard } from '@/components/content/PersonCard';
@@ -28,7 +29,7 @@ const PHOTOS_PER_SPREAD = PHOTOS_PER_PAGE * 2;
 
 /** Shared class for section headings inside the book (serif, responsive size) */
 const SECTION_HEADING_CLASS =
-  'book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl';
+  'book-serif mb-5 text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl';
 
 export function BookView() {
   const searchParams = useSearchParams();
@@ -62,6 +63,10 @@ export function BookView() {
     });
   }, [section, historySearch]);
 
+  if (section === 'help') {
+    return <HelpSpread />;
+  }
+
   if (section === 'tree') {
     const selectedTreePerson =
       selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
@@ -69,8 +74,8 @@ export function BookView() {
       <>
         <BookSpread
           fullWidth={
-            <BookPage className="p-2 sm:p-3 md:p-4">
-              <h1 className="book-serif mb-1 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+            <BookPage className="p-3 sm:p-5 md:p-6">
+              <h1 className="book-serif mb-2 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
                 {t('treeTitle')}
               </h1>
               <FamilyTree onPersonClick={setSelectedTreePersonId} />
@@ -103,7 +108,7 @@ export function BookView() {
             <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_history')}
             </h1>
-            <div className="mt-4">
+            <div className="mt-6">
               <SearchField
                 placeholder={t('historySearchPlaceholder')}
                 value={historySearch}
@@ -111,7 +116,7 @@ export function BookView() {
                 aria-label={t('historySearchPlaceholder')}
               />
             </div>
-            <ul className="mt-4 flex-1 min-h-0 overflow-y-auto space-y-2">
+            <ul className="mt-6 flex-1 min-h-0 overflow-y-auto space-y-3">
               {filteredHistoryEntries.length === 0 ? (
                 <li className="text-[var(--ink-muted)]">{t('unknown')}</li>
               ) : (
@@ -122,7 +127,7 @@ export function BookView() {
                     <li key={originalIndex}>
                       <Link
                         href={`${pathname}?section=history&entry=${originalIndex}`}
-                        className={`block rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-[var(--paper-light)] ${CONTENT_LINK_CLASS} ${isSelected ? 'bg-[var(--paper-light)] font-medium' : ''}`}
+                        className={`block rounded-md px-3 py-2.5 text-base transition-colors hover:bg-[var(--paper-light)] ${CONTENT_LINK_CLASS} ${isSelected ? 'bg-[var(--paper-light)] font-medium' : ''}`}
                       >
                         {entry.title || `${t('chapters_history')} ${originalIndex + 1}`}
                       </Link>
@@ -134,12 +139,12 @@ export function BookView() {
           </BookPage>
         }
         right={
-          <BookPage className="p-6 sm:p-8 md:p-10">
+          <BookPage className="p-8 sm:p-10 md:p-12">
             <div className="flex h-full min-h-0 flex-col overflow-y-auto">
               {selectedEntry ? (
                 <HistoryContentRenderer entries={[selectedEntry]} />
               ) : (
-                <p className="text-[var(--ink-muted)] py-4">
+                <p className="text-[var(--ink-muted)] py-6 text-base">
                   {t('historySelectHint')}
                 </p>
               )}
@@ -165,7 +170,7 @@ export function BookView() {
     const hasNext = spread < totalSpreads - 1;
 
     const photoGrid = (list: PhotoEntry[]) => (
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
         {list.map((photo) => (
           <button
             key={photo.id}
@@ -190,7 +195,7 @@ export function BookView() {
         <BookSpread
           left={
             <BookPage>
-              <h1 className="book-serif mb-2 text-xl font-semibold text-[var(--ink)] md:text-2xl">
+              <h1 className="book-serif mb-4 text-xl font-semibold text-[var(--ink)] md:text-2xl">
                 {t('chapters_photos')}
               </h1>
               <div className="flex-1 min-h-0 overflow-y-auto">
@@ -207,7 +212,7 @@ export function BookView() {
           }
         />
         {totalSpreads > 1 && (
-          <div className="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-none">
+          <div className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
             <div className="pointer-events-auto">
               <NavButton
                 onClick={() => router.push(`${pathname}?section=photos&spread=${spread - 1}`)}
@@ -216,7 +221,7 @@ export function BookView() {
                 ← {t('back')}
               </NavButton>
             </div>
-            <span className="text-sm font-medium text-[var(--ink)] drop-shadow-sm">
+            <span className="text-base font-medium text-[var(--ink)] drop-shadow-sm">
               {spread + 1} / {totalSpreads}
             </span>
             <div className="pointer-events-auto">
@@ -255,7 +260,7 @@ export function BookView() {
             <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_persons')}
             </h1>
-            <div className="mt-4">
+            <div className="mt-6">
               <SearchField
                 placeholder={t('personsSearchPlaceholder')}
                 value={personsSearch}
@@ -263,20 +268,34 @@ export function BookView() {
                 aria-label={t('personsSearchPlaceholder')}
               />
             </div>
-            <ul className="mt-4 flex-1 min-h-0 overflow-y-auto space-y-2">
+            <ul className="mt-4 flex-1 min-h-0 overflow-y-auto">
               {filteredSortedPersons.length === 0 ? (
                 <li className="text-[var(--ink-muted)]">{t('unknown')}</li>
               ) : (
-                filteredSortedPersons.map((person) => (
-                  <li key={person.id}>
-                    <Link
-                      href={routes.person(person.id)}
-                      className={`block rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-[var(--paper-light)] ${CONTENT_LINK_CLASS} ${selectedPerson?.id === person.id ? 'bg-[var(--paper-light)] font-medium' : ''}`}
-                    >
-                      {getFullName(person) || person.id}
-                    </Link>
-                  </li>
-                ))
+                filteredSortedPersons.map((person, idx) => {
+                  const name = getFullName(person) || person.id;
+                  const letter = (person.lastName || name).charAt(0).toUpperCase();
+                  const prevPerson = filteredSortedPersons[idx - 1];
+                  const prevLetter = prevPerson
+                    ? (prevPerson.lastName || getFullName(prevPerson) || prevPerson.id).charAt(0).toUpperCase()
+                    : '';
+                  const showLetter = letter !== prevLetter;
+                  return (
+                    <li key={person.id}>
+                      {showLetter && (
+                        <div className="mt-3 mb-1 px-3 text-lg font-bold text-[var(--ink-muted)]" aria-hidden>
+                          {letter}
+                        </div>
+                      )}
+                      <Link
+                        href={routes.person(person.id)}
+                        className={`block rounded-md px-3 py-1 text-sm text-[var(--ink)] no-underline transition-colors hover:bg-[var(--paper-light)] ${selectedPerson?.id === person.id ? 'bg-[var(--paper-light)] font-medium' : ''}`}
+                      >
+                        {name}
+                      </Link>
+                    </li>
+                  );
+                })
               )}
             </ul>
           </BookPage>
@@ -287,7 +306,7 @@ export function BookView() {
               {selectedPerson ? (
                 <PersonCard person={selectedPerson} />
               ) : (
-                <p className="text-[var(--ink-muted)] py-4">
+                <p className="text-[var(--ink-muted)] py-6 text-base">
                   {t('personsSelectHint')}
                 </p>
               )}

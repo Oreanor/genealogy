@@ -6,7 +6,7 @@ import { LOCALES } from '@/lib/i18n/config';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { getPathSegments } from '@/lib/utils/path';
 import { useClickOutside } from '@/hooks/useClickOutside';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 const LOCALE_LABELS: Record<string, string> = {
   ru: 'RU',
@@ -31,6 +31,7 @@ function saveLocaleToStorage(locale: string) {
 
 export function LocaleSwitcher() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const currentLocale = useLocale();
   const t = useTranslations();
@@ -45,7 +46,8 @@ export function LocaleSwitcher() {
 
   const goToLocale = (locale: string) => {
     saveLocaleToStorage(locale);
-    const href = `/${locale}${basePath ? `/${basePath}` : ''}`;
+    const search = searchParams?.toString();
+    const href = `/${locale}${basePath ? `/${basePath}` : ''}${search ? `?${search}` : ''}`;
     router.push(href);
     setOpen(false);
   };

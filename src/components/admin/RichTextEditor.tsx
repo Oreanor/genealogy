@@ -25,7 +25,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
     editorProps: {
       attributes: {
         class:
-          'min-h-[120px] max-h-[300px] overflow-y-auto rounded border border-[var(--border-subtle)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)] focus:outline-none',
+          'h-full text-[var(--ink)] focus:outline-none',
       },
     },
   });
@@ -39,8 +39,8 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
   if (!editor) return <div className="min-h-[120px] animate-pulse rounded bg-[var(--surface)]" />;
 
   return (
-    <div className="space-y-2">
-      <div className="flex flex-wrap gap-1">
+    <div className="flex h-full flex-col gap-2">
+      <div className="flex shrink-0 flex-wrap gap-1">
         <button
           type="button"
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -82,7 +82,11 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
           className="h-8 w-8 cursor-pointer rounded border border-[var(--border)]"
         />
       </div>
-      <EditorContent editor={editor} />
+      <div className="min-h-0 flex-1 rounded border border-(--border-subtle) bg-(--paper) px-2">
+        <div className="h-full overflow-y-auto pt-2 pb-4 mb-4">
+          <EditorContent editor={editor} />
+        </div>
+      </div>
     </div>
   );
 }

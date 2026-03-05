@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { SECTION_IDS, SECTIONS, isSectionId } from './sections';
 
 describe('sections', () => {
-  it('exports SECTION_IDS with tree, persons, history, photos', () => {
-    expect(SECTION_IDS).toEqual(['tree', 'persons', 'history', 'photos']);
+  it('exports SECTION_IDS with tree, persons, history, photos, help', () => {
+    expect(SECTION_IDS).toEqual(['tree', 'persons', 'history', 'photos', 'help']);
   });
 
   it('exports SECTIONS with id and i18nKey for each', () => {
-    expect(SECTIONS).toHaveLength(4);
-    expect(SECTIONS.map((s) => s.id)).toEqual(['tree', 'persons', 'history', 'photos']);
+    expect(SECTIONS).toHaveLength(5);
+    expect(SECTIONS.map((s) => s.id)).toEqual(['tree', 'persons', 'history', 'photos', 'help']);
     expect(SECTIONS.every((s) => s.i18nKey.startsWith('chapters_'))).toBe(true);
   });
 
@@ -18,6 +18,7 @@ describe('sections', () => {
       expect(isSectionId('persons')).toBe(true);
       expect(isSectionId('history')).toBe(true);
       expect(isSectionId('photos')).toBe(true);
+      expect(isSectionId('help')).toBe(true);
     });
 
     it('returns false for invalid values', () => {

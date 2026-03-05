@@ -25,14 +25,14 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   const messages = getMessages(locale);
   const [persons, photos, history] = [
     getPersons(),
-    getPhotos(),
-    getHistoryEntries(),
+    getPhotos({ includeHidden: true }),
+    getHistoryEntries({ includeHidden: true }),
   ];
   const rootPersonId = getRootPersonId();
   return (
     <BookLayout alignTop>
       <div className="w-full max-w-[100%] p-4 sm:max-w-[100%] md:max-w-[100%]">
-        <h1 className="mb-4 text-2xl font-semibold text-[var(--ink)]">
+        <h1 className="mb-4 text-4xl font-semibold text-[var(--ink)]">
           {messages.adminTitle ?? 'Admin'}
         </h1>
         <AdminPageClient

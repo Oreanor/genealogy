@@ -1,11 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getPersons } from '@/lib/data/persons';
 import { getFullName } from '@/lib/utils/person';
 import { useTranslations } from '@/lib/i18n/context';
 import type { PhotoCategory, PhotoEntry } from '@/lib/types/photo';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui/atoms';
+import { Dialog } from '@/components/ui/molecules/Dialog';
 
 const DRAG_THRESHOLD_PX = 5;
 
@@ -37,6 +39,8 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
   const t = useTranslations();
   const [loading, setLoading] = useState(true);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
+  const [confirmDeleteIdx, setConfirmDeleteIdx] = useState<number | null>(null);
+  const [bulkAction, setBulkAction] = useState<'showAll' | 'hideAll' | 'deleteAll' | null>(null);
   const [peopleEditor, setPeopleEditor] = useState<PeopleEditorState | null>(null);
   const [editingPersonId, setEditingPersonId] = useState('');
   const [editingLabel, setEditingLabel] = useState('');
@@ -45,6 +49,10 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
     structuredClone(initialPhotos.length > 0 ? initialPhotos : [])
   );
   const persons = getPersons();
+  const existingSeries = useMemo(
+    () => [...new Set(photos.map((p) => p.series).filter(Boolean) as string[])].sort(),
+    [photos]
+  );
 
   useEffect(() => {
     fetch('/api/admin/photos/scan')
@@ -114,6 +122,27 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
     []
   );
 
+  const removePhoto = useCallback((idx: number) => {
+    setPhotos((prev) => prev.filter((_, i) => i !== idx));
+    if (selectedPhotoIdx === idx) setSelectedPhotoIdx(null);
+    else if (selectedPhotoIdx !== null && selectedPhotoIdx > idx) {
+      setSelectedPhotoIdx(selectedPhotoIdx - 1);
+    }
+    setConfirmDeleteIdx(null);
+  }, [selectedPhotoIdx]);
+
+  const executeBulkAction = useCallback(() => {
+    if (bulkAction === 'showAll') {
+      setPhotos((prev) => prev.map((p) => ({ ...p, hidden: undefined })));
+    } else if (bulkAction === 'hideAll') {
+      setPhotos((prev) => prev.map((p) => ({ ...p, hidden: true })));
+    } else if (bulkAction === 'deleteAll') {
+      setPhotos([]);
+      setSelectedPhotoIdx(null);
+    }
+    setBulkAction(null);
+  }, [bulkAction]);
+
   const removePersonFromPhoto = useCallback((photoIdx: number, personIdx: number) => {
     setPhotos((prev) => {
       const next = [...prev];
@@ -159,43 +188,112 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2">
+    <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
+      <div className="flex shrink-0 flex-wrap gap-2 pb-3">
         <Button variant="secondary" onClick={() => window.location.reload()}>
           {t('adminRefreshList')}
         </Button>
+        {photos.some((p) => p.hidden) ? (
+          <Button variant="secondary" onClick={() => setBulkAction('showAll')} className="gap-1.5">
+            <Eye className="size-4" /> {t('adminShowAll')}
+          </Button>
+        ) : (
+          <Button variant="secondary" onClick={() => setBulkAction('hideAll')} className="gap-1.5">
+            <EyeOff className="size-4" /> {t('adminHideAll')}
+          </Button>
+        )}
+        <Button variant="danger" onClick={() => setBulkAction('deleteAll')} size="md">
+          {t('adminDeleteAll')}
+        </Button>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="min-h-0 flex-1 overflow-y-auto pb-1">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-3">
         {photos.map((photo, idx) => (
-          <Button
-            key={photo.src}
-            variant="secondary"
-            onClick={() => setSelectedPhotoIdx(idx)}
-            className="relative shrink-0 overflow-hidden rounded-lg border-2 border-[var(--border-subtle)] bg-[var(--paper)] p-0 aspect-[3/4] w-24 sm:w-28 hover:border-[var(--accent)] hover:shadow-lg"
-          >
-            <span className="block aspect-[3/4] w-24 overflow-hidden bg-(--paper-light) sm:w-28">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photo.src}
-                alt=""
-                className="h-full w-full object-cover"
-              />
-            </span>
-            {isNew(photo) && (
-              <span className="absolute right-1 top-1 rounded bg-amber-500 px-1.5 py-0.5 text-xs font-medium text-white shadow">
-                {t('adminNew')}
+          <div key={photo.src} className="relative">
+            <Button
+              variant="secondary"
+              onClick={() => setSelectedPhotoIdx(idx)}
+              className={`relative w-full overflow-hidden rounded-lg border-2 border-(--border-subtle) bg-(--paper) p-0 aspect-3/4 hover:border-(--accent) hover:shadow-lg ${photo.hidden ? 'opacity-40' : ''}`}
+            >
+              <span className="block aspect-3/4 w-full overflow-hidden bg-(--paper-light)">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt=""
+                  className="h-full w-full object-cover"
+                />
               </span>
-            )}
-          </Button>
+              {isNew(photo) && (
+                <span className="absolute left-1 top-1 rounded bg-amber-500 px-1.5 py-0.5 text-xs font-medium text-white shadow">
+                  {t('adminNew')}
+                </span>
+              )}
+            </Button>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setConfirmDeleteIdx(idx); }}
+              className="absolute right-1 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white shadow hover:bg-red-700"
+              title={t('adminRemove')}
+              aria-label={t('adminRemove')}
+            >
+              ✕
+            </button>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); updatePhoto(idx, 'hidden', !photo.hidden); }}
+              className={`absolute bottom-6 right-1 z-10 flex h-5 w-5 items-center justify-center rounded-full shadow ${photo.hidden ? 'bg-(--ink-muted) text-white' : 'bg-white/80 text-(--ink)'}`}
+              title={photo.hidden ? t('adminShow') : t('adminHide')}
+              aria-label={photo.hidden ? t('adminShow') : t('adminHide')}
+            >
+              {photo.hidden ? <EyeOff className="size-3" /> : <Eye className="size-3" />}
+            </button>
+            <span className="mt-0.5 block truncate text-center text-xs leading-tight text-(--ink-muted)" title={photo.src}>
+              {photo.src.split('/').pop()}
+            </span>
+          </div>
         ))}
       </div>
+      </div>
+      {confirmDeleteIdx !== null && (
+        <Dialog
+          open
+          onClose={() => setConfirmDeleteIdx(null)}
+          title={t('adminRemove')}
+          variant="confirm"
+          confirmLabel={t('adminRemove')}
+          cancelLabel={t('adminCancel')}
+          onConfirm={() => removePhoto(confirmDeleteIdx)}
+        >
+          <p className="text-sm text-[var(--ink)]">{t('adminDeletePhotoConfirm')}</p>
+        </Dialog>
+      )}
+      {bulkAction !== null && (
+        <Dialog
+          open
+          onClose={() => setBulkAction(null)}
+          title={bulkAction === 'deleteAll' ? t('adminDeleteAll') : bulkAction === 'showAll' ? t('adminShowAll') : t('adminHideAll')}
+          variant="confirm"
+          confirmLabel={t('dialogConfirm')}
+          cancelLabel={t('adminCancel')}
+          onConfirm={executeBulkAction}
+        >
+          <p className="text-sm text-[var(--ink)]">
+            {bulkAction === 'deleteAll'
+              ? t('adminDeleteAllConfirm')
+              : bulkAction === 'showAll'
+                ? t('adminShowAllConfirm')
+                : t('adminHideAllConfirm')}
+          </p>
+        </Dialog>
+      )}
 
       {selectedPhotoIdx !== null && (
         <PhotoEditLightbox
           photo={photos[selectedPhotoIdx]!}
           photoIdx={selectedPhotoIdx}
           persons={persons}
+          existingSeries={existingSeries}
           onUpdate={(field, value) => updatePhoto(selectedPhotoIdx, field, value)}
           onOpenAddPerson={() => {
             setPeopleEditor({ photoIdx: selectedPhotoIdx, personIdx: null });
@@ -246,6 +344,7 @@ interface PhotoEditLightboxProps {
   photo: PhotoEntry;
   photoIdx: number;
   persons: ReturnType<typeof getPersons>;
+  existingSeries: string[];
   onUpdate: (field: keyof PhotoEntry, value: unknown) => void;
   onOpenAddPerson: () => void;
   onOpenEditPerson: (personIdx: number) => void;
@@ -263,10 +362,71 @@ interface PhotoEditLightboxProps {
   isAddMode?: boolean;
 }
 
+const SERIES_NEW_VALUE = '__new__';
+
+function SeriesControl({
+  value,
+  existingSeries,
+  onChange,
+}: {
+  value: string;
+  existingSeries: string[];
+  onChange: (v: string) => void;
+}) {
+  const t = useTranslations();
+  const [isCustom, setIsCustom] = useState(
+    () => value !== '' && !existingSeries.includes(value)
+  );
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSelect = (v: string) => {
+    if (v === SERIES_NEW_VALUE) {
+      setIsCustom(true);
+      onChange('');
+      requestAnimationFrame(() => inputRef.current?.focus());
+    } else {
+      setIsCustom(false);
+      onChange(v);
+    }
+  };
+
+  return (
+    <div>
+      <label className="mb-1 block text-sm font-medium text-(--ink)">
+        {t('adminPhotoSeries')}
+      </label>
+      <Select
+        value={isCustom ? SERIES_NEW_VALUE : value}
+        onChange={(e) => handleSelect(e.target.value)}
+        className="bg-[var(--paper)] px-3 py-2"
+      >
+        <option value="">&mdash;</option>
+        {existingSeries.map((s) => (
+          <option key={s} value={s}>
+            {s}
+          </option>
+        ))}
+        <option value={SERIES_NEW_VALUE}>+ {t('adminPhotoSeriesPlaceholder')}</option>
+      </Select>
+      {isCustom && (
+        <Input
+          ref={inputRef}
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={t('adminPhotoSeriesPlaceholder')}
+          className="mt-2 bg-[var(--paper)] px-3 py-2"
+        />
+      )}
+    </div>
+  );
+}
+
 function PhotoEditLightbox({
   photo,
   photoIdx,
   persons,
+  existingSeries,
   onUpdate,
   onOpenAddPerson,
   onOpenEditPerson,
@@ -400,7 +560,16 @@ function PhotoEditLightbox({
           ×
         </Button>
 
-        <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center rounded-lg bg-(--paper-light) p-2">
+        <div className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center rounded-lg bg-(--paper-light) p-2">
+          <button
+            type="button"
+            onClick={() => onUpdate('hidden', !photo.hidden)}
+            className={`absolute bottom-3 right-3 z-10 flex h-7 w-7 items-center justify-center rounded-full shadow ${photo.hidden ? 'bg-[var(--ink-muted)] text-white' : 'bg-white/80 text-[var(--ink)]'}`}
+            title={photo.hidden ? t('adminShow') : t('adminHide')}
+            aria-label={photo.hidden ? t('adminShow') : t('adminHide')}
+          >
+            {photo.hidden ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+          </button>
           <div
             ref={leftPanelRef}
             className={`relative inline-block max-h-[85vh] max-w-full ${faceEditMode ? 'cursor-crosshair' : ''}`}
@@ -465,6 +634,12 @@ function PhotoEditLightbox({
             </Select>
           </div>
 
+          <SeriesControl
+            value={photo.series ?? ''}
+            existingSeries={existingSeries}
+            onChange={(v) => onUpdate('series', v || undefined)}
+          />
+
           <div>
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-(--ink)">
@@ -488,11 +663,30 @@ function PhotoEditLightbox({
                     onChange={(e) => onEditingPersonIdChange?.(e.target.value)}
                     className="bg-[var(--paper)] px-3 py-2 w-full"
                   >
-                    {persons.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {getFullName(p) || p.id}
-                      </option>
-                    ))}
+                    {(() => {
+                      const sorted = [...persons].sort((a, b) =>
+                        (getFullName(a) || a.id).localeCompare(getFullName(b) || b.id)
+                      );
+                      const groups: { letter: string; items: typeof sorted }[] = [];
+                      for (const p of sorted) {
+                        const letter = (p.lastName || getFullName(p) || p.id).charAt(0).toUpperCase();
+                        const last = groups[groups.length - 1];
+                        if (last && last.letter === letter) {
+                          last.items.push(p);
+                        } else {
+                          groups.push({ letter, items: [p] });
+                        }
+                      }
+                      return groups.map((g) => (
+                        <optgroup key={g.letter} label={g.letter}>
+                          {g.items.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {getFullName(p) || p.id}
+                            </option>
+                          ))}
+                        </optgroup>
+                      ));
+                    })()}
                     <option value={CUSTOM_PERSON_VALUE}>{t('adminPhotoCustomName')}</option>
                   </Select>
                 </div>

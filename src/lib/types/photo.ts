@@ -22,6 +22,10 @@ export interface PhotoEntry {
   backCaption?: string;
   /** Category for filtering. Default related on load. */
   category?: PhotoCategory;
+  /** Series name for grouping related photos (e.g. "Свадьба 1965", "Дом на Орловской"). */
+  series?: string;
   /** Who is on the photo: array of person id + face rect (for avatar crop). */
   people?: PhotoFace[];
+  /** Hidden from book, search, PDF export. */
+  hidden?: boolean;
 }

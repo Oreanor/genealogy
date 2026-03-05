@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
+import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input } from '@/components/ui/atoms';
+import { Dialog } from '@/components/ui/molecules/Dialog';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { Person } from '@/lib/types/person';
 import { getFullName } from '@/lib/utils/person';
@@ -32,6 +34,7 @@ export function AdminTextsTab({
   const [selectedIdx, setSelectedIdx] = useState<number | null>(0);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerQuery, setPickerQuery] = useState('');
+  const [confirmDeleteIdx, setConfirmDeleteIdx] = useState<number | null>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -108,114 +111,135 @@ export function AdminTextsTab({
   const selectedEntry = selectedIdx !== null ? entries[selectedIdx] ?? null : null;
 
   return (
-    <div className="space-y-4">
-      <div className="flex h-[70vh] min-h-[400px] gap-4">
+    <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
+      <div className="flex min-h-0 flex-1 gap-4">
       {/* Left: list of titles + add button */}
-      <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-[var(--border-subtle)] pr-4">
-        <Button variant="secondary" onClick={addEntry} className="shrink-0">
+      <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-(--border-subtle) pr-4">
+        <Button variant="secondary" onClick={addEntry} className="shrink-0 whitespace-nowrap">
           + {t('adminAddEntry')}
         </Button>
-        <ul className="min-h-0 flex-1 overflow-y-auto space-y-1">
+        <ul className="min-h-0 flex-1 overflow-y-auto">
           {entries.map((entry, idx) => (
-            <li key={idx}>
-              <Button
-                variant={selectedIdx === idx ? 'primary' : 'ghost'}
-                onClick={() => setSelectedIdx(idx)}
-                className="w-full justify-start px-3 py-2"
-              >
+            <li
+              key={idx}
+              className={`group flex cursor-pointer items-center gap-1 px-2 py-1.5 text-sm transition-colors ${
+                selectedIdx === idx
+                  ? 'bg-(--accent)/10 font-medium text-(--ink)'
+                  : 'text-(--ink-muted) hover:text-(--ink)'
+              }`}
+              onClick={() => setSelectedIdx(idx)}
+            >
+              <span className={`min-w-0 flex-1 truncate ${entry.hidden ? 'opacity-40' : ''}`}>
                 {entry.title || t('adminHistoryTitle')}
-              </Button>
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateEntry(idx, 'hidden', !entry.hidden);
+                }}
+                className={`shrink-0 p-0.5 transition-opacity ${entry.hidden ? 'text-[var(--ink-muted)]' : 'text-[var(--ink-muted)] opacity-0 group-hover:opacity-100'}`}
+                aria-label={entry.hidden ? t('adminShow') : t('adminHide')}
+                title={entry.hidden ? t('adminShow') : t('adminHide')}
+              >
+                {entry.hidden ? <EyeOff className="size-3.5" /> : <Eye className="size-3.5" />}
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setConfirmDeleteIdx(idx);
+                }}
+                className="shrink-0 p-0.5 text-[var(--ink-muted)] opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-600"
+                aria-label={t('adminDeleteEntry')}
+                title={t('adminDeleteEntry')}
+              >
+                ✕
+              </button>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Right: ~80% — title, rich text, persons */}
-      <div className="min-w-0 flex-1 flex flex-col gap-4 overflow-hidden">
+      {/* Right: persons, title, rich text */}
+      <div className="min-w-0 min-h-0 flex-1 flex flex-col gap-3 overflow-hidden">
         {selectedEntry !== null && selectedIdx !== null ? (
           <>
-            <div className="flex shrink-0 items-center gap-2">
-              <Input
-                type="text"
-                value={selectedEntry.title}
-                onChange={(e) => updateEntry(selectedIdx, 'title', e.target.value)}
-                placeholder={t('adminHistoryTitle')}
-                className="min-w-0 flex-1 bg-[var(--paper)] px-3 py-2"
-              />
-              <Button variant="danger" size="sm" onClick={() => removeEntry(selectedIdx)} className="shrink-0">
-                ✕ {t('adminDeleteEntry')}
-              </Button>
-            </div>
-
-            <div className="shrink-0 rounded-lg border border-[var(--border-subtle)] bg-[var(--paper-light)] p-3">
-              <span className="mb-2 block text-sm font-medium text-[var(--ink)]">
-                {t('adminHistoryPersons')}
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {selectedEntry.personIds.map((id) => {
-                  const person = persons.find((p) => p.id === id);
-                  return (
-                    <span
-                      key={id}
-                      className="inline-flex items-center gap-1 rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-2 py-1 text-sm text-[var(--ink)]"
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <span className="text-sm font-medium text-(--ink)">{t('adminHistoryPersons')}:</span>
+              {selectedEntry.personIds.map((id) => {
+                const person = persons.find((p) => p.id === id);
+                return (
+                  <span
+                    key={id}
+                    className="inline-flex items-center gap-1 text-sm text-(--ink)"
+                  >
+                    {getFullName(person) || id}
+                    <button
+                      type="button"
+                      onClick={() => removePersonFromEntry(selectedIdx, id)}
+                      className="text-(--ink-muted) hover:text-red-600"
                     >
-                      {getFullName(person) || id}
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        onClick={() => removePersonFromEntry(selectedIdx, id)}
-                        className="min-w-0 px-1 py-0"
-                      >
-                        ✕
-                      </Button>
-                    </span>
-                  );
-                })}
-                <div className="relative inline-block" ref={pickerRef}>
-                  <Button variant="secondary" size="sm" onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}>
-                    + {t('adminAddPerson')}
-                  </Button>
-                  {pickerOpen && (
-                    <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
-                      <Input
-                        type="text"
-                        value={pickerQuery}
-                        onChange={(e) => setPickerQuery(e.target.value)}
-                        placeholder={t('adminSearchPersons')}
-                        className="rounded-t-lg rounded-b-none border-b border-[var(--border-subtle)] px-3 py-2 placeholder:text-[var(--ink-muted)]"
-                        autoFocus
-                      />
-                      <ul className="max-h-48 overflow-y-auto py-1">
-                        {filteredPersons
-                          .filter((p) => !selectedEntry.personIds.includes(p.id))
-                          .map((p) => (
-                            <li key={p.id}>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => {
-                                  addPersonToEntry(selectedIdx, p.id);
-                                  setPickerOpen(false);
-                                }}
-                                className="w-full justify-start px-3 py-2"
-                              >
-                                {getFullName(p) || p.id}
-                              </Button>
-                            </li>
-                          ))}
-                        {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (
-                          <li className="px-3 py-2 text-sm text-[var(--ink-muted)]">
-                            {t('adminNoPersonsMatch')}
+                      ✕
+                    </button>
+                  </span>
+                );
+              })}
+              <div className="relative inline-block" ref={pickerRef}>
+                <button
+                  type="button"
+                  onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}
+                  className="text-sm text-(--accent) hover:underline"
+                >
+                  + {t('adminAddPerson')}
+                </button>
+                {pickerOpen && (
+                  <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-(--border) bg-(--paper) shadow-lg">
+                    <Input
+                      type="text"
+                      value={pickerQuery}
+                      onChange={(e) => setPickerQuery(e.target.value)}
+                      placeholder={t('adminSearchPersons')}
+                      className="rounded-t-lg rounded-b-none border-b border-(--border-subtle) px-3 py-2 placeholder:text-(--ink-muted)"
+                      autoFocus
+                    />
+                    <ul className="max-h-48 overflow-y-auto py-1">
+                      {filteredPersons
+                        .filter((p) => !selectedEntry.personIds.includes(p.id))
+                        .map((p) => (
+                          <li key={p.id}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                addPersonToEntry(selectedIdx, p.id);
+                                setPickerOpen(false);
+                              }}
+                              className="w-full px-3 py-1.5 text-left text-sm text-(--ink) hover:bg-(--border-subtle)"
+                            >
+                              {getFullName(p) || p.id}
+                            </button>
                           </li>
-                        )}
-                      </ul>
-                    </div>
-                  )}
-                </div>
+                        ))}
+                      {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (
+                        <li className="px-3 py-2 text-sm text-(--ink-muted)">
+                          {t('adminNoPersonsMatch')}
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="min-h-0 flex-1 flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4">
+            <Input
+              type="text"
+              value={selectedEntry.title}
+              onChange={(e) => updateEntry(selectedIdx, 'title', e.target.value)}
+              placeholder={t('adminHistoryTitle')}
+              className="shrink-0 bg-(--paper) px-3 py-2"
+            />
+
+            <div className="min-h-0 flex-1 overflow-hidden">
               <RichTextEditor
                 value={selectedEntry.richText}
                 onChange={(html) => updateEntry(selectedIdx, 'richText', html)}
@@ -223,12 +247,29 @@ export function AdminTextsTab({
             </div>
           </>
         ) : (
-          <div className="flex flex-1 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--paper-light)] text-[var(--ink-muted)]">
+          <div className="flex flex-1 items-center justify-center text-(--ink-muted)">
             {entries.length === 0 ? t('adminNoEntries') : t('adminSelectEntry')}
           </div>
         )}
       </div>
       </div>
+
+      <Dialog
+        open={confirmDeleteIdx !== null}
+        onClose={() => setConfirmDeleteIdx(null)}
+        title={t('adminDeleteEntry')}
+        variant="confirm"
+        confirmLabel={t('dialogConfirm')}
+        cancelLabel={t('adminCancel')}
+        onConfirm={() => {
+          if (confirmDeleteIdx !== null) {
+            removeEntry(confirmDeleteIdx);
+            setConfirmDeleteIdx(null);
+          }
+        }}
+      >
+        {t('adminDeleteTextConfirm')}
+      </Dialog>
     </div>
   );
 }

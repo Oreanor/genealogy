@@ -1,6 +1,6 @@
 'use client';
 
-import type { InputHTMLAttributes } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 
 /** Shared control look: border, bg. No focus ring. */
 export const controlClass =
@@ -10,11 +10,14 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-export function Input({ className = '', ...rest }: InputProps) {
-  return (
-    <input
-      className={`w-full min-w-0 ${controlClass} ${className}`.trim()}
-      {...rest}
-    />
-  );
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  function Input({ className = '', ...rest }, ref) {
+    return (
+      <input
+        ref={ref}
+        className={`w-full min-w-0 ${controlClass} ${className}`.trim()}
+        {...rest}
+      />
+    );
+  }
+);
