@@ -5,11 +5,22 @@ import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
 import { useTranslations } from '@/lib/i18n/context';
 import type { Person } from '@/lib/types/person';
 
-/** Root person first, then others by id */
+const PERSON_ID_PAD = 3;
+
+/** Numeric part of id (e.g. p001, p002) for sorting; NaN otherwise */
+function personIdNum(id: string): number {
+  const m = /^p(\d+)$/.exec(id);
+  return m ? Number.parseInt(m[1]!, 10) : Number.NaN;
+}
+
+/** Root person first, then others by numeric id (p001, p002, …) */
 function sortPersonsForEdit(ps: Person[]): Person[] {
   return [...ps].sort((a, b) => {
     if (a.id === ROOT_PERSON_ID) return -1;
     if (b.id === ROOT_PERSON_ID) return 1;
+    const na = personIdNum(a.id);
+    const nb = personIdNum(b.id);
+    if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
     return a.id.localeCompare(b.id);
   });
 }
@@ -38,13 +49,10 @@ const COLUMN_LABELS: Partial<Record<keyof Person, string>> = {
 
 function nextPersonId(persons: Person[]): string {
   const nums = persons
-    .map((p) => {
-      const m = p.id.match(/^person-(\d+)$/);
-      return m ? parseInt(m[1]!, 10) : 0;
-    })
+    .map((p) => personIdNum(p.id))
     .filter((n) => !Number.isNaN(n));
   const max = nums.length ? Math.max(...nums) : 0;
-  return `person-${max + 1}`;
+  return `p${String(max + 1).padStart(PERSON_ID_PAD, '0')}`;
 }
 
 interface AdminPersonsTableProps {
@@ -117,10 +125,10 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
           {t('adminAddRow')}
         </button>
       </div>
-      <div className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--paper)]">
+      <div className="overflow-auto rounded-xl border border-[var(--border)] bg-[var(--paper)] max-h-[60vh]">
         <table className="w-full min-w-[800px] border-collapse text-sm">
-          <thead>
-            <tr className="border-b border-[var(--border)] bg-[var(--surface)]">
+          <thead className="sticky top-0 z-10 bg-[var(--surface)] shadow-[0_1px_0_0_var(--border-subtle)]">
+            <tr className="border-b border-[var(--border)]">
               <th className="w-10 p-2 text-left font-medium text-[var(--ink)]">#</th>
               {COLUMNS.map((col) => (
                 <th

@@ -28,13 +28,23 @@ export function AdminTextsTab({
   const [entries, setEntries] = useState<HistoryEntry[]>(() =>
     JSON.parse(JSON.stringify(initialHistory.length > 0 ? initialHistory : [emptyEntry]))
   );
-  const [pickerForEntry, setPickerForEntry] = useState<number | null>(null);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(0);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerQuery, setPickerQuery] = useState('');
   const pickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     onHistoryChange?.(entries);
   }, [entries, onHistoryChange]);
+
+  useEffect(() => {
+    if (selectedIdx === null || selectedIdx < entries.length) return;
+    const id = setTimeout(
+      () => setSelectedIdx(entries.length > 0 ? entries.length - 1 : null),
+      0
+    );
+    return () => clearTimeout(id);
+  }, [entries.length, selectedIdx]);
 
   const updateEntry = useCallback((idx: number, field: keyof HistoryEntry, value: unknown) => {
     setEntries((prev) => {
@@ -46,13 +56,14 @@ export function AdminTextsTab({
 
   const addEntry = useCallback(() => {
     setEntries((prev) => [...prev, { ...emptyEntry }]);
-  }, []);
+    setSelectedIdx(entries.length);
+  }, [entries.length]);
 
   const removeEntry = useCallback((idx: number) => {
     setEntries((prev) => prev.filter((_, i) => i !== idx));
-    if (pickerForEntry === idx) setPickerForEntry(null);
-    else if (pickerForEntry !== null && pickerForEntry > idx) setPickerForEntry(pickerForEntry - 1);
-  }, [pickerForEntry]);
+    if (selectedIdx === idx) setSelectedIdx(null);
+    else if (selectedIdx !== null && selectedIdx > idx) setSelectedIdx(selectedIdx - 1);
+  }, [selectedIdx]);
 
   const addPersonToEntry = useCallback((entryIdx: number, personId: string) => {
     setEntries((prev) => {
@@ -83,130 +94,152 @@ export function AdminTextsTab({
   }, [persons, pickerQuery]);
 
   useEffect(() => {
-    if (pickerForEntry === null) return;
+    if (!pickerOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
       if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
-        setPickerForEntry(null);
+        setPickerOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [pickerForEntry]);
+  }, [pickerOpen]);
+
+  const selectedEntry = selectedIdx !== null ? entries[selectedIdx] ?? null : null;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h3 className="font-medium text-[var(--ink)]">{t('chapters_history')}</h3>
+    <div className="flex h-[70vh] min-h-[400px] gap-4">
+      {/* Left: list of titles + add button */}
+      <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-[var(--border-subtle)] pr-4">
         <button
           type="button"
           onClick={addEntry}
-          className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink)] hover:bg-[var(--paper-light)]"
+          className="shrink-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--ink)] hover:bg-[var(--paper-light)]"
         >
           + {t('adminAddEntry')}
         </button>
-      </div>
-
-      {entries.map((entry, idx) => (
-        <div
-          key={idx}
-          className="flex flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4"
-        >
-          <div className="flex items-center justify-between gap-2">
-            <input
-              type="text"
-              value={entry.title}
-              onChange={(e) => updateEntry(idx, 'title', e.target.value)}
-              placeholder={t('adminHistoryTitle')}
-              className="min-w-0 flex-1 rounded border border-[var(--border-subtle)] bg-transparent px-3 py-2 text-[var(--ink)]"
-            />
-            <button
-              type="button"
-              onClick={() => removeEntry(idx)}
-              className="shrink-0 text-[var(--ink-muted)] hover:text-red-600"
-            >
-              ✕
-            </button>
-          </div>
-
-          <RichTextEditor
-            value={entry.richText}
-            onChange={(html) => updateEntry(idx, 'richText', html)}
-          />
-
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-[var(--ink)]">
-              {t('adminHistoryPersons')}
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {entry.personIds.map((id) => {
-                const person = persons.find((p) => p.id === id);
-                return (
-                  <span
-                    key={id}
-                    className="inline-flex items-center gap-1 rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-2 py-1 text-sm text-[var(--ink)]"
-                  >
-                    {getFullName(person) || id}
-                    <button
-                      type="button"
-                      onClick={() => removePersonFromEntry(idx, id)}
-                      className="text-[var(--ink-muted)] hover:text-red-600"
-                    >
-                      ✕
-                    </button>
-                  </span>
-                );
-              })}
-            </div>
-            <div className="relative" ref={pickerForEntry === idx ? pickerRef : null}>
+        <ul className="min-h-0 flex-1 overflow-y-auto space-y-1">
+          {entries.map((entry, idx) => (
+            <li key={idx}>
               <button
                 type="button"
-                onClick={() => {
-                  if (pickerForEntry === idx) setPickerForEntry(null);
-                  else {
-                    setPickerQuery('');
-                    setPickerForEntry(idx);
-                  }
-                }}
-                className="rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink)] hover:bg-[var(--paper-light)]"
+                onClick={() => setSelectedIdx(idx)}
+                className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                  selectedIdx === idx
+                    ? 'bg-[var(--accent)] text-[var(--nav-btn-ink)]'
+                    : 'text-[var(--ink)] hover:bg-[var(--paper-light)]'
+                }`}
               >
-                + {t('adminAddPerson')}
+                {entry.title || t('adminHistoryTitle')}
               </button>
-              {pickerForEntry === idx && (
-                <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
-                  <input
-                    type="text"
-                    value={pickerQuery}
-                    onChange={(e) => setPickerQuery(e.target.value)}
-                    placeholder={t('adminSearchPersons')}
-                    className="w-full rounded-t-lg border-b border-[var(--border-subtle)] bg-transparent px-3 py-2 text-sm text-[var(--ink)] placeholder:text-[var(--ink-muted)] focus:outline-none"
-                    autoFocus
-                  />
-                  <ul className="max-h-48 overflow-y-auto py-1">
-                    {filteredPersons
-                      .filter((p) => !entry.personIds.includes(p.id))
-                      .map((p) => (
-                        <li key={p.id}>
-                          <button
-                            type="button"
-                            onClick={() => addPersonToEntry(idx, p.id)}
-                            className="w-full px-3 py-2 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
-                          >
-                            {getFullName(p) || p.id}
-                          </button>
-                        </li>
-                      ))}
-                    {filteredPersons.filter((p) => !entry.personIds.includes(p.id)).length === 0 && (
-                      <li className="px-3 py-2 text-sm text-[var(--ink-muted)]">
-                        {t('adminNoPersonsMatch')}
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Right: ~80% — title, rich text, persons */}
+      <div className="min-w-0 flex-1 flex flex-col gap-4 overflow-hidden">
+        {selectedEntry !== null && selectedIdx !== null ? (
+          <>
+            <div className="flex shrink-0 items-center gap-2">
+              <input
+                type="text"
+                value={selectedEntry.title}
+                onChange={(e) => updateEntry(selectedIdx, 'title', e.target.value)}
+                placeholder={t('adminHistoryTitle')}
+                className="min-w-0 flex-1 rounded border border-[var(--border-subtle)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)]"
+              />
+              <button
+                type="button"
+                onClick={() => removeEntry(selectedIdx)}
+                className="shrink-0 rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink-muted)] hover:text-red-600"
+              >
+                ✕ {t('adminDeleteEntry')}
+              </button>
             </div>
+
+            <div className="min-h-0 flex-1 flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4">
+              <RichTextEditor
+                value={selectedEntry.richText}
+                onChange={(html) => updateEntry(selectedIdx, 'richText', html)}
+              />
+            </div>
+
+            <div className="shrink-0 flex flex-col gap-1">
+              <span className="text-sm font-medium text-[var(--ink)]">
+                {t('adminHistoryPersons')}
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {selectedEntry.personIds.map((id) => {
+                  const person = persons.find((p) => p.id === id);
+                  return (
+                    <span
+                      key={id}
+                      className="inline-flex items-center gap-1 rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-2 py-1 text-sm text-[var(--ink)]"
+                    >
+                      {getFullName(person) || id}
+                      <button
+                        type="button"
+                        onClick={() => removePersonFromEntry(selectedIdx, id)}
+                        className="text-[var(--ink-muted)] hover:text-red-600"
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="relative" ref={pickerRef}>
+                <button
+                  type="button"
+                  onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}
+                  className="rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink)] hover:bg-[var(--paper-light)]"
+                >
+                  + {t('adminAddPerson')}
+                </button>
+                {pickerOpen && (
+                  <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
+                    <input
+                      type="text"
+                      value={pickerQuery}
+                      onChange={(e) => setPickerQuery(e.target.value)}
+                      placeholder={t('adminSearchPersons')}
+                      className="w-full rounded-t-lg border-b border-[var(--border-subtle)] bg-transparent px-3 py-2 text-sm text-[var(--ink)] placeholder:text-[var(--ink-muted)] focus:outline-none"
+                      autoFocus
+                    />
+                    <ul className="max-h-48 overflow-y-auto py-1">
+                      {filteredPersons
+                        .filter((p) => !selectedEntry.personIds.includes(p.id))
+                        .map((p) => (
+                          <li key={p.id}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                addPersonToEntry(selectedIdx, p.id);
+                                setPickerOpen(false);
+                              }}
+                              className="w-full px-3 py-2 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
+                            >
+                              {getFullName(p) || p.id}
+                            </button>
+                          </li>
+                        ))}
+                      {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (
+                        <li className="px-3 py-2 text-sm text-[var(--ink-muted)]">
+                          {t('adminNoPersonsMatch')}
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-1 items-center justify-center rounded-xl border border-[var(--border-subtle)] bg-[var(--paper-light)] text-[var(--ink-muted)]">
+            {entries.length === 0 ? t('adminNoEntries') : t('adminSelectEntry')}
           </div>
-        </div>
-      ))}
+        )}
+      </div>
     </div>
   );
 }

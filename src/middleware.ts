@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const segments = getPathSegments(pathname);
 
-  // /[locale]/admin без ?tab= — редирект на ?tab= из cookie или persons
+  // /[locale]/admin without ?tab= — redirect to ?tab= from cookie or persons
   if (segments.length === 2 && isLocale(segments[0]!) && segments[1] === 'admin') {
     if (!searchParams.has('tab')) {
       const tab = request.cookies.get(ADMIN_TAB_COOKIE)?.value;
@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Уже есть локаль в пути — пропускаем
+  // Locale already in path — skip
   if (segments.length > 0 && isLocale(segments[0]!)) {
     return NextResponse.next();
   }
@@ -35,7 +35,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(url);
 }
 
-/** Матчер: все страницы, кроме _next, api и статики. */
+/** Matcher: all pages except _next, api and static assets. */
 export const config = {
   matcher: ['/((?!_next|api|_next/static|_next/image|favicon\\.ico|.*\\.[a-z0-9]+$).*)'],
 };

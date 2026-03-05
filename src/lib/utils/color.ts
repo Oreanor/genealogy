@@ -6,14 +6,14 @@ function parseHex(hex: string): { r: number; g: number; b: number } {
   };
 }
 
-/** Контрастный цвет текста: тёмный для светлого фона, светлый для тёмного */
+/** Contrasting text color: dark on light background, light on dark */
 export function contrastColor(hex: string): string {
   const { r, g, b } = parseHex(hex);
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.5 ? '#000000' : '#ffffff';
 }
 
-/** Затемняет цвет, смешивая с чёрным. amount 0..1 — доля чёрного */
+/** Darken color by mixing with black. amount 0..1 = fraction of black */
 export function darkenColor(hex: string, amount: number): string {
   const { r, g, b } = parseHex(hex);
   const f = 1 - Math.max(0, Math.min(1, amount));
@@ -24,7 +24,7 @@ export function darkenColor(hex: string, amount: number): string {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-/** Осветляет цвет, смешивая с белым. amount 0..1 — доля белого */
+/** Lighten color by mixing with white. amount 0..1 = fraction of white */
 export function lightenColor(hex: string, amount: number): string {
   const { r, g, b } = parseHex(hex);
   const f = Math.max(0, Math.min(1, amount));
@@ -35,7 +35,7 @@ export function lightenColor(hex: string, amount: number): string {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
-/** Hex в rgba(...) для границ и overlay с прозрачностью */
+/** Hex to rgba(...) for borders and overlay with transparency */
 export function hexToRgba(hex: string, alpha: number): string {
   const { r, g, b } = parseHex(hex);
   return `rgba(${r}, ${g}, ${b}, ${Math.max(0, Math.min(1, alpha))})`;

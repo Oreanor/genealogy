@@ -65,7 +65,7 @@ export function useLocale() {
   return useI18n().locale;
 }
 
-/** Локаль + переводы + роуты для текущей локали (упрощает повторяющийся код в компонентах). */
+/** Locale + translations + routes for current locale (reduces repeated code in components). */
 export function useLocaleRoutes() {
   const { locale, t } = useI18n();
   const routes = useMemo(() => getRoutes(locale), [locale]);

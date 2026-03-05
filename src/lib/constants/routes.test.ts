@@ -20,7 +20,7 @@ describe('getRoutes', () => {
   });
 
   it('person builds home with section=persons and id', () => {
-    expect(getRoutes('ru').person('person-1')).toBe('/ru?section=persons&id=person-1');
+    expect(getRoutes('ru').person('p001')).toBe('/ru?section=persons&id=p001');
   });
 
   it('admin builds /{locale}/admin', () => {

@@ -1,4 +1,4 @@
-/** Путь к обложке/титульной фотографии (в public/). Пустая строка = заглушка */
+/** Path to cover/title photo (in public/). Empty string = placeholder */
 export const COVER_IMAGE = '';
 
 export const CHAPTERS = [
@@ -17,5 +17,5 @@ export const CHAPTER_IDS = {
   PHOTOS: 'photos',
 } as const satisfies Record<string, ChapterId>;
 
-/** ID персоны «я» (корень древа снизу) */
-export const ROOT_PERSON_ID = 'person-1';
+/** ID of the root person (self, bottom of tree). Format: p001, p002, … */
+export const ROOT_PERSON_ID = 'p001';

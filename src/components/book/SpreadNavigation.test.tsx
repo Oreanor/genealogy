@@ -54,9 +54,9 @@ describe('SpreadNavigation', () => {
   });
 
   it('renders person card for persons chapter with id', () => {
-    searchParams = { spread: null, id: 'person-1' };
+    searchParams = { spread: null, id: 'p001' };
     const spreads = [
-      { spreadIndex: 0, left: { personId: 'person-1' }, right: {} },
+      { spreadIndex: 0, left: { personId: 'p001' }, right: {} },
     ];
     render(
       withI18n(

@@ -2,7 +2,7 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import type { RichTextNode } from '@/lib/types/spread';
 import Link from 'next/link';
 
-/** Только относительные пути и https — защита от javascript: и т.п. */
+/** Only relative paths and https — guard against javascript: etc. */
 function isSafeHref(href: string): boolean {
   const trimmed = href.trim().toLowerCase();
   if (trimmed.startsWith('/')) return true;

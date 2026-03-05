@@ -1,12 +1,12 @@
-/** Секции книги: дерево по умолчанию, затем Истории / Фотографии / Персоны */
-export const SECTION_IDS = ['tree', 'history', 'photos', 'persons'] as const;
+/** Book sections: tree, persons, history, photos */
+export const SECTION_IDS = ['tree', 'persons', 'history', 'photos'] as const;
 export type SectionId = (typeof SECTION_IDS)[number];
 
 export const SECTIONS = [
   { id: 'tree' as const, i18nKey: 'chapters_family-tree' },
+  { id: 'persons' as const, i18nKey: 'chapters_persons' },
   { id: 'history' as const, i18nKey: 'chapters_history' },
   { id: 'photos' as const, i18nKey: 'chapters_photos' },
-  { id: 'persons' as const, i18nKey: 'chapters_persons' },
 ] as const;
 
 export function isSectionId(value: string): value is SectionId {

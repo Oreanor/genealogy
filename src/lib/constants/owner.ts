@@ -1,15 +1,15 @@
 /**
- * Конфиг «хозяина» альбома. Смена фамилии здесь меняет заголовок книги и описание
- * во всех локалях. Данные персон (имена в data.json) не трогаем — только бренд.
+ * Album "owner" config. Changing the surname here updates book title and description
+ * in all locales. Person data (names in data.json) is unchanged — branding only.
  */
 export const FAMILY_SURNAME = 'Никонец';
 
-/** Заголовок книги по умолчанию (рус) для metadata и SSR */
+/** Default book title (Russian) for metadata and SSR */
 export function getDefaultBookTitle(): string {
   return `Родословная семьи ${FAMILY_SURNAME}`;
 }
 
-/** Описание по умолчанию (рус) для metadata */
+/** Default description (Russian) for metadata */
 export function getDefaultMetaDescription(): string {
   return `Интерактивный альбом-книга о родословной семьи ${FAMILY_SURNAME}`;
 }

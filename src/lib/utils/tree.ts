@@ -1,9 +1,11 @@
 import { getPersonById } from '@/lib/data/persons';
 import type { Person } from '@/lib/types/person';
 
-export const MAX_TREE_LEVELS = 6; // я, родители, деды, прадеды, прапрадеды, прапрапрадеды
+export const MAX_TREE_LEVELS = 6; // self, parents, grandparents, great-grandparents, etc.
+/** Minimum levels: always draw slots up to great-grandparents (levels 0..3). */
+export const MIN_TREE_LEVELS = 4;
 
-/** Строит матрицу древа: tree[level][index] = Person | null. Прапрапра (level 5) — только если есть хоть один человек. */
+/** Builds tree matrix: tree[level][index] = Person | null. At least MIN_TREE_LEVELS levels. Level 5 (great-great-great-grandparents) only if at least one person exists. */
 export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
   const matrix: (Person | null)[][] = [];
 
@@ -23,7 +25,7 @@ export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
     }
     matrix.push(row);
 
-    // Прапрапра (level 5): добавляем ряд только если есть хотя бы один человек
+    // Level 5 (great-great-great-grandparents): add row only if at least one person exists
     if (level === 4) {
       const nextRow: (Person | null)[] = [];
       const parentRow = matrix[4]!;
@@ -38,5 +40,11 @@ export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
     }
   }
 
+  // Ensure at least 4 levels (self, parents, grandparents, great-grandparents); empty slots are null
+  while (matrix.length < MIN_TREE_LEVELS) {
+    const level = matrix.length;
+    const count = Math.pow(2, level);
+    matrix.push(Array.from({ length: count }, () => null));
+  }
   return matrix;
 }

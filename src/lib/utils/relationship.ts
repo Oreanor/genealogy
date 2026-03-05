@@ -1,6 +1,6 @@
 import type { Person } from '@/lib/types/person';
 
-/** Ключ перевода роли в древе (для i18n). */
+/** i18n key for tree role label. */
 export function getTreeRoleKey(
   level: number,
   index: number,

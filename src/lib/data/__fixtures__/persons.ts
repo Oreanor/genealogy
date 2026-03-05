@@ -1,9 +1,9 @@
 import type { Person } from '@/lib/types/person';
 
-/** Фикстура для тестов, зависящих от персон. Минимальный набор для person/tree/spreads тестов. */
+/** Fixture for tests that depend on persons. Minimal set for person/tree/spreads tests. */
 export const PERSONS_FIXTURE: Person[] = [
   {
-    id: 'person-1',
+    id: 'p001',
     firstName: 'Иван',
     patronymic: 'Петрович',
     lastName: 'Никонец',
@@ -11,11 +11,11 @@ export const PERSONS_FIXTURE: Person[] = [
     deathDate: '1998',
     birthPlace: 'д. Заозерье',
     occupation: 'учитель',
-    parentIds: ['person-2', 'person-3'],
+    parentIds: ['p002', 'p003'],
     gender: 'm',
   },
   {
-    id: 'person-2',
+    id: 'p002',
     firstName: 'Пётр',
     lastName: 'Никонец',
     birthDate: '1895',
@@ -26,7 +26,7 @@ export const PERSONS_FIXTURE: Person[] = [
     gender: 'm',
   },
   {
-    id: 'person-3',
+    id: 'p003',
     firstName: 'Мария',
     patronymic: 'Николаевна',
     lastName: 'Никонец',
@@ -34,11 +34,11 @@ export const PERSONS_FIXTURE: Person[] = [
     deathDate: '1985',
     birthPlace: '',
     occupation: '',
-    parentIds: ['person-6', 'person-7'],
+    parentIds: ['p006', 'p007'],
     gender: 'f',
   },
   {
-    id: 'person-8',
+    id: 'p008',
     firstName: 'Пётр',
     patronymic: 'Васильевич',
     birthPlace: '',
@@ -47,25 +47,25 @@ export const PERSONS_FIXTURE: Person[] = [
     gender: 'm',
   },
   {
-    id: 'person-14',
+    id: 'p014',
     firstName: 'Николай',
     patronymic: 'Петрович',
     birthPlace: '',
     occupation: '',
-    parentIds: ['person-2', 'person-3'],
+    parentIds: ['p002', 'p003'],
     gender: 'm',
   },
   {
-    id: 'person-15',
+    id: 'p015',
     firstName: 'Ольга',
     patronymic: 'Николаевна',
     birthPlace: '',
     occupation: '',
-    parentIds: ['person-6', 'person-7'],
+    parentIds: ['p006', 'p007'],
     gender: 'f',
   },
   {
-    id: 'person-17',
+    id: 'p017',
     firstName: 'Степан',
     patronymic: 'Иванович',
     birthPlace: '',
@@ -74,16 +74,16 @@ export const PERSONS_FIXTURE: Person[] = [
     gender: 'm',
   },
   {
-    id: 'person-18',
+    id: 'p018',
     firstName: 'Алексей',
     patronymic: 'Степанович',
     birthPlace: '',
     occupation: '',
-    parentIds: ['person-17', 'person-15'],
+    parentIds: ['p017', 'p015'],
     gender: 'm',
   },
   {
-    id: 'person-6',
+    id: 'p006',
     firstName: 'Николай',
     patronymic: 'Сидорович',
     birthPlace: '',
@@ -92,7 +92,7 @@ export const PERSONS_FIXTURE: Person[] = [
     gender: 'm',
   },
   {
-    id: 'person-7',
+    id: 'p007',
     firstName: 'Елена',
     patronymic: 'Фёдоровна',
     birthPlace: '',

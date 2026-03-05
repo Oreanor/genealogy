@@ -23,7 +23,8 @@ export function StorageGate({ children }: StorageGateProps) {
 
   useEffect(() => {
     initThemeFromStorage();
-    queueMicrotask(() => setReady(true));
+    const id = setTimeout(() => setReady(true), 0);
+    return () => clearTimeout(id);
   }, []);
 
   if (!ready) {

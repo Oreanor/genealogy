@@ -1,9 +1,9 @@
-/** Один элемент раздела «Истории»: название, ричтекст, ссылки на персон (без картинок в ричтексте) */
+/** One history entry: title, rich text, person links (no images in rich text) */
 export interface HistoryEntry {
-  /** Название (заголовок) */
+  /** Title (heading) */
   title: string;
-  /** HTML-содержимое */
+  /** HTML content */
   richText: string;
-  /** ID персон */
+  /** Person IDs */
   personIds: string[];
 }

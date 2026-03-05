@@ -1,6 +1,6 @@
 /**
- * Синхронная инициализация темы из localStorage.
- * Вызывается до React, чтобы избежать вспышки дефолтной темы при перезагрузке.
+ * Sync init of theme from localStorage.
+ * Runs before React to avoid flash of default theme on reload.
  */
 const PALETTE = [
   '#ffffff', '#e5e7eb', '#9ca3af', '#374151',
@@ -8,7 +8,7 @@ const PALETTE = [
   '#ecfdf5', '#22c55e', '#0ea5e9', '#3b82f6',
   '#f5f3ff', '#8b5cf6', '#a16207', '#1f2937',
 ];
-const DEFAULT_PAPER = '#fef9c3';
+const DEFAULT_PAPER = '#ffffff';
 const KEY = 'genealogy-paper-color';
 
 function parseHex(hex: string) {

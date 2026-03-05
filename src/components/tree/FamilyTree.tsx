@@ -6,11 +6,11 @@ import { buildTreeMatrix } from '@/lib/utils/tree';
 import { useRouter } from 'next/navigation';
 import { TreeNode } from './TreeNode';
 
-/** Шире — больше горизонтального пространства между узлами */
+/** Wider value gives more horizontal space between nodes */
 const VIEW_WIDTH = 110;
-/** Высота: ряды узлов расставлены свободнее по вертикали */
+/** Row height: nodes spaced more loosely vertically */
 const VIEW_HEIGHT = 86;
-const TREE_TOP_OFFSET = 15;
+const TREE_TOP_OFFSET = 10;
 
 function getNodePosition(level: number, index: number, totalLevels: number) {
   const count = Math.pow(2, level);
@@ -39,10 +39,9 @@ export function FamilyTree() {
       className="relative w-full min-h-0 flex-1"
       style={{ aspectRatio: `${VIEW_WIDTH} / ${VIEW_HEIGHT}` }}
     >
-      {/* Узлы */}
+      {/* Nodes: draw ovals for all slots up to great-grandparents; empty slots as empty ovals */}
       {matrix.map((row, level) =>
         row.map((person, index) => {
-          if (!person) return null;
           const pos = getNodePosition(level, index, totalLevels);
           return (
             <div

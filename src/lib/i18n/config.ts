@@ -1,4 +1,4 @@
-/** Поддерживаемые локали (код языка) */
+/** Supported locales (language code) */
 export const LOCALES = [
   'ru',
   'en',

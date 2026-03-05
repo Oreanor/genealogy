@@ -20,14 +20,14 @@ describe('buildTreeMatrix', () => {
   it('fills parent slots from parentIds', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
     expect(matrix.length).toBeGreaterThanOrEqual(2);
-    // person-1 has parentIds: person-2, person-3
-    expect(matrix[1]![0]?.id).toBe('person-2');
-    expect(matrix[1]![1]?.id).toBe('person-3');
+    // p001 has parentIds: p002, p003
+    expect(matrix[1]![0]?.id).toBe('p002');
+    expect(matrix[1]![1]?.id).toBe('p003');
   });
 
   it('uses null for missing parents', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
-    // person-2, person-3 have empty parentIds - their parent slots are null
+    // p002, p003 have empty parentIds - their parent slots are null
     const level2 = matrix[2] ?? [];
     expect(level2.filter((p) => p !== null).length).toBeLessThanOrEqual(4);
   });

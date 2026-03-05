@@ -3,14 +3,14 @@ export interface Person {
   firstName: string;
   patronymic?: string;
   lastName?: string;
-  /** Неточная дата (год, период): "1925", "ок. 1895", "1925–1926" */
+  /** Approximate date (year, range): "1925", "ca. 1895", "1925–1926" */
   birthDate?: string;
-  /** Неточная дата смерти */
+  /** Approximate death date */
   deathDate?: string;
   birthPlace?: string;
   occupation?: string;
   photoUrl?: string;
   parentIds: string[];
-  /** Для ролей в древе и карточке: сын/дочь, отец/мать */
+  /** For tree and card roles: son/daughter, father/mother */
   gender?: 'm' | 'f';
 }

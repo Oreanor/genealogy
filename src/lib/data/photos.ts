@@ -19,7 +19,7 @@ export function getPhotosByCategory(category: PhotoCategory): PhotoEntry[] {
   return photos.filter((p) => p.category === category);
 }
 
-/** Фото, связанные с персоной: персональные, участие в групповых, прочие (дом, книга). */
+/** Photos linked to a person: personal, presence in group photos, other (house, book). */
 export function getPhotosByPerson(personId: string): PhotoEntry[] {
   return photos.filter(
     (p) =>
@@ -28,7 +28,7 @@ export function getPhotosByPerson(personId: string): PhotoEntry[] {
   );
 }
 
-/** Ссылки на изображения по категории: лицевая (src) и оборот (backSrc) если есть. */
+/** Image URLs by category: front (src) and back (backSrc) if present. */
 export function getImageLinksByCategory(category: PhotoCategory): string[] {
   return getPhotosByCategory(category).flatMap((p) =>
     [p.src, p.backSrc].filter((s): s is string => Boolean(s))

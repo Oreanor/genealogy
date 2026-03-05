@@ -6,11 +6,11 @@ import type { PhotoPersonShape } from '@/lib/types/photo';
 
 interface PhotoHotspotEditorProps {
   src: string;
-  /** Текущие coords и shape для отображения */
+  /** Current coords and shape for display */
   coords: number[];
   shape: PhotoPersonShape;
   onChange: (coords: number[], shape: PhotoPersonShape) => void;
-  /** Класс контейнера изображения (для крупного отображения в лайтбоксе) */
+  /** Image container class (for large display in lightbox) */
   imageClassName?: string;
 }
 

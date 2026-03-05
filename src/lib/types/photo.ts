@@ -1,7 +1,7 @@
 export type PhotoCategory =
-  | 'personal' /** персональное фото персоны */
-  | 'group' /** присутствие на групповом */
-  | 'related'; /** прочее: дом, книга, документ */
+  | 'personal' /** person's personal photo */
+  | 'group' /** presence in group photo */
+  | 'related'; /** other: house, book, document */
 
 export type PhotoPersonShape = 'point' | 'circle' | 'rect' | 'polygon';
 
@@ -9,7 +9,7 @@ export interface PhotoPerson {
   personId: string;
   /**
    * point: [x%, y%]
-   * circle: [cx%, cy%, r%] — область лица/аватара
+   * circle: [cx%, cy%, r%] — face/avatar area
    * rect: [left%, top%, right%, bottom%]
    * polygon: [x1,y1, x2,y2, ...]
    */
@@ -20,14 +20,14 @@ export interface PhotoPerson {
 export interface PhotoEntry {
   id: string;
   src: string;
-  /** Оборотная сторона */
+  /** Back side image */
   backSrc?: string;
   caption?: string;
   backCaption?: string;
-  /** Категория для выборки по типу. По умолчанию related при загрузке. */
+  /** Category for filtering. Default related on load. */
   category?: PhotoCategory;
-  /** Для personal: чьё фото. Для related: к кому относится. */
+  /** For personal: whose photo. For related: who it relates to. */
   personId?: string;
-  /** Для group: кто на фото с зонами. Для personal — опционально */
+  /** For group: who is on the photo with zones. Optional for personal. */
   people?: PhotoPerson[];
 }

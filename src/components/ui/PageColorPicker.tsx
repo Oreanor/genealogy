@@ -48,7 +48,7 @@ export function PageColorPicker() {
 
   useEffect(() => {
     const ink = contrastColor(paper);
-    /** Фон светлее базового — почти белый, лёгкий оттенок */
+    /** Lighter than base — almost white, slight tint */
     const paperLight = lightenColor(paper, 0.7);
     const bookBg = darkenColor(paper, 0.25);
     const accent = darkenColor(paper, 0.5);
@@ -80,7 +80,9 @@ export function PageColorPicker() {
   }, [paper]);
 
   const paperRef = useRef(paper);
-  paperRef.current = paper;
+  useEffect(() => {
+    paperRef.current = paper;
+  }, [paper]);
 
   const setPaper = (color: string) => {
     localStorage.setItem(STORAGE_KEYS.paperColor, color);

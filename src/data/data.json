@@ -1,46 +1,5 @@
 {
   "persons": [],
-  "pages": [
-    {
-      "id": "family-tree-0",
-      "chapter": "family-tree",
-      "spreadIndex": 0,
-      "left": {
-        "tree": true
-      },
-      "right": {}
-    },
-    {
-      "id": "photos-0",
-      "chapter": "photos",
-      "spreadIndex": 0,
-      "left": {
-        "blocks": [
-          {
-            "type": "paragraph",
-            "content": [
-              {
-                "type": "text",
-                "value": "Семейное фото"
-              }
-            ]
-          }
-        ]
-      },
-      "right": {}
-    },
-    {
-      "id": "photos-1",
-      "chapter": "photos",
-      "spreadIndex": 1,
-      "left": {
-        "blocks": []
-      },
-      "right": {
-        "blocks": []
-      }
-    }
-  ],
   "photos": [
     {
       "id": "Image16",

@@ -1,8 +1,9 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/context';
+import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
 import type { AdminTabId } from './AdminTabs';
 import { AdminTabs } from './AdminTabs';
 import { AdminPersonsTable } from './AdminPersonsTable';
@@ -10,7 +11,6 @@ import { AdminTextsTab } from './AdminTextsTab';
 import { AdminPhotosTab } from './AdminPhotosTab';
 import { ADMIN_TAB_COOKIE } from '@/lib/constants/storage';
 import type { Person } from '@/lib/types/person';
-import type { Page } from '@/lib/types/spread';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { PhotoEntry } from '@/lib/types/photo';
 
@@ -26,14 +26,12 @@ const ADMIN_DATA_FILENAME = 'admin-data.json';
 
 export interface AdminDataSections {
   persons: Person[];
-  pages: Page[];
   photos: PhotoEntry[];
   history: HistoryEntry[];
 }
 
 interface AdminPageClientProps {
   persons: Person[];
-  pages: Page[];
   photos: PhotoEntry[];
   history: HistoryEntry[];
   initialTab: AdminTabId;
@@ -55,7 +53,6 @@ function toCombinedJson(data: AdminDataSections): string {
 
 export function AdminPageClient({
   persons,
-  pages,
   photos,
   history: initialHistory,
   initialTab,
@@ -65,7 +62,6 @@ export function AdminPageClient({
   const t = useTranslations();
   const dataRef = useRef<AdminDataSections>({
     persons,
-    pages,
     photos,
     history: initialHistory,
   });
@@ -94,28 +90,14 @@ export function AdminPageClient({
     [router, pathname]
   );
 
+  const { setActions } = useAdminToolbar();
+  useEffect(() => {
+    setActions({ onCopy: handleCopy, onDownload: handleDownload });
+    return () => setActions(null);
+  }, [setActions, handleCopy, handleDownload]);
+
   return (
     <div className="space-y-4">
-      <div className="flex justify-end gap-2">
-        <button
-          type="button"
-          onClick={handleCopy}
-          title={t('adminCopyJson')}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--paper-light)]"
-          aria-label={t('adminCopyJson')}
-        >
-          <ClipboardIcon />
-        </button>
-        <button
-          type="button"
-          onClick={handleDownload}
-          title={t('adminDownloadJson')}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--paper-light)]"
-          aria-label={t('adminDownloadJson')}
-        >
-          <FloppyIcon />
-        </button>
-      </div>
       <AdminTabs active={initialTab} onSelect={handleSelectTab}>
         <div className={initialTab === 'persons' ? '' : 'hidden'}>
           <AdminPersonsTable
@@ -144,26 +126,5 @@ export function AdminPageClient({
         </div>
       </AdminTabs>
     </div>
-  );
-}
-
-/** Иконка буфера обмена (два листочка) */
-function ClipboardIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="8" y="4" width="12" height="16" rx="2" />
-      <path d="M16 2H8a2 2 0 0 0-2 2v2h12V4a2 2 0 0 0-2-2z" />
-    </svg>
-  );
-}
-
-/** Иконка дискеты (сохранить) */
-function FloppyIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-      <polyline points="17 21 17 13 7 13 7 21" />
-      <polyline points="7 3 7 8 15 8" />
-    </svg>
   );
 }

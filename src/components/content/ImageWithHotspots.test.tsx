@@ -37,7 +37,7 @@ describe('ImageWithHotspots', () => {
           config={{
             src: '/x.jpg',
             hotspots: [
-              { personId: 'person-1', shape: 'rect', coords: [10, 20, 50, 80] },
+              { personId: 'p001', shape: 'rect', coords: [10, 20, 50, 80] },
             ],
           }}
         />
@@ -45,7 +45,7 @@ describe('ImageWithHotspots', () => {
     );
     const btn = screen.getByRole('button', { name: 'Перейти к персоне' });
     fireEvent.click(btn);
-    expect(mockPush).toHaveBeenCalledWith(getRoutes('ru').person('person-1'));
+    expect(mockPush).toHaveBeenCalledWith(getRoutes('ru').person('p001'));
   });
 
   it('renders polygon hotspots and navigates on click', () => {
@@ -56,7 +56,7 @@ describe('ImageWithHotspots', () => {
             src: '/x.jpg',
             hotspots: [
               {
-                personId: 'person-2',
+                personId: 'p002',
                 shape: 'polygon',
                 coords: [0, 0, 100, 0, 50, 100],
               },
@@ -68,6 +68,6 @@ describe('ImageWithHotspots', () => {
     const polygon = container.querySelector('polygon');
     expect(polygon).toBeTruthy();
     fireEvent.click(polygon!);
-    expect(mockPush).toHaveBeenCalledWith(getRoutes('ru').person('person-2'));
+    expect(mockPush).toHaveBeenCalledWith(getRoutes('ru').person('p002'));
   });
 });

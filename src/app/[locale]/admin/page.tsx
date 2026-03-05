@@ -1,6 +1,5 @@
 import { BookLayout } from '@/components/book';
 import { getPersons } from '@/lib/data/persons';
-import { getPages } from '@/lib/data/pages';
 import { getPhotos } from '@/lib/data/photos';
 import { getHistoryEntries } from '@/lib/data/history';
 import { getMessages } from '@/lib/i18n/messages';
@@ -23,9 +22,8 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   const { tab } = await searchParams;
   const initialTab = parseTab(tab);
   const messages = getMessages(locale);
-  const [persons, pages, photos, history] = [
+  const [persons, photos, history] = [
     getPersons(),
-    getPages(),
     getPhotos(),
     getHistoryEntries(),
   ];
@@ -37,7 +35,6 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
         </h1>
         <AdminPageClient
           persons={persons}
-          pages={pages}
           photos={photos}
           history={history}
           initialTab={initialTab}

@@ -1,4 +1,4 @@
-/** Преобразует [x1,y1, x2,y2, ...] в строку "x1,y1 x2,y2" для SVG polygon */
+/** Converts [x1,y1, x2,y2, ...] to "x1,y1 x2,y2" string for SVG polygon */
 export function polygonPoints(coords: number[]): string {
   const pairs: string[] = [];
   for (let i = 0; i < coords.length - 1; i += 2) {

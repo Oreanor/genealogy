@@ -1,13 +1,4 @@
-import type { ChapterId } from '@/lib/constants/chapters';
 import type { HistoryEntry } from './history';
-
-export interface Page {
-  id: string;
-  chapter: ChapterId;
-  spreadIndex: number;
-  left: PageContent;
-  right: PageContent;
-}
 
 export interface Spread {
   spreadIndex: number;
@@ -29,9 +20,9 @@ export interface PageContent {
   blocks?: ContentBlock[];
   image?: ImageConfig;
   tree?: boolean;
-  /** ID персоны — для разворота с карточкой персоны (глава «Персоны») */
+  /** Person ID for the person-card spread (Persons section) */
   personId?: string;
-  /** Элементы раздела «Истории» (название + ричтекст + персоны + картинки) */
+  /** History section entries (title + rich text + persons + images) */
   historyEntries?: HistoryEntry[];
 }
 

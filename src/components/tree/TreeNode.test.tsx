@@ -5,7 +5,7 @@ import { withI18n } from '@/lib/i18n/test-utils';
 import type { Person } from '@/lib/types/person';
 
 const person: Person = {
-  id: 'person-1',
+  id: 'p001',
   firstName: 'Иван',
   patronymic: 'Петрович',
   birthDate: '1925',
@@ -62,7 +62,7 @@ describe('TreeNode', () => {
       )
     );
     fireEvent.click(screen.getByRole('button', { name: /Иван Петрович/ }));
-    expect(onPersonClick).toHaveBeenCalledWith('person-1');
+    expect(onPersonClick).toHaveBeenCalledWith('p001');
   });
 
   it('truncates long names', () => {

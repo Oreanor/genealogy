@@ -39,7 +39,7 @@ export const TreeNode = memo(function TreeNode({
 
   const content = (
     <>
-      {/* Овал: между контурами — светлое кольцо, внутри внутреннего овала — цвет плашки */}
+      {/* Oval: light ring between outlines, plaque color inside inner oval */}
       <div
         className="relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-[var(--tree-stroke)] outline-offset-2 bg-[var(--background)]"
         style={{ width: '4.1rem', height: '5.3rem' }}
@@ -57,7 +57,7 @@ export const TreeNode = memo(function TreeNode({
         </div>
       </div>
 
-      {/* Плашка под портретом */}
+      {/* Plaque below portrait */}
       <div className="mt-[-0.2rem] w-full min-w-0 rounded-md border-2 border-[var(--tree-plaque-stroke)] bg-[var(--tree-plaque-fill)] px-2 py-2 text-center">
         {role && (
           <div className="text-xs leading-tight text-[var(--tree-stroke)]">
