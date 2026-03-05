@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/context';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
@@ -9,6 +9,7 @@ import { AdminTabs } from './AdminTabs';
 import { AdminPersonsTable } from './AdminPersonsTable';
 import { AdminTextsTab } from './AdminTextsTab';
 import { AdminPhotosTab } from './AdminPhotosTab';
+import { Dialog } from '@/components/ui/molecules/Dialog';
 import { ADMIN_TAB_COOKIE } from '@/lib/constants/storage';
 import type { Person } from '@/lib/types/person';
 import type { HistoryEntry } from '@/lib/types/history';
@@ -25,12 +26,14 @@ function setTabCookie(tab: string) {
 const ADMIN_DATA_FILENAME = 'admin-data.json';
 
 export interface AdminDataSections {
+  rootPersonId: string;
   persons: Person[];
   photos: PhotoEntry[];
   history: HistoryEntry[];
 }
 
 interface AdminPageClientProps {
+  rootPersonId: string;
   persons: Person[];
   photos: PhotoEntry[];
   history: HistoryEntry[];
@@ -52,6 +55,7 @@ function toCombinedJson(data: AdminDataSections): string {
 }
 
 export function AdminPageClient({
+  rootPersonId: initialRootPersonId,
   persons,
   photos,
   history: initialHistory,
@@ -60,26 +64,34 @@ export function AdminPageClient({
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
+  const [rootPersonId, setRootPersonId] = useState(initialRootPersonId);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const dataRef = useRef<AdminDataSections>({
+    rootPersonId: initialRootPersonId,
     persons,
     photos,
     history: initialHistory,
   });
+
+  useEffect(() => {
+    dataRef.current = { ...dataRef.current, rootPersonId };
+  }, [rootPersonId]);
 
   const getCombinedJson = useCallback(() => toCombinedJson(dataRef.current), []);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(getCombinedJson());
-      alert(t('adminCopied'));
+      setAlertMessage(t('adminCopied'));
     } catch {
-      alert(t('adminCopyFailed'));
+      setAlertMessage(t('adminCopyFailed'));
     }
   }, [getCombinedJson, t]);
 
   const handleDownload = useCallback(() => {
     downloadFile(ADMIN_DATA_FILENAME, getCombinedJson());
-  }, [getCombinedJson]);
+    setAlertMessage(t('adminDownloaded'));
+  }, [getCombinedJson, t]);
 
   const handleSelectTab = useCallback(
     (id: AdminTabId) => {
@@ -101,9 +113,13 @@ export function AdminPageClient({
       <AdminTabs active={initialTab} onSelect={handleSelectTab}>
         <div className={initialTab === 'persons' ? '' : 'hidden'}>
           <AdminPersonsTable
+            rootPersonId={rootPersonId}
             initialPersons={persons}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, persons: p };
+            }}
+            onRootChange={(id) => {
+              setRootPersonId(id);
             }}
           />
         </div>
@@ -125,6 +141,16 @@ export function AdminPageClient({
           />
         </div>
       </AdminTabs>
+      {alertMessage !== null && (
+        <Dialog
+          open
+          onClose={() => setAlertMessage(null)}
+          variant="alert"
+          confirmLabel={t('dialogOk')}
+        >
+          {alertMessage}
+        </Dialog>
+      )}
     </div>
   );
 }

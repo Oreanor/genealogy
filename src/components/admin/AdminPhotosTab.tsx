@@ -6,16 +6,9 @@ import { getFullName } from '@/lib/utils/person';
 import { useTranslations } from '@/lib/i18n/context';
 import type { PhotoCategory, PhotoEntry, PhotoPersonShape } from '@/lib/types/photo';
 import { PhotoHotspotEditor } from './PhotoHotspotEditor';
+import { Button, Input, Select } from '@/components/ui/atoms';
 
 const DRAWABLE_SHAPES: PhotoPersonShape[] = ['point', 'circle', 'rect'];
-
-/** Shared admin button classes (Tailwind v4: CSS variables via parentheses). */
-const BTN_SECONDARY =
-  'rounded-lg border border-(--border) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) hover:bg-(--paper-light)';
-const BTN_PRIMARY =
-  'rounded-lg bg-(--accent) px-4 py-2 text-sm font-medium text-(--nav-btn-ink) hover:opacity-90';
-const INPUT_FIELD =
-  'w-full rounded border border-(--border-subtle) bg-(--paper) px-3 py-2 text-(--ink) focus:outline-none focus:ring-0 focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0';
 
 function slugFromSrc(src: string): string {
   return src.replace(/^\/photos\//, '').replace(/\//g, '-').replace(/\.(jpg|jpeg|png|gif|webp)$/i, '') || 'photo';
@@ -150,13 +143,9 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
     return (
       <div className="space-y-4">
         <p className="text-(--ink-muted)">{t('adminPhotosNoPhotos')}</p>
-        <button
-          type="button"
-          onClick={() => window.location.reload()}
-          className={BTN_SECONDARY}
-        >
+        <Button variant="secondary" onClick={() => window.location.reload()}>
           {t('adminRefreshList')}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -169,22 +158,18 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
         <p className="mt-1 text-(--ink-muted)">{t('adminSaveReminder')}</p>
       </div>
       <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => window.location.reload()}
-          className={BTN_SECONDARY}
-        >
+        <Button variant="secondary" onClick={() => window.location.reload()}>
           {t('adminRefreshList')}
-        </button>
+        </Button>
       </div>
 
       <div className="flex flex-wrap gap-3">
         {photos.map((photo, idx) => (
-          <button
+          <Button
             key={photo.src}
-            type="button"
+            variant="secondary"
             onClick={() => setSelectedPhotoIdx(idx)}
-            className="relative shrink-0 overflow-hidden rounded-lg border-2 border-(--border-subtle) bg-(--paper) transition-shadow hover:border-(--accent) hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-(--accent)"
+            className="relative shrink-0 overflow-hidden rounded-lg border-2 border-[var(--border-subtle)] bg-[var(--paper)] p-0 aspect-[3/4] w-24 sm:w-28 hover:border-[var(--accent)] hover:shadow-lg"
           >
             <span className="block aspect-[3/4] w-24 overflow-hidden bg-(--paper-light) sm:w-28">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -199,7 +184,7 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
                 {t('adminNew')}
               </span>
             )}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -280,14 +265,15 @@ function PhotoEditLightbox({
         className="relative flex max-h-[95vh] w-full max-w-5xl flex-row gap-4 overflow-hidden rounded-xl border border-(--border) bg-(--paper) p-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={onClose}
-          className="absolute right-3 top-3 p-1 text-2xl leading-none text-(--ink) hover:text-(--ink-muted) focus:outline-none focus-visible:outline-none"
+          className="absolute right-3 top-3 p-1 text-2xl leading-none"
           aria-label={t('adminCancel')}
         >
           ×
-        </button>
+        </Button>
 
         <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center rounded-lg bg-(--paper-light) p-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -303,12 +289,12 @@ function PhotoEditLightbox({
             <label className="mb-1 block text-sm font-medium text-(--ink)">
               {t('adminCaption')}
             </label>
-            <input
+            <Input
               type="text"
               value={photo.caption ?? ''}
               onChange={(e) => onUpdate('caption', e.target.value)}
               placeholder={t('adminCaptionPlaceholder')}
-              className={INPUT_FIELD}
+              className="bg-[var(--paper)] px-3 py-2"
             />
           </div>
 
@@ -316,15 +302,15 @@ function PhotoEditLightbox({
             <label className="mb-1 block text-sm font-medium text-(--ink)">
               {t('adminPhotoCategory')}
             </label>
-            <select
+            <Select
               value={photo.category ?? 'related'}
               onChange={(e) => onUpdate('category', e.target.value as PhotoCategory)}
-              className={INPUT_FIELD}
+              className="bg-[var(--paper)] px-3 py-2"
             >
               <option value="personal">{t('adminPhotoPersonal')}</option>
               <option value="group">{t('adminPhotoGroup')}</option>
               <option value="related">{t('adminPhotoRelated')}</option>
-            </select>
+            </Select>
           </div>
 
           {(photo.category === 'personal' || photo.category === 'related') && (
@@ -332,10 +318,10 @@ function PhotoEditLightbox({
               <label className="mb-1 block text-sm font-medium text-(--ink)">
                 {t('adminPhotoPersonId')}
               </label>
-              <select
+              <Select
                 value={photo.personId ?? ''}
                 onChange={(e) => onUpdate('personId', e.target.value || undefined)}
-                className={INPUT_FIELD}
+                className="bg-[var(--paper)] px-3 py-2"
               >
                 <option value="">—</option>
                 {persons.map((p) => (
@@ -343,7 +329,7 @@ function PhotoEditLightbox({
                     {getFullName(p) || p.id}
                   </option>
                 ))}
-              </select>
+              </Select>
             </div>
           )}
 
@@ -352,13 +338,9 @@ function PhotoEditLightbox({
               <span className="text-sm font-medium text-(--ink)">
                 {t('adminPeopleOnPhoto')}
               </span>
-            <button
-              type="button"
-              onClick={onOpenAddPerson}
-              className="text-sm text-(--accent) hover:underline focus:outline-none focus-visible:outline-none"
-            >
-                {t('adminAdd')}
-              </button>
+            <Button variant="ghost" size="sm" onClick={onOpenAddPerson} className="text-sm text-[var(--accent)] hover:underline">
+              {t('adminAdd')}
+            </Button>
             </div>
             <ul className="space-y-1">
               {(photo.people ?? []).map((person, personIdx) => {
@@ -382,20 +364,12 @@ function PhotoEditLightbox({
                     <span className="rounded bg-(--paper-light) px-1.5 py-0.5 text-xs text-(--ink-muted)">
                       {shapeLabel}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => onOpenEditPerson(personIdx)}
-                      className="text-(--accent) hover:underline focus:outline-none focus-visible:outline-none"
-                    >
+                    <Button variant="ghost" size="sm" onClick={() => onOpenEditPerson(personIdx)} className="text-[var(--accent)] hover:underline">
                       {t('adminEdit')}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => onRemovePerson(photoIdx, personIdx)}
-                      className="text-(--ink-muted) hover:text-red-600 focus:outline-none focus-visible:outline-none"
-                    >
+                    </Button>
+                    <Button variant="danger" size="sm" onClick={() => onRemovePerson(photoIdx, personIdx)}>
                       ✕
-                    </button>
+                    </Button>
                   </li>
                 );
               })}
@@ -403,20 +377,12 @@ function PhotoEditLightbox({
           </div>
 
           <div className="mt-auto flex justify-end gap-2 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className={`${BTN_SECONDARY} focus:outline-none focus-visible:outline-none`}
-            >
+            <Button variant="secondary" onClick={onClose}>
               {t('adminCancel')}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className={`${BTN_PRIMARY} focus:outline-none focus-visible:outline-none`}
-            >
+            </Button>
+            <Button variant="primary" onClick={onClose}>
               {t('adminDone')}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -481,32 +447,24 @@ function PeopleEditorLightbox({
           <label className="text-sm font-medium text-(--ink)">
             {t('adminPhotoPersonId')}
           </label>
-          <select
+          <Select
             value={personId}
             onChange={(e) => setPersonId(e.target.value)}
-            className={INPUT_FIELD}
+            className="bg-[var(--paper)] px-3 py-2 max-w-xs"
           >
             {persons.map((p) => (
               <option key={p.id} value={p.id}>
                 {getFullName(p) || p.id}
               </option>
             ))}
-          </select>
+          </Select>
           <div className="flex-1" />
-          <button
-            type="button"
-            onClick={handleDone}
-            className={BTN_PRIMARY}
-          >
+          <Button variant="primary" onClick={handleDone}>
             {t('adminDone')}
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-(--border) bg-(--paper-light) px-4 py-2 text-sm text-(--ink) hover:bg-(--border-subtle)"
-          >
+          </Button>
+          <Button variant="secondary" onClick={onClose}>
             {t('adminCancel')}
-          </button>
+          </Button>
         </div>
         <PhotoHotspotEditor
           src={photoSrc}

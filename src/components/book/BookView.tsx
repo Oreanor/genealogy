@@ -18,6 +18,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { NavButton } from '@/components/ui/NavButton';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
+import { SearchField } from '@/components/ui/molecules/SearchField';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import type { PhotoEntry } from '@/lib/types/photo';
 
@@ -89,27 +90,11 @@ export function BookView() {
             <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_history')}
             </h1>
-            <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">
-              <svg
-                className="size-5 shrink-0 text-[var(--ink-muted)]"
-                aria-hidden
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="search"
+            <div className="mt-4">
+              <SearchField
                 placeholder={t('historySearchPlaceholder')}
                 value={historySearch}
                 onChange={(e) => setHistorySearch(e.target.value)}
-                className="min-w-0 flex-1 bg-transparent py-1 text-[var(--ink)] placeholder:text-[var(--ink-muted)] focus:outline-none"
                 aria-label={t('historySearchPlaceholder')}
               />
             </div>
@@ -173,7 +158,7 @@ export function BookView() {
             key={photo.id}
             type="button"
             onClick={() => setPhotosLightbox(photo)}
-            className="relative block aspect-[3/4] w-full overflow-hidden rounded bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            className="relative block aspect-[3/4] w-full overflow-hidden rounded bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none"
           >
             <Image
               src={photo.src}
@@ -256,27 +241,11 @@ export function BookView() {
             <h1 className={SECTION_HEADING_CLASS}>
               {t('chapters_persons')}
             </h1>
-            <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">
-              <svg
-                className="size-5 shrink-0 text-[var(--ink-muted)]"
-                aria-hidden
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="search"
+            <div className="mt-4">
+              <SearchField
                 placeholder={t('personsSearchPlaceholder')}
                 value={personsSearch}
                 onChange={(e) => setPersonsSearch(e.target.value)}
-                className="min-w-0 flex-1 bg-transparent py-1 text-[var(--ink)] placeholder:text-[var(--ink-muted)] focus:outline-none"
                 aria-label={t('personsSearchPlaceholder')}
               />
             </div>

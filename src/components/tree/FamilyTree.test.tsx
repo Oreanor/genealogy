@@ -24,12 +24,12 @@ describe('FamilyTree', () => {
 
   it('renders person nodes', () => {
     const { container } = render(withI18n(<FamilyTree />));
-    expect(container.textContent).toContain('Никонец Иван Петрович');
+    expect(container.textContent).toMatch(/Никонец\s*Иван Петрович/);
   });
 
   it('navigates to person on node click', () => {
     render(withI18n(<FamilyTree />));
-    const btn = screen.getByRole('button', { name: /Никонец Иван Петрович/ });
+    const btn = screen.getByRole('button', { name: /Никонец\s*Иван Петрович/ });
     fireEvent.click(btn);
     expect(mockPush).toHaveBeenCalled();
   });

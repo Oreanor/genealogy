@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useTranslations } from '@/lib/i18n/context';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 import {
@@ -38,6 +39,7 @@ function subscribeToStorage(onStoreChange: () => void) {
 }
 
 export function PageColorPicker() {
+  const t = useTranslations();
   const paper = useSyncExternalStore(
     subscribeToStorage,
     getStoredPaper,
@@ -164,14 +166,29 @@ export function PageColorPicker() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
-        aria-label="Цвет страниц"
+        className="flex h-9 w-9 cursor-pointer shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        aria-label={t('tooltipPageColor')}
         aria-expanded={open}
       >
-        <span
-          className="h-4 w-4 rounded border border-[var(--border-subtle)] md:h-5 md:w-5"
-          style={{ backgroundColor: paper }}
-        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-[var(--ink-muted)]"
+          aria-hidden
+        >
+          <path
+            d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"
+            fill={paper}
+            stroke="currentColor"
+          />
+        </svg>
       </button>
       {open && (
         <div

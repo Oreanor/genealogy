@@ -120,7 +120,7 @@ export function PersonCard({ person }: PersonCardProps) {
               <li key={photo.src}>
                 <button
                   type="button"
-                  className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none"
                   onClick={() => setLightboxIndex(index)}
                   aria-label={photo.caption || t('openFullscreen')}
                 >

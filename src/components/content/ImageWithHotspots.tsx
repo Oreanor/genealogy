@@ -86,7 +86,7 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
           key={`rect-${hotspot.personId}-${index}`}
           type="button"
           onClick={stopAndNav(hotspot.personId)}
-          className="absolute cursor-pointer border-2 border-[var(--hotspot-stroke)] bg-[var(--hotspot-fill)] transition-colors hover:bg-[var(--hotspot-fill-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="absolute cursor-pointer border-2 border-[var(--hotspot-stroke)] bg-[var(--hotspot-fill)] transition-colors hover:bg-[var(--hotspot-fill-hover)] focus:outline-none"
           style={{
             left: `${hotspot.coords[0]}%`,
             top: `${hotspot.coords[1]}%`,
@@ -101,7 +101,7 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
           key={`circle-${hotspot.personId}-${index}`}
           type="button"
           onClick={stopAndNav(hotspot.personId)}
-          className="absolute cursor-pointer rounded-full border-2 border-[var(--hotspot-stroke)] bg-[var(--hotspot-fill)] transition-colors hover:bg-[var(--hotspot-fill-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="absolute cursor-pointer rounded-full border-2 border-[var(--hotspot-stroke)] bg-[var(--hotspot-fill)] transition-colors hover:bg-[var(--hotspot-fill-hover)] focus:outline-none"
           style={{
             left: `${hotspot.coords[0] - hotspot.coords[2]}%`,
             top: `${hotspot.coords[1] - hotspot.coords[2]}%`,
@@ -116,7 +116,7 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
           key={`point-${hotspot.personId}-${index}`}
           type="button"
           onClick={stopAndNav(hotspot.personId)}
-          className="absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-2 border-white bg-[var(--accent)] shadow-md transition-transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+          className="absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-2 border-white bg-[var(--accent)] shadow-md transition-transform hover:scale-125 focus:outline-none"
           style={{
             left: `${hotspot.coords[0]}%`,
             top: `${hotspot.coords[1]}%`,

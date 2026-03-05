@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
+import { Button, Input } from '@/components/ui/atoms';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { Person } from '@/lib/types/person';
 import { getFullName } from '@/lib/utils/person';
@@ -116,27 +117,19 @@ export function AdminTextsTab({
       <div className="flex h-[70vh] min-h-[400px] gap-4">
       {/* Left: list of titles + add button */}
       <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-[var(--border-subtle)] pr-4">
-        <button
-          type="button"
-          onClick={addEntry}
-          className="shrink-0 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm font-medium text-[var(--ink)] hover:bg-[var(--paper-light)]"
-        >
+        <Button variant="secondary" onClick={addEntry} className="shrink-0">
           + {t('adminAddEntry')}
-        </button>
+        </Button>
         <ul className="min-h-0 flex-1 overflow-y-auto space-y-1">
           {entries.map((entry, idx) => (
             <li key={idx}>
-              <button
-                type="button"
+              <Button
+                variant={selectedIdx === idx ? 'primary' : 'ghost'}
                 onClick={() => setSelectedIdx(idx)}
-                className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                  selectedIdx === idx
-                    ? 'bg-[var(--accent)] text-[var(--nav-btn-ink)]'
-                    : 'text-[var(--ink)] hover:bg-[var(--paper-light)]'
-                }`}
+                className="w-full justify-start px-3 py-2"
               >
                 {entry.title || t('adminHistoryTitle')}
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
@@ -147,20 +140,16 @@ export function AdminTextsTab({
         {selectedEntry !== null && selectedIdx !== null ? (
           <>
             <div className="flex shrink-0 items-center gap-2">
-              <input
+              <Input
                 type="text"
                 value={selectedEntry.title}
                 onChange={(e) => updateEntry(selectedIdx, 'title', e.target.value)}
                 placeholder={t('adminHistoryTitle')}
-                className="min-w-0 flex-1 rounded border border-[var(--border-subtle)] bg-[var(--paper)] px-3 py-2 text-[var(--ink)]"
+                className="min-w-0 flex-1 bg-[var(--paper)] px-3 py-2"
               />
-              <button
-                type="button"
-                onClick={() => removeEntry(selectedIdx)}
-                className="shrink-0 rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink-muted)] hover:text-red-600"
-              >
+              <Button variant="danger" size="sm" onClick={() => removeEntry(selectedIdx)} className="shrink-0">
                 ✕ {t('adminDeleteEntry')}
-              </button>
+              </Button>
             </div>
 
             <div className="min-h-0 flex-1 flex flex-col gap-2 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--paper)] p-4">
@@ -183,33 +172,30 @@ export function AdminTextsTab({
                       className="inline-flex items-center gap-1 rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-2 py-1 text-sm text-[var(--ink)]"
                     >
                       {getFullName(person) || id}
-                      <button
-                        type="button"
+                      <Button
+                        variant="danger"
+                        size="sm"
                         onClick={() => removePersonFromEntry(selectedIdx, id)}
-                        className="text-[var(--ink-muted)] hover:text-red-600"
+                        className="min-w-0 px-1 py-0"
                       >
                         ✕
-                      </button>
+                      </Button>
                     </span>
                   );
                 })}
               </div>
               <div className="relative" ref={pickerRef}>
-                <button
-                  type="button"
-                  onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}
-                  className="rounded border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm text-[var(--ink)] hover:bg-[var(--paper-light)]"
-                >
+                <Button variant="secondary" size="sm" onClick={() => { setPickerOpen((v) => !v); setPickerQuery(''); }}>
                   + {t('adminAddPerson')}
-                </button>
+                </Button>
                 {pickerOpen && (
                   <div className="absolute left-0 top-full z-10 mt-1 min-w-[16rem] rounded-lg border border-[var(--border)] bg-[var(--paper)] shadow-lg">
-                    <input
+                    <Input
                       type="text"
                       value={pickerQuery}
                       onChange={(e) => setPickerQuery(e.target.value)}
                       placeholder={t('adminSearchPersons')}
-                      className="w-full rounded-t-lg border-b border-[var(--border-subtle)] bg-transparent px-3 py-2 text-sm text-[var(--ink)] placeholder:text-[var(--ink-muted)] focus:outline-none"
+                      className="rounded-t-lg rounded-b-none border-b border-[var(--border-subtle)] px-3 py-2 placeholder:text-[var(--ink-muted)]"
                       autoFocus
                     />
                     <ul className="max-h-48 overflow-y-auto py-1">
@@ -217,16 +203,17 @@ export function AdminTextsTab({
                         .filter((p) => !selectedEntry.personIds.includes(p.id))
                         .map((p) => (
                           <li key={p.id}>
-                            <button
-                              type="button"
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               onClick={() => {
                                 addPersonToEntry(selectedIdx, p.id);
                                 setPickerOpen(false);
                               }}
-                              className="w-full px-3 py-2 text-left text-sm text-[var(--ink)] hover:bg-[var(--surface)]"
+                              className="w-full justify-start px-3 py-2"
                             >
                               {getFullName(p) || p.id}
-                            </button>
+                            </Button>
                           </li>
                         ))}
                       {filteredPersons.filter((p) => !selectedEntry.personIds.includes(p.id)).length === 0 && (

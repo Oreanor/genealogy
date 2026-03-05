@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 import { LOCALES } from '@/lib/i18n/config';
-import { useLocale } from '@/lib/i18n/context';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { getPathSegments } from '@/lib/utils/path';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { usePathname, useRouter } from 'next/navigation';
@@ -33,6 +33,7 @@ export function LocaleSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
   const currentLocale = useLocale();
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, () => setOpen(false), open);
@@ -55,7 +56,7 @@ export function LocaleSwitcher() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] text-xs font-semibold text-[var(--ink)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
-        aria-label="Язык"
+        aria-label={t('tooltipLanguage')}
         aria-expanded={open}
         aria-haspopup="listbox"
       >
@@ -63,7 +64,7 @@ export function LocaleSwitcher() {
       </button>
       {open && (
         <div
-          className="absolute right-0 top-full z-10 mt-2 min-w-[120px] rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2 shadow-xl"
+          className="absolute right-0 top-full z-10 mt-2 w-9 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2 shadow-xl md:w-11"
           role="listbox"
           aria-label="Выбор языка"
         >
@@ -74,7 +75,7 @@ export function LocaleSwitcher() {
               role="option"
               aria-selected={locale === currentLocale}
               onClick={() => goToLocale(locale)}
-              className="flex w-full cursor-pointer items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--ink)] transition-colors hover:bg-[var(--border-subtle)]"
+              className="flex w-full cursor-pointer items-center justify-center rounded-lg px-1 py-2 text-sm font-medium text-[var(--ink)] transition-colors hover:bg-[var(--border-subtle)]"
             >
               {LOCALE_LABELS[locale] ?? locale.toUpperCase()}
             </button>

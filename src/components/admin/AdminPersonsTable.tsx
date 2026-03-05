@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
 import { useTranslations } from '@/lib/i18n/context';
 import type { Person } from '@/lib/types/person';
+import { Dialog } from '@/components/ui/molecules/Dialog';
+import { Button, Input, Select } from '@/components/ui/atoms';
 
 const PERSON_ID_PAD = 3;
 
@@ -14,10 +15,10 @@ function personIdNum(id: string): number {
 }
 
 /** Root person first, then others by numeric id (p001, p002, …) */
-function sortPersonsForEdit(ps: Person[]): Person[] {
+function sortPersonsForEdit(ps: Person[], rootId: string): Person[] {
   return [...ps].sort((a, b) => {
-    if (a.id === ROOT_PERSON_ID) return -1;
-    if (b.id === ROOT_PERSON_ID) return 1;
+    if (a.id === rootId) return -1;
+    if (b.id === rootId) return 1;
     const na = personIdNum(a.id);
     const nb = personIdNum(b.id);
     if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
@@ -56,24 +57,49 @@ function nextPersonId(persons: Person[]): string {
 }
 
 interface AdminPersonsTableProps {
+  rootPersonId: string;
   initialPersons: Person[];
   onDataChange?: (persons: Person[]) => void;
+  onRootChange?: (personId: string) => void;
 }
 
-export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersonsTableProps) {
+export function AdminPersonsTable({
+  rootPersonId,
+  initialPersons,
+  onDataChange,
+  onRootChange,
+}: AdminPersonsTableProps) {
   const t = useTranslations();
   const [persons, setPersons] = useState<Person[]>(
-    () => sortPersonsForEdit(JSON.parse(JSON.stringify(initialPersons)))
+    () => sortPersonsForEdit(JSON.parse(JSON.stringify(initialPersons)), rootPersonId)
   );
+  const [confirmRootOpen, setConfirmRootOpen] = useState(false);
+  const [pendingRootId, setPendingRootId] = useState<string | null>(null);
 
   useEffect(() => {
     onDataChange?.(persons);
   }, [persons, onDataChange]);
 
   const sortedPersons = useMemo(
-    () => sortPersonsForEdit(persons),
-    [persons]
+    () => sortPersonsForEdit(persons, rootPersonId),
+    [persons, rootPersonId]
   );
+
+  const handleSetRootClick = useCallback(
+    (personId: string) => {
+      if (personId === rootPersonId) return;
+      setPendingRootId(personId);
+      setConfirmRootOpen(true);
+    },
+    [rootPersonId]
+  );
+
+  const handleConfirmRoot = useCallback(() => {
+    if (pendingRootId) {
+      onRootChange?.(pendingRootId);
+      setPendingRootId(null);
+    }
+  }, [pendingRootId, onRootChange]);
 
   const updatePerson = useCallback((index: number, field: keyof Person, value: Person[keyof Person]) => {
     setPersons((prev) => {
@@ -113,24 +139,23 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
       <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] p-3 text-sm text-[var(--ink)]">
         <p className="font-medium">{t('adminHowItWorks')}</p>
         <p className="mt-1 text-[var(--ink-muted)]">
-          {t('adminPersonsHint', { id: ROOT_PERSON_ID })}
+          {t('adminPersonsHint', { id: rootPersonId })}
         </p>
         <p className="mt-1 text-[var(--ink-muted)]">{t('adminSaveReminder')}</p>
       </div>
       <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={addRow}
-          className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-sm font-medium text-[var(--ink)] hover:bg-[var(--paper-light)]"
-        >
+        <Button variant="secondary" onClick={addRow}>
           {t('adminAddRow')}
-        </button>
+        </Button>
       </div>
       <div className="overflow-auto rounded-xl border border-[var(--border)] bg-[var(--paper)] max-h-[60vh]">
         <table className="w-full min-w-[800px] border-collapse text-sm">
           <thead className="sticky top-0 z-10 bg-[var(--surface)] shadow-[0_1px_0_0_var(--border-subtle)]">
             <tr className="border-b border-[var(--border)]">
               <th className="w-10 p-2 text-left font-medium text-[var(--ink)]">#</th>
+              <th className="w-12 border-l border-[var(--border-subtle)] p-2 text-center font-medium text-[var(--ink)]" title={t('adminRootColumn')}>
+                {t('adminRootColumn')}
+              </th>
               {COLUMNS.map((col) => (
                 <th
                   key={col}
@@ -145,19 +170,36 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
           <tbody>
             {sortedPersons.map((person, displayIdx) => {
               const actualIdx = persons.findIndex((p) => p.id === person.id);
+              const isRoot = person.id === rootPersonId;
               return (
               <tr
                 key={person.id + displayIdx}
                 className="border-b border-[var(--border-subtle)] hover:bg-[var(--paper-light)]/50"
               >
                 <td className="p-2 text-[var(--ink-muted)]">{displayIdx + 1}</td>
+                <td className="border-l border-[var(--border-subtle)] p-1 text-center">
+                  {isRoot ? (
+                    <span className="text-[var(--accent)]" title={t('adminRootColumn')}>★</span>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleSetRootClick(person.id)}
+                      className="w-full rounded py-1"
+                      title={t('adminRootColumn')}
+                      aria-label={t('adminRootChangeConfirm')}
+                    >
+                      —
+                    </Button>
+                  )}
+                </td>
                 {COLUMNS.map((col) => (
                   <td
                     key={col}
                     className="border-l border-[var(--border-subtle)] p-1"
                   >
                     {col === 'parentIds' ? (
-                      <input
+                      <Input
                         type="text"
                         value={(person.parentIds ?? []).join(', ')}
                         onChange={(e) =>
@@ -167,42 +209,42 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
                             e.target.value.split(/[,\s]+/).filter(Boolean)
                           )
                         }
-                        className="w-full min-w-[100px] rounded border border-[var(--border-subtle)] bg-transparent px-2 py-1 text-[var(--ink)] focus:border-[var(--accent)] focus:outline-none"
+                        className="min-w-[100px]"
                       />
                     ) : col === 'gender' ? (
-                      <select
+                      <Select
                         value={String(person.gender ?? '')}
                         onChange={(e) =>
                           updatePerson(actualIdx, 'gender', (e.target.value || undefined) as 'm' | 'f' | undefined)
                         }
-                        className="w-full min-w-[60px] rounded border border-[var(--border-subtle)] bg-transparent px-2 py-1 text-[var(--ink)] focus:border-[var(--accent)] focus:outline-none"
+                        className="min-w-[60px]"
                       >
                         <option value="">—</option>
                         <option value="m">m</option>
                         <option value="f">f</option>
-                      </select>
+                      </Select>
                     ) : (
-                      <input
-                        type="text"
+                      <Input
                         value={String((person as unknown as Record<string, unknown>)[col] ?? '')}
                         onChange={(e) =>
                           updatePerson(actualIdx, col, e.target.value)
                         }
-                        className="w-full min-w-[80px] rounded border border-[var(--border-subtle)] bg-transparent px-2 py-1 text-[var(--ink)] focus:border-[var(--accent)] focus:outline-none"
+                        className="min-w-[80px]"
                       />
                     )}
                   </td>
                 ))}
                 <td className="p-1">
-                  <button
-                    type="button"
+                  <Button
+                    variant="danger"
+                    size="sm"
                     onClick={() => removeRow(actualIdx)}
-                    className="rounded p-1.5 text-[var(--ink-muted)] transition-colors hover:bg-red-500/20 hover:text-red-600"
+                    className="rounded p-1.5"
                     aria-label={t('adminDeleteRow')}
                     title={t('adminDeleteRow')}
                   >
                     ✕
-                  </button>
+                  </Button>
                 </td>
               </tr>
             );
@@ -210,6 +252,17 @@ export function AdminPersonsTable({ initialPersons, onDataChange }: AdminPersons
           </tbody>
         </table>
       </div>
+      <Dialog
+        open={confirmRootOpen}
+        onClose={() => { setConfirmRootOpen(false); setPendingRootId(null); }}
+        title={t('adminRootColumn')}
+        variant="confirm"
+        confirmLabel={t('dialogConfirm')}
+        cancelLabel={t('adminCancel')}
+        onConfirm={handleConfirmRoot}
+      >
+        {t('adminRootChangeConfirm')}
+      </Dialog>
     </div>
   );
 }

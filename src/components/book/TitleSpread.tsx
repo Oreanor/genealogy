@@ -1,7 +1,7 @@
 'use client';
 
 import { CHAPTERS, COVER_IMAGE } from '@/lib/constants/chapters';
-import { FAMILY_SURNAME } from '@/lib/constants/owner';
+import { getFamilySurname } from '@/lib/constants/owner';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { BookSpread } from './BookSpread';
 
 export function TitleSpread() {
   const { t, routes } = useLocaleRoutes();
-  const bookTitle = t('bookTitleTemplate', { surname: FAMILY_SURNAME });
+  const bookTitle = t('bookTitleTemplate', { surname: getFamilySurname() });
 
   return (
     <BookSpread

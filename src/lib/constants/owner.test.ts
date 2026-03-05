@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import {
-  FAMILY_SURNAME,
+  getFamilySurname,
   getDefaultBookTitle,
   getDefaultMetaDescription,
 } from './owner';
 
 describe('owner', () => {
-  it('FAMILY_SURNAME is defined', () => {
-    expect(FAMILY_SURNAME).toBe('Никонец');
+  it('getFamilySurname returns root person lastName from data', () => {
+    expect(getFamilySurname()).toBe('Никонец');
   });
 
   it('getDefaultBookTitle includes surname', () => {

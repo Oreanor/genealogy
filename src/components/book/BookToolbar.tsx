@@ -5,20 +5,19 @@ import Link from 'next/link';
 import { AdminButton } from '@/components/ui/AdminButton';
 import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
 import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { Button } from '@/components/ui/atoms/Button';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
 
-const BTN_CLASS =
-  'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11 text-[var(--ink)]';
-
-function BookLinkButton() {
+function BookLinkButton({ title }: { title?: string }) {
   const { routes, t } = useLocaleRoutes();
+  const label = title ?? t('navTree');
   return (
     <Link
       href={routes.home}
-      className={BTN_CLASS}
-      aria-label={t('navTree')}
-      title={t('navTree')}
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] text-[var(--ink)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+      aria-label={label}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -68,29 +67,35 @@ export function BookToolbar() {
 
   return (
     <div className="absolute right-2 top-[2vh] z-20 flex flex-col items-end gap-2">
-      {isAdmin ? <BookLinkButton /> : <AdminButton />}
-      <PageColorPicker />
-      <LocaleSwitcher />
+      <Tooltip label={isAdmin ? t('tooltipToBook') : t('adminTitle')} side="left">
+        {isAdmin ? <BookLinkButton title={t('tooltipToBook')} /> : <AdminButton />}
+      </Tooltip>
+      <Tooltip label={t('tooltipPageColor')} side="left">
+        <PageColorPicker />
+      </Tooltip>
+      <Tooltip label={t('tooltipLanguage')} side="left">
+        <LocaleSwitcher />
+      </Tooltip>
       {isAdmin && actions && (
         <>
-          <button
-            type="button"
-            onClick={actions.onCopy}
-            title={t('adminCopyJson')}
-            className={BTN_CLASS}
-            aria-label={t('adminCopyJson')}
-          >
-            <ClipboardIcon />
-          </button>
-          <button
-            type="button"
-            onClick={actions.onDownload}
-            title={t('adminDownloadJson')}
-            className={BTN_CLASS}
-            aria-label={t('adminDownloadJson')}
-          >
-            <FloppyIcon />
-          </button>
+          <Tooltip label={t('adminCopyJson')} side="left">
+            <Button
+              variant="icon"
+              onClick={actions.onCopy}
+              aria-label={t('adminCopyJson')}
+            >
+              <ClipboardIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip label={t('adminDownloadJson')} side="left">
+            <Button
+              variant="icon"
+              onClick={actions.onDownload}
+              aria-label={t('adminDownloadJson')}
+            >
+              <FloppyIcon />
+            </Button>
+          </Tooltip>
         </>
       )}
     </div>

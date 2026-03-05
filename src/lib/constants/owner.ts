@@ -1,15 +1,19 @@
-/**
- * Album "owner" config. Changing the surname here updates book title and description
- * in all locales. Person data (names in data.json) is unchanged — branding only.
- */
-export const FAMILY_SURNAME = 'Никонец';
+import { getRootPersonId } from '@/lib/data/root';
+import { getPersonById } from '@/lib/data/persons';
+
+/** Family surname for book title: root person's lastName, or fallback */
+export function getFamilySurname(): string {
+  const root = getPersonById(getRootPersonId());
+  const name = root?.lastName?.trim();
+  return name ?? 'Семья';
+}
 
 /** Default book title (Russian) for metadata and SSR */
 export function getDefaultBookTitle(): string {
-  return `Родословная семьи ${FAMILY_SURNAME}`;
+  return `Родословная семьи ${getFamilySurname()}`;
 }
 
 /** Default description (Russian) for metadata */
 export function getDefaultMetaDescription(): string {
-  return `Интерактивный альбом-книга о родословной семьи ${FAMILY_SURNAME}`;
+  return `Интерактивный альбом-книга о родословной семьи ${getFamilySurname()}`;
 }
