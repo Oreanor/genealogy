@@ -1,8 +1,8 @@
 import type { ChapterId } from '@/lib/constants/chapters';
-import type { Page, Spread } from '@/lib/types/spread';
-import pagesData from '@/data/pages.json';
+import type { Page } from '@/lib/types/spread';
+import appData from '@/data/data.json';
 
-const pages = pagesData as Page[];
+const pages = (appData as { pages: Page[] }).pages;
 
 export function getPages(): Page[] {
   return pages;

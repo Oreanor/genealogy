@@ -4,6 +4,7 @@ import {
   getDefaultBookTitle,
   getDefaultMetaDescription,
 } from '@/lib/constants/owner';
+import { StorageGate } from '@/components/StorageGate';
 import './globals.css';
 
 const geistSans = Geist({
@@ -37,7 +38,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <StorageGate>{children}</StorageGate>
       </body>
     </html>
   );

@@ -6,8 +6,10 @@ import type { Person } from '@/lib/types/person';
 
 const person: Person = {
   id: 'person-1',
-  name: 'Иван Петрович',
-  birthYears: '1925–1998',
+  firstName: 'Иван',
+  patronymic: 'Петрович',
+  birthDate: '1925',
+  deathDate: '1998',
   birthPlace: '',
   occupation: '',
   parentIds: [],
@@ -59,14 +61,14 @@ describe('TreeNode', () => {
         />
       )
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Иван Петрович' }));
+    fireEvent.click(screen.getByRole('button', { name: /Иван Петрович/ }));
     expect(onPersonClick).toHaveBeenCalledWith('person-1');
   });
 
   it('truncates long names', () => {
     const longName: Person = {
       ...person,
-      name: 'Очень длинное имя персоны для проверки',
+      firstName: 'Очень длинное имя персоны для проверки',
     };
     render(
       withI18n(

@@ -1,4 +1,4 @@
-/** Сегменты пути без пустых строк: "/ru/glava/istoriya" → ["ru", "glava", "istoriya"] */
+/** Path segments without empty strings: "/ru/chapter/history" → ["ru", "chapter", "history"] */
 export function getPathSegments(pathname: string): string[] {
   return pathname.split('/').filter(Boolean);
 }

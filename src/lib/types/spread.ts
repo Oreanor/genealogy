@@ -1,4 +1,5 @@
 import type { ChapterId } from '@/lib/constants/chapters';
+import type { HistoryEntry } from './history';
 
 export interface Page {
   id: string;
@@ -20,7 +21,7 @@ export interface ImageConfig {
   hotspots?: Array<{
     personId: string;
     coords: number[];
-    shape: 'rect' | 'polygon';
+    shape: 'point' | 'circle' | 'rect' | 'polygon';
   }>;
 }
 
@@ -30,12 +31,15 @@ export interface PageContent {
   tree?: boolean;
   /** ID персоны — для разворота с карточкой персоны (глава «Персоны») */
   personId?: string;
+  /** Элементы раздела «Истории» (название + ричтекст + персоны + картинки) */
+  historyEntries?: HistoryEntry[];
 }
 
-export interface ContentBlock {
-  type: 'paragraph' | 'heading' | 'list';
-  content: RichTextNode[];
-}
+export type ContentBlock =
+  | { type: 'paragraph'; content: RichTextNode[] }
+  | { type: 'heading'; content: RichTextNode[] }
+  | { type: 'list'; content: RichTextNode[] }
+  | { type: 'html'; html: string };
 
 export type RichTextNode =
   | { type: 'text'; value: string }

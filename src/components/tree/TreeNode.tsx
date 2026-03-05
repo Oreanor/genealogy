@@ -1,6 +1,8 @@
 'use client';
 
+import { memo } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
+import { formatLifeDates, getFullName } from '@/lib/utils/person';
 import { getTreeRoleKey } from '@/lib/utils/relationship';
 import type { Person } from '@/lib/types/person';
 import Image from 'next/image';
@@ -20,7 +22,7 @@ function truncate(text: string, maxLen: number): string {
   return text.length > maxLen ? `${text.slice(0, maxLen - 1)}…` : text;
 }
 
-export function TreeNode({
+export const TreeNode = memo(function TreeNode({
   person,
   level,
   index,
@@ -31,10 +33,9 @@ export function TreeNode({
   const hasPerson = !!person;
   const roleKey = getTreeRoleKey(level, index, person);
   const role = roleKey ? t(roleKey) : '';
-  const displayName = truncate(person?.name ?? t('unknown'), MAX_NAME_LEN);
-  const displayYears = person?.birthYears
-    ? truncate(person.birthYears, MAX_YEARS_LEN)
-    : '';
+  const displayName = truncate(getFullName(person) || t('unknown'), MAX_NAME_LEN);
+  const lifeDates = formatLifeDates(person?.birthDate, person?.deathDate);
+  const displayYears = lifeDates ? truncate(lifeDates, MAX_YEARS_LEN) : '';
 
   const content = (
     <>
@@ -83,9 +84,9 @@ export function TreeNode({
     return (
       <button
         type="button"
-        className={`${wrapperClass} cursor-pointer border-0 bg-transparent p-0`}
+        className={`${wrapperClass} border-0 bg-transparent p-0`}
         style={style}
-        aria-label={person!.name}
+        aria-label={getFullName(person!)}
         onClick={() => onPersonClick(person!.id)}
       >
         {content}
@@ -98,4 +99,4 @@ export function TreeNode({
       {content}
     </div>
   );
-}
+});

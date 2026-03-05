@@ -2,6 +2,14 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import type { RichTextNode } from '@/lib/types/spread';
 import Link from 'next/link';
 
+/** Только относительные пути и https — защита от javascript: и т.п. */
+function isSafeHref(href: string): boolean {
+  const trimmed = href.trim().toLowerCase();
+  if (trimmed.startsWith('/')) return true;
+  if (trimmed.startsWith('https://') || trimmed.startsWith('http://')) return true;
+  return false;
+}
+
 interface RichTextProps {
   nodes: RichTextNode[];
 }
@@ -23,7 +31,7 @@ function renderNode(node: RichTextNode, index: number): React.ReactNode {
         </em>
       );
     case 'link':
-      return (
+      return isSafeHref(node.href) ? (
         <Link
           key={index}
           href={node.href}
@@ -31,6 +39,10 @@ function renderNode(node: RichTextNode, index: number): React.ReactNode {
         >
           {node.children.map((n, i) => renderNode(n, i))}
         </Link>
+      ) : (
+        <span key={index} className={CONTENT_LINK_CLASS}>
+          {node.children.map((n, i) => renderNode(n, i))}
+        </span>
       );
     default:
       return null;

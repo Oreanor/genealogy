@@ -2,6 +2,7 @@
 
 import { PersonCard } from '@/components/content/PersonCard';
 import { PageContentRenderer } from '@/components/content/PageContentRenderer';
+import { HistoryContentRenderer } from '@/components/content/HistoryContentRenderer';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { NavButton } from '@/components/ui/NavButton';
 import { CHAPTER_IDS } from '@/lib/constants/chapters';
@@ -46,7 +47,7 @@ export function SpreadNavigation({
     if (isPersony && persons[safeIndex - 1]) {
       router.push(routes.person(persons[safeIndex - 1].id));
     } else {
-      router.push(routes.chapterSpread(chapterSlug, safeIndex - 1));
+      router.push(routes.chapterSpread(chapterSlug));
     }
   };
 
@@ -54,7 +55,7 @@ export function SpreadNavigation({
     if (isPersony && persons[safeIndex + 1]) {
       router.push(routes.person(persons[safeIndex + 1].id));
     } else {
-      router.push(routes.chapterSpread(chapterSlug, safeIndex + 1));
+      router.push(routes.chapterSpread(chapterSlug));
     }
   };
 
@@ -79,7 +80,9 @@ export function SpreadNavigation({
       );
     }
     const hasContent =
-      (content.blocks && content.blocks.length > 0) || !!content.image?.src;
+      (content.blocks && content.blocks.length > 0) ||
+      !!content.image?.src ||
+      (content.historyEntries && content.historyEntries.length > 0);
 
     return (
       <BookPage>
@@ -89,7 +92,9 @@ export function SpreadNavigation({
           </h1>
         )}
         <div className="mt-6 flex-1">
-          {hasContent ? (
+          {content.historyEntries && content.historyEntries.length > 0 ? (
+            <HistoryContentRenderer entries={content.historyEntries} />
+          ) : hasContent ? (
             <PageContentRenderer content={content} />
           ) : (
             <div className="flex h-full items-center justify-center">

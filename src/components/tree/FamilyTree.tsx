@@ -31,9 +31,8 @@ export function FamilyTree() {
   const matrix = buildTreeMatrix(ROOT_PERSON_ID);
   const totalLevels = matrix.length;
 
-  const handlePersonClick = (personId: string) => {
+  const handlePersonClick = (personId: string) =>
     router.push(routes.person(personId));
-  };
 
   return (
     <div

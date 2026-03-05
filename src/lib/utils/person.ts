@@ -1,6 +1,23 @@
 import type { Person } from '@/lib/types/person';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 
+/** Форматирует даты жизни для отображения (древо, карточка). */
+export function formatLifeDates(birth?: string, death?: string): string {
+  if (birth && death) return `${birth} – ${death}`;
+  if (birth) return birth;
+  if (death) return death;
+  return '';
+}
+
+/** Полное имя: Фамилия Имя Отчество. Пустые части пропускаются. */
+export function getFullName(person: Person | null | undefined): string {
+  if (!person) return '';
+  const parts = [person.lastName, person.firstName, person.patronymic].filter(
+    (s): s is string => Boolean(s?.trim())
+  );
+  return parts.join(' ') || '';
+}
+
 export function getChildren(personId: string): Person[] {
   return getPersons().filter((p) => p.parentIds.includes(personId));
 }

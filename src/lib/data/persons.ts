@@ -1,7 +1,7 @@
 import type { Person } from '@/lib/types/person';
-import personsData from '@/data/persons.json';
+import appData from '@/data/data.json';
 
-const persons = personsData as Person[];
+const persons = (appData as { persons: Person[] }).persons;
 
 export function getPersons(): Person[] {
   return persons;

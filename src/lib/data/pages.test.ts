@@ -11,33 +11,37 @@ describe('pages data', () => {
 
   describe('getPagesByChapter', () => {
     it('returns pages for chapter', () => {
-      const pages = getPagesByChapter('istoriya');
+      const pages = getPagesByChapter('photos');
       expect(pages.length).toBeGreaterThan(0);
-      expect(pages.every((p) => p.chapter === 'istoriya')).toBe(true);
+      expect(pages.every((p) => p.chapter === 'photos')).toBe(true);
     });
 
     it('sorts by spreadIndex', () => {
-      const pages = getPagesByChapter('istoriya');
+      const pages = getPagesByChapter('photos');
       for (let i = 1; i < pages.length; i++) {
         expect(pages[i]!.spreadIndex).toBeGreaterThanOrEqual(pages[i - 1]!.spreadIndex);
       }
     });
 
-    it('returns empty for persony (spreads from persons, not pages)', () => {
-      expect(getPagesByChapter('persony')).toEqual([]);
+    it('returns empty for persons (spreads from persons, not pages)', () => {
+      expect(getPagesByChapter('persons')).toEqual([]);
+    });
+
+    it('returns empty for history (content in data.json history section, not pages)', () => {
+      expect(getPagesByChapter('history')).toEqual([]);
     });
   });
 
   describe('getSpreadByChapterAndIndex', () => {
     it('returns page for valid chapter and index', () => {
-      const page = getSpreadByChapterAndIndex('istoriya', 0);
+      const page = getSpreadByChapterAndIndex('photos', 0);
       expect(page).not.toBeNull();
-      expect(page!.chapter).toBe('istoriya');
+      expect(page!.chapter).toBe('photos');
       expect(page!.spreadIndex).toBe(0);
     });
 
     it('returns null for invalid index', () => {
-      expect(getSpreadByChapterAndIndex('istoriya', 999)).toBeNull();
+      expect(getSpreadByChapterAndIndex('photos', 999)).toBeNull();
     });
   });
 });

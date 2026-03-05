@@ -9,7 +9,6 @@ import {
 } from 'react';
 import { getRoutes } from '@/lib/constants/routes';
 import type { Locale } from './config';
-import { getMessages } from './messages';
 
 interface I18nContextValue {
   locale: Locale;

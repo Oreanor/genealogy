@@ -1,6 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { buildTreeMatrix, MAX_TREE_LEVELS } from './tree';
 import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
+import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
+
+vi.mock('@/lib/data/persons', () => ({
+  getPersons: () => PERSONS_FIXTURE,
+  getPersonById: (id: string) =>
+    PERSONS_FIXTURE.find((p) => p.id === id) ?? null,
+}));
 
 describe('buildTreeMatrix', () => {
   it('returns matrix with root at level 0', () => {
@@ -21,7 +28,6 @@ describe('buildTreeMatrix', () => {
   it('uses null for missing parents', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
     // person-2, person-3 have empty parentIds - their parent slots are null
-    const level1 = matrix[1] ?? [];
     const level2 = matrix[2] ?? [];
     expect(level2.filter((p) => p !== null).length).toBeLessThanOrEqual(4);
   });

@@ -28,7 +28,7 @@ describe('TitleSpread', () => {
     render(withI18n(<TitleSpread />));
     expect(screen.getByRole('link', { name: 'Семейное древо' })).toHaveAttribute(
       'href',
-      '/ru/glava/semejnoe-drevo'
+      '/ru/chapter/family-tree'
     );
   });
 });

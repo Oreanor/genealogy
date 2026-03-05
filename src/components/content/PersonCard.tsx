@@ -2,7 +2,7 @@
 
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById } from '@/lib/data/persons';
-import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/utils/person';
+import { formatLifeDates, getChildren, getCousins, getFullName, getSpouse, getSiblings } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export function PersonCard({ person }: PersonCardProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-semibold text-[var(--ink)]">{person.name}</h2>
+      <h2 className="text-2xl font-semibold text-[var(--ink)]">{getFullName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
         <div className="space-y-2 text-[var(--ink)]">
           {spouse && (
@@ -32,7 +32,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 {spouse.gender === 'f' ? t('spouseF') : t('spouseM')}
               </span>{' '}
               <Link href={routes.person(spouse.id)} className={CONTENT_LINK_CLASS}>
-                {spouse.name}
+                {getFullName(spouse)}
               </Link>
             </p>
           )}
@@ -43,7 +43,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 <span key={p.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
-                    {p.name}
+                    {getFullName(p)}
                   </Link>
                 </span>
               ))}
@@ -56,7 +56,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 <span key={c.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
-                    {c.name}
+                    {getFullName(c)}
                   </Link>
                 </span>
               ))}
@@ -69,7 +69,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 <span key={s.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(s.id)} className={CONTENT_LINK_CLASS}>
-                    {s.name}
+                    {getFullName(s)}
                   </Link>
                 </span>
               ))}
@@ -82,7 +82,7 @@ export function PersonCard({ person }: PersonCardProps) {
                 <span key={c.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
-                    {c.name}
+                    {getFullName(c)}
                   </Link>
                 </span>
               ))}
@@ -90,9 +90,10 @@ export function PersonCard({ person }: PersonCardProps) {
           )}
         </div>
       )}
-      {person.birthYears && (
+      {(person.birthDate || person.deathDate) && (
         <p className="text-[var(--ink)]">
-          <span className="font-medium">{t('years')}</span> {person.birthYears}
+          <span className="font-medium">{t('years')}</span>{' '}
+          {formatLifeDates(person.birthDate, person.deathDate)}
         </p>
       )}
       {person.birthPlace && (

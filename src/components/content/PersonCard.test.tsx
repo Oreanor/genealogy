@@ -6,8 +6,10 @@ import type { Person } from '@/lib/types/person';
 
 const person: Person = {
   id: 'p1',
-  name: 'Иван Петрович',
-  birthYears: '1925–1998',
+  firstName: 'Иван',
+  patronymic: 'Петрович',
+  birthDate: '1925',
+  deathDate: '1998',
   birthPlace: 'д. Заозерье',
   occupation: 'учитель',
   parentIds: [],
@@ -35,7 +37,7 @@ describe('PersonCard', () => {
   });
 
   it('omits optional fields when absent', () => {
-    const minimal: Person = { id: 'p2', name: 'X', parentIds: [] };
+    const minimal: Person = { id: 'p2', firstName: 'X', parentIds: [] };
     render(withI18n(<PersonCard person={minimal} />));
     expect(screen.getByRole('heading', { name: 'X' })).toBeInTheDocument();
     expect(screen.queryByText(/Годы:/)).not.toBeInTheDocument();

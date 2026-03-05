@@ -3,7 +3,7 @@ import { getPathSegments } from './path';
 
 describe('getPathSegments', () => {
   it('splits path into non-empty segments', () => {
-    expect(getPathSegments('/ru/glava/istoriya')).toEqual(['ru', 'glava', 'istoriya']);
+    expect(getPathSegments('/ru/chapter/history')).toEqual(['ru', 'chapter', 'history']);
   });
 
   it('returns empty array for root path', () => {

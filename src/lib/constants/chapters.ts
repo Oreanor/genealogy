@@ -2,21 +2,19 @@
 export const COVER_IMAGE = '';
 
 export const CHAPTERS = [
-  { id: 'semejnoe-drevo', title: 'Семейное древо' },
-  { id: 'persony', title: 'Персоны' },
-  { id: 'istoriya', title: 'История' },
-  { id: 'foto', title: 'Фото' },
-  { id: 'drugie-materialy', title: 'Другие материалы' },
+  { id: 'family-tree', title: 'Семейное древо' },
+  { id: 'persons', title: 'Персоны' },
+  { id: 'history', title: 'Истории' },
+  { id: 'photos', title: 'Фото' },
 ] as const;
 
 export type ChapterId = (typeof CHAPTERS)[number]['id'];
 
 export const CHAPTER_IDS = {
-  TREE: 'semejnoe-drevo',
-  PERSONS: 'persony',
-  HISTORY: 'istoriya',
-  PHOTOS: 'foto',
-  OTHER: 'drugie-materialy',
+  TREE: 'family-tree',
+  PERSONS: 'persons',
+  HISTORY: 'history',
+  PHOTOS: 'photos',
 } as const satisfies Record<string, ChapterId>;
 
 /** ID персоны «я» (корень древа снизу) */

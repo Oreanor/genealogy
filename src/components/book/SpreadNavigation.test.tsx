@@ -5,6 +5,14 @@ import { withI18n } from '@/lib/i18n/test-utils';
 
 const mockPush = vi.fn();
 let searchParams: Record<string, string | null> = { spread: '0', id: null };
+vi.mock('@/lib/data/persons', async () => {
+  const { PERSONS_FIXTURE } = await import('@/lib/data/__fixtures__/persons');
+  return {
+    getPersons: () => PERSONS_FIXTURE,
+    getPersonById: (id: string) =>
+      PERSONS_FIXTURE.find((p) => p.id === id) ?? null,
+  };
+});
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush }),
   useSearchParams: () => ({
@@ -35,17 +43,17 @@ describe('SpreadNavigation', () => {
     render(
       withI18n(
         <SpreadNavigation
-          chapterSlug="istoriya"
-          chapterTitle="История"
+          chapterSlug="history"
+          chapterTitle="Истории"
           spreads={spreads}
         />
       )
     );
-    expect(screen.getByText('История')).toBeInTheDocument();
+    expect(screen.getByText('Истории')).toBeInTheDocument();
     expect(screen.getByText('Test')).toBeInTheDocument();
   });
 
-  it('renders person card for persony with id', () => {
+  it('renders person card for persons chapter with id', () => {
     searchParams = { spread: null, id: 'person-1' };
     const spreads = [
       { spreadIndex: 0, left: { personId: 'person-1' }, right: {} },
@@ -53,7 +61,7 @@ describe('SpreadNavigation', () => {
     render(
       withI18n(
         <SpreadNavigation
-          chapterSlug="persony"
+          chapterSlug="persons"
           chapterTitle="Персоны"
           spreads={spreads}
         />
@@ -70,7 +78,7 @@ describe('SpreadNavigation', () => {
     render(
       withI18n(
         <SpreadNavigation
-          chapterSlug="istoriya"
+          chapterSlug="history"
           chapterTitle="X"
           spreads={spreads}
         />

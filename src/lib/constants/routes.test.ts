@@ -6,15 +6,24 @@ describe('getRoutes', () => {
     expect(getRoutes('ru').home).toBe('/ru');
   });
 
-  it('chapter builds /{locale}/glava/{slug}', () => {
-    expect(getRoutes('en').chapter('istoriya')).toBe('/en/glava/istoriya');
+  it('section builds home with section param', () => {
+    expect(getRoutes('en').section('history')).toBe('/en?section=history');
   });
 
-  it('chapterSpread builds with spread param', () => {
-    expect(getRoutes('de').chapterSpread('foto', 2)).toBe('/de/glava/foto?spread=2');
+  it('chapter redirects to home with section', () => {
+    expect(getRoutes('en').chapter('history')).toBe('/en?section=history');
+    expect(getRoutes('en').chapter('family-tree')).toBe('/en');
   });
 
-  it('person builds persony URL with id', () => {
-    expect(getRoutes('ru').person('person-1')).toBe('/ru/glava/persony?id=person-1');
+  it('chapterSpread redirects to home with section', () => {
+    expect(getRoutes('de').chapterSpread('photos')).toBe('/de?section=photos');
+  });
+
+  it('person builds home with section=persons and id', () => {
+    expect(getRoutes('ru').person('person-1')).toBe('/ru?section=persons&id=person-1');
+  });
+
+  it('admin builds /{locale}/admin', () => {
+    expect(getRoutes('en').admin).toBe('/en/admin');
   });
 });

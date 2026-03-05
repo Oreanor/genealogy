@@ -1,7 +1,24 @@
-import { describe, it, expect } from 'vitest';
-import { getChildren, getCousins, getRoots, getSpouse, getSiblings } from './person';
+import { describe, it, expect, vi } from 'vitest';
+import { getChildren, getCousins, getFullName, getRoots, getSpouse, getSiblings } from './person';
+import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
+
+vi.mock('@/lib/data/persons', () => ({
+  getPersons: () => PERSONS_FIXTURE,
+  getPersonById: (id: string) =>
+    PERSONS_FIXTURE.find((p) => p.id === id) ?? null,
+}));
 
 describe('person utils', () => {
+  describe('getFullName', () => {
+    it('formats as LastName FirstName Patronymic', () => {
+      const p = PERSONS_FIXTURE.find((x) => x.id === 'person-1')!;
+      expect(getFullName(p)).toBe('Никонец Иван Петрович');
+    });
+    it('returns empty for null', () => {
+      expect(getFullName(null)).toBe('');
+    });
+  });
+
   describe('getChildren', () => {
     it('returns children of person-2', () => {
       const children = getChildren('person-2');

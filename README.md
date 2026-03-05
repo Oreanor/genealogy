@@ -22,7 +22,7 @@
 ## Настройка под свою семью
 
 - **Фамилия и бренд** — в `src/lib/constants/owner.ts` задаёте `FAMILY_SURNAME`. Заголовок книги («Родословная семьи …») и описание строятся из неё во всех локалях.
-- **Данные** — в `src/data/persons.json` и `src/data/pages.json` храните своих персон и развороты; имена и тексты — ваши, без привязки к конкретной фамилии в коде.
+- **Данные** — в одном файле `src/data/data.json` хранятся секции `persons`, `pages`, `photos`, `history`; имена и тексты — ваши, без привязки к конкретной фамилии в коде.
 - **Корень древа** — в `src/lib/constants/chapters.ts` задаётся `ROOT_PERSON_ID` (персона «я»).
 
 ## Быстрый старт
@@ -56,15 +56,14 @@ src/
 │   └── [locale]/               # Локали: /ru, /en, ...
 │       ├── layout.tsx          # I18nProvider, SetDocumentLang
 │       ├── page.tsx            # Главная (титульный разворот)
-│       └── glava/[slug]/       # Главы: /ru/glava/semejnoe-drevo, ...
+│       └── chapter/[slug]/     # Chapters: /ru/chapter/family-tree, ...
 ├── components/
 │   ├── book/                   # BookLayout, BookSpread, SpreadNavigation, TitleSpread, TocBookmark
 │   ├── content/                # RichText, ContentBlocks, ImageWithHotspots, PersonCard
 │   ├── tree/                   # FamilyTree, TreeNode
 │   └── ui/                     # NavButton, PageColorPicker, LocaleSwitcher
 ├── data/
-│   ├── pages.json              # Развороты по главам
-│   └── persons.json           # Персоны и связи (ваши данные)
+│   └── data.json               # Единый файл: persons, pages, photos, history
 ├── lib/
 │   ├── constants/              # chapters, routes, owner, storage
 │   ├── i18n/                   # локали, сообщения, useLocaleRoutes
@@ -74,12 +73,14 @@ src/
 ├── hooks/
 │   ├── useSpreadState.ts
 │   └── useClickOutside.ts
-└── middleware.ts               # Редирект / и /glava/* на /{locale}/...
+└── middleware.ts               # Redirect / and /chapter/* to /{locale}/...
 ```
 
 ## Данные
 
-### Персоны (`src/data/persons.json`)
+Все данные приложения лежат в **одном** файле **`src/data/data.json`** (секции: `persons`, `pages`, `photos`, `history`). В админке можно скопировать или скачать один JSON — у него та же структура. Чтобы обновить данные в проекте, сохраните скачанный файл как `src/data/data.json` (заменить один файл).
+
+### Персоны (`data.json` → `persons`)
 
 Ваши персоны: id, имя, годы, место рождения, род занятий, `parentIds` для построения древа. Фамилия в заголовке книги берётся из конфига, а не из этих записей.
 
@@ -95,9 +96,13 @@ src/
 }
 ```
 
-### Развороты (`src/data/pages.json`)
+### Развороты (`data.json` → `pages`)
 
 Левая и правая страница разворота с блоками контента (paragraph, heading, list), изображениями и hotspots. Глава «Персоны» собирается из списка персон: один разворот = одна персона.
+
+### Фото (`public/photos/` и `data.json` → `photos`)
+
+Создайте папку `public/photos/` и любую структуру подпапок (например `2020/`, `family/`). Заливайте туда фото (jpg, png, gif, webp). В админке (вкладка Photos) они появятся автоматически после сканирования. Подписи и люди на фото сохраняются в секции `photos` в `data.json`.
 
 ## Деплой
 

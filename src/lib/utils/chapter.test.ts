@@ -3,11 +3,11 @@ import { getChapterBySlug } from './chapter';
 
 describe('getChapterBySlug', () => {
   it('returns chapter for valid slug', () => {
-    expect(getChapterBySlug('semejnoe-drevo')).toEqual({
-      id: 'semejnoe-drevo',
+    expect(getChapterBySlug('family-tree')).toEqual({
+      id: 'family-tree',
       title: 'Семейное древо',
     });
-    expect(getChapterBySlug('persony')).toEqual({ id: 'persony', title: 'Персоны' });
+    expect(getChapterBySlug('persons')).toEqual({ id: 'persons', title: 'Персоны' });
   });
 
   it('returns null for unknown slug', () => {

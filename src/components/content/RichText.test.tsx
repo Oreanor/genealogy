@@ -38,20 +38,36 @@ describe('RichText', () => {
     expect(el.closest('em')).toBeInTheDocument();
   });
 
-  it('renders link', () => {
+  it('renders safe link', () => {
     render(
       <RichText
         nodes={[
           {
             type: 'link',
-            href: '/glava/persony?id=1',
+            href: '/chapter/persons?id=1',
             children: [{ type: 'text', value: 'Link' }],
           },
         ]}
       />
     );
     const link = screen.getByRole('link', { name: 'Link' });
-    expect(link).toHaveAttribute('href', '/glava/persony?id=1');
+    expect(link).toHaveAttribute('href', '/chapter/persons?id=1');
+  });
+
+  it('renders unsafe href as span (no link)', () => {
+    render(
+      <RichText
+        nodes={[
+          {
+            type: 'link',
+            href: 'javascript:alert(1)',
+            children: [{ type: 'text', value: 'Fake' }],
+          },
+        ]}
+      />
+    );
+    expect(screen.getByText('Fake')).toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
   it('renders mixed content', () => {
