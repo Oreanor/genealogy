@@ -25,6 +25,9 @@
 .cursor/
 *.pem
 
+# photos (too large for git)
+/public/photos/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
