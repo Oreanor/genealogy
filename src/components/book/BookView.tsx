@@ -17,7 +17,9 @@ import { sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/ut
 import Image from 'next/image';
 import Link from 'next/link';
 import { NavButton } from '@/components/ui/NavButton';
+import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+import type { PhotoEntry } from '@/lib/types/photo';
 
 const PHOTOS_PER_PAGE = 9;
 const PHOTOS_PER_SPREAD = PHOTOS_PER_PAGE * 2;
@@ -27,6 +29,7 @@ export function BookView() {
   const { t, routes } = useLocaleRoutes();
   const [personsSearch, setPersonsSearch] = useState('');
   const [historySearch, setHistorySearch] = useState('');
+  const [photosLightbox, setPhotosLightbox] = useState<PhotoEntry | null>(null);
   const pathname = usePathname() ?? '';
   const router = useRouter();
   const sectionParam = searchParams.get('section') ?? '';
@@ -55,9 +58,10 @@ export function BookView() {
   if (section === 'tree') {
     return (
       <BookSpread
+        wide
         fullWidth={
-          <BookPage>
-            <h1 className="mb-2 text-center text-xl font-semibold text-[var(--ink)]">
+          <BookPage className="p-2 sm:p-3 md:p-4">
+            <h1 className="book-serif mb-1 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
               {t('treeTitle')}
             </h1>
             <FamilyTree />
@@ -78,7 +82,7 @@ export function BookView() {
       <BookSpread
         left={
           <BookPage>
-            <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+            <h1 className="book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
               {t('chapters_history')}
             </h1>
             <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">
@@ -128,7 +132,7 @@ export function BookView() {
           </BookPage>
         }
         right={
-          <BookPage>
+          <BookPage className="p-6 sm:p-8 md:p-10">
             <div className="flex h-full min-h-0 flex-col overflow-y-auto">
               {selectedEntry ? (
                 <HistoryContentRenderer entries={[selectedEntry]} />
@@ -146,44 +150,8 @@ export function BookView() {
 
   if (section === 'photos') {
     const photos = getPhotos();
-    const photoId = searchParams.get('photo');
-    const selectedPhoto = photoId ? photos.find((p) => p.id === photoId) : null;
     const spreadParam = searchParams.get('spread');
     const spread = spreadParam !== null ? Math.max(0, parseInt(spreadParam, 10) || 0) : 0;
-
-    if (selectedPhoto) {
-      const backUrl = `${pathname}?section=photos${spread > 0 ? `&spread=${spread}` : ''}`;
-      return (
-        <BookSpread
-          fullWidth={
-            <BookPage>
-              <Link
-                href={backUrl}
-                className={`mb-2 inline-block text-sm ${CONTENT_LINK_CLASS}`}
-              >
-                ← {t('back')}
-              </Link>
-              <div className="flex flex-1 min-h-0 flex-col">
-                <div className="relative min-h-0 flex-1 w-full">
-                  <Image
-                    src={selectedPhoto.src}
-                    alt={selectedPhoto.caption ?? selectedPhoto.id}
-                    fill
-                    className="object-contain"
-                    sizes="100vw"
-                  />
-                </div>
-                {selectedPhoto.caption && (
-                  <p className="mt-2 shrink-0 text-sm text-[var(--ink-muted)]">
-                    {selectedPhoto.caption}
-                  </p>
-                )}
-              </div>
-            </BookPage>
-          }
-        />
-      );
-    }
 
     const leftPhotos = photos.slice(spread * PHOTOS_PER_SPREAD, spread * PHOTOS_PER_SPREAD + PHOTOS_PER_PAGE);
     const rightPhotos = photos.slice(
@@ -194,22 +162,23 @@ export function BookView() {
     const hasPrev = spread > 0;
     const hasNext = spread < totalSpreads - 1;
 
-    const photoGrid = (list: typeof photos) => (
+    const photoGrid = (list: PhotoEntry[]) => (
       <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
         {list.map((photo) => (
-          <Link
+          <button
             key={photo.id}
-            href={`${pathname}?section=photos&spread=${spread}&photo=${photo.id}`}
-            className="relative block aspect-[3/4] overflow-hidden rounded bg-[var(--paper-light)]"
+            type="button"
+            onClick={() => setPhotosLightbox(photo)}
+            className="relative block aspect-[3/4] w-full overflow-hidden rounded bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
           >
             <Image
               src={photo.src}
               alt={photo.caption ?? photo.id}
               fill
-              className="object-cover transition-opacity hover:opacity-90"
+              className="object-cover"
               sizes="(max-width: 640px) 33vw, 20vw"
             />
-          </Link>
+          </button>
         ))}
       </div>
     );
@@ -219,7 +188,7 @@ export function BookView() {
         <BookSpread
           left={
             <BookPage>
-              <h1 className="mb-2 text-xl font-semibold text-[var(--ink)] md:text-2xl">
+              <h1 className="book-serif mb-2 text-xl font-semibold text-[var(--ink)] md:text-2xl">
                 {t('chapters_photos')}
               </h1>
               <div className="flex-1 min-h-0 overflow-y-auto">
@@ -258,6 +227,15 @@ export function BookView() {
             </div>
           </div>
         )}
+        {photosLightbox && (
+          <ImageLightbox
+            src={photosLightbox.src}
+            alt={photosLightbox.caption ?? photosLightbox.id}
+            caption={photosLightbox.caption}
+            open
+            onClose={() => setPhotosLightbox(null)}
+          />
+        )}
       </div>
     );
   }
@@ -271,7 +249,7 @@ export function BookView() {
       <BookSpread
         left={
           <BookPage>
-            <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+            <h1 className="book-serif text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
               {t('chapters_persons')}
             </h1>
             <div className="mt-4 flex items-center gap-2 rounded-md border border-[var(--border-subtle)] bg-[var(--paper)] pl-3 pr-2 py-1.5 focus-within:border-[var(--accent)] focus-within:outline-none focus-within:ring-1 focus-within:ring-[var(--accent)]">

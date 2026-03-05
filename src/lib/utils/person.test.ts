@@ -1,5 +1,14 @@
 import { describe, it, expect, vi } from 'vitest';
-import { getChildren, getCousins, getFullName, getRoots, getSpouse, getSiblings } from './person';
+import {
+  getChildren,
+  getCousins,
+  getFullName,
+  getRoots,
+  getSpouse,
+  getSiblings,
+  sortPersonsBySurname,
+  personMatchesSearch,
+} from './person';
 import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
 
 vi.mock('@/lib/data/persons', () => ({
@@ -89,6 +98,38 @@ describe('person utils', () => {
       const roots = getRoots();
       expect(roots.length).toBeGreaterThanOrEqual(2);
       expect(roots.every((p) => p.parentIds.length === 0)).toBe(true);
+    });
+  });
+
+  describe('sortPersonsBySurname', () => {
+    it('sorts by last name then first name', () => {
+      const list = [
+        { id: 'a', firstName: 'B', lastName: 'Y', parentIds: [] as string[] },
+        { id: 'b', firstName: 'A', lastName: 'Z', parentIds: [] as string[] },
+        { id: 'c', firstName: 'X', lastName: 'Y', parentIds: [] as string[] },
+      ];
+      const sorted = sortPersonsBySurname(list);
+      expect(sorted.map((p) => p.lastName)).toEqual(['Y', 'Y', 'Z']);
+      expect(sorted[0]!.firstName).toBe('B');
+      expect(sorted[1]!.firstName).toBe('X');
+    });
+  });
+
+  describe('personMatchesSearch', () => {
+    const p = PERSONS_FIXTURE.find((x) => x.id === 'p001')!;
+    it('returns true for empty query', () => {
+      expect(personMatchesSearch(p, '')).toBe(true);
+      expect(personMatchesSearch(p, '   ')).toBe(true);
+    });
+    it('matches full name', () => {
+      expect(personMatchesSearch(p, 'Никонец')).toBe(true);
+      expect(personMatchesSearch(p, 'Иван')).toBe(true);
+    });
+    it('matches partial and patronymic', () => {
+      expect(personMatchesSearch(p, 'Петр')).toBe(true);
+    });
+    it('returns false when no match', () => {
+      expect(personMatchesSearch(p, 'xyz')).toBe(false);
     });
   });
 });

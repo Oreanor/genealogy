@@ -29,7 +29,7 @@ export function SectionBookmarks() {
             className={`
               rounded-t-md px-3 py-1.5 text-xs font-medium shadow-md transition-colors
               md:min-h-[36px] md:px-4 md:py-2 md:text-sm
-              ${isActive ? 'bg-[var(--accent)] text-[var(--nav-btn-ink)] border-2 border-[var(--accent)] border-b-0' : 'bg-[var(--nav-btn)] text-[var(--nav-btn-ink)] hover:bg-[var(--nav-btn-hover)]'}
+              ${isActive ? 'bg-[var(--accent-hover)] text-[var(--nav-btn-ink)] border-2 border-[var(--accent-hover)] border-b-0' : 'bg-[var(--nav-btn)] text-[var(--nav-btn-ink)] hover:bg-[var(--nav-btn-hover)]'}
             `}
           >
             {t(i18nKey)}

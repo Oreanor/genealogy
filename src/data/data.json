@@ -1,19 +1,206 @@
 {
-  "persons": [],
+  "persons": [
+    {
+      "id": "p001",
+      "firstName": "Сергей",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p002",
+        "p003"
+      ],
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "25.07.1980"
+    },
+    {
+      "id": "p002",
+      "firstName": "Владимир",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p004",
+        "p005"
+      ],
+      "gender": "m",
+      "patronymic": "Павлович",
+      "lastName": "Никонец",
+      "birthDate": "05.08.1947",
+      "deathDate": "13.09.2021"
+    },
+    {
+      "id": "p003",
+      "firstName": "Вера",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p006",
+        "p007"
+      ],
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Андреева",
+      "birthDate": "15.11.1949",
+      "deathDate": "26.12.2020"
+    },
+    {
+      "id": "p004",
+      "firstName": "Павел",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p008",
+        "p009"
+      ],
+      "gender": "m",
+      "patronymic": "Андреевич",
+      "lastName": "Никонец"
+    },
+    {
+      "id": "p005",
+      "firstName": "Вера",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p010",
+        "p011"
+      ],
+      "gender": "f",
+      "patronymic": "Ивановна",
+      "lastName": "Дудник"
+    },
+    {
+      "id": "p006",
+      "firstName": "Николай",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p012",
+        "p013"
+      ],
+      "gender": "m",
+      "patronymic": "Григорьевич",
+      "lastName": "Андреев"
+    },
+    {
+      "id": "p007",
+      "firstName": "Елена",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [
+        "p014",
+        "p015"
+      ],
+      "gender": "f",
+      "patronymic": "Алексеевна",
+      "lastName": "Беляева"
+    },
+    {
+      "id": "p008",
+      "firstName": "Андрей",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "m",
+      "patronymic": "Павлович",
+      "lastName": "Никонец"
+    },
+    {
+      "id": "p009",
+      "firstName": "Дарья",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "f",
+      "patronymic": "Никитична",
+      "lastName": "Канивец"
+    },
+    {
+      "id": "p010",
+      "firstName": "Иван",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "m",
+      "patronymic": "Павлович",
+      "lastName": "Дудник"
+    },
+    {
+      "id": "p011",
+      "firstName": "Александра",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "f",
+      "patronymic": "Егоровна",
+      "lastName": "Дудник"
+    },
+    {
+      "id": "p012",
+      "firstName": "Григорий",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "m",
+      "patronymic": "Прохорович",
+      "lastName": "Андреев"
+    },
+    {
+      "id": "p013",
+      "firstName": "Анна",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "f",
+      "patronymic": "Васильевна",
+      "lastName": "Стёпина"
+    },
+    {
+      "id": "p014",
+      "firstName": "Алексей",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "m",
+      "patronymic": "Иванович",
+      "lastName": "Беляев"
+    },
+    {
+      "id": "p015",
+      "firstName": "Татьяна",
+      "birthPlace": "",
+      "occupation": "",
+      "parentIds": [],
+      "gender": "f",
+      "patronymic": "Филимоновна",
+      "lastName": "Беляева"
+    }
+  ],
   "photos": [
     {
       "id": "Image16",
       "src": "/photos/Image16.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
+      "caption": "Дедушка в молодости",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "shape": "point",
+          "coords": [
+            28.074245939675173,
+            2.5594547563805103
+          ]
+        }
+      ]
     },
     {
       "id": "Image56",
       "src": "/photos/Image56.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
+      "caption": "Мама на уроке замученная",
+      "category": "personal",
+      "people": [],
+      "personId": "p003"
     }
   ],
   "history": [

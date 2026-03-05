@@ -1,11 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById } from '@/lib/data/persons';
+import { getPhotosByPerson } from '@/lib/data/photos';
 import { formatLifeDates, getChildren, getCousins, getFullName, getSpouse, getSiblings } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
+import Image from 'next/image';
+import { ImageLightbox } from '@/components/ui/ImageLightbox';
 
 interface PersonCardProps {
   person: Person;
@@ -13,9 +17,11 @@ interface PersonCardProps {
 
 export function PersonCard({ person }: PersonCardProps) {
   const { t, routes } = useLocaleRoutes();
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
   const cousins = getCousins(person.id);
+  const personPhotos = getPhotosByPerson(person.id);
   const parents = person.parentIds
     .map((id) => getPersonById(id))
     .filter((p): p is Person => p != null);
@@ -23,7 +29,7 @@ export function PersonCard({ person }: PersonCardProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-semibold text-[var(--ink)]">{getFullName(person)}</h2>
+      <h2 className="book-serif text-2xl font-semibold text-[var(--ink)]">{getFullName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
         <div className="space-y-2 text-[var(--ink)]">
           {spouse && (
@@ -105,6 +111,43 @@ export function PersonCard({ person }: PersonCardProps) {
         <p className="text-[var(--ink)]">
           <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
+      )}
+      {personPhotos.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-sm font-medium text-[var(--ink)]">{t('personPhotos')}</h3>
+          <ul className="flex flex-wrap gap-2">
+            {personPhotos.map((photo, index) => (
+              <li key={photo.src}>
+                <button
+                  type="button"
+                  className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--paper-light)] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+                  onClick={() => setLightboxIndex(index)}
+                  aria-label={photo.caption || t('openFullscreen')}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.caption || ''}
+                    fill
+                    className="object-cover"
+                    sizes="64px"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+          {lightboxIndex !== null && (() => {
+            const photo = personPhotos[lightboxIndex];
+            return photo ? (
+              <ImageLightbox
+                src={photo.src}
+                alt={photo.caption || ''}
+                caption={photo.caption}
+                open
+                onClose={() => setLightboxIndex(null)}
+              />
+            ) : null;
+          })()}
+        </div>
       )}
     </div>
   );

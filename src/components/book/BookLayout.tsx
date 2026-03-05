@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { AdminToolbarProvider } from '@/lib/contexts/AdminToolbarContext';
 import { SectionBookmarks } from './SectionBookmarks';
 import { BookToolbar } from './BookToolbar';
@@ -13,7 +13,15 @@ interface BookLayoutProps {
 
 export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
   const pathname = usePathname() ?? '';
+  const searchParams = useSearchParams();
   const isAdmin = pathname.includes('/admin');
+  const sectionParam = searchParams?.get('section') ?? '';
+  const isTreeSection = sectionParam === '' || sectionParam === 'tree';
+  const bookMaxW = isAdmin
+    ? ''
+    : isTreeSection
+      ? 'max-w-[calc((100vh-6rem)*444/210)]'
+      : 'max-w-[calc((100vh-6rem)*296/210)]';
 
   return (
     <AdminToolbarProvider>
@@ -33,14 +41,16 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
         }`}
       >
         <div
-          className={`flex w-full min-w-0 flex-col ${isAdmin ? 'max-w-full' : 'max-w-[calc((100vh-6rem)*296/210)]'}`}
+          className={`flex w-full min-w-0 flex-col ${isAdmin ? 'max-w-full' : bookMaxW}`}
         >
           {!isAdmin && (
             <div className="flex w-full justify-end pr-0.5 md:pr-1">
               <SectionBookmarks />
             </div>
           )}
-          {children}
+          <div className={!isAdmin ? 'book-content' : ''}>
+            {children}
+          </div>
         </div>
       </div>
       </div>

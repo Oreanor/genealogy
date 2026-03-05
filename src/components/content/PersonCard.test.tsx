@@ -23,7 +23,7 @@ describe('PersonCard', () => {
 
   it('renders birth years when present', () => {
     render(withI18n(<PersonCard person={person} />));
-    expect(screen.getByText(/1925–1998/)).toBeInTheDocument();
+    expect(screen.getByText(/1925\s*[–-]\s*1998/)).toBeInTheDocument();
   });
 
   it('renders birth place when present', () => {

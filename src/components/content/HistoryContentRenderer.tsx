@@ -17,7 +17,7 @@ export function HistoryContentRenderer({ entries }: HistoryContentRendererProps)
   return (
     <div className="flex flex-col gap-8">
       {entries.map((entry, idx) => (
-        <article key={idx} className="flex flex-col gap-3">
+        <article key={idx} className="book-serif flex flex-col gap-3">
           {entry.title && (
             <h2 className="text-xl font-semibold text-[var(--ink)]">{entry.title}</h2>
           )}

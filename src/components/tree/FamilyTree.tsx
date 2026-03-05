@@ -7,21 +7,20 @@ import { useRouter } from 'next/navigation';
 import { TreeNode } from './TreeNode';
 
 /** Wider value gives more horizontal space between nodes */
-const VIEW_WIDTH = 110;
+const VIEW_WIDTH = 120;
 /** Row height: nodes spaced more loosely vertically */
-const VIEW_HEIGHT = 86;
-const TREE_TOP_OFFSET = 10;
+const VIEW_HEIGHT = 98;
+const TREE_TOP_OFFSET = 8;
 
 function getNodePosition(level: number, index: number, totalLevels: number) {
   const count = Math.pow(2, level);
   const x = ((2 * index + 1) / (2 * count)) * VIEW_WIDTH;
-  const rowHeight = VIEW_HEIGHT / (totalLevels + 0.6);
+  const rowHeight = VIEW_HEIGHT / (totalLevels + 0.35);
   const y = VIEW_HEIGHT - (level + 0.7) * rowHeight - TREE_TOP_OFFSET;
-  const scale = 1 - level * 0.04;
   return {
     x: (x / VIEW_WIDTH) * 100,
     y: (y / VIEW_HEIGHT) * 100,
-    scale: Math.max(0.55, scale),
+    scale: 0.75,
   };
 }
 

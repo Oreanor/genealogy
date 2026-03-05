@@ -119,7 +119,7 @@ export function SpreadNavigation({
         fullWidth={
           isTreeSpread ? (
             <BookPage>
-              <h1 className="mb-2 text-center text-xl font-semibold text-[var(--ink)]">
+              <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
                 {t('treeTitle')}
               </h1>
               <FamilyTree />

@@ -68,3 +68,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* Serif only for “reading” content: story body and photo captions */
+.book-serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}

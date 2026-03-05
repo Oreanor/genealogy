@@ -33,18 +33,26 @@ export const TreeNode = memo(function TreeNode({
   const hasPerson = !!person;
   const roleKey = getTreeRoleKey(level, index, person);
   const role = roleKey ? t(roleKey) : '';
-  const displayName = truncate(getFullName(person) || t('unknown'), MAX_NAME_LEN);
+  const surname = hasPerson && person?.lastName?.trim() ? truncate(person.lastName.trim(), MAX_NAME_LEN) : '';
+  const firstAndPatronymic = hasPerson
+    ? [person?.firstName, person?.patronymic].filter((s) => s?.trim()).join(' ')
+    : '';
+  const displayFirstPatronymic = firstAndPatronymic ? truncate(firstAndPatronymic, MAX_NAME_LEN) : '';
   const lifeDates = formatLifeDates(person?.birthDate, person?.deathDate);
   const displayYears = lifeDates ? truncate(lifeDates, MAX_YEARS_LEN) : '';
+
+  const strokeClass = hasPerson ? 'outline-[var(--tree-stroke)] border-[var(--tree-stroke)]' : 'outline-gray-300 border-gray-300';
+  const plaqueStrokeClass = hasPerson ? 'border-[var(--tree-plaque-stroke)]' : 'border-gray-300';
+  const plaqueFillClass = hasPerson ? 'bg-[var(--tree-plaque-fill)]' : 'bg-gray-100';
 
   const content = (
     <>
       {/* Oval: light ring between outlines, plaque color inside inner oval */}
       <div
-        className="relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-[var(--tree-stroke)] outline-offset-2 bg-[var(--background)]"
+        className={`relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-offset-2 bg-[var(--background)] ${strokeClass}`}
         style={{ width: '4.1rem', height: '5.3rem' }}
       >
-        <div className="relative h-full w-full overflow-hidden rounded-[50%] border-2 border-[var(--tree-stroke)] bg-[var(--tree-plaque-fill)]">
+        <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
           {hasPerson && person.photoUrl ? (
             <Image
               src={person.photoUrl}
@@ -58,16 +66,19 @@ export const TreeNode = memo(function TreeNode({
       </div>
 
       {/* Plaque below portrait */}
-      <div className="mt-[-0.2rem] w-full min-w-0 rounded-md border-2 border-[var(--tree-plaque-stroke)] bg-[var(--tree-plaque-fill)] px-2 py-2 text-center">
-        {role && (
+      <div className={`mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-2 py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
+        {hasPerson && role && (
           <div className="text-xs leading-tight text-[var(--tree-stroke)]">
             {role}
           </div>
         )}
-        <div className="truncate text-sm font-semibold leading-tight text-[var(--ink)]">
-          {displayName}
-        </div>
-        {displayYears && (
+        {hasPerson && (surname || displayFirstPatronymic) && (
+          <div className="text-sm font-semibold leading-tight text-[var(--ink)]">
+            {surname && <div className="truncate">{surname}</div>}
+            {displayFirstPatronymic && <div className="truncate">{displayFirstPatronymic}</div>}
+          </div>
+        )}
+        {hasPerson && displayYears && (
           <div className="text-xs leading-tight text-[var(--tree-stroke)]">
             {displayYears}
           </div>

@@ -30,11 +30,11 @@ describe('TreeNode', () => {
       )
     );
     expect(screen.getByText('Иван Петрович')).toBeInTheDocument();
-    expect(screen.getByText('1925–1998')).toBeInTheDocument();
+    expect(screen.getByText(/1925\s*[–-]\s*1998/)).toBeInTheDocument();
   });
 
-  it('renders unknown when person is null', () => {
-    render(
+  it('renders empty node (muted stroke/fill, no unknown text) when person is null', () => {
+    const { container } = render(
       withI18n(
         <TreeNode
           person={null}
@@ -45,7 +45,8 @@ describe('TreeNode', () => {
         />
       )
     );
-    expect(screen.getByText('неизв.')).toBeInTheDocument();
+    expect(screen.queryByText('неизв.')).not.toBeInTheDocument();
+    expect(container.querySelector('.border-gray-300')).toBeInTheDocument();
   });
 
   it('calls onPersonClick when clicked', () => {

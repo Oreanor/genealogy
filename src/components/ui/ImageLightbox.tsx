@@ -6,11 +6,13 @@ import Image from 'next/image';
 interface ImageLightboxProps {
   src: string;
   alt?: string;
+  /** Caption shown below the image (centered, bold) */
+  caption?: string;
   open: boolean;
   onClose: () => void;
 }
 
-export function ImageLightbox({ src, alt = '', open, onClose }: ImageLightboxProps) {
+export function ImageLightbox({ src, alt = '', caption, open, onClose }: ImageLightboxProps) {
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -26,7 +28,7 @@ export function ImageLightbox({ src, alt = '', open, onClose }: ImageLightboxPro
     <button
       type="button"
       onClick={onClose}
-      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/90 p-4 focus:outline-none"
+      className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center gap-4 bg-black/90 p-4 focus:outline-none"
       aria-label="Закрыть"
     >
       <Image
@@ -34,10 +36,15 @@ export function ImageLightbox({ src, alt = '', open, onClose }: ImageLightboxPro
         alt={alt}
         width={1920}
         height={1080}
-        className="max-h-[calc(100vh-2rem)] max-w-[calc(100vw-2rem)] w-auto h-auto object-contain"
+        className="max-h-[calc(100vh-6rem)] max-w-[calc(100vw-2rem)] w-auto h-auto object-contain"
         onClick={(e) => e.stopPropagation()}
         unoptimized
       />
+      {caption != null && caption.trim() !== '' && (
+        <p className="book-serif text-center font-bold text-white" onClick={(e) => e.stopPropagation()}>
+          {caption.trim()}
+        </p>
+      )}
     </button>
   );
 }

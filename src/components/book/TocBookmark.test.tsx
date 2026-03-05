@@ -19,6 +19,6 @@ describe('TocBookmark', () => {
   it('renders link to tree chapter', () => {
     render(withI18n(<TocBookmark />));
     const link = screen.getByRole('link', { name: 'Дерево' });
-    expect(link).toHaveAttribute('href', '/ru/chapter/family-tree');
+    expect(link).toHaveAttribute('href', '/ru');
   });
 });
