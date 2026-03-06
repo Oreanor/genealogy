@@ -1,17 +1,16 @@
 {
-  "rootPersonId": "p019",
+  "rootPersonId": "p001",
   "persons": [
     {
-      "id": "p016",
-      "firstName": "Олег",
+      "id": "p019",
+      "firstName": "Артур",
       "birthPlace": "",
       "occupation": "",
       "gender": "m",
-      "patronymic": "Владимирович",
-      "lastName": "Никонец",
-      "birthDate": "26.11.1974",
-      "fatherId": "p002",
-      "motherId": "p003"
+      "patronymic": "Васильевич",
+      "lastName": "Аксененко",
+      "motherId": "p017",
+      "fatherId": "p020"
     },
     {
       "id": "p001",
@@ -168,6 +167,18 @@
       "lastName": "Беляева"
     },
     {
+      "id": "p016",
+      "firstName": "Олег",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
+    },
+    {
       "id": "p017",
       "firstName": "Надежда",
       "birthPlace": "",
@@ -188,17 +199,6 @@
       "lastName": "Андреева",
       "fatherId": "p006",
       "motherId": "p007"
-    },
-    {
-      "id": "p019",
-      "firstName": "Артур",
-      "birthPlace": "",
-      "occupation": "",
-      "gender": "m",
-      "patronymic": "Васильевич",
-      "lastName": "Аксененко",
-      "motherId": "p017",
-      "fatherId": "p020"
     },
     {
       "id": "p020",
@@ -548,8 +548,8 @@
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Александро-Михайловская церковь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Александро-Михайловская церковь.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Александро-Михайловская церковь",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Александро-Михайловская церковь.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -583,15 +583,15 @@
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Городской сад",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Городской сад.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Городской сад",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Городской сад.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Государственный банк",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Государственный банк.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Государственный банк",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Государственный банк.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -611,8 +611,8 @@
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Железнодорожный мост",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Железнодорожный мост.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Железнодорожный мост",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Железнодорожный мост.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -625,8 +625,8 @@
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Женский монастырь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Женский монастырь.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Женский монастырь",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Женский монастырь.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -688,36 +688,36 @@
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы 1.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы 1",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы 1.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид города.",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид города..jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид города.",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид города..jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид с западной стороны",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид с западной стороны.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид с западной стороны",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид с западной стороны.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Окружной суд",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Окружной суд.jpg",
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Окружной суд",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Окружной суд.jpg",
       "caption": "",
       "category": "related",
       "people": []
