@@ -94,9 +94,10 @@ export function getAvatarCropStyles(
   const [l, t, r, b] = faceRect;
   const w = r - l;
   const h = b - t;
+  const encoded = encodeURI(src);
   if (w < MIN_RECT_SIZE || h < MIN_RECT_SIZE) {
     return {
-      backgroundImage: `url(${src})`,
+      backgroundImage: `url(${encoded})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: '50% 50%',
@@ -109,7 +110,7 @@ export function getAvatarCropStyles(
   const posX = (l / (l - r + 100)) * 100;
   const posY = (t / (t - b + 100)) * 100;
   return {
-    backgroundImage: `url(${src})`,
+    backgroundImage: `url(${encoded})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: `${size}% ${size}%`,
     backgroundPosition: `${posX}% ${posY}%`,
