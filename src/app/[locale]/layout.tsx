@@ -1,5 +1,4 @@
 import { I18nProvider } from '@/lib/i18n/context';
-import { RootPersonProvider } from '@/lib/contexts/RootPersonContext';
 import { getMessages } from '@/lib/i18n/messages';
 import { isLocale } from '@/lib/i18n/config';
 import { notFound } from 'next/navigation';
@@ -19,11 +18,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   return (
     <I18nProvider locale={locale} messages={messages}>
-      <RootPersonProvider>
-        <SetDocumentLang locale={locale} />
-        <LocalePreferenceRedirect />
-        {children}
-      </RootPersonProvider>
+      <SetDocumentLang locale={locale} />
+      <LocalePreferenceRedirect />
+      {children}
     </I18nProvider>
   );
 }

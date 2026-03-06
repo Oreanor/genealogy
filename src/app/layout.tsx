@@ -5,6 +5,7 @@ import {
   getDefaultMetaDescription,
 } from '@/lib/data/owner';
 import { StorageGate } from '@/components/StorageGate';
+import { RootPersonProvider } from '@/lib/contexts/RootPersonContext';
 import './globals.css';
 
 const geistSans = Geist({
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <StorageGate>{children}</StorageGate>
+        <RootPersonProvider>
+          <StorageGate>{children}</StorageGate>
+        </RootPersonProvider>
       </body>
     </html>
   );
