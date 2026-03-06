@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/context';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
@@ -10,11 +10,26 @@ import { AdminTabs } from './AdminTabs';
 import { AdminPersonsTable } from './AdminPersonsTable';
 import { AdminTextsTab } from './AdminTextsTab';
 import { AdminPhotosTab } from './AdminPhotosTab';
+import { ImportMergeDialog } from './ImportMergeDialog';
 import { Dialog } from '@/components/ui/molecules/Dialog';
-import { ADMIN_TAB_COOKIE } from '@/lib/constants/storage';
+import { ADMIN_TAB_COOKIE, STORAGE_KEYS } from '@/lib/constants/storage';
 import type { Person } from '@/lib/types/person';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { PhotoEntry } from '@/lib/types/photo';
+import {
+  computeMerge,
+  applyMerge,
+  buildDefaultResolutions,
+  mergeHasChanges,
+  mergeHasConflicts,
+  validateImportData,
+  hashData,
+  type MergeResult,
+  type MergeResolutions,
+} from '@/lib/utils/dataMerge';
+
+export type { AdminDataSections } from '@/lib/utils/dataMerge';
+type AdminDataSections = import('@/lib/utils/dataMerge').AdminDataSections;
 
 function setTabCookie(tab: string) {
   try {
@@ -26,19 +41,12 @@ function setTabCookie(tab: string) {
 
 const ADMIN_DATA_FILENAME = 'admin-data.json';
 
-export interface AdminDataSections {
-  rootPersonId: string;
-  persons: Person[];
-  photos: PhotoEntry[];
-  history: HistoryEntry[];
-}
-
 interface AdminPageClientProps {
-  rootPersonId: string;
-  persons: Person[];
-  photos: PhotoEntry[];
-  history: HistoryEntry[];
-  initialTab: AdminTabId;
+  readonly rootPersonId: string;
+  readonly persons: Person[];
+  readonly photos: PhotoEntry[];
+  readonly history: HistoryEntry[];
+  readonly initialTab: AdminTabId;
 }
 
 function downloadFile(filename: string, content: string) {
@@ -55,32 +63,195 @@ function toCombinedJson(data: AdminDataSections): string {
   return JSON.stringify(data, null, 2);
 }
 
+interface StoredPayload {
+  data: AdminDataSections;
+  bundledHash: string;
+}
+
+function loadStoredPayload(): StoredPayload | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.adminData);
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      'data' in parsed &&
+      'bundledHash' in parsed
+    ) {
+      const p = parsed as StoredPayload;
+      if (validateImportData(p.data)) return p;
+    }
+
+    // Legacy format: plain AdminDataSections without hash wrapper
+    if (validateImportData(parsed)) {
+      return { data: parsed, bundledHash: '' };
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function saveToStorage(data: AdminDataSections, bundledHash: string) {
+  try {
+    const payload: StoredPayload = { data, bundledHash };
+    localStorage.setItem(STORAGE_KEYS.adminData, JSON.stringify(payload));
+  } catch {
+    // quota exceeded or private mode
+  }
+}
+
+/**
+ * Outer shell: resolves initial data (localStorage > server props) via
+ * lazy useState. Detects bundled-data changes (new deploy) and triggers
+ * the merge dialog when the user's localStorage diverges from the bundle.
+ */
 export function AdminPageClient({
-  rootPersonId: initialRootPersonId,
-  persons,
-  photos: initialPhotos,
-  history: initialHistory,
+  rootPersonId: serverRoot,
+  persons: serverPersons,
+  photos: serverPhotos,
+  history: serverHistory,
   initialTab,
 }: AdminPageClientProps) {
+  const serverData = useMemo<AdminDataSections>(
+    () => ({
+      rootPersonId: serverRoot,
+      persons: serverPersons,
+      photos: serverPhotos,
+      history: serverHistory,
+    }),
+    [serverRoot, serverPersons, serverPhotos, serverHistory]
+  );
+
+  const serverHash = useMemo(() => hashData(serverData), [serverData]);
+
+  // Resolve initial state from localStorage in a single pass (lazy init)
+  const [initSnapshot] = useState(() => {
+    const stored = loadStoredPayload();
+    if (!stored) return { data: serverData, conflict: null as null };
+
+    if (stored.bundledHash === serverHash) {
+      return { data: stored.data, conflict: null as null };
+    }
+
+    const merge = computeMerge(stored.data, serverData);
+    if (!mergeHasChanges(merge)) {
+      return { data: stored.data, conflict: null as null, hashDirty: true };
+    }
+    return {
+      data: stored.data,
+      conflict: { merge, serverData } as {
+        merge: MergeResult;
+        serverData: AdminDataSections;
+      },
+    };
+  });
+
+  const [initialData, setInitialData] = useState(initSnapshot.data);
+  const [dataVersion, setDataVersion] = useState(0);
+  const [bundledConflict, setBundledConflict] = useState(
+    initSnapshot.conflict
+  );
+
+  // If hash is stale but no real diff, silently update it after mount
+  useEffect(() => {
+    if ('hashDirty' in initSnapshot) {
+      saveToStorage(initSnapshot.data, serverHash);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleReload = useCallback((data: AdminDataSections) => {
+    setInitialData(data);
+    setDataVersion((v) => v + 1);
+  }, []);
+
+  const handleBundledMergeApply = useCallback(
+    (resolutions: MergeResolutions) => {
+      if (!bundledConflict) return;
+      const merged = applyMerge(
+        initialData,
+        bundledConflict.merge,
+        resolutions
+      );
+      saveToStorage(merged, serverHash);
+      setInitialData(merged);
+      setDataVersion((v) => v + 1);
+      setBundledConflict(null);
+    },
+    [bundledConflict, initialData, serverHash]
+  );
+
+  const handleBundledMergeCancel = useCallback(() => {
+    saveToStorage(initialData, serverHash);
+    setBundledConflict(null);
+  }, [initialData, serverHash]);
+
+  return (
+    <>
+      <AdminPageClientInner
+        key={dataVersion}
+        initialData={initialData}
+        initialTab={initialTab}
+        bundledHash={serverHash}
+        onReload={handleReload}
+      />
+      {bundledConflict && (
+        <ImportMergeDialog
+          merge={bundledConflict.merge}
+          title="adminSiteUpdated"
+          onApply={handleBundledMergeApply}
+          onCancel={handleBundledMergeCancel}
+        />
+      )}
+    </>
+  );
+}
+
+interface InnerProps {
+  readonly initialData: AdminDataSections;
+  readonly initialTab: AdminTabId;
+  readonly bundledHash: string;
+  readonly onReload: (data: AdminDataSections) => void;
+}
+
+function AdminPageClientInner({
+  initialData,
+  initialTab,
+  bundledHash,
+  onReload,
+}: InnerProps) {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
   const setGlobalRoot = useSetRootPersonId();
-  const [rootPersonId, setRootPersonId] = useState(initialRootPersonId);
-  const [photos, setPhotos] = useState(initialPhotos);
+
+  const [rootPersonId, setRootPersonId] = useState(initialData.rootPersonId);
+  const [photos, setPhotos] = useState(initialData.photos);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const dataRef = useRef<AdminDataSections>({
-    rootPersonId: initialRootPersonId,
-    persons,
-    photos: initialPhotos,
-    history: initialHistory,
-  });
+  const [importState, setImportState] = useState<{
+    merge: MergeResult;
+    imported: AdminDataSections;
+  } | null>(null);
+
+  const dataRef = useRef<AdminDataSections>(initialData);
 
   useEffect(() => {
     dataRef.current = { ...dataRef.current, rootPersonId };
   }, [rootPersonId]);
 
-  const getCombinedJson = useCallback(() => toCombinedJson(dataRef.current), []);
+  const persist = useCallback(
+    () => saveToStorage(dataRef.current, bundledHash),
+    [bundledHash]
+  );
+
+  const getCombinedJson = useCallback(
+    () => toCombinedJson(dataRef.current),
+    []
+  );
 
   const handleCopy = useCallback(async () => {
     try {
@@ -96,6 +267,53 @@ export function AdminPageClient({
     setAlertMessage(t('adminDownloaded'));
   }, [getCombinedJson, t]);
 
+  const handleImport = useCallback(
+    (raw: unknown) => {
+      if (!validateImportData(raw)) {
+        setAlertMessage(t('adminImportError'));
+        return;
+      }
+      const imported = raw;
+      const merge = computeMerge(dataRef.current, imported);
+
+      if (!mergeHasChanges(merge)) {
+        setAlertMessage(t('adminImportNoChanges'));
+        return;
+      }
+
+      if (!mergeHasConflicts(merge)) {
+        const merged = applyMerge(
+          dataRef.current,
+          merge,
+          buildDefaultResolutions(merge)
+        );
+        saveToStorage(merged, bundledHash);
+        onReload(merged);
+        setAlertMessage(t('adminImportSuccess'));
+        return;
+      }
+
+      setImportState({ merge, imported });
+    },
+    [onReload, bundledHash, t]
+  );
+
+  const handleMergeApply = useCallback(
+    (resolutions: MergeResolutions) => {
+      if (!importState) return;
+      const merged = applyMerge(
+        dataRef.current,
+        importState.merge,
+        resolutions
+      );
+      saveToStorage(merged, bundledHash);
+      onReload(merged);
+      setImportState(null);
+      setAlertMessage(t('adminImportSuccess'));
+    },
+    [importState, onReload, bundledHash, t]
+  );
+
   const handleSelectTab = useCallback(
     (id: AdminTabId) => {
       setTabCookie(id);
@@ -107,9 +325,13 @@ export function AdminPageClient({
 
   const { setActions } = useAdminToolbar();
   useEffect(() => {
-    setActions({ onCopy: handleCopy, onDownload: handleDownload });
+    setActions({
+      onCopy: () => void handleCopy(),
+      onDownload: handleDownload,
+      onImport: handleImport,
+    });
     return () => setActions(null);
-  }, [setActions, handleCopy, handleDownload]);
+  }, [setActions, handleCopy, handleDownload, handleImport]);
 
   return (
     <div className="space-y-4">
@@ -117,36 +339,50 @@ export function AdminPageClient({
         <div className={initialTab === 'persons' ? '' : 'hidden'}>
           <AdminPersonsTable
             rootPersonId={rootPersonId}
-            initialPersons={persons}
+            initialPersons={initialData.persons}
             photos={photos}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, persons: p };
+              persist();
             }}
             onRootChange={(id) => {
               setRootPersonId(id);
               setGlobalRoot(id);
+              dataRef.current = { ...dataRef.current, rootPersonId: id };
+              persist();
             }}
           />
         </div>
         <div className={initialTab === 'texts' ? '' : 'hidden'}>
           <AdminTextsTab
-            initialHistory={initialHistory}
-            persons={persons}
+            initialHistory={initialData.history}
+            persons={initialData.persons}
             onHistoryChange={(h) => {
               dataRef.current = { ...dataRef.current, history: h };
+              persist();
             }}
           />
         </div>
         <div className={initialTab === 'photos' ? '' : 'hidden'}>
           <AdminPhotosTab
-            initialPhotos={photos}
+            initialPhotos={initialData.photos}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, photos: p };
               setPhotos(p);
+              persist();
             }}
           />
         </div>
       </AdminTabs>
+
+      {importState && (
+        <ImportMergeDialog
+          merge={importState.merge}
+          onApply={handleMergeApply}
+          onCancel={() => setImportState(null)}
+        />
+      )}
+
       {alertMessage !== null && (
         <Dialog
           open

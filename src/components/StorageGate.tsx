@@ -1,14 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
-import { initThemeFromStorage } from '@/lib/theme-init';
 import { getMessages } from '@/lib/i18n/messages';
 import { isLocale } from '@/lib/i18n/config';
 
 interface StorageGateProps {
   children: React.ReactNode;
 }
+
+const subscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 function useLoadingText(): string {
   const pathname = usePathname() ?? '';
@@ -18,18 +21,12 @@ function useLoadingText(): string {
 }
 
 export function StorageGate({ children }: StorageGateProps) {
-  const [ready, setReady] = useState(false);
+  const ready = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const loadingText = useLoadingText();
-
-  useEffect(() => {
-    initThemeFromStorage();
-    const id = setTimeout(() => setReady(true), 0);
-    return () => clearTimeout(id);
-  }, []);
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen min-w-full items-center justify-center bg-white text-neutral-700">
+      <div className="flex min-h-screen min-w-full items-center justify-center bg-(--paper) text-(--ink)">
         {loadingText}
       </div>
     );

@@ -118,6 +118,16 @@ export function PersonCard({ person }: PersonCardProps) {
           <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
       )}
+      {person.residenceCity && (
+        <p className="text-(--ink)">
+          <span className="font-medium">{t('residenceCity')}</span> {person.residenceCity}
+        </p>
+      )}
+      {person.comment && (
+        <p className="text-(--ink)">
+          <span className="font-medium">{t('comment')}</span> {person.comment}
+        </p>
+      )}
       {historyMentions.length > 0 && (
         <div className="space-y-2">
           <h3 className="text-base font-medium text-(--ink)">{t('personMentionedInStories')}</h3>

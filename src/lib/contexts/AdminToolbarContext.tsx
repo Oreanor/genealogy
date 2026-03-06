@@ -1,10 +1,11 @@
 'use client';
 
-import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
 export interface AdminToolbarActions {
   onCopy: () => void;
   onDownload: () => void;
+  onImport: (data: unknown) => void;
 }
 
 interface AdminToolbarContextValue {
@@ -25,5 +26,5 @@ export function AdminToolbarProvider({ children }: { children: ReactNode }) {
 
 export function useAdminToolbar() {
   const ctx = useContext(AdminToolbarContext);
-  return ctx ?? { actions: null, setActions: (_: AdminToolbarActions | null) => {} };
+  return ctx ?? { actions: null, setActions: () => {} };
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { BookOpen, Clipboard, Save, FileDown } from 'lucide-react';
+import { BookOpen, Clipboard, Save, FileDown, Upload } from 'lucide-react';
 import { AdminButton } from '@/components/ui/AdminButton';
 import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
 import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
@@ -27,13 +27,30 @@ function BookLinkButton({ title }: { title?: string }) {
   );
 }
 
-/** Vertical toolbar on the left: admin/book, color, language, PDF; in admin — copy and download JSON */
+/** Vertical toolbar on the left: admin/book, color, language, PDF; in admin — copy, download, import JSON */
 export function BookToolbar() {
   const pathname = usePathname() ?? '';
   const isAdmin = pathname.includes('/admin');
   const { actions } = useAdminToolbar();
   const { t } = useLocaleRoutes();
   const [pdfOpen, setPdfOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !actions) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed: unknown = JSON.parse(reader.result as string);
+        actions.onImport(parsed);
+      } catch {
+        /* invalid JSON — ignored, AdminPageClient validates */
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
 
   return (
     <>
@@ -58,6 +75,15 @@ export function BookToolbar() {
         </Tooltip>
         {isAdmin && actions && (
           <>
+            <Tooltip label={t('adminImportJson')} side="right">
+              <Button
+                variant="icon"
+                onClick={() => fileInputRef.current?.click()}
+                aria-label={t('adminImportJson')}
+              >
+                <Upload className="size-5" aria-hidden />
+              </Button>
+            </Tooltip>
             <Tooltip label={t('adminCopyJson')} side="right">
               <Button
                 variant="icon"
@@ -79,6 +105,15 @@ export function BookToolbar() {
           </>
         )}
       </div>
+      {isAdmin && (
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".json"
+          className="hidden"
+          onChange={handleFileChange}
+        />
+      )}
       <PdfPreviewDialog open={pdfOpen} onClose={() => setPdfOpen(false)} />
     </>
   );

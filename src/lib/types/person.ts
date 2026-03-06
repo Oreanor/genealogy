@@ -10,7 +10,11 @@ export interface Person {
   /** Approximate death date */
   deathDate?: string;
   birthPlace?: string;
+  /** City / place of current (or last known) residence. */
+  residenceCity?: string;
   occupation?: string;
+  /** Free-form text note about the person. */
+  comment?: string;
   /** Preferred photo src for avatar (from photos where person is in people). */
   avatarPhotoSrc?: string;
   /** Father's person id (tree slot 0). */

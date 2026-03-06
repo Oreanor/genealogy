@@ -5,7 +5,6 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import {
   getPhotosByPerson,
-  getAvatarForPerson,
   getLightboxFacesFromPhoto,
 } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
@@ -68,11 +67,15 @@ interface PersonDetailPanelProps {
 function PersonInfoContent({
   person,
   pathname,
+  personPhotos,
   onSelectPerson,
+  onPhotoClick,
 }: {
   person: Person;
   pathname: string;
+  personPhotos: PhotoEntry[];
   onSelectPerson: (id: string) => void;
+  onPhotoClick: (photo: PhotoEntry) => void;
 }) {
   const t = useTranslations();
   const children = getChildren(person.id);
@@ -96,10 +99,10 @@ function PersonInfoContent({
   });
 
   return (
-    <div className="flex flex-col gap-4 overflow-y-auto">
+    <div className="flex flex-col gap-5 overflow-y-auto">
       <h2 className="book-serif text-2xl font-semibold text-(--ink)">{getFullName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || secondCousins.length > 0 || spouse) && (
-        <div className="space-y-2 text-(--ink)">
+        <div className="space-y-3 text-(--ink)">
           {spouse && (
             <p>
               <span className="font-medium">
@@ -175,9 +178,19 @@ function PersonInfoContent({
           <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
       )}
-      {historyMentions.length > 0 && (
-        <div className="space-y-1">
-          <h3 className="text-sm font-medium text-(--ink)">{t('personMentionedInStories')}</h3>
+      {person.residenceCity && (
+        <p className="text-(--ink)">
+          <span className="font-medium">{t('residenceCity')}</span> {person.residenceCity}
+        </p>
+      )}
+      {person.comment && (
+        <p className="text-(--ink)">
+          <span className="font-medium">{t('comment')}</span> {person.comment}
+        </p>
+      )}
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold text-(--ink)">{t('personMentionedInStories')}</h3>
+        {historyMentions.length > 0 ? (
           <ul className="flex flex-wrap gap-2">
             {historyMentions.map(({ entry, index }) => (
               <li key={index}>
@@ -190,26 +203,98 @@ function PersonInfoContent({
               </li>
             ))}
           </ul>
-        </div>
-      )}
+        ) : (
+          <p className="text-sm text-(--ink-muted)">{t('noTextsYet')}</p>
+        )}
+      </div>
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold text-(--ink)">{t('personPhotos')}</h3>
+        {personPhotos.length > 0 ? (
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {personPhotos.map((photo) => (
+              <button
+                key={photo.src}
+                type="button"
+                className="relative h-14 w-14 shrink-0 overflow-hidden rounded border border-(--border-subtle) bg-(--paper-light) transition-opacity hover:opacity-80 focus:outline-none"
+                onClick={() => onPhotoClick(photo)}
+                aria-label={photo.caption ?? photo.id}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.caption ?? ''}
+                  fill
+                  className="object-cover"
+                  sizes="56px"
+                />
+              </button>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-(--ink-muted)">{t('noPhotosYet')}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function RightPageContent({
+  firstPhoto,
+  historyMentions,
+  onPhotoClick,
+}: {
+  firstPhoto: PhotoEntry | null;
+  historyMentions: { entry: { title: string; richText: string }; index: number }[];
+  onPhotoClick: () => void;
+}) {
+  const t = useTranslations();
+
+  if (firstPhoto) {
+    return (
+      <button
+        type="button"
+        className="relative flex-1 overflow-hidden rounded bg-(--paper-light) focus:outline-none"
+        onClick={onPhotoClick}
+        aria-label={t('openFullscreen')}
+      >
+        <Image
+          src={firstPhoto.src}
+          alt={firstPhoto.caption ?? ''}
+          fill
+          className="object-contain"
+          sizes="(max-width: 600px) 100vw, 50vw"
+        />
+      </button>
+    );
+  }
+
+  if (historyMentions.length > 0) {
+    return (
+      <div className="flex-1 overflow-y-auto">
+        <h3 className="mb-2 text-sm font-medium text-(--ink)">
+          {historyMentions[0].entry.title}
+        </h3>
+        <div
+          className="prose-sm text-(--ink) leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: historyMentions[0].entry.richText }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-1 items-center justify-center text-center text-sm text-(--ink-muted)">
+      {t('noMediaData')}
     </div>
   );
 }
 
 export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDetailPanelProps) {
-  const t = useTranslations();
   const pathname = usePathname() ?? '';
   const personPhotos = getPhotosByPerson(person.id);
-  const avatarSource = getAvatarForPerson(person.id, person.avatarPhotoSrc);
-  const [largePhoto, setLargePhoto] = useState<PhotoEntry | null>(() => {
-    if (avatarSource) {
-      const entry = personPhotos.find((p) => p.src === avatarSource.src) ?? null;
-      return entry;
-    }
-    return personPhotos[0] ?? null;
-  });
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const historyMentions = getHistoryEntriesByPerson(person.id);
+  const [lightboxPhoto, setLightboxPhoto] = useState<PhotoEntry | null>(null);
   const persons = getPersons();
+  const firstPhoto = personPhotos[0] ?? null;
 
   return (
     <>
@@ -232,78 +317,33 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                   <PersonInfoContent
                     person={person}
                     pathname={pathname}
+                    personPhotos={personPhotos}
                     onSelectPerson={onSelectPerson}
+                    onPhotoClick={(photo) => setLightboxPhoto(photo)}
                   />
                 </BookPage>
               }
               right={
-                <BookPage className="flex flex-col gap-3 overflow-hidden">
-                  <div className="flex min-h-0 flex-1 flex-col gap-3">
-                    {largePhoto ? (
-                      <button
-                        type="button"
-                        className="relative min-h-[200px] flex-1 overflow-hidden rounded bg-(--paper-light) focus:outline-none"
-                        onClick={() => setLightboxOpen(true)}
-                        aria-label={t('openFullscreen')}
-                      >
-                        <Image
-                          src={largePhoto.src}
-                          alt={largePhoto.caption ?? ''}
-                          fill
-                          className="object-contain"
-                          sizes="(max-width: 600px) 100vw, 50vw"
-                        />
-                      </button>
-                    ) : (
-                      <div className="flex min-h-[200px] flex-1 items-center justify-center rounded bg-(--paper-light) text-(--ink-muted)">
-                        {t('personPhotos')}
-                      </div>
-                    )}
-                    {personPhotos.length > 0 && (
-                      <div className="shrink-0">
-                        <p className="mb-1 text-xs font-medium text-(--ink-muted)">
-                          {t('personPhotos')}
-                        </p>
-                        <div className="flex gap-2 overflow-x-auto pb-1">
-                          {personPhotos.map((photo) => (
-                            <button
-                              key={photo.src}
-                              type="button"
-                              className={`relative h-16 w-16 shrink-0 overflow-hidden rounded border-2 transition-colors focus:outline-none ${
-                                largePhoto?.src === photo.src
-                                  ? 'border-(--accent)'
-                                  : 'border-transparent hover:border-(--border-subtle)'
-                              }`}
-                              onClick={() => setLargePhoto(photo)}
-                              aria-label={photo.caption ?? photo.id}
-                            >
-                              <Image
-                                src={photo.src}
-                                alt=""
-                                fill
-                                className="object-cover"
-                                sizes="64px"
-                              />
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                <BookPage className="flex flex-col overflow-hidden">
+                  <RightPageContent
+                    firstPhoto={firstPhoto}
+                    historyMentions={historyMentions}
+                    onPhotoClick={() => { if (firstPhoto) setLightboxPhoto(firstPhoto); }}
+                  />
                 </BookPage>
               }
             />
           </div>
         </div>
       </div>
-      {lightboxOpen && largePhoto && (
+      {lightboxPhoto && (
         <ImageLightbox
-          src={largePhoto.src}
-          alt={largePhoto.caption ?? ''}
-          caption={largePhoto.caption}
-          faces={getLightboxFacesFromPhoto(largePhoto, persons)}
+          src={lightboxPhoto.src}
+          alt={lightboxPhoto.caption ?? ''}
+          caption={lightboxPhoto.caption}
+          faces={getLightboxFacesFromPhoto(lightboxPhoto, persons)}
           open
-          onClose={() => setLightboxOpen(false)}
+          onClose={() => setLightboxPhoto(null)}
         />
       )}
     </>

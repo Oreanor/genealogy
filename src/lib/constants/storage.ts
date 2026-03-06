@@ -1,8 +1,9 @@
-/** localStorage keys for app settings (page color, language). */
+/** localStorage keys for app settings (page color, language, admin data). */
 export const STORAGE_KEYS = {
   paperColor: 'genealogy-paper-color',
   locale: 'genealogy-locale',
   adminTab: 'genealogy-admin-tab',
+  adminData: 'genealogy-admin-data',
 } as const;
 
 /** Cookie for redirect to last admin tab (read by middleware) */

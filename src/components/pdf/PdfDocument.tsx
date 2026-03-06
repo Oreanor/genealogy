@@ -19,7 +19,9 @@ export interface PdfLabels {
   siblings: string;
   years: string;
   birthPlace: string;
+  residenceCity: string;
   occupation: string;
+  comment: string;
   mentionedIn: string;
   photo: string;
   roleLabels: Record<string, string>;
@@ -48,7 +50,9 @@ export function PdfDocument({ labels }: { labels: PdfLabels }) {
           siblings: labels.siblings,
           years: labels.years,
           birthPlace: labels.birthPlace,
+          residenceCity: labels.residenceCity,
           occupation: labels.occupation,
+          comment: labels.comment,
           mentionedIn: labels.mentionedIn,
           photo: labels.photo,
         }}

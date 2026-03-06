@@ -70,7 +70,9 @@ const COLUMNS: (keyof Person)[] = [
   'birthDate',
   'deathDate',
   'birthPlace',
+  'residenceCity',
   'occupation',
+  'comment',
   'gender',
 ];
 
@@ -81,7 +83,9 @@ const COLUMN_LABELS: Partial<Record<keyof Person, string>> = {
   birthDate: 'adminBirthDate',
   deathDate: 'adminDeathDate',
   birthPlace: 'adminBirthPlace',
+  residenceCity: 'adminResidenceCity',
   occupation: 'adminOccupation',
+  comment: 'adminComment',
   gender: 'adminGender',
 };
 
@@ -198,7 +202,9 @@ export function AdminPersonsTable({
         id: nextPersonId(prev),
         firstName: '',
         birthPlace: '',
+        residenceCity: '',
         occupation: '',
+        comment: '',
         gender: 'm',
       },
     ]);

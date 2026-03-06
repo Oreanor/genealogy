@@ -30,7 +30,9 @@ function usePdfLabels(): PdfLabels {
     siblings: t('siblings'),
     years: t('years'),
     birthPlace: t('birthPlace'),
+    residenceCity: t('residenceCity'),
     occupation: t('occupation'),
+    comment: t('comment'),
     mentionedIn: t('personMentionedInStories'),
     photo: t('personPhotos'),
     roleLabels: {

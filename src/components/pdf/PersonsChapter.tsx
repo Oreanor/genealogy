@@ -20,7 +20,9 @@ export interface PersonsLabels {
   siblings: string;
   years: string;
   birthPlace: string;
+  residenceCity: string;
   occupation: string;
+  comment: string;
   mentionedIn: string;
   photo: string;
 }
@@ -83,6 +85,20 @@ function PersonInfoPage({ person, labels }: { person: Person; labels: PersonsLab
         <View style={{ flexDirection: 'row', marginBottom: 3 }}>
           <Text style={s.label}>{labels.occupation} </Text>
           <Text style={s.bodyText}>{person.occupation}</Text>
+        </View>
+      )}
+
+      {person.residenceCity && (
+        <View style={{ flexDirection: 'row', marginBottom: 3 }}>
+          <Text style={s.label}>{labels.residenceCity} </Text>
+          <Text style={s.bodyText}>{person.residenceCity}</Text>
+        </View>
+      )}
+
+      {person.comment && (
+        <View style={{ flexDirection: 'row', marginBottom: 3 }}>
+          <Text style={s.label}>{labels.comment} </Text>
+          <Text style={s.bodyText}>{person.comment}</Text>
         </View>
       )}
 
