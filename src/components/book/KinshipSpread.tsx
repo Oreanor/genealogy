@@ -4,10 +4,10 @@ import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons, getPersonById } from '@/lib/data/persons';
-import { getAvatarForPerson } from '@/lib/data/photos';
+import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import { formatLifeDates, getFullName, sortPersonsBySurname } from '@/lib/utils/person';
 import { getSiblings } from '@/lib/data/familyRelations';
-import { getKinship } from '@/lib/utils/kinship';
+import { getKinship, type EdgeKind, type KinshipResult } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
 import { BookSpread } from './BookSpread';
 import Link from 'next/link';
@@ -96,6 +96,140 @@ function PersonAvatar({ person, pathname }: Readonly<{ person: Person; pathname:
   );
 }
 
+function edgeLabel(kind: EdgeKind, targetPerson: Person | null, t: (k: string) => string): string {
+  if (kind === 'spouse') return targetPerson?.gender === 'f' ? t('kinWife') : t('kinHusband');
+  if (kind === 'parent') return targetPerson?.gender === 'f' ? t('kinMother') : t('kinFather');
+  return targetPerson?.gender === 'f' ? t('kinDaughter') : t('kinSon');
+}
+
+function findPeakIndex(edgeKinds: EdgeKind[]): number {
+  let last = 0;
+  for (let i = 0; i < edgeKinds.length; i++) {
+    if (edgeKinds[i] === 'parent') last = i + 1;
+  }
+  return last;
+}
+
+function KinshipChain({
+  result,
+  t,
+}: Readonly<{
+  result: KinshipResult;
+  t: (k: string) => string;
+}>) {
+  if (result.path.length <= 2) return null;
+
+  const peakIdx = findPeakIndex(result.edgeKinds);
+  const hasUp = result.edgeKinds.includes('parent');
+  const hasDown = result.edgeKinds.includes('child');
+  const hasSpouse = result.edgeKinds.includes('spouse');
+  const isSideBranch = hasUp && hasDown && !hasSpouse;
+  const middleIds = result.path.slice(1, -1);
+  const middleKinds = result.edgeKinds.slice(1);
+
+  return (
+    <div className="mt-6 flex flex-col items-center gap-3">
+      <h3 className="book-serif text-lg font-semibold text-(--ink) md:text-xl">
+        {t('kinshipChainLabel')}
+      </h3>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {/* First person (A) */}
+        <ChainNode
+          person={getPersonById(result.path[0]!)}
+          highlight={false}
+        />
+        {middleIds.map((id, i) => {
+          const person = getPersonById(id);
+          const isPeak = isSideBranch && i + 1 === peakIdx;
+          const edgeIdx = i + 1;
+          const label = edgeLabel(result.edgeKinds[edgeIdx]!, person, t);
+          const isSpouseEdge = result.edgeKinds[edgeIdx] === 'spouse';
+          return (
+            <span key={id} className="contents">
+              <ChainArrow label={label} spouse={isSpouseEdge} />
+              <ChainNode person={person} highlight={isPeak} t={t} />
+            </span>
+          );
+        })}
+        {/* Last person (B) */}
+        <ChainArrow
+          label={edgeLabel(middleKinds.at(-1)!, getPersonById(result.path.at(-1)!), t)}
+          spouse={middleKinds.at(-1) === 'spouse'}
+        />
+        <ChainNode
+          person={getPersonById(result.path.at(-1)!)}
+          highlight={false}
+        />
+      </div>
+    </div>
+  );
+}
+
+function ChainNode({
+  person,
+  highlight,
+  t,
+}: Readonly<{
+  person: Person | null;
+  highlight: boolean;
+  t?: (k: string) => string;
+}>) {
+  if (!person) return null;
+  const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div
+        className={`relative h-18 w-18 shrink-0 overflow-hidden rounded-full border-2 ${
+          highlight
+            ? 'border-(--accent) ring-2 ring-(--accent)/30'
+            : 'border-(--border-subtle)'
+        } bg-(--paper-light)`}
+      >
+        {avatar &&
+          (avatar.faceRect ? (
+            <div
+              className="h-full w-full"
+              style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
+              role="img"
+              aria-hidden
+            />
+          ) : (
+            <Image
+              src={avatar.src}
+              alt=""
+              fill
+              className="object-cover object-top"
+              sizes="72px"
+            />
+          ))}
+      </div>
+      <div className={`flex max-w-20 flex-col items-center text-center text-xs leading-tight ${
+        highlight ? 'font-bold text-(--ink)' : 'text-(--ink)'
+      }`}>
+        {person.lastName && <span className="truncate">{person.lastName}</span>}
+        {person.firstName && <span className="truncate">{person.firstName}</span>}
+        {person.patronymic && <span className="truncate">{person.patronymic}</span>}
+      </div>
+      {highlight && t && (
+        <span className="text-[10px] text-(--ink-muted)">— {t('kinshipCommonAncestor').replace(/:$/, '')}</span>
+      )}
+    </div>
+  );
+}
+
+function ChainArrow({ label, spouse }: Readonly<{ label: string; spouse?: boolean }>) {
+  const color = spouse ? 'var(--ink-muted)' : 'var(--ink)';
+  return (
+    <div className="flex flex-col items-center gap-0.5">
+      <span className={`text-xs ${spouse ? 'italic text-(--ink-muted)' : 'text-(--ink-muted)'}`}>{label}</span>
+      <svg width="48" height="12" viewBox="0 0 48 12" className="shrink-0">
+        <line x1="0" y1="6" x2="38" y2="6" stroke={color} strokeWidth="2" strokeDasharray={spouse ? '4 3' : undefined} />
+        <polygon points="38,1 48,6 38,11" fill={color} />
+      </svg>
+    </div>
+  );
+}
+
 export function KinshipSpread() {
   const { t } = useLocaleRoutes();
   const pathname = usePathname() ?? '';
@@ -166,7 +300,7 @@ export function KinshipSpread() {
               )}
               {resultAtoB && (
                 <div className="flex flex-col items-center">
-                  <p className="book-serif text-xl font-bold text-(--ink) md:text-2xl">
+                  <p className="book-serif text-base font-bold text-(--ink) md:text-lg">
                     {t(resultAtoB.key)}
                   </p>
                   {KIN_DESC_MAP[resultAtoB.key] && (
@@ -186,7 +320,7 @@ export function KinshipSpread() {
                     <line x1="18" y1="10" x2="200" y2="10" stroke="var(--ink)" strokeWidth="3" />
                     <polygon points="18,2 0,10 18,18" fill="var(--ink)" />
                   </svg>
-                  <p className="book-serif text-xl font-bold text-(--ink) md:text-2xl">
+                  <p className="book-serif text-base font-bold text-(--ink) md:text-lg">
                     {t(resultBtoA.key)}
                   </p>
                   {KIN_DESC_MAP[resultBtoA.key] && (
@@ -209,6 +343,11 @@ export function KinshipSpread() {
               <PersonAvatar person={personA} pathname={pathname} />
               <PersonAvatar person={personB} pathname={pathname} />
             </div>
+          )}
+
+          {/* Chain: path through common ancestor */}
+          {resultAtoB && resultAtoB.path.length > 2 && (
+            <KinshipChain result={resultAtoB} t={t} />
           )}
         </div>
       }

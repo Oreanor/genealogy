@@ -179,6 +179,8 @@
   "kinshipSelectPerson": "Person auswählen",
   "kinshipResult": "Verwandtschaft",
   "kinshipNoRelation": "Keine Verbindung gefunden",
+  "kinshipChainLabel": "Verwandtschaftskette",
+  "kinshipCommonAncestor": "Gemeinsamer Vorfahre:",
   "kinSelf": "dieselbe Person",
   "kinFather": "Vater",
   "kinMother": "Mutter",

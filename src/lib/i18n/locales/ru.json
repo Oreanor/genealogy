@@ -181,6 +181,8 @@
   "kinshipSelectPerson": "Выберите персону",
   "kinshipResult": "Степень родства",
   "kinshipNoRelation": "Связь не найдена",
+  "kinshipChainLabel": "Цепочка родства",
+  "kinshipCommonAncestor": "Общий предок:",
   "kinSelf": "та же персона",
   "kinFather": "отец",
   "kinMother": "мать",

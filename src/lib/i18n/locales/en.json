@@ -181,6 +181,8 @@
   "kinshipSelectPerson": "Select a person",
   "kinshipResult": "Relationship",
   "kinshipNoRelation": "No connection found",
+  "kinshipChainLabel": "Kinship chain",
+  "kinshipCommonAncestor": "Common ancestor:",
   "kinSelf": "same person",
   "kinFather": "father",
   "kinMother": "mother",

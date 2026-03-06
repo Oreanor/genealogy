@@ -181,6 +181,8 @@
   "kinshipSelectPerson": "Selecteer een persoon",
   "kinshipResult": "Verwantschap",
   "kinshipNoRelation": "Geen verband gevonden",
+  "kinshipChainLabel": "Verwantschapsketen",
+  "kinshipCommonAncestor": "Gemeenschappelijke voorouder:",
   "kinSelf": "dezelfde persoon",
   "kinFather": "vader",
   "kinMother": "moeder",

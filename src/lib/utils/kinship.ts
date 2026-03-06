@@ -2,7 +2,7 @@ import type { Gender, Person } from '@/lib/types/person';
 import { getPersons, getPersonById } from '@/lib/data/persons';
 import { getChildren, getSpouse } from '@/lib/data/familyRelations';
 
-type EdgeKind = 'parent' | 'child' | 'spouse';
+export type EdgeKind = 'parent' | 'child' | 'spouse';
 interface Edge { to: string; kind: EdgeKind }
 
 function buildGraph(): Map<string, Edge[]> {
@@ -153,6 +153,7 @@ function inLawKey(bKey: string, side: 'a' | 'b', genderA: Gender | undefined, ge
 export interface KinshipResult {
   key: string;
   path: string[];
+  edgeKinds: EdgeKind[];
 }
 
 /**
@@ -160,7 +161,7 @@ export interface KinshipResult {
  * Returns null if no connection found.
  */
 export function getKinship(idA: string, idB: string): KinshipResult | null {
-  if (idA === idB) return { key: 'kinSelf', path: [idA] };
+  if (idA === idB) return { key: 'kinSelf', path: [idA], edgeKinds: [] };
 
   const result = findPath(idA, idB);
   if (!result) return null;
@@ -169,18 +170,19 @@ export function getKinship(idA: string, idB: string): KinshipResult | null {
   const personA = getPersonById(idA);
   const gA = personA?.gender;
   const gB = personB?.gender;
+  const ek = result.kinds;
 
-  if (result.kinds.length === 1 && result.kinds[0] === 'spouse') {
-    return { key: gB === 'f' ? 'kinWife' : 'kinHusband', path: result.ids };
+  if (ek.length === 1 && ek[0] === 'spouse') {
+    return { key: gB === 'f' ? 'kinWife' : 'kinHusband', path: result.ids, edgeKinds: ek };
   }
 
-  const blood = analyzeBloodPath(result.kinds);
+  const blood = analyzeBloodPath(ek);
   if (blood) {
     const key = bloodKey(blood.up, blood.down, gB);
-    if (key) return { key, path: result.ids };
+    if (key) return { key, path: result.ids, edgeKinds: ek };
   }
 
-  const { inner, side } = stripSpouse(result.kinds);
+  const { inner, side } = stripSpouse(ek);
   if (side) {
     const innerBlood = analyzeBloodPath(inner);
     if (innerBlood) {
@@ -190,11 +192,11 @@ export function getKinship(idA: string, idB: string): KinshipResult | null {
       const bk = bloodKey(innerBlood.up, innerBlood.down, innerGenderB);
       if (bk) {
         const ilk = inLawKey(bk, side, gA, gB);
-        if (ilk) return { key: ilk, path: result.ids };
-        return { key: 'kinInLaw', path: result.ids };
+        if (ilk) return { key: ilk, path: result.ids, edgeKinds: ek };
+        return { key: 'kinInLaw', path: result.ids, edgeKinds: ek };
       }
     }
   }
 
-  return { key: 'kinDistantRelative', path: result.ids };
+  return { key: 'kinDistantRelative', path: result.ids, edgeKinds: ek };
 }

@@ -181,6 +181,8 @@
   "kinshipSelectPerson": "Selecione uma pessoa",
   "kinshipResult": "Grau de parentesco",
   "kinshipNoRelation": "Nenhuma conexão encontrada",
+  "kinshipChainLabel": "Cadeia de parentesco",
+  "kinshipCommonAncestor": "Ancestral comum:",
   "kinSelf": "a mesma pessoa",
   "kinFather": "pai",
   "kinMother": "mãe",
