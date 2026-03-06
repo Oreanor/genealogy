@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/context';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
+import { useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 import type { AdminTabId } from './AdminTabs';
 import { AdminTabs } from './AdminTabs';
 import { AdminPersonsTable } from './AdminPersonsTable';
@@ -64,6 +65,7 @@ export function AdminPageClient({
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations();
+  const setGlobalRoot = useSetRootPersonId();
   const [rootPersonId, setRootPersonId] = useState(initialRootPersonId);
   const [photos, setPhotos] = useState(initialPhotos);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
@@ -122,6 +124,7 @@ export function AdminPageClient({
             }}
             onRootChange={(id) => {
               setRootPersonId(id);
+              setGlobalRoot(id);
             }}
           />
         </div>

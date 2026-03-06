@@ -1,6 +1,6 @@
 'use client';
 
-import { getRootPersonId } from '@/lib/data/root';
+import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
 import { buildTreeMatrix } from '@/lib/utils/tree';
 import { TreeNode } from './TreeNode';
 
@@ -30,7 +30,8 @@ function getNodePosition(level: number, index: number, totalLevels: number) {
 }
 
 export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
-  const matrix = buildTreeMatrix(getRootPersonId());
+  const rootPersonId = useRootPersonId();
+  const matrix = buildTreeMatrix(rootPersonId);
   const totalLevels = matrix.length;
 
   return (
