@@ -138,7 +138,7 @@ export function AdminTextsTab({
                   e.stopPropagation();
                   updateEntry(idx, 'hidden', !entry.hidden);
                 }}
-                className={`shrink-0 p-0.5 transition-opacity ${entry.hidden ? 'text-[var(--ink-muted)]' : 'text-[var(--ink-muted)] opacity-0 group-hover:opacity-100'}`}
+                className={`shrink-0 p-0.5 transition-opacity ${entry.hidden ? 'text-(--ink-muted)' : 'text-(--ink-muted) opacity-0 group-hover:opacity-100'}`}
                 aria-label={entry.hidden ? t('adminShow') : t('adminHide')}
                 title={entry.hidden ? t('adminShow') : t('adminHide')}
               >
@@ -150,7 +150,7 @@ export function AdminTextsTab({
                   e.stopPropagation();
                   setConfirmDeleteIdx(idx);
                 }}
-                className="shrink-0 p-0.5 text-[var(--ink-muted)] opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-600"
+                className="shrink-0 p-0.5 text-(--ink-muted) opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-600"
                 aria-label={t('adminDeleteEntry')}
                 title={t('adminDeleteEntry')}
               >

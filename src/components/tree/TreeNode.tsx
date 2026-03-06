@@ -46,16 +46,16 @@ export const TreeNode = memo(function TreeNode({
   const lifeDates = formatLifeDates(person?.birthDate, person?.deathDate);
   const displayYears = lifeDates ? truncate(lifeDates, MAX_YEARS_LEN) : '';
 
-  const strokeClass = hasPerson ? 'outline-[var(--tree-stroke)] border-[var(--tree-stroke)]' : 'outline-gray-300 border-gray-300';
-  const plaqueStrokeClass = hasPerson ? 'border-[var(--tree-plaque-stroke)]' : 'border-gray-300';
-  const plaqueFillClass = hasPerson ? 'bg-[var(--tree-plaque-fill)]' : 'bg-gray-100';
+  const strokeClass = hasPerson ? 'outline-(--tree-stroke) border-(--tree-stroke)' : 'outline-gray-300 border-gray-300';
+  const plaqueStrokeClass = hasPerson ? 'border-(--tree-plaque-stroke)' : 'border-gray-300';
+  const plaqueFillClass = hasPerson ? 'bg-(--tree-plaque-fill)' : 'bg-gray-100';
 
   const content = (
     <>
       <div className="relative">
       {/* Oval: light ring between outlines, plaque color inside inner oval */}
       <div
-        className={`relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-offset-2 bg-[var(--background)] ${strokeClass}`}
+        className={`relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-offset-2 bg-(--background) ${strokeClass}`}
         style={{ width: '4.1rem', height: '5.3rem' }}
       >
         <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
@@ -65,7 +65,7 @@ export const TreeNode = memo(function TreeNode({
             if (avatar.faceRect) {
               return (
                 <div
-                  className="absolute inset-0 bg-[var(--tree-plaque-fill)]"
+                  className="absolute inset-0 bg-(--tree-plaque-fill)"
                   style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
                   role="img"
                   aria-hidden
@@ -90,7 +90,7 @@ export const TreeNode = memo(function TreeNode({
           tabIndex={0}
           onClick={(e) => { e.stopPropagation(); onSiblingBadgeClick?.(); }}
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); e.preventDefault(); onSiblingBadgeClick?.(); } }}
-          className="absolute -right-1 -top-1 z-10 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-[var(--nav-btn-ink)] shadow"
+          className="absolute -right-1 -top-1 z-10 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-(--accent) text-[10px] font-bold text-(--nav-btn-ink) shadow"
           aria-label={`+${siblingCount}`}
         >
           +{siblingCount}
@@ -101,18 +101,18 @@ export const TreeNode = memo(function TreeNode({
       {/* Plaque below portrait */}
       <div className={`mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-2 py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
         {hasPerson && role && (
-          <div className="text-xs leading-tight text-[var(--tree-stroke)]">
+          <div className="text-xs leading-tight text-(--tree-stroke)">
             {role}
           </div>
         )}
         {hasPerson && (surname || displayFirstPatronymic) && (
-          <div className="text-sm font-semibold leading-tight text-[var(--ink)]">
+          <div className="text-sm font-semibold leading-tight text-(--ink)">
             {surname && <div className="truncate">{surname}</div>}
             {displayFirstPatronymic && <div className="truncate">{displayFirstPatronymic}</div>}
           </div>
         )}
         {hasPerson && displayYears && (
-          <div className="text-xs leading-tight text-[var(--tree-stroke)]">
+          <div className="text-xs leading-tight text-(--tree-stroke)">
             {displayYears}
           </div>
         )}

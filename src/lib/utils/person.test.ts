@@ -1,14 +1,16 @@
 import { describe, it, expect, vi } from 'vitest';
 import {
-  getChildren,
-  getCousins,
   getFullName,
-  getRoots,
-  getSpouse,
-  getSiblings,
   sortPersonsBySurname,
   personMatchesSearch,
 } from './person';
+import {
+  getChildren,
+  getCousins,
+  getRoots,
+  getSpouse,
+  getSiblings,
+} from '../data/familyRelations';
 import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
 
 vi.mock('@/lib/data/persons', () => ({

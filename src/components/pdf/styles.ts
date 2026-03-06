@@ -1,14 +1,12 @@
 import { StyleSheet, Font } from '@react-pdf/renderer';
 
 Font.register({
-  family: 'Roboto',
+  family: 'PTSerif',
   fonts: [
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf', fontWeight: 300 },
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-regular-webfont.ttf', fontWeight: 400 },
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf', fontWeight: 500 },
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf', fontWeight: 700 },
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-italic-webfont.ttf', fontWeight: 400, fontStyle: 'italic' },
-    { src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bolditalic-webfont.ttf', fontWeight: 700, fontStyle: 'italic' },
+    { src: '/fonts/PTSerif-Regular.ttf', fontWeight: 400 },
+    { src: '/fonts/PTSerif-Bold.ttf', fontWeight: 700 },
+    { src: '/fonts/PTSerif-Italic.ttf', fontWeight: 400, fontStyle: 'italic' },
+    { src: '/fonts/PTSerif-BoldItalic.ttf', fontWeight: 700, fontStyle: 'italic' },
   ],
 });
 
@@ -21,6 +19,9 @@ export const COLORS = {
   white: '#ffffff',
 };
 
+export const FONT_SERIF = 'PTSerif';
+export const FONT_SANS = 'PTSerif';
+
 export const A5_PT = { width: 419.53, height: 595.28 };
 export const A4_LANDSCAPE_PT = { width: 841.89, height: 595.28 };
 
@@ -31,7 +32,7 @@ export const s = StyleSheet.create({
     paddingTop: 36,
     paddingBottom: 36,
     paddingHorizontal: 32,
-    fontFamily: 'Roboto',
+    fontFamily: FONT_SERIF,
     fontSize: 10,
     color: COLORS.ink,
     backgroundColor: COLORS.bg,
@@ -40,45 +41,52 @@ export const s = StyleSheet.create({
     width: A4_LANDSCAPE_PT.width,
     height: A4_LANDSCAPE_PT.height,
     padding: 24,
-    fontFamily: 'Roboto',
+    fontFamily: FONT_SANS,
     fontSize: 9,
     color: COLORS.ink,
     backgroundColor: COLORS.bg,
   },
   chapterTitle: {
-    fontSize: 18,
+    fontFamily: FONT_SERIF,
+    fontSize: 20,
     fontWeight: 700,
     marginBottom: 16,
     color: COLORS.accent,
     textAlign: 'center',
   },
   sectionTitle: {
+    fontFamily: FONT_SERIF,
     fontSize: 14,
     fontWeight: 700,
     marginBottom: 8,
     color: COLORS.ink,
   },
   label: {
-    fontSize: 9,
+    fontFamily: FONT_SANS,
+    fontSize: 8,
     fontWeight: 500,
     color: COLORS.inkMuted,
   },
   bodyText: {
+    fontFamily: FONT_SERIF,
     fontSize: 10,
-    lineHeight: 1.5,
+    lineHeight: 1.6,
     color: COLORS.ink,
   },
   caption: {
-    fontSize: 8,
+    fontFamily: FONT_SERIF,
+    fontSize: 9,
+    fontStyle: 'italic',
     color: COLORS.inkMuted,
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: 6,
   },
   pageNumber: {
     position: 'absolute',
     bottom: 16,
     left: 0,
     right: 0,
+    fontFamily: FONT_SANS,
     fontSize: 8,
     textAlign: 'center',
     color: COLORS.inkMuted,

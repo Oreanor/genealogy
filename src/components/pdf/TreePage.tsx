@@ -1,25 +1,26 @@
 import React from 'react';
-import { Page, View, Text, Svg, Line, Image } from '@react-pdf/renderer';
+import { Page, View, Text, Image } from '@react-pdf/renderer';
 import type { Person } from '@/lib/types/person';
 import { buildTreeMatrix } from '@/lib/utils/tree';
 import { getRootPersonId } from '@/lib/data/root';
-import { getFullName, formatLifeDates, getSiblings, getCousins } from '@/lib/utils/person';
+import { formatLifeDates } from '@/lib/utils/person';
+import { getSiblings, getCousins } from '@/lib/data/familyRelations';
 import { getTreeRoleKey } from '@/lib/utils/relationship';
 import { getAvatarForPerson } from '@/lib/data/photos';
 import { s, A4_LANDSCAPE_PT, COLORS } from './styles';
 
 const PAD = 24;
+const TITLE_H = 28;
 const W = A4_LANDSCAPE_PT.width - PAD * 2;
-const H = A4_LANDSCAPE_PT.height - PAD * 2;
+const H = A4_LANDSCAPE_PT.height - PAD * 2 - TITLE_H;
 
-const NODE_W = 56;
-const NODE_H = 72;
-const OVAL_W = 36;
-const OVAL_H = 44;
+const NODE_W = 72;
+const OVAL_W = 46;
+const OVAL_H = 54;
 
 const VIEW_WIDTH = 120;
-const VIEW_HEIGHT = 98;
-const TREE_TOP_OFFSET = 8;
+const VIEW_HEIGHT = 100;
+const TREE_TOP_OFFSET = 2;
 
 function getNodePosition(level: number, index: number, totalLevels: number) {
   const count = Math.pow(2, level);
@@ -70,41 +71,11 @@ export function TreePage({ labels }: { labels: TreeLabels }) {
     }
   }
 
-  const lines: { x1: number; y1: number; x2: number; y2: number }[] = [];
-  for (const node of nodes) {
-    if (node.level === 0 || !node.person) continue;
-    const parentLevel = node.level - 1;
-    const parentIndex = node.index >> 1;
-    const parent = nodes.find((n) => n.level === parentLevel && n.index === parentIndex);
-    if (parent?.person) {
-      lines.push({
-        x1: parent.xPt,
-        y1: parent.yPt + NODE_H * 0.5,
-        x2: node.xPt,
-        y2: node.yPt - 2,
-      });
-    }
-  }
-
   return (
-    <Page size={[A4_LANDSCAPE_PT.width, A4_LANDSCAPE_PT.height]} style={s.pageA4L}>
-      <Text style={[s.chapterTitle, { marginBottom: 4 }]}>{labels.chapterTree}</Text>
+    <Page size={[A4_LANDSCAPE_PT.width, A4_LANDSCAPE_PT.height]} style={s.pageA4L} wrap={false}>
+      <Text style={[s.chapterTitle, { marginBottom: -96 }]}>{labels.chapterTree}</Text>
 
       <View style={{ position: 'relative', width: W, height: H }}>
-        <Svg width={W} height={H} style={{ position: 'absolute', left: 0, top: 0 }}>
-          {lines.map((l, i) => (
-            <Line
-              key={`line-${i}`}
-              x1={l.x1 - PAD}
-              y1={l.y1 - PAD}
-              x2={l.x2 - PAD}
-              y2={l.y2 - PAD}
-              strokeWidth={0.5}
-              stroke={COLORS.border}
-            />
-          ))}
-        </Svg>
-
         {nodes.map((node) => {
           const { person, level, index, xPt, yPt } = node;
           if (!person) return null;
@@ -152,7 +123,7 @@ export function TreePage({ labels }: { labels: TreeLabels }) {
                     position: 'absolute',
                     right: (NODE_W - OVAL_W) / 2 - 4,
                     top: -3,
-                    fontSize: 6,
+                    fontSize: 7,
                     fontWeight: 700,
                     backgroundColor: COLORS.accent,
                     color: COLORS.white,
@@ -165,20 +136,20 @@ export function TreePage({ labels }: { labels: TreeLabels }) {
                 </Text>
               )}
               {/* Name plaque */}
-              <View style={{ marginTop: 1, alignItems: 'center', maxWidth: NODE_W }}>
+              <View style={{ marginTop: 2, alignItems: 'center', maxWidth: NODE_W }}>
                 {roleLabel ? (
-                  <Text style={{ fontSize: 5, color: COLORS.inkMuted, textAlign: 'center' }}>
+                  <Text style={{ fontSize: 6, color: COLORS.inkMuted, textAlign: 'center' }}>
                     {roleLabel}
                   </Text>
                 ) : null}
-                <Text style={{ fontSize: 6, fontWeight: 500, textAlign: 'center' }}>
+                <Text style={{ fontSize: 7, fontWeight: 700, textAlign: 'center' }}>
                   {truncate(person.lastName ?? '', 18)}
                 </Text>
-                <Text style={{ fontSize: 5.5, textAlign: 'center' }}>
+                <Text style={{ fontSize: 6.5, textAlign: 'center' }}>
                   {truncate(`${person.firstName ?? ''} ${person.patronymic ?? ''}`.trim(), 22)}
                 </Text>
                 {(person.birthDate || person.deathDate) && (
-                  <Text style={{ fontSize: 5, color: COLORS.inkMuted, textAlign: 'center' }}>
+                  <Text style={{ fontSize: 5.5, color: COLORS.inkMuted, textAlign: 'center' }}>
                     {truncate(formatLifeDates(person.birthDate, person.deathDate), 24)}
                   </Text>
                 )}

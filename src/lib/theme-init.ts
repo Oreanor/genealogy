@@ -2,6 +2,9 @@
  * Sync init of theme from localStorage.
  * Runs before React to avoid flash of default theme on reload.
  */
+import { contrastColor, darkenColor, lightenColor, hexToRgba } from '@/lib/utils/color';
+import { STORAGE_KEYS } from '@/lib/constants/storage';
+
 const PALETTE = [
   '#ffffff', '#e5e7eb', '#9ca3af', '#374151',
   '#fef9c3', '#fbbf24', '#f97316', '#ef4444',
@@ -9,46 +12,11 @@ const PALETTE = [
   '#f5f3ff', '#8b5cf6', '#a16207', '#1f2937',
 ];
 const DEFAULT_PAPER = '#ffffff';
-const KEY = 'genealogy-paper-color';
-
-function parseHex(hex: string) {
-  return {
-    r: parseInt(hex.slice(1, 3), 16),
-    g: parseInt(hex.slice(3, 5), 16),
-    b: parseInt(hex.slice(5, 7), 16),
-  };
-}
-
-function contrastColor(hex: string) {
-  const { r, g, b } = parseHex(hex);
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return luminance > 0.5 ? '#000000' : '#ffffff';
-}
-
-function darkenColor(hex: string, amount: number) {
-  const { r, g, b } = parseHex(hex);
-  const f = 1 - Math.max(0, Math.min(1, amount));
-  const toHex = (n: number) => Math.round(n * f).toString(16).padStart(2, '0');
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
-
-function lightenColor(hex: string, amount: number) {
-  const { r, g, b } = parseHex(hex);
-  const f = Math.max(0, Math.min(1, amount));
-  const toHex = (n: number) =>
-    Math.round(n * (1 - f) + 255 * f).toString(16).padStart(2, '0');
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
-
-function hexToRgba(hex: string, alpha: number) {
-  const { r, g, b } = parseHex(hex);
-  return `rgba(${r}, ${g}, ${b}, ${Math.max(0, Math.min(1, alpha))})`;
-}
 
 export function initThemeFromStorage() {
   if (typeof window === 'undefined') return;
   try {
-    const stored = localStorage.getItem(KEY);
+    const stored = localStorage.getItem(STORAGE_KEYS.paperColor);
     const paper = stored && PALETTE.includes(stored) ? stored : DEFAULT_PAPER;
     const ink = contrastColor(paper);
     const paperLight = lightenColor(paper, 0.7);

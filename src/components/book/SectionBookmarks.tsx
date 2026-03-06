@@ -5,13 +5,14 @@ import { SECTIONS, isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { HelpCircle } from 'lucide-react';
 
 const BOOKMARK_BASE =
   'rounded-t-md px-3 py-1.5 text-xs font-medium shadow-md transition-colors md:min-h-[36px] md:px-4 md:py-2 md:text-sm';
 /** Active = same size as inactive, only background darkens (nav-btn → nav-btn-hover) */
-const BOOKMARK_ACTIVE = 'bg-[var(--nav-btn-hover)] text-[var(--nav-btn-ink)]';
+const BOOKMARK_ACTIVE = 'bg-(--nav-btn-hover) text-(--nav-btn-ink)';
 const BOOKMARK_INACTIVE =
-  'bg-[var(--nav-btn)] text-[var(--nav-btn-ink)] hover:bg-[var(--nav-btn-hover)]';
+  'bg-(--nav-btn) text-(--nav-btn-ink) hover:bg-(--nav-btn-hover)';
 
 /** Section bookmarks: Tree, Persons, History, Photos, Help — all equal tabs, URL ?section=… */
 export function SectionBookmarks() {
@@ -21,8 +22,9 @@ export function SectionBookmarks() {
   const sectionParam = searchParams.get('section') ?? '';
   const current: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
 
-  const mainSections = SECTIONS.filter((s) => s.id !== 'help');
-  const helpSection = SECTIONS.find((s) => s.id === 'help');
+  const RIGHT_IDS = new Set<string>(['kinship', 'help']);
+  const mainSections = SECTIONS.filter((s) => !RIGHT_IDS.has(s.id));
+  const rightSections = SECTIONS.filter((s) => RIGHT_IDS.has(s.id));
 
   return (
     <nav
@@ -44,14 +46,18 @@ export function SectionBookmarks() {
           );
         })}
       </div>
-      {helpSection && (
-        <Link
-          href={`${pathname}?section=help`}
-          className={`shrink-0 ${BOOKMARK_BASE} ${current === 'help' ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE}`}
-        >
-          {t(helpSection.i18nKey)}
-        </Link>
-      )}
+      <div className="flex shrink-0 flex-row gap-1">
+        {rightSections.map(({ id, i18nKey }) => (
+          <Link
+            key={id}
+            href={`${pathname}?section=${id}`}
+            className={`${BOOKMARK_BASE} ${current === id ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE} ${id === 'help' ? 'flex items-center gap-1.5' : ''}`}
+          >
+            {id === 'help' && <HelpCircle className="size-4" aria-hidden />}
+            {t(i18nKey)}
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 }

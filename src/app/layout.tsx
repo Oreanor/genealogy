@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import {
   getDefaultBookTitle,
   getDefaultMetaDescription,
-} from '@/lib/constants/owner';
+} from '@/lib/data/owner';
 import { StorageGate } from '@/components/StorageGate';
 import './globals.css';
 

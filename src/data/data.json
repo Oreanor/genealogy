@@ -154,6 +154,18 @@
       "gender": "f",
       "patronymic": "Филимоновна",
       "lastName": "Беляева"
+    },
+    {
+      "id": "p016",
+      "firstName": "Олег",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
     }
   ],
   "photos": [
@@ -405,6 +417,34 @@
     {
       "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-Image63",
       "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/Image63.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7616",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7616.JPG",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7617",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7617.JPG",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7618",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7618.JPG",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7619",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7619.JPG",
       "caption": "",
       "category": "related",
       "people": []

@@ -1,3 +1,5 @@
+export type Gender = 'm' | 'f';
+
 export interface Person {
   id: string;
   firstName: string;
@@ -16,5 +18,5 @@ export interface Person {
   /** Mother's person id (tree slot 1). */
   motherId?: string;
   /** For tree and card roles: son/daughter, father/mother */
-  gender?: 'm' | 'f';
+  gender?: Gender;
 }

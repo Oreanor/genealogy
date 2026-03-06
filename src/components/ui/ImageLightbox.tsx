@@ -45,7 +45,7 @@ export function ImageLightbox({ src, alt = '', caption, faces = [], open, onClos
         }
       }}
       className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center gap-4 bg-black/90 p-4 focus:outline-none"
-      aria-label="Закрыть"
+      aria-label={t('closeLightbox')}
     >
       <div className="relative inline-block max-h-[calc(100vh-8rem)] max-w-[calc(100vw-2rem)]">
         <Image

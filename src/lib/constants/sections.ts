@@ -1,5 +1,5 @@
-/** Book sections: tree, persons, history, photos, help */
-export const SECTION_IDS = ['tree', 'persons', 'history', 'photos', 'help'] as const;
+/** Book sections: tree, persons, history, photos, kinship, help */
+export const SECTION_IDS = ['tree', 'persons', 'history', 'photos', 'kinship', 'help'] as const;
 export type SectionId = (typeof SECTION_IDS)[number];
 
 export const SECTIONS = [
@@ -7,6 +7,7 @@ export const SECTIONS = [
   { id: 'persons' as const, i18nKey: 'chapters_persons' },
   { id: 'history' as const, i18nKey: 'chapters_history' },
   { id: 'photos' as const, i18nKey: 'chapters_photos' },
+  { id: 'kinship' as const, i18nKey: 'chapters_kinship' },
   { id: 'help' as const, i18nKey: 'chapters_help' },
 ] as const;
 

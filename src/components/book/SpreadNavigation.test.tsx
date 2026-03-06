@@ -85,7 +85,7 @@ describe('SpreadNavigation', () => {
         />
       )
     );
-    expect(screen.getByRole('button', { name: /Назад/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Вперёд/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Previous/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Next/ })).toBeInTheDocument();
   });
 });

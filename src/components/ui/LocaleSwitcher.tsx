@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
+import { TOOLBAR_BUTTON_CLASS } from '@/lib/constants/theme';
 import { LOCALES } from '@/lib/i18n/config';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { getPathSegments } from '@/lib/utils/path';
@@ -57,7 +58,7 @@ export function LocaleSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] text-xs font-semibold text-[var(--ink)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        className={`${TOOLBAR_BUTTON_CLASS} text-xs font-semibold text-(--ink)`}
         aria-label={t('tooltipLanguage')}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -66,9 +67,9 @@ export function LocaleSwitcher() {
       </button>
       {open && (
         <div
-          className="absolute left-0 top-full z-10 mt-2 w-9 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-2 shadow-xl md:w-11"
+          className="absolute left-0 top-full z-10 mt-2 w-9 rounded-xl border border-(--border) bg-(--surface) p-2 shadow-xl md:w-11"
           role="listbox"
-          aria-label="Выбор языка"
+          aria-label={t('selectLanguage')}
         >
           {LOCALES.map((locale) => (
             <button
@@ -77,7 +78,7 @@ export function LocaleSwitcher() {
               role="option"
               aria-selected={locale === currentLocale}
               onClick={() => goToLocale(locale)}
-              className="flex w-full cursor-pointer items-center justify-center rounded-lg px-1 py-2 text-sm font-medium text-[var(--ink)] transition-colors hover:bg-[var(--border-subtle)]"
+              className="flex w-full cursor-pointer items-center justify-center rounded-lg px-1 py-2 text-sm font-medium text-(--ink) transition-colors hover:bg-(--border-subtle)"
             >
               {LOCALE_LABELS[locale] ?? locale.toUpperCase()}
             </button>

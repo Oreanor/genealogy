@@ -169,7 +169,7 @@ export function PageColorPicker() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-[var(--border)] bg-[var(--surface)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        className="flex h-9 w-9 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-(--border) bg-(--surface) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
         aria-label={t('tooltipPageColor')}
         aria-expanded={open}
       >
@@ -180,18 +180,18 @@ export function PageColorPicker() {
           aria-hidden
         />
         <span
-          className="h-1.5 w-3 rounded-sm border border-[var(--border-subtle)] shrink-0"
+          className="h-1.5 w-3 rounded-sm border border-(--border-subtle) shrink-0"
           style={{ backgroundColor: paper }}
           aria-hidden
         />
       </button>
       {open && (
         <div
-          className="absolute left-full top-0 z-[100] ml-2 flex w-[220px] flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 shadow-xl"
+          className="absolute left-full top-0 z-[100] ml-2 flex w-[220px] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl"
           data-picker-area
         >
           <div
-            className="relative h-[180px] w-full shrink-0 cursor-crosshair overflow-hidden rounded-lg border border-[var(--border-subtle)]"
+            className="relative h-[180px] w-full shrink-0 cursor-crosshair overflow-hidden rounded-lg border border-(--border-subtle)"
             style={{
               background: `linear-gradient(to bottom, transparent, black),
                 linear-gradient(to right, white, hsl(${hsl.h}, 100%, 50%))`,
@@ -212,7 +212,7 @@ export function PageColorPicker() {
             />
           </div>
           <div
-            className="relative h-4 w-full shrink-0 cursor-pointer overflow-hidden rounded border border-[var(--border-subtle)]"
+            className="relative h-4 w-full shrink-0 cursor-pointer overflow-hidden rounded border border-(--border-subtle)"
             style={{
               background:
                 'linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)',

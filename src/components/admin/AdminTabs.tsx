@@ -47,7 +47,7 @@ export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
         <button
           type="button"
           onClick={() => setHelpOpen(true)}
-          className="rounded-t-md bg-(--nav-btn) px-3 py-1.5 text-sm font-medium text-(--nav-btn-ink) shadow-sm transition-colors hover:bg-(--nav-btn-hover) flex items-center gap-1.5"
+          className="flex items-center gap-1.5 rounded-t-md bg-(--nav-btn) px-3 py-1.5 text-sm font-medium text-(--nav-btn-ink) shadow-md transition-colors hover:bg-(--nav-btn-hover) md:px-4 md:py-2"
           aria-label={t('adminHelp')}
         >
           <HelpCircle className="size-4" aria-hidden />

@@ -75,7 +75,7 @@ export function SpreadNavigation({
     if (isPersonSpread && isLeft) {
       return (
         <BookPage>
-          <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl">
+          <h1 className="text-2xl font-semibold text-(--ink) md:text-3xl">
             {chapterTitle}
           </h1>
           <div className="mt-6 flex-1">
@@ -92,7 +92,7 @@ export function SpreadNavigation({
     return (
       <BookPage>
         {isLeft && safeIndex === 0 && (
-          <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl">
+          <h1 className="text-2xl font-semibold text-(--ink) md:text-3xl">
             {chapterTitle}
           </h1>
         )}
@@ -103,7 +103,7 @@ export function SpreadNavigation({
             <PageContentRenderer content={content} />
           ) : (
             <div className="flex h-full items-center justify-center">
-              <p className="text-[var(--ink-muted)]">
+              <p className="text-(--ink-muted)">
                 {t('spreadPage', {
                   n: String(safeIndex + 1),
                   side: isLeft ? t('spreadLeft') : t('spreadRight'),
@@ -124,7 +124,7 @@ export function SpreadNavigation({
         fullWidth={
           isTreeSpread ? (
             <BookPage>
-              <h1 className="mb-2 text-center text-2xl font-semibold text-[var(--ink)] md:text-3xl lg:text-4xl">
+              <h1 className="mb-2 text-center text-2xl font-semibold text-(--ink) md:text-3xl lg:text-4xl">
                 {t('treeTitle')}
               </h1>
               <FamilyTree onPersonClick={setSelectedTreePersonId} />
@@ -143,21 +143,14 @@ export function SpreadNavigation({
       )}
 
       {spreads.length > 1 && (
-        <div className="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between pointer-events-none">
-          <div className="pointer-events-auto">
-            <NavButton onClick={goPrev} disabled={!hasPrev}>
-              ← {t('back')}
-            </NavButton>
+        <>
+          <div className="pointer-events-auto absolute -left-7 top-1/2 z-20 -translate-y-1/2 md:-left-8">
+            <NavButton onClick={goPrev} disabled={!hasPrev} direction="prev" />
           </div>
-          <span className="text-sm font-medium text-[var(--ink)] drop-shadow-sm">
-            {safeIndex + 1} / {spreads.length}
-          </span>
-          <div className="pointer-events-auto">
-            <NavButton onClick={goNext} disabled={!hasNext}>
-              {t('next')} →
-            </NavButton>
+          <div className="pointer-events-auto absolute -right-7 top-1/2 z-20 -translate-y-1/2 md:-right-8">
+            <NavButton onClick={goNext} disabled={!hasNext} direction="next" />
           </div>
-        </div>
+        </>
       )}
     </div>
   );

@@ -13,7 +13,7 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
           return (
             <div
               key={index}
-              className="prose prose-sm max-w-none text-[var(--ink)] [&_a]:text-[var(--link)] [&_a:hover]:underline"
+              className="prose prose-sm max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline"
               dangerouslySetInnerHTML={{ __html: block.html }}
             />
           );
@@ -26,26 +26,26 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
             return (
               <h2
                 key={index}
-                className="text-xl font-semibold text-[var(--ink)]"
+                className="text-xl font-semibold text-(--ink)"
               >
                 {content}
               </h2>
             );
           case 'paragraph':
             return (
-              <p key={index} className="text-[var(--ink)]">
+              <p key={index} className="text-(--ink)">
                 {content}
               </p>
             );
           case 'list':
             return (
-              <ul key={index} className="list-inside list-disc text-[var(--ink)]">
+              <ul key={index} className="list-inside list-disc text-(--ink)">
                 <li>{content}</li>
               </ul>
             );
           default:
             return (
-              <p key={index} className="text-[var(--ink)]">
+              <p key={index} className="text-(--ink)">
                 {content}
               </p>
             );

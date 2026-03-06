@@ -19,27 +19,27 @@ export function HelpSpread() {
     <BookSpread
       fullWidth={
         <div
-          className="h-full w-full overflow-y-auto bg-[var(--paper)] p-6 sm:p-8 md:p-9 shadow-inner"
+          className="h-full w-full overflow-y-auto bg-(--paper) p-6 sm:p-8 md:p-9 shadow-inner"
           style={{ columns: 2, columnGap: '2.5rem', columnRule: '1px solid var(--border-subtle)' }}
         >
-          <h2 className="book-serif mb-5 text-xl font-semibold text-[var(--ink)] md:text-2xl">
+          <h2 className="book-serif mb-5 text-xl font-semibold text-(--ink) md:text-2xl">
             {t('adminHelp')}
           </h2>
-          <p className="mb-6 text-base leading-relaxed text-[var(--ink)]">
+          <p className="mb-6 text-base leading-relaxed text-(--ink)">
             {t('treeHelpIntro')}
           </p>
-          <p className="mb-3 text-base font-medium text-[var(--ink)]">
+          <p className="mb-3 text-base font-medium text-(--ink)">
             {t('treeHelpStepsTitle')}
           </p>
-          <ul className="list-inside list-disc space-y-2.5 text-left text-base text-[var(--ink)]">
+          <ul className="list-inside list-disc space-y-2.5 text-left text-base text-(--ink)">
             {STEP_KEYS.map((key) => (
               <li key={key} style={{ breakInside: 'avoid' }}>{t(key)}</li>
             ))}
           </ul>
-          <p className="mt-6 text-base leading-relaxed text-[var(--ink)]" style={{ breakInside: 'avoid' }}>
+          <p className="mt-6 text-base leading-relaxed text-(--ink)" style={{ breakInside: 'avoid' }}>
             {t('treeHelpData')}
           </p>
-          <p className="mt-4 text-base leading-relaxed text-[var(--ink)]" style={{ breakInside: 'avoid' }}>
+          <p className="mt-4 text-base leading-relaxed text-(--ink)" style={{ breakInside: 'avoid' }}>
             {t('treeHelpPerSectionBefore')}
             <strong>{t('treeHelpPerSectionBold')}</strong>
           </p>

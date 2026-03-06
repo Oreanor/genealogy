@@ -78,15 +78,15 @@ export function Dialog({
         aria-modal
         aria-label={ariaLabel ?? title}
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-xl border-2 border-[var(--border)] bg-[var(--surface)] p-5 shadow-xl focus:outline-none"
+        className="relative z-10 w-full max-w-md rounded-xl border-2 border-(--border) bg-(--surface) p-5 shadow-xl focus:outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
-          <h2 className="mb-3 text-center text-lg font-semibold text-[var(--ink)]">
+          <h2 className="mb-3 text-center text-lg font-semibold text-(--ink)">
             {title}
           </h2>
         )}
-        <div className="mb-5 text-center text-[var(--ink)]">
+        <div className="mb-5 text-center text-(--ink)">
           {children}
         </div>
         <div className="flex justify-center gap-2">

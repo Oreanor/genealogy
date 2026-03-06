@@ -10,10 +10,10 @@ export function AdminButton() {
   return (
     <Link
       href={routes.admin}
-      className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+      className="flex h-9 w-9 cursor-pointer flex-shrink-0 items-center justify-center rounded-lg border-2 border-(--border) bg-(--paper) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
       aria-label={label}
     >
-      <Pencil className="size-[18px] text-[var(--ink)]" aria-hidden />
+      <Pencil className="size-[18px] text-(--ink)" aria-hidden />
     </Link>
   );
 }

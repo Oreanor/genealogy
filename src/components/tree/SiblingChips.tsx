@@ -33,7 +33,7 @@ export const SiblingChips = memo(function SiblingChips({
             key={person.id}
             type="button"
             onClick={() => onPersonClick(person.id)}
-            className="relative shrink-0 rounded-[50%] border border-[var(--tree-stroke)] bg-[var(--tree-plaque-fill)] overflow-hidden"
+            className="relative shrink-0 rounded-[50%] border border-(--tree-stroke) bg-(--tree-plaque-fill) overflow-hidden"
             style={{ width: CHIP_W, height: CHIP_H }}
             aria-label={getFullName(person)}
             title={getFullName(person)}
@@ -41,7 +41,7 @@ export const SiblingChips = memo(function SiblingChips({
             {avatar && (
               avatar.faceRect ? (
                 <div
-                  className="h-full w-full bg-[var(--tree-plaque-fill)]"
+                  className="h-full w-full bg-(--tree-plaque-fill)"
                   style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
                   role="img"
                   aria-hidden

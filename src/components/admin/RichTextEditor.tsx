@@ -7,7 +7,7 @@ import Color from '@tiptap/extension-color';
 import { TextStyle } from '@tiptap/extension-text-style';
 
 const btnClass =
-  'rounded border border-[var(--border)] bg-[var(--surface)] px-2 py-1 text-sm text-[var(--ink)] hover:bg-[var(--paper-light)]';
+  'rounded border border-(--border) bg-(--surface) px-2 py-1 text-sm text-(--ink) hover:bg-(--paper-light)';
 
 export interface RichTextEditorProps {
   value: string;
@@ -25,7 +25,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
     editorProps: {
       attributes: {
         class:
-          'h-full text-[var(--ink)] focus:outline-none',
+          'h-full text-(--ink) focus:outline-none',
       },
     },
   });
@@ -36,7 +36,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
     }
   }, [editor, value]);
 
-  if (!editor) return <div className="min-h-[120px] animate-pulse rounded bg-[var(--surface)]" />;
+  if (!editor) return <div className="min-h-[120px] animate-pulse rounded bg-(--surface)" />;
 
   return (
     <div className="flex h-full flex-col gap-2">
@@ -79,7 +79,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
           id={colorPickerId}
           type="color"
           defaultValue="#000000"
-          className="h-8 w-8 cursor-pointer rounded border border-[var(--border)]"
+          className="h-8 w-8 cursor-pointer rounded border border-(--border)"
         />
       </div>
       <div className="min-h-0 flex-1 rounded border border-(--border-subtle) bg-(--paper) px-2">

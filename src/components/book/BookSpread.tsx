@@ -26,7 +26,7 @@ export function BookSpread({ left, right, fullWidth, wide }: BookSpreadProps) {
   }
   return (
     <div className={spreadClass}>
-      <div className="min-w-0 flex-1 border-r border-[var(--border-subtle)]">{left}</div>
+      <div className="min-w-0 flex-1 border-r border-(--border-subtle)">{left}</div>
       <div className="min-w-0 flex-1">{right}</div>
     </div>
   );

@@ -1,9 +1,11 @@
+'use client';
+
 import { CHAPTER_IDS } from '@/lib/constants/chapters';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
 
 const navLinkClass =
-  'rounded-b-lg px-5 py-2 text-sm font-medium shadow-lg transition-colors md:min-h-[44px] md:min-w-[44px] md:flex md:items-center md:justify-center bg-[var(--nav-btn)] text-[var(--nav-btn-ink)] hover:bg-[var(--nav-btn-hover)]';
+  'rounded-b-lg px-5 py-2 text-sm font-medium shadow-lg transition-colors md:min-h-[44px] md:min-w-[44px] md:flex md:items-center md:justify-center bg-(--nav-btn) text-(--nav-btn-ink) hover:bg-(--nav-btn-hover)';
 
 export function TocBookmark() {
   const { t, routes } = useLocaleRoutes();

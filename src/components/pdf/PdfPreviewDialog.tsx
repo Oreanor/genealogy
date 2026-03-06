@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Download, X, Loader2 } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n/context';
-import { getFamilySurname } from '@/lib/constants/owner';
+import { getFamilySurname } from '@/lib/data/owner';
 import { PdfDocument } from './PdfDocument';
 import type { PdfLabels } from './PdfDocument';
 
@@ -99,8 +99,8 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
       aria-label={t('pdfPreview')}
     >
       {/* Header */}
-      <div className="flex items-center justify-between bg-[var(--surface)] px-4 py-2 shadow">
-        <span className="text-sm font-medium text-[var(--ink)]">{t('pdfPreview')}</span>
+      <div className="flex items-center justify-between bg-(--surface) px-4 py-2 shadow">
+        <span className="text-sm font-medium text-(--ink)">{t('pdfPreview')}</span>
         <div className="flex items-center gap-2">
           <BlobProvider document={<PdfDocument labels={labels} />}>
             {({ blob, loading }) => (
@@ -108,7 +108,7 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
                 type="button"
                 disabled={loading || !blob}
                 onClick={() => blob && saveBlob(blob, filename)}
-                className="flex items-center gap-1.5 rounded-lg bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-white shadow transition-opacity hover:opacity-90 disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg bg-(--accent) px-3 py-1.5 text-sm font-medium text-white shadow transition-opacity hover:opacity-90 disabled:opacity-50"
               >
                 {loading ? (
                   <Loader2 className="size-4 animate-spin" />
@@ -122,7 +122,7 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--ink)] hover:bg-[var(--paper-light)]"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-(--ink) hover:bg-(--paper-light)"
             aria-label={t('adminCancel')}
           >
             <X className="size-5" />

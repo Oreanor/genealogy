@@ -9,14 +9,8 @@ import {
   getLightboxFacesFromPhoto,
 } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
-import {
-  formatLifeDates,
-  getChildren,
-  getCousins,
-  getFullName,
-  getSpouse,
-  getSiblings,
-} from '@/lib/utils/person';
+import { formatLifeDates, getFullName } from '@/lib/utils/person';
+import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { useTranslations } from '@/lib/i18n/context';
@@ -64,9 +58,9 @@ function PersonInfoContent({
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <h2 className="book-serif text-2xl font-semibold text-[var(--ink)]">{getFullName(person)}</h2>
+      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{getFullName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
-        <div className="space-y-2 text-[var(--ink)]">
+        <div className="space-y-2 text-(--ink)">
           {spouse && (
             <p>
               <span className="font-medium">
@@ -132,24 +126,24 @@ function PersonInfoContent({
         </div>
       )}
       {(person.birthDate || person.deathDate) && (
-        <p className="text-[var(--ink)]">
+        <p className="text-(--ink)">
           <span className="font-medium">{t('years')}</span>{' '}
           {formatLifeDates(person.birthDate, person.deathDate)}
         </p>
       )}
       {person.birthPlace && (
-        <p className="text-[var(--ink)]">
+        <p className="text-(--ink)">
           <span className="font-medium">{t('birthPlace')}</span> {person.birthPlace}
         </p>
       )}
       {person.occupation && (
-        <p className="text-[var(--ink)]">
+        <p className="text-(--ink)">
           <span className="font-medium">{t('occupation')}</span> {person.occupation}
         </p>
       )}
       {historyMentions.length > 0 && (
         <div className="space-y-1">
-          <h3 className="text-sm font-medium text-[var(--ink)]">{t('personMentionedInStories')}</h3>
+          <h3 className="text-sm font-medium text-(--ink)">{t('personMentionedInStories')}</h3>
           <ul className="flex flex-wrap gap-2">
             {historyMentions.map(({ entry, index }) => (
               <li key={index}>
@@ -214,7 +208,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                     {largePhoto ? (
                       <button
                         type="button"
-                        className="relative min-h-[200px] flex-1 overflow-hidden rounded bg-[var(--paper-light)] focus:outline-none"
+                        className="relative min-h-[200px] flex-1 overflow-hidden rounded bg-(--paper-light) focus:outline-none"
                         onClick={() => setLightboxOpen(true)}
                         aria-label={t('openFullscreen')}
                       >
@@ -227,13 +221,13 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                         />
                       </button>
                     ) : (
-                      <div className="flex min-h-[200px] flex-1 items-center justify-center rounded bg-[var(--paper-light)] text-[var(--ink-muted)]">
+                      <div className="flex min-h-[200px] flex-1 items-center justify-center rounded bg-(--paper-light) text-(--ink-muted)">
                         {t('personPhotos')}
                       </div>
                     )}
                     {personPhotos.length > 0 && (
                       <div className="shrink-0">
-                        <p className="mb-1 text-xs font-medium text-[var(--ink-muted)]">
+                        <p className="mb-1 text-xs font-medium text-(--ink-muted)">
                           {t('personPhotos')}
                         </p>
                         <div className="flex gap-2 overflow-x-auto pb-1">
@@ -243,8 +237,8 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                               type="button"
                               className={`relative h-16 w-16 shrink-0 overflow-hidden rounded border-2 transition-colors focus:outline-none ${
                                 largePhoto?.src === photo.src
-                                  ? 'border-[var(--accent)]'
-                                  : 'border-transparent hover:border-[var(--border-subtle)]'
+                                  ? 'border-(--accent)'
+                                  : 'border-transparent hover:border-(--border-subtle)'
                               }`}
                               onClick={() => setLargePhoto(photo)}
                               aria-label={photo.caption ?? photo.id}

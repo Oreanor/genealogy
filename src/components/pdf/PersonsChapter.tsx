@@ -4,13 +4,8 @@ import type { Person } from '@/lib/types/person';
 import { getPersons } from '@/lib/data/persons';
 import { getRootPersonId } from '@/lib/data/root';
 import { buildTreeMatrix } from '@/lib/utils/tree';
-import {
-  formatLifeDates,
-  getFullName,
-  getChildren,
-  getSpouse,
-  getSiblings,
-} from '@/lib/utils/person';
+import { formatLifeDates, getFullName } from '@/lib/utils/person';
+import { getChildren, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import { getPersonById } from '@/lib/data/persons';
 import { getAvatarForPerson } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';

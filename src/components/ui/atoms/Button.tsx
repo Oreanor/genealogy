@@ -7,15 +7,15 @@ const base =
 
 const variants = {
   primary:
-    'bg-[var(--accent)] text-[var(--nav-btn-ink)] hover:opacity-90 shadow-md',
+    'bg-(--accent) text-(--nav-btn-ink) hover:opacity-90 shadow-md',
   secondary:
-    'border border-[var(--border)] bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--paper-light)]',
+    'border border-(--border) bg-(--surface) text-(--ink) hover:bg-(--paper-light)',
   ghost:
-    'text-[var(--ink-muted)] hover:bg-[var(--paper-light)] hover:text-[var(--ink)]',
+    'text-(--ink-muted) hover:bg-(--paper-light) hover:text-(--ink)',
   danger:
-    'text-[var(--ink-muted)] hover:bg-red-500/20 hover:text-red-600',
+    'text-(--ink-muted) hover:bg-red-500/20 hover:text-red-600',
   icon:
-    'h-9 w-9 shrink-0 border-2 border-[var(--border)] bg-[var(--paper)] text-[var(--ink)] shadow-md hover:shadow-lg md:h-11 md:w-11',
+    'h-9 w-9 shrink-0 border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md hover:shadow-lg md:h-11 md:w-11',
 } as const;
 
 const sizes = {

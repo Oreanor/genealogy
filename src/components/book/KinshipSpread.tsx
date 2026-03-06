@@ -1,0 +1,217 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import Image from 'next/image';
+import { useLocaleRoutes } from '@/lib/i18n/context';
+import { getPersons, getPersonById } from '@/lib/data/persons';
+import { getAvatarForPerson } from '@/lib/data/photos';
+import { formatLifeDates, getFullName, sortPersonsBySurname } from '@/lib/utils/person';
+import { getSiblings } from '@/lib/data/familyRelations';
+import { getKinship } from '@/lib/utils/kinship';
+import type { Person } from '@/lib/types/person';
+import { BookSpread } from './BookSpread';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+
+const KIN_DESC_MAP: Record<string, string> = {
+  kinFather: 'kinDescParent', kinMother: 'kinDescParent',
+  kinGrandfather: 'kinDescGrandparent', kinGrandmother: 'kinDescGrandparent',
+  kinGreatGrandfather: 'kinDescGreatGrandparent', kinGreatGrandmother: 'kinDescGreatGrandparent',
+  kinAncestorM: 'kinDescAncestor', kinAncestorF: 'kinDescAncestor',
+  kinSon: 'kinDescChild', kinDaughter: 'kinDescChild',
+  kinGrandson: 'kinDescGrandchild', kinGranddaughter: 'kinDescGrandchild',
+  kinGreatGrandson: 'kinDescGreatGrandchild', kinGreatGranddaughter: 'kinDescGreatGrandchild',
+  kinDescendantM: 'kinDescDescendant', kinDescendantF: 'kinDescDescendant',
+  kinBrother: 'kinDescSibling', kinSister: 'kinDescSibling',
+  kinUncle: 'kinDescUncleAunt', kinAunt: 'kinDescUncleAunt',
+  kinNephew: 'kinDescNephewNiece', kinNiece: 'kinDescNephewNiece',
+  kinCousinM: 'kinDescCousin', kinCousinF: 'kinDescCousin',
+  kinGreatUncle: 'kinDescGreatUncleAunt', kinGreatAunt: 'kinDescGreatUncleAunt',
+  kinGreatNephew: 'kinDescGreatNephewNiece', kinGreatNiece: 'kinDescGreatNephewNiece',
+  kinSecondUncle: 'kinDescSecondUncleAunt', kinSecondAunt: 'kinDescSecondUncleAunt',
+  kinSecondNephew: 'kinDescSecondNephewNiece', kinSecondNiece: 'kinDescSecondNephewNiece',
+  kinSecondCousinM: 'kinDescSecondCousin', kinSecondCousinF: 'kinDescSecondCousin',
+  kinHusband: 'kinDescSpouse', kinWife: 'kinDescSpouse',
+  kinFatherInLawM: 'kinDescParentInLaw', kinMotherInLawM: 'kinDescParentInLaw',
+  kinFatherInLawF: 'kinDescParentInLaw', kinMotherInLawF: 'kinDescParentInLaw',
+  kinBrotherInLawM: 'kinDescSiblingInLaw', kinBrotherInLawF: 'kinDescSiblingInLaw',
+  kinSisterInLawM: 'kinDescSiblingInLaw', kinSisterInLawF: 'kinDescSiblingInLaw',
+  kinSonInLaw: 'kinDescChildInLaw', kinDaughterInLaw: 'kinDescChildInLaw',
+  kinBrotherInLawSpouse: 'kinDescSiblingSpouseInLaw', kinSisterInLawSpouse: 'kinDescSiblingSpouseInLaw',
+  kinInLaw: 'kinDescInLaw',
+  kinDistantRelative: 'kinDescDistant',
+};
+
+function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: string }>) {
+  const dates = formatLifeDates(person.birthDate, person.deathDate);
+  const siblings = getSiblings(person.id);
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <Link
+        href={`${pathname}?section=persons&id=${person.id}`}
+        className={`book-serif text-center text-lg font-semibold ${CONTENT_LINK_CLASS}`}
+      >
+        {getFullName(person)}
+      </Link>
+      <div className="space-y-0.5 text-center text-xs text-(--ink-muted)">
+        {dates && <p>{dates}</p>}
+        {person.birthPlace && <p>{person.birthPlace}</p>}
+        {person.occupation && <p>{person.occupation}</p>}
+      </div>
+      {siblings.length > 0 && (
+        <div className="mt-1 flex flex-wrap justify-center gap-x-2 gap-y-0.5 text-xs">
+          {siblings.map((s) => (
+            <Link
+              key={s.id}
+              href={`${pathname}?section=persons&id=${s.id}`}
+              className={CONTENT_LINK_CLASS}
+            >
+              {getFullName(s)}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PersonAvatar({ person, pathname }: Readonly<{ person: Person; pathname: string }>) {
+  const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
+  if (!avatar) return null;
+  return (
+    <Link href={`${pathname}?section=persons&id=${person.id}`} className="flex flex-col items-center gap-2 transition-opacity hover:opacity-80">
+      <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-(--border-subtle) bg-(--paper-light) shadow-md">
+        <Image
+          src={avatar.src}
+          alt={getFullName(person)}
+          fill
+          className="object-cover"
+          sizes="112px"
+        />
+      </div>
+      <p className="text-center text-xs text-(--ink-muted)">{getFullName(person)}</p>
+    </Link>
+  );
+}
+
+export function KinshipSpread() {
+  const { t } = useLocaleRoutes();
+  const pathname = usePathname() ?? '';
+  const sorted = useMemo(() => sortPersonsBySurname(getPersons()), []);
+
+  const [idA, setIdA] = useState('');
+  const [idB, setIdB] = useState('');
+
+  const personA = idA ? getPersonById(idA) : null;
+  const personB = idB ? getPersonById(idB) : null;
+
+  const bothSelected = !!(idA && idB);
+  const isSame = bothSelected && idA === idB;
+
+  const resultAtoB = idA && idB && idA !== idB ? getKinship(idB, idA) : null;
+  const resultBtoA = idA && idB && idA !== idB ? getKinship(idA, idB) : null;
+
+  return (
+    <BookSpread
+      fullWidth={
+        <div className="flex h-full w-full flex-col bg-(--paper) p-6 sm:p-8 md:p-9 shadow-inner">
+          <h2 className="book-serif mb-6 text-center text-xl font-semibold text-(--ink) md:text-2xl">
+            {t('chapters_kinship')}
+          </h2>
+
+          {/* Selects row */}
+          <div className="mb-6 flex justify-center gap-4 sm:gap-8 md:gap-12">
+            <select
+              value={idA}
+              onChange={(e) => setIdA(e.target.value)}
+              className="w-1/3 rounded border border-(--border-subtle) bg-(--paper) px-3 py-2 text-sm text-(--ink) focus:outline-none focus:ring-1 focus:ring-(--accent)"
+            >
+              <option value="">{t('kinshipSelectPerson')}</option>
+              {sorted.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {getFullName(p)}
+                </option>
+              ))}
+            </select>
+            <div className="w-1/3" />
+            <select
+              value={idB}
+              onChange={(e) => setIdB(e.target.value)}
+              className="w-1/3 rounded border border-(--border-subtle) bg-(--paper) px-3 py-2 text-sm text-(--ink) focus:outline-none focus:ring-1 focus:ring-(--accent)"
+            >
+              <option value="">{t('kinshipSelectPerson')}</option>
+              {sorted.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {getFullName(p)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Person info + arrows */}
+          <div className="mt-2 flex items-start justify-center gap-4 sm:gap-8 md:gap-12">
+            <div className="flex w-1/3 flex-col items-center pt-6">
+              {personA && <PersonInfo person={personA} pathname={pathname} />}
+            </div>
+
+            {/* Arrows + terms — fixed height to prevent layout shift */}
+            <div className="flex w-1/3 min-h-40 flex-col items-stretch justify-center gap-1">
+              {isSame && (
+                <p className="book-serif text-center text-base text-(--ink-muted)">{t('kinSelf')}</p>
+              )}
+              {bothSelected && !isSame && !resultAtoB && !resultBtoA && (
+                <p className="book-serif text-center text-base text-(--ink-muted)">{t('kinshipNoRelation')}</p>
+              )}
+              {resultAtoB && (
+                <div className="flex flex-col items-center">
+                  <p className="book-serif text-xl font-bold text-(--ink) md:text-2xl">
+                    {t(resultAtoB.key)}
+                  </p>
+                  {KIN_DESC_MAP[resultAtoB.key] && (
+                    <p className="mt-0.5 text-xs italic text-(--ink-muted)">
+                      {t(KIN_DESC_MAP[resultAtoB.key])}
+                    </p>
+                  )}
+                  <svg className="my-2 w-full" height="20" viewBox="0 0 200 20" preserveAspectRatio="none">
+                    <line x1="0" y1="10" x2="182" y2="10" stroke="var(--ink)" strokeWidth="3" />
+                    <polygon points="182,2 200,10 182,18" fill="var(--ink)" />
+                  </svg>
+                </div>
+              )}
+              {resultBtoA && (
+                <div className="flex flex-col items-center">
+                  <svg className="my-2 w-full" height="20" viewBox="0 0 200 20" preserveAspectRatio="none">
+                    <line x1="18" y1="10" x2="200" y2="10" stroke="var(--ink)" strokeWidth="3" />
+                    <polygon points="18,2 0,10 18,18" fill="var(--ink)" />
+                  </svg>
+                  <p className="book-serif text-xl font-bold text-(--ink) md:text-2xl">
+                    {t(resultBtoA.key)}
+                  </p>
+                  {KIN_DESC_MAP[resultBtoA.key] && (
+                    <p className="mt-0.5 text-xs italic text-(--ink-muted)">
+                      {t(KIN_DESC_MAP[resultBtoA.key])}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="flex w-1/3 flex-col items-center pt-6">
+              {personB && <PersonInfo person={personB} pathname={pathname} />}
+            </div>
+          </div>
+
+          {/* Avatars row */}
+          {personA && personB && (
+            <div className="mt-6 flex items-start justify-center gap-12 sm:gap-20 md:gap-28">
+              <PersonAvatar person={personA} pathname={pathname} />
+              <PersonAvatar person={personB} pathname={pathname} />
+            </div>
+          )}
+        </div>
+      }
+    />
+  );
+}

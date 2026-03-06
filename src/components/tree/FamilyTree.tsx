@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { getRootPersonId } from '@/lib/data/root';
 import { buildTreeMatrix } from '@/lib/utils/tree';
-import { getSiblings, getCousins } from '@/lib/utils/person';
+import { getSiblings, getCousins } from '@/lib/data/familyRelations';
 import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
 import { SiblingChips } from './SiblingChips';

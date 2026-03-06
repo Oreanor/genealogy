@@ -19,11 +19,11 @@ export function HistoryContentRenderer({ entries }: HistoryContentRendererProps)
       {entries.map((entry, idx) => (
         <article key={idx} className="book-serif flex flex-col gap-4">
           {entry.title && (
-            <h2 className="text-xl font-semibold text-[var(--ink)]">{entry.title}</h2>
+            <h2 className="text-xl font-semibold text-(--ink)">{entry.title}</h2>
           )}
           {entry.richText && (
             <div
-              className="prose max-w-none text-[var(--ink)] [&_a]:text-[var(--link)] [&_a:hover]:underline"
+              className="prose max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline"
               dangerouslySetInnerHTML={{ __html: entry.richText }}
             />
           )}

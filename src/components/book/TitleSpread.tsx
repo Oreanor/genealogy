@@ -1,7 +1,7 @@
 'use client';
 
 import { CHAPTERS, COVER_IMAGE } from '@/lib/constants/chapters';
-import { getFamilySurname } from '@/lib/constants/owner';
+import { getFamilySurname } from '@/lib/data/owner';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import Image from 'next/image';
@@ -17,7 +17,7 @@ export function TitleSpread() {
     <BookSpread
       left={
         <BookPage>
-          <h1 className="text-2xl font-semibold text-[var(--ink)] md:text-3xl">
+          <h1 className="text-2xl font-semibold text-(--ink) md:text-3xl">
             {bookTitle}
           </h1>
           <div className="mt-8 flex flex-1 items-center justify-center">
@@ -31,7 +31,7 @@ export function TitleSpread() {
                 />
               </div>
             ) : (
-              <div className="aspect-[3/4] w-full max-w-xs rounded border border-[var(--border-subtle)] bg-[var(--paper-light)]" />
+              <div className="aspect-[3/4] w-full max-w-xs rounded border border-(--border-subtle) bg-(--paper-light)" />
             )}
           </div>
         </BookPage>
@@ -39,7 +39,7 @@ export function TitleSpread() {
       right={
         <BookPage>
           <div className="flex flex-1 flex-col items-center justify-start">
-            <h2 className="mb-6 text-lg font-medium text-[var(--ink)]">
+            <h2 className="mb-6 text-lg font-medium text-(--ink)">
               {t('tocTitle')}
             </h2>
             <nav className="flex flex-col items-center gap-3 text-center">

@@ -4,7 +4,7 @@ import { forwardRef, type InputHTMLAttributes } from 'react';
 
 /** Shared control look: border, bg. No focus ring. */
 export const controlClass =
-  'rounded border border-[var(--border-subtle)] bg-transparent px-2 py-1 text-[var(--ink)] focus:outline-none';
+  'rounded border border-(--border-subtle) bg-transparent px-2 py-1 text-(--ink) focus:outline-none';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;

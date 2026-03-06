@@ -1,21 +1,25 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 interface NavButtonProps {
   onClick: () => void;
   disabled: boolean;
-  children: React.ReactNode;
+  direction: 'prev' | 'next';
+  'aria-label'?: string;
 }
 
-const NAV_BUTTON_CLASS =
-  'rounded-lg px-3 py-1.5 text-sm font-medium shadow-md transition-colors disabled:cursor-not-allowed disabled:opacity-40 md:min-h-[44px] md:min-w-[44px] md:px-5 md:py-3 bg-[var(--nav-btn)] text-[var(--nav-btn-ink)] hover:enabled:bg-[var(--nav-btn-hover)]';
-
-export function NavButton({ onClick, disabled, children }: NavButtonProps) {
+export function NavButton({ onClick, disabled, direction, 'aria-label': ariaLabel }: NavButtonProps) {
+  const isLeft = direction === 'prev';
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={NAV_BUTTON_CLASS}
+      aria-label={ariaLabel ?? (isLeft ? 'Previous' : 'Next')}
+      className={`flex h-10 w-7 items-center justify-center shadow-md transition-colors disabled:cursor-not-allowed disabled:opacity-30 bg-(--nav-btn) text-(--nav-btn-ink) hover:enabled:bg-(--nav-btn-hover) md:h-12 md:w-8 ${
+        isLeft ? 'rounded-l-md' : 'rounded-r-md'
+      }`}
     >
-      {children}
+      {isLeft ? <ChevronLeft className="size-5" /> : <ChevronRight className="size-5" />}
     </button>
   );
 }

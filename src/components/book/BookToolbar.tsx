@@ -19,7 +19,7 @@ function BookLinkButton({ title }: { title?: string }) {
   return (
     <Link
       href={routes.home}
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--border)] bg-[var(--paper)] text-[var(--ink)] shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
       aria-label={label}
     >
       <BookOpen className="size-[18px]" aria-hidden />

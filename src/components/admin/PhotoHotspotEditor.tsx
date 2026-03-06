@@ -70,10 +70,10 @@ export function PhotoHotspotEditor({
 
   return (
     <div className="space-y-2">
-      <p className="text-xs text-[var(--ink-muted)]">{t('adminPhotoDrawHint')}</p>
+      <p className="text-xs text-(--ink-muted)">{t('adminPhotoDrawHint')}</p>
       <div
         ref={containerRef}
-        className={`relative aspect-[4/3] w-full cursor-crosshair overflow-hidden rounded-lg border border-[var(--border-subtle)] ${imageClassName ?? 'max-w-sm'}`}
+        className={`relative aspect-[4/3] w-full cursor-crosshair overflow-hidden rounded-lg border border-(--border-subtle) ${imageClassName ?? 'max-w-sm'}`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -84,7 +84,7 @@ export function PhotoHotspotEditor({
         {hasRect && (
           <div className="absolute inset-0 pointer-events-none">
             <span
-              className="absolute border-2 border-[var(--accent)] bg-[var(--hotspot-fill)]"
+              className="absolute border-2 border-(--accent) bg-(--hotspot-fill)"
               style={{
                 left: `${coords[0]}%`,
                 top: `${coords[1]}%`,

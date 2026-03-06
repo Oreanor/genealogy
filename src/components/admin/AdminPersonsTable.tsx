@@ -20,7 +20,7 @@ function FaceThumbnail({ source, size = 40 }: { source: AvatarSource; size?: num
   if (faceRect) {
     return (
       <span
-        className="inline-block overflow-hidden rounded-full bg-[var(--paper-light)]"
+        className="inline-block overflow-hidden rounded-full bg-(--paper-light)"
         style={wrapperStyle}
       >
         <span
@@ -33,7 +33,7 @@ function FaceThumbnail({ source, size = 40 }: { source: AvatarSource; size?: num
   }
   return (
     <span
-      className="inline-block overflow-hidden rounded-full bg-[var(--paper-light)]"
+      className="inline-block overflow-hidden rounded-full bg-(--paper-light)"
       style={wrapperStyle}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -215,29 +215,29 @@ export function AdminPersonsTable({
           {t('adminAddRow')}
         </Button>
       </div>
-      <div className="overflow-auto border border-[var(--border)] bg-[var(--paper)] max-h-[calc(100vh-210px)]">
+      <div className="overflow-auto border border-(--border) bg-(--paper) max-h-[calc(100vh-210px)]">
         <table className="w-full min-w-[800px] border-collapse text-sm">
-          <thead className="sticky top-0 z-10 bg-[var(--surface)] shadow-[0_1px_0_0_var(--border-subtle)]">
-            <tr className="border-b border-[var(--border)]">
+          <thead className="sticky top-0 z-10 bg-(--surface) shadow-[0_1px_0_0_var(--border-subtle)]">
+            <tr className="border-b border-(--border)">
               <th className="w-14 p-2" title={t('adminRemove')} />
-              <th className="w-12 border-l border-[var(--border-subtle)] p-2 text-center font-medium text-[var(--ink)]" title={t('adminRootColumn')}>
+              <th className="w-12 border-l border-(--border-subtle) p-2 text-center font-medium text-(--ink)" title={t('adminRootColumn')}>
                 {t('adminRootColumn')}
               </th>
               {COLUMNS.map((col) => (
                 <th
                   key={col}
-                  className="border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]"
+                  className="border-l border-(--border-subtle) p-2 text-left font-medium text-(--ink)"
                 >
                   {COLUMN_LABELS[col] ? t(COLUMN_LABELS[col]!) : col}
                 </th>
               ))}
-              <th className="w-24 border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+              <th className="w-24 border-l border-(--border-subtle) p-2 text-left font-medium text-(--ink)">
                 {t('adminAvatarColumn')}
               </th>
-              <th className="min-w-[120px] border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+              <th className="min-w-[120px] border-l border-(--border-subtle) p-2 text-left font-medium text-(--ink)">
                 {t('adminFatherColumn')}
               </th>
-              <th className="min-w-[120px] border-l border-[var(--border-subtle)] p-2 text-left font-medium text-[var(--ink)]">
+              <th className="min-w-[120px] border-l border-(--border-subtle) p-2 text-left font-medium text-(--ink)">
                 {t('adminMotherColumn')}
               </th>
             </tr>
@@ -249,7 +249,7 @@ export function AdminPersonsTable({
               return (
               <tr
                 key={person.id + displayIdx}
-                className="border-b border-[var(--border-subtle)] hover:bg-[var(--paper-light)]/50"
+                className="border-b border-(--border-subtle) hover:bg-(--paper-light)/50"
               >
                 <td className="p-1">
                   <Button
@@ -263,9 +263,9 @@ export function AdminPersonsTable({
                     ✕
                   </Button>
                 </td>
-                <td className="border-l border-[var(--border-subtle)] p-1 text-center">
+                <td className="border-l border-(--border-subtle) p-1 text-center">
                   {isRoot ? (
-                    <span className="text-[var(--accent)]" title={t('adminRootColumn')}>★</span>
+                    <span className="text-(--accent)" title={t('adminRootColumn')}>★</span>
                   ) : (
                     <Button
                       variant="ghost"
@@ -282,7 +282,7 @@ export function AdminPersonsTable({
                 {COLUMNS.map((col) => (
                   <td
                     key={col}
-                    className="border-l border-[var(--border-subtle)] p-1"
+                    className="border-l border-(--border-subtle) p-1"
                   >
                     {col === 'gender' ? (
                       <Button
@@ -308,7 +308,7 @@ export function AdminPersonsTable({
                     )}
                   </td>
                 ))}
-                <td className="border-l border-[var(--border-subtle)] p-1 align-middle">
+                <td className="border-l border-(--border-subtle) p-1 align-middle">
                   <div className="flex items-center gap-1">
                     {(() => {
                       const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
@@ -332,7 +332,7 @@ export function AdminPersonsTable({
                   const parent = parentId ? persons.find((p) => p.id === parentId) : null;
                   const isOpen = parentPicker?.rowIdx === actualIdx && parentPicker?.type === type;
                   return (
-                    <td key={type} className="relative border-l border-[var(--border-subtle)] p-1">
+                    <td key={type} className="relative border-l border-(--border-subtle) p-1">
                       <div className="relative min-w-[100px]" ref={isOpen ? parentPickerRef : undefined}>
                         <Button
                           variant="ghost"
@@ -347,7 +347,7 @@ export function AdminPersonsTable({
                           {parent ? getFullName(parent) || parent.id : '—'}
                         </Button>
                         {isOpen && (
-                          <div className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-[var(--border)] bg-[var(--paper)] p-2 shadow-lg">
+                          <div className="absolute left-0 top-full z-20 mt-1 min-w-[200px] rounded-lg border border-(--border) bg-(--paper) p-2 shadow-lg">
                             <Input
                               type="text"
                               value={parentPickerQuery}
@@ -388,7 +388,7 @@ export function AdminPersonsTable({
                                   </li>
                                 ))}
                               {filteredPickerPersons.filter((p) => p.id !== person.id).length === 0 && parentPickerQuery.trim() && (
-                                <li className="px-2 py-1 text-sm text-[var(--ink-muted)]">
+                                <li className="px-2 py-1 text-sm text-(--ink-muted)">
                                   {t('adminNoPersonsMatch')}
                                 </li>
                               )}
@@ -444,16 +444,16 @@ export function AdminPersonsTable({
             aria-modal
             aria-label={t('adminAvatarColumn')}
           >
-            <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl border-2 border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl">
-              <h2 className="mb-3 text-center text-lg font-semibold text-[var(--ink)]">
+            <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl border-2 border-(--border) bg-(--surface) p-4 shadow-xl">
+              <h2 className="mb-3 text-center text-lg font-semibold text-(--ink)">
                 {t('adminAvatarColumn')}
               </h2>
-              <p className="mb-3 text-center text-sm text-[var(--ink-muted)]">
+              <p className="mb-3 text-center text-sm text-(--ink-muted)">
                 {getFullName(person) || person.id}
               </p>
               <div className="min-h-0 flex-1 overflow-y-auto">
                 {options.length === 0 ? (
-                  <p className="text-center text-[var(--ink-muted)]">{t('adminNoEntries')}</p>
+                  <p className="text-center text-(--ink-muted)">{t('adminNoEntries')}</p>
                 ) : (
                   <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 md:grid-cols-6">
                     <button
@@ -462,7 +462,7 @@ export function AdminPersonsTable({
                         updatePerson(avatarPickerRowIdx, 'avatarPhotoSrc', undefined);
                         setAvatarPickerRowIdx(null);
                       }}
-                      className="flex flex-col items-center gap-1 rounded-lg border-2 border-dashed border-[var(--border-subtle)] p-2 text-[var(--ink-muted)] hover:border-[var(--accent)] hover:bg-[var(--paper-light)]"
+                      className="flex flex-col items-center gap-1 rounded-lg border-2 border-dashed border-(--border-subtle) p-2 text-(--ink-muted) hover:border-(--accent) hover:bg-(--paper-light)"
                     >
                       <span className="text-2xl">—</span>
                       <span className="text-xs">{t('adminAvatarDefault')}</span>
@@ -477,8 +477,8 @@ export function AdminPersonsTable({
                         }}
                         className={`flex flex-col items-center gap-1 rounded-lg border-2 p-2 focus:outline-none ${
                           person.avatarPhotoSrc === opt.src
-                            ? 'border-[var(--accent)] bg-[var(--paper-light)]'
-                            : 'border-[var(--border-subtle)] hover:border-[var(--accent)]'
+                            ? 'border-(--accent) bg-(--paper-light)'
+                            : 'border-(--border-subtle) hover:border-(--accent)'
                         }`}
                       >
                         <FaceThumbnail source={opt} size={56} />

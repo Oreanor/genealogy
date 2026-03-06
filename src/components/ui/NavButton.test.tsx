@@ -4,15 +4,20 @@ import userEvent from '@testing-library/user-event';
 import { NavButton } from './NavButton';
 
 describe('NavButton', () => {
-  it('renders children', () => {
-    render(<NavButton onClick={() => {}} disabled={false}>← Назад</NavButton>);
-    expect(screen.getByRole('button', { name: '← Назад' })).toBeInTheDocument();
+  it('renders prev button', () => {
+    render(<NavButton onClick={() => {}} disabled={false} direction="prev" />);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  it('renders next button', () => {
+    render(<NavButton onClick={() => {}} disabled={false} direction="next" />);
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   it('calls onClick when clicked', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(<NavButton onClick={onClick} disabled={false}>Click</NavButton>);
+    render(<NavButton onClick={onClick} disabled={false} direction="prev" />);
     await user.click(screen.getByRole('button'));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
@@ -20,7 +25,7 @@ describe('NavButton', () => {
   it('does not call onClick when disabled', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(<NavButton onClick={onClick} disabled>Click</NavButton>);
+    render(<NavButton onClick={onClick} disabled direction="next" />);
     const btn = screen.getByRole('button');
     expect(btn).toBeDisabled();
     await user.click(btn);
