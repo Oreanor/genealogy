@@ -1,12 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import { getRootPersonId } from '@/lib/data/root';
 import { buildTreeMatrix } from '@/lib/utils/tree';
-import { getSiblings, getCousins } from '@/lib/data/familyRelations';
-import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
-import { SiblingChips } from './SiblingChips';
 
 export interface FamilyTreeProps {
   onPersonClick: (personId: string) => void;
@@ -33,29 +29,9 @@ function getNodePosition(level: number, index: number, totalLevels: number) {
   };
 }
 
-/** Siblings + first cousins for each person in the tree, excluding those already placed. */
-function buildSiblingsMap(matrix: (Person | null)[][]): Map<string, Person[]> {
-  const treeIds = new Set(matrix.flat().filter(Boolean).map((p) => p!.id));
-  const map = new Map<string, Person[]>();
-
-  for (const row of matrix) {
-    for (const person of row) {
-      if (!person) continue;
-      const sibs = getSiblings(person.id);
-      const cousins = getCousins(person.id);
-      const all = [...sibs, ...cousins].filter((p) => !treeIds.has(p.id));
-      const unique = Array.from(new Map(all.map((p) => [p.id, p])).values());
-      if (unique.length > 0) map.set(person.id, unique);
-    }
-  }
-  return map;
-}
-
 export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
   const matrix = buildTreeMatrix(getRootPersonId());
   const totalLevels = matrix.length;
-  const siblingsMap = useMemo(() => buildSiblingsMap(matrix), [matrix]);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <div
@@ -66,8 +42,6 @@ export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
         row.map((person, index) => {
           const pos = getNodePosition(level, index, totalLevels);
           const offsetPx = getLevelOffsetPx(level);
-          const siblings = person ? siblingsMap.get(person.id) : undefined;
-          const isExpanded = person?.id === expandedId;
           return (
             <div
               key={`node-${level}-${index}`}
@@ -76,7 +50,7 @@ export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
                 left: `${pos.x}%`,
                 top: `calc(${pos.y}% + ${offsetPx}px)`,
                 transform: 'translate(-50%, 0)',
-                zIndex: isExpanded ? 100 : totalLevels - 1 - level,
+                zIndex: totalLevels - 1 - level,
               }}
             >
               <TreeNode
@@ -85,20 +59,7 @@ export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
                 index={index}
                 scale={pos.scale}
                 onPersonClick={onPersonClick}
-                siblingCount={siblings?.length ?? 0}
-                onSiblingBadgeClick={
-                  siblings && siblings.length > 0
-                    ? () => setExpandedId(isExpanded ? null : person!.id)
-                    : undefined
-                }
               />
-              {isExpanded && siblings && siblings.length > 0 && (
-                <SiblingChips
-                  siblings={siblings}
-                  scale={pos.scale}
-                  onPersonClick={onPersonClick}
-                />
-              )}
             </div>
           );
         })

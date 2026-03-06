@@ -17,8 +17,6 @@ export interface TreeNodeProps {
   index: number;
   scale: number;
   onPersonClick: (personId: string) => void;
-  siblingCount?: number;
-  onSiblingBadgeClick?: () => void;
 }
 
 function truncate(text: string, maxLen: number): string {
@@ -31,8 +29,6 @@ export const TreeNode = memo(function TreeNode({
   index,
   scale,
   onPersonClick,
-  siblingCount = 0,
-  onSiblingBadgeClick,
 }: TreeNodeProps) {
   const t = useTranslations();
   const hasPerson = !!person;
@@ -84,18 +80,6 @@ export const TreeNode = memo(function TreeNode({
           })()}
         </div>
       </div>
-      {hasPerson && siblingCount > 0 && (
-        <span
-          role="button"
-          tabIndex={0}
-          onClick={(e) => { e.stopPropagation(); onSiblingBadgeClick?.(); }}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.stopPropagation(); e.preventDefault(); onSiblingBadgeClick?.(); } }}
-          className="absolute -right-1 -top-1 z-10 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-(--accent) text-[10px] font-bold text-(--nav-btn-ink) shadow"
-          aria-label={`+${siblingCount}`}
-        >
-          +{siblingCount}
-        </span>
-      )}
       </div>
 
       {/* Plaque below portrait */}

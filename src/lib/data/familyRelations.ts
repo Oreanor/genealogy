@@ -44,6 +44,26 @@ export function getCousins(personId: string): Person[] {
   return getPersons().filter((p) => cousinIds.has(p.id));
 }
 
+/** Second cousins: children of parents' first cousins (троюродные). */
+export function getSecondCousins(personId: string): Person[] {
+  const person = getPersons().find((p) => p.id === personId);
+  if (!person || (person.fatherId == null && person.motherId == null)) return [];
+  const closeIds = new Set([
+    personId,
+    ...getSiblings(personId).map((s) => s.id),
+    ...getCousins(personId).map((c) => c.id),
+  ]);
+  const result = new Set<string>();
+  for (const parentId of [person.fatherId, person.motherId].filter(Boolean) as string[]) {
+    for (const parentCousin of getCousins(parentId)) {
+      for (const child of getChildren(parentCousin.id)) {
+        if (!closeIds.has(child.id)) result.add(child.id);
+      }
+    }
+  }
+  return getPersons().filter((p) => result.has(p.id));
+}
+
 export function getRoots(): Person[] {
   return getPersons().filter((p) => !p.fatherId && !p.motherId);
 }

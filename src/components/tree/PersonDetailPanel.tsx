@@ -10,7 +10,8 @@ import {
 } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { formatLifeDates, getFullName } from '@/lib/utils/person';
-import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
+import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
+import { getKinship } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { useTranslations } from '@/lib/i18n/context';
@@ -20,6 +21,43 @@ import Image from 'next/image';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { BookSpread } from '@/components/book/BookSpread';
 import { BookPage } from '@/components/book/BookPage';
+
+function RelativesGroup({
+  label,
+  relatives,
+  originId,
+  linkProps,
+  t,
+}: {
+  label: string;
+  relatives: Person[];
+  originId: string;
+  linkProps: (id: string) => Record<string, unknown>;
+  t: (key: string) => string;
+}) {
+  if (relatives.length === 0) return null;
+  return (
+    <div>
+      <span className="font-medium">{label}</span>
+      <ul className="mt-0.5 space-y-0.5 pl-3">
+        {relatives.map((r) => {
+          const kin = getKinship(originId, r.id);
+          const kinLabel = kin ? t(kin.key) : '';
+          return (
+            <li key={r.id} className="flex items-baseline gap-1.5">
+              <button type="button" {...linkProps(r.id)}>
+                {getFullName(r)}
+              </button>
+              {kinLabel && (
+                <span className="text-xs text-(--ink-muted)">({kinLabel})</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 interface PersonDetailPanelProps {
   person: Person;
@@ -40,6 +78,7 @@ function PersonInfoContent({
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
   const cousins = getCousins(person.id);
+  const secondCousins = getSecondCousins(person.id);
   const historyMentions = getHistoryEntriesByPerson(person.id);
   const parents = [person.fatherId, person.motherId]
     .filter(Boolean)
@@ -59,7 +98,7 @@ function PersonInfoContent({
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <h2 className="book-serif text-2xl font-semibold text-(--ink)">{getFullName(person)}</h2>
-      {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
+      {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || secondCousins.length > 0 || spouse) && (
         <div className="space-y-2 text-(--ink)">
           {spouse && (
             <p>
@@ -97,32 +136,27 @@ function PersonInfoContent({
               ))}
             </p>
           )}
-          {siblings.length > 0 && (
-            <p>
-              <span className="font-medium">{t('siblings')}</span>{' '}
-              {siblings.map((s, i) => (
-                <span key={s.id}>
-                  {i > 0 && ', '}
-                  <button type="button" {...linkProps(s.id)}>
-                    {getFullName(s)}
-                  </button>
-                </span>
-              ))}
-            </p>
-          )}
-          {cousins.length > 0 && (
-            <p>
-              <span className="font-medium">{t('cousins')}</span>{' '}
-              {cousins.map((c, i) => (
-                <span key={c.id}>
-                  {i > 0 && ', '}
-                  <button type="button" {...linkProps(c.id)}>
-                    {getFullName(c)}
-                  </button>
-                </span>
-              ))}
-            </p>
-          )}
+          <RelativesGroup
+            label={t('siblings')}
+            relatives={siblings}
+            originId={person.id}
+            linkProps={linkProps}
+            t={t}
+          />
+          <RelativesGroup
+            label={t('cousins')}
+            relatives={cousins}
+            originId={person.id}
+            linkProps={linkProps}
+            t={t}
+          />
+          <RelativesGroup
+            label={t('secondCousins')}
+            relatives={secondCousins}
+            originId={person.id}
+            linkProps={linkProps}
+            t={t}
+          />
         </div>
       )}
       {(person.birthDate || person.deathDate) && (

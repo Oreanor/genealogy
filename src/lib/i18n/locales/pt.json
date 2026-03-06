@@ -41,6 +41,7 @@
   "children": "Filhos:",
   "siblings": "Irmãos:",
   "cousins": "Primos:",
+  "secondCousins": "Primos de segundo grau:",
   "years": "Anos:",
   "birthPlace": "Local de nascimento:",
   "occupation": "Ocupação:",

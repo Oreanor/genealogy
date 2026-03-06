@@ -1,6 +1,18 @@
 {
-  "rootPersonId": "p001",
+  "rootPersonId": "p019",
   "persons": [
+    {
+      "id": "p016",
+      "firstName": "Олег",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
+    },
     {
       "id": "p001",
       "firstName": "Сергей",
@@ -156,16 +168,46 @@
       "lastName": "Беляева"
     },
     {
-      "id": "p016",
-      "firstName": "Олег",
+      "id": "p017",
+      "firstName": "Надежда",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Аксененко",
+      "fatherId": "p006",
+      "motherId": "p007"
+    },
+    {
+      "id": "p018",
+      "firstName": "Ирина",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Андреева",
+      "fatherId": "p006",
+      "motherId": "p007"
+    },
+    {
+      "id": "p019",
+      "firstName": "Артур",
       "birthPlace": "",
       "occupation": "",
       "gender": "m",
-      "patronymic": "Владимирович",
-      "lastName": "Никонец",
-      "birthDate": "26.11.1974",
-      "fatherId": "p002",
-      "motherId": "p003"
+      "patronymic": "Васильевич",
+      "lastName": "Аксененко",
+      "motherId": "p017",
+      "fatherId": "p020"
+    },
+    {
+      "id": "p020",
+      "firstName": "Василий",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Иванович",
+      "lastName": "Аксененко"
     }
   ],
   "photos": [
@@ -458,7 +500,7 @@
     },
     {
       "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali.png",
+      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -1012,13 +1054,6 @@
     {
       "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-Trade Mark-280",
       "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/Trade Mark-280.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-image",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/image.png",
       "caption": "",
       "category": "related",
       "people": []
