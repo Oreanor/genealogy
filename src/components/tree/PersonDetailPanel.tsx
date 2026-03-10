@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-import { getPersonById } from '@/lib/data/persons';
+import { getPersonById, getPersons } from '@/lib/data/persons';
 import { getPhotosByPerson, getLightboxFacesFromPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { formatLifeDates, getFullName } from '@/lib/utils/person';
@@ -11,13 +11,9 @@ import { getKinship } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { useTranslations } from '@/lib/i18n/context';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
 import { BookSpread } from '@/components/book/BookSpread';
 import { BookPage } from '@/components/book/BookPage';
-import { getPersons } from '@/lib/data/persons';
-import { List, ListX } from 'lucide-react';
 
 function RelativesGroup({
   label,
@@ -64,16 +60,16 @@ interface PersonDetailPanelProps {
 
 function PersonInfoContent({
   person,
-  pathname,
   personPhotos,
   onSelectPerson,
   onPhotoClick,
+  onHistoryClick,
 }: {
   person: Person;
-  pathname: string;
   personPhotos: PhotoEntry[];
   onSelectPerson: (id: string) => void;
   onPhotoClick: (photo: PhotoEntry) => void;
+  onHistoryClick: (index: number) => void;
 }) {
   const t = useTranslations();
   const children = getChildren(person.id);
@@ -192,12 +188,13 @@ function PersonInfoContent({
           <ul className="flex flex-wrap gap-2">
             {historyMentions.map(({ entry, index }) => (
               <li key={index}>
-                <Link
-                  href={`${pathname}?section=history&entry=${index}`}
+                <button
+                  type="button"
+                  onClick={() => onHistoryClick(index)}
                   className={`rounded px-2 py-1 text-sm ${CONTENT_LINK_CLASS}`}
                 >
                   {entry.title || `${t('chapters_history')} ${index + 1}`}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
@@ -238,9 +235,11 @@ function PersonInfoContent({
 function RightPageContent({
   photo,
   showFaces,
+  historyEntry,
 }: {
   photo: PhotoEntry | null;
   showFaces: boolean;
+  historyEntry: { title: string; richText: string } | null;
 }) {
   const t = useTranslations();
 
@@ -258,59 +257,59 @@ function RightPageContent({
           className="object-contain"
           sizes="(max-width: 600px) 100vw, 50vw"
         />
-        {hasFaces && (
-          <>
-            {showFaces &&
-              faces.map((face, i) => {
-                const [l, t_, r, b] = face.coords;
-                const w = r - l;
-                const h = b - t_;
-                return (
-                  <div key={`${i}-${face.displayName}`} className="pointer-events-none absolute inset-0">
-                    <div
-                      className="absolute border border-white/90 bg-black/10"
-                      style={{
-                        left: `${l}%`,
-                        top: `${t_}%`,
-                        width: `${w}%`,
-                        height: `${h}%`,
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            <button
-              type="button"
-              className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded bg-black/60 text-white hover:bg-black/80 focus:outline-none"
-              title={showFaces ? t('lightboxHideLabels') : t('lightboxShowLabels')}
-              aria-label={showFaces ? t('lightboxHideLabels') : t('lightboxShowLabels')}
-            >
-              {showFaces ? <ListX className="size-[16px]" /> : <List className="size-[16px]" />}
-            </button>
-          </>
-        )}
+        {hasFaces &&
+          showFaces &&
+          faces.map((face, i) => {
+            const [l, t_, r, b] = face.coords;
+            const w = r - l;
+            const h = b - t_;
+            return (
+              <div key={`${i}-${face.displayName}`} className="pointer-events-none absolute inset-0">
+                <div
+                  className="absolute border border-white/90 bg-black/10"
+                  style={{
+                    left: `${l}%`,
+                    top: `${t_}%`,
+                    width: `${w}%`,
+                    height: `${h}%`,
+                  }}
+                />
+              </div>
+            );
+          })}
       </div>
     );
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center text-center text-sm text-(--ink-muted)">
-      {t('noPhotosYet')}
-    </div>
+    historyEntry ? (
+      <div className="flex-1 overflow-y-auto">
+        <h3 className="book-serif text-xl font-semibold text-(--ink) mb-4">
+          {historyEntry.title}
+        </h3>
+        <div
+          className="book-serif prose-sm text-(--ink) leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: historyEntry.richText }}
+        />
+      </div>
+    ) : (
+      <div className="flex flex-1 items-center justify-center text-center text-sm text-(--ink-muted)">
+        {t('noMediaData')}
+      </div>
+    )
   );
 }
 
 export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDetailPanelProps) {
-  const pathname = usePathname() ?? '';
   const personPhotos = getPhotosByPerson(person.id);
   const firstPhoto = personPhotos[0] ?? null;
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
   const [showFaces, setShowFaces] = useState(false);
   const t = useTranslations();
-
-  useEffect(() => {
-    setSelectedPhoto(firstPhoto);
-  }, [firstPhoto]);
+  const historyMentions = getHistoryEntriesByPerson(person.id);
+  const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(
+    null
+  );
 
   return (
     <>
@@ -332,20 +331,31 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                 <BookPage className="overflow-y-auto">
                   <PersonInfoContent
                     person={person}
-                    pathname={pathname}
                     personPhotos={personPhotos}
                     onSelectPerson={onSelectPerson}
-                      onPhotoClick={(photo) => setSelectedPhoto(photo)}
+                    onPhotoClick={(photo) => {
+                      setSelectedPhoto(photo);
+                      setSelectedHistoryIndex(null);
+                    }}
+                    onHistoryClick={(index) => {
+                      setSelectedHistoryIndex(index);
+                      setSelectedPhoto(null);
+                    }}
                   />
                 </BookPage>
               }
               right={
                 <BookPage className="flex flex-col overflow-hidden">
                   <RightPageContent
-                      photo={selectedPhoto}
-                      showFaces={showFaces}
-                    />
-                    {selectedPhoto && (
+                    photo={selectedPhoto}
+                    showFaces={showFaces}
+                    historyEntry={
+                      selectedHistoryIndex !== null
+                        ? historyMentions.find((h) => h.index === selectedHistoryIndex)?.entry ?? null
+                        : null
+                    }
+                  />
+                  {selectedPhoto && (
                       <button
                         type="button"
                         onClick={() => setShowFaces((v) => !v)}

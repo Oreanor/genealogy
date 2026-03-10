@@ -80,8 +80,24 @@ const photos: PhotoEntry[] = Array.from(photosMap.values());
 
 const visible: PhotoEntry[] = photos.filter((p) => !p.hidden);
 
+const CATEGORY_ORDER: Record<PhotoCategory, number> = {
+  personal: 0,
+  group: 1,
+  related: 2,
+};
+
+function sortPhotosForDisplay(list: PhotoEntry[]): PhotoEntry[] {
+  return [...list].sort((a, b) => {
+    const aOrder = CATEGORY_ORDER[a.category ?? 'related'] ?? 2;
+    const bOrder = CATEGORY_ORDER[b.category ?? 'related'] ?? 2;
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    return 0;
+  });
+}
+
 export function getPhotos({ includeHidden = false } = {}): PhotoEntry[] {
-  return includeHidden ? photos : visible;
+  const base = includeHidden ? photos : visible;
+  return sortPhotosForDisplay(base);
 }
 
 export function getPhotoById(id: string): PhotoEntry | null {
@@ -89,12 +105,14 @@ export function getPhotoById(id: string): PhotoEntry | null {
 }
 
 export function getPhotosByCategory(category: PhotoCategory): PhotoEntry[] {
-  return visible.filter((p) => p.category === category);
+  return sortPhotosForDisplay(visible.filter((p) => p.category === category));
 }
 
 /** Photos linked to a person (in people array). */
 export function getPhotosByPerson(personId: string): PhotoEntry[] {
-  return visible.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId));
+  return sortPhotosForDisplay(
+    visible.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId))
+  );
 }
 
 /** Image URLs by category: front (src) and back (backSrc) if present. */
