@@ -25,10 +25,58 @@ export function getLightboxFacesFromPhoto(photo: PhotoEntry | null, persons: Per
 }
 
 const raw = (appData as { photos: PhotoEntry[] }).photos;
-const photos: PhotoEntry[] = raw.map((p) => ({
-  ...p,
-  category: p.category ?? 'related',
-}));
+
+const BACK_SUFFIX_RE = /_back\.(jpg|jpeg|png|gif|webp)$/i;
+
+function isBackSrc(src: string): boolean {
+  return BACK_SUFFIX_RE.test(src);
+}
+
+function getFrontSrcForBack(src: string): string {
+  return src.replace(/_back\./, '.');
+}
+
+/**
+ * Build final photos list:
+ * - front images (without `_back` suffix) are primary entries;
+ * - matching `_back` images are attached to `backSrc` / `backCaption`;
+ * - orphan `_back` images (no front found) are kept as normal photos.
+ */
+const photosMap = new Map<string, PhotoEntry>();
+
+// First pass: put all front photos
+for (const p of raw) {
+  if (isBackSrc(p.src)) continue;
+  photosMap.set(p.src, {
+    ...p,
+    category: p.category ?? 'related',
+  });
+}
+
+// Second pass: attach backs to fronts when possible
+for (const p of raw) {
+  if (!isBackSrc(p.src)) continue;
+
+  const frontSrc = getFrontSrcForBack(p.src);
+  const front = photosMap.get(frontSrc);
+
+  if (front) {
+    if (!front.backSrc) {
+      front.backSrc = p.src;
+    }
+    if (p.caption && !front.backCaption) {
+      front.backCaption = p.caption;
+    }
+  } else {
+    // No matching front found — keep as a standalone photo
+    photosMap.set(p.src, {
+      ...p,
+      category: p.category ?? 'related',
+    });
+  }
+}
+
+const photos: PhotoEntry[] = Array.from(photosMap.values());
 
 const visible: PhotoEntry[] = photos.filter((p) => !p.hidden);
 

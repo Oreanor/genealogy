@@ -212,1019 +212,1322 @@
   ],
   "photos": [
     {
-      "id": "andreeva vera nikolaevna-Image57",
-      "src": "/photos/andreeva vera nikolaevna/Image57.jpg",
+      "id": "others-!by-Image45",
+      "src": "/photos/others/!by/Image45.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/others/!by/Image45_back.jpg"
+    },
+    {
+      "id": "others-!by-Image45_back",
+      "src": "/photos/others/!by/Image45_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image17",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image17.jpg",
+      "id": "others-!by-Image47",
+      "src": "/photos/others/!by/Image47.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/others/!by/Image47_back.jpg"
+    },
+    {
+      "id": "others-!by-Image47_back",
+      "src": "/photos/others/!by/Image47_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image18",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image18.jpg",
+      "id": "others-!by-Image51",
+      "src": "/photos/others/!by/Image51.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/others/!by/Image51_back.jpg"
+    },
+    {
+      "id": "others-!by-Image51_back",
+      "src": "/photos/others/!by/Image51_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image21",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image21.jpg",
+      "id": "others-!by-Image64",
+      "src": "/photos/others/!by/Image64.jpg",
       "caption": "",
-      "category": "personal",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/others/!by/Image64_back.jpg"
+    },
+    {
+      "id": "others-!by-Image64_back",
+      "src": "/photos/others/!by/Image64_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-!by-Image81",
+      "src": "/photos/others/!by/Image81.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/others/!by/Image81_back.jpg"
+    },
+    {
+      "id": "others-!by-Image81_back",
+      "src": "/photos/others/!by/Image81_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-armonika-IMG_7614",
+      "src": "/photos/others/armonika/IMG_7614.jpg",
+      "caption": "Губная гармошка Николая Григорьевича",
+      "category": "related",
       "people": [
         {
-          "personId": "p006",
-          "coords": [
-            42,
-            27.83113245298119,
-            66.70588235294119,
-            48.63945578231292
-          ]
+          "personId": "p006"
         }
       ]
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image22",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image22.jpg",
-      "caption": "",
+      "id": "others-book-IMG_7616",
+      "src": "/photos/others/book/IMG_7616.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
       "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image23",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image23.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image28",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image28.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image29",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image29.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image30",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image30.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image36",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image36.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image37",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image37.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image38",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image38.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image39",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image39.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image40",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image40.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image41",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image41.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image43",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image43.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image44",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image44.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image60",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image60.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image61",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image61.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image68",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image68.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image71",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image71.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image72",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image72.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image73",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image73.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image74",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image74.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image75",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image75.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image76",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image76.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image77",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image77.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Image83",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Image83.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Scan5",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Scan5.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Scan5a",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Scan5a.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Scan6",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Scan6.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-Scan7",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/Scan7.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-Image19",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/Image19.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-Image20",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/Image20.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-Image62",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/Image62.jpg",
-      "caption": "",
-      "category": "personal",
       "people": [
         {
           "personId": "p012"
         }
-      ]
+      ],
+      "series": "Книга Островского"
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-Image63",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/Image63.jpg",
+      "id": "others-book-IMG_7617",
+      "src": "/photos/others/book/IMG_7617.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-book-IMG_7618",
+      "src": "/photos/others/book/IMG_7618.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-book-IMG_7619",
+      "src": "/photos/others/book/IMG_7619.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-map_elets-elets_map_old_1899_01",
+      "src": "/photos/others/map_elets/elets_map_old_1899_01.jpg",
+      "caption": "План города Елец 1899",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-map_elets-elets_map_old_kvartali",
+      "src": "/photos/others/map_elets/elets_map_old_kvartali.jpg",
+      "caption": "План города Елец 1908",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Александро-Михайловская церковь",
+      "src": "/photos/others/photo_elets/Александро-Михайловская церковь.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Без подписи 1",
+      "src": "/photos/others/photo_elets/Без подписи 1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Без подписи",
+      "src": "/photos/others/photo_elets/Без подписи.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Великокняжеская улица 1",
+      "src": "/photos/others/photo_elets/Великокняжеская улица 1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Великокняжеская улица",
+      "src": "/photos/others/photo_elets/Великокняжеская улица.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Городской сад",
+      "src": "/photos/others/photo_elets/Городской сад.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Государственный банк",
+      "src": "/photos/others/photo_elets/Государственный банк.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Дом Трудолюбия",
+      "src": "/photos/others/photo_elets/Дом Трудолюбия.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Дом призрения",
+      "src": "/photos/others/photo_elets/Дом призрения.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Железнодорожный мост",
+      "src": "/photos/others/photo_elets/Железнодорожный мост.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Женская гимназия",
+      "src": "/photos/others/photo_elets/Женская гимназия.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Женский монастырь",
+      "src": "/photos/others/photo_elets/Женский монастырь.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-И. Ф. Яхонтов с гимназистками. 3 июня 1913 года.",
+      "src": "/photos/others/photo_elets/И. Ф. Яхонтов с гимназистками. 3 июня 1913 года..jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Казенная мужская гимназия",
+      "src": "/photos/others/photo_elets/Казенная мужская гимназия.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Колокольня и стена Женского монастыря",
+      "src": "/photos/others/photo_elets/Колокольня и стена Женского монастыря.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Монастырь",
+      "src": "/photos/others/photo_elets/Монастырь.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Мужская гимназия.",
+      "src": "/photos/others/photo_elets/Мужская гимназия..jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Мужская гимназия",
+      "src": "/photos/others/photo_elets/Мужская гимназия.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Новый и Старый соборы",
+      "src": "/photos/others/photo_elets/Новый и Старый соборы.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Общий вид города.",
+      "src": "/photos/others/photo_elets/Общий вид города..jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Общий вид с западной стороны",
+      "src": "/photos/others/photo_elets/Общий вид с западной стороны.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Окружной суд",
+      "src": "/photos/others/photo_elets/Окружной суд.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Орловская улица 1",
+      "src": "/photos/others/photo_elets/Орловская улица 1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Орловская улица",
+      "src": "/photos/others/photo_elets/Орловская улица.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Отделение Государственного банка",
+      "src": "/photos/others/photo_elets/Отделение Государственного банка.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Панорама города",
+      "src": "/photos/others/photo_elets/Панорама города.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Сад Общественного Собрания.",
+      "src": "/photos/others/photo_elets/Сад Общественного Собрания..jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Собор и Введенская гора",
+      "src": "/photos/others/photo_elets/Собор и Введенская гора.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Соборная площадь",
+      "src": "/photos/others/photo_elets/Соборная площадь.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Торговая улица",
+      "src": "/photos/others/photo_elets/Торговая улица.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Угол улиц Торговая и Орловская",
+      "src": "/photos/others/photo_elets/Угол улиц Торговая и Орловская.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Ул. Торговая 1",
+      "src": "/photos/others/photo_elets/Ул. Торговая 1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Ул. Торговая",
+      "src": "/photos/others/photo_elets/Ул. Торговая.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-Церковь Святого Владимира",
+      "src": "/photos/others/photo_elets/Церковь Святого Владимира.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-ruler-cutter-1878-Hockley Abbey Works-Birmingha-02-530",
+      "src": "/photos/others/ruler-cutter/1878-Hockley Abbey Works-Birmingha-02-530.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879",
+      "src": "/photos/others/ruler-cutter/1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7601",
+      "src": "/photos/others/ruler-cutter/IMG_7601.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7602",
+      "src": "/photos/others/ruler-cutter/IMG_7602.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7603",
+      "src": "/photos/others/ruler-cutter/IMG_7603.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7606",
+      "src": "/photos/others/ruler-cutter/IMG_7606.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7608",
+      "src": "/photos/others/ruler-cutter/IMG_7608.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7610",
+      "src": "/photos/others/ruler-cutter/IMG_7610.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7611",
+      "src": "/photos/others/ruler-cutter/IMG_7611.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-Trade Mark-280",
+      "src": "/photos/others/ruler-cutter/Trade Mark-280.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-image",
+      "src": "/photos/others/ruler-cutter/image.png",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image19",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p012",
+          "coords": [
+            70.24826414905839,
+            32.153263221078696,
+            80.47854538188722,
+            41.91729088248903
+          ]
+        },
+        {
+          "personId": "p006",
+          "coords": [
+            16.53928767670713,
+            31.512999112133755,
+            27.408961486587742,
+            41.59715882801655
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            45.31195364403817,
+            34.87438568409469,
+            55.32910401784971,
+            43.03775307314267
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19_back.jpg"
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image19_back",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image19_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7616",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7616.JPG",
+      "id": "personal-andreev_grigoriy_prokhorovich-Image62",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image62.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image62_back.jpg"
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image62_back",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image62_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7617",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7617.JPG",
+      "id": "personal-andreev_nikolay_grigorevich-Image16",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image16.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image16_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image16_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image16_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7618",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7618.JPG",
+      "id": "personal-andreev_nikolay_grigorevich-Image18",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image18.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-book-IMG_7619",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/book/IMG_7619.JPG",
+      "id": "personal-andreev_nikolay_grigorevich-Image21",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image21.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_1899_01",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_1899_01.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image22",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image22.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image22__back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image22__back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_01",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_01.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image28",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image28.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_02",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_02.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image36",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image36.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image36_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image36_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image36_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_03",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_03.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image38",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image38.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_04",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_04.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image39",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image39.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_05",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_05.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image40",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image40.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image40_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image40_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image40_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-map_elets-elets_map_old_kvartali_06",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/map_elets/elets_map_old_kvartali_06.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image43",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image43.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image43_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image43_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image43_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Александро-Михайловская церковь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Александро-Михайловская церковь.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image60",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image60_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image60_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Без подписи 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Без подписи 1.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image68",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image68.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Без подписи",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Без подписи.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image71",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image71.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image71_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image71_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image71_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Великокняжеская улица 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Великокняжеская улица 1.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image73",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image73.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image73_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image73_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image73_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Великокняжеская улица",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Великокняжеская улица.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image75",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image75.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image75_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image75_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image75_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Городской сад",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Городской сад.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image77",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image77.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Государственный банк",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Государственный банк.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Image83",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image83.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Дом Трудолюбия",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Дом Трудолюбия.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Scan5",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan5.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Scan5_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Scan5_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan5_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Дом призрения",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Дом призрения.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Scan6",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan6.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Железнодорожный мост",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Железнодорожный мост.jpg",
+      "id": "personal-andreev_nikolay_grigorevich-Scan7",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan7.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Женская гимназия",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Женская гимназия.jpg",
+      "id": "personal-andreeva_irina_nikolaevna-Image29",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_irina_nikolaevna-Image29_back",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Женский монастырь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Женский монастырь.jpg",
+      "id": "personal-andreeva_vera_nikolaevna-Image56",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_vera_nikolaevna-Image56_back",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-И. Ф. Яхонтов с гимназистками. 3 июня 1913 года.",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/И. Ф. Яхонтов с гимназистками. 3 июня 1913 года..jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image24",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image24_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image24_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Казенная мужская гимназия",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Казенная мужская гимназия.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image49",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image49_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image49_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Колокольня и стена Женского монастыря 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Колокольня и стена Женского монастыря 1.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image69",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Колокольня и стена Женского монастыря",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Колокольня и стена Женского монастыря.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image69a",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69a.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Монастырь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Монастырь.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image70",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image70.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Мужская гимназия. 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Мужская гимназия. 1.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image79",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image79_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Мужская гимназия.",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Мужская гимназия..jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image79a",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79a.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Мужская гимназия",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Мужская гимназия.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image27",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image27.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы 1.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image34",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image34_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Новый и Старый соборы",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Новый и Старый соборы.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image53",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид города.",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид города..jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image54",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image54_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Общий вид с западной стороны",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Общий вид с западной стороны.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image58",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Окружной суд",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Окружной суд.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image59",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image59.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Орловская улица 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Орловская улица 1.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Scan4",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Scan4_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Орловская улица",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Орловская улица.jpg",
+      "id": "personal-dudnik_ivan_pavlovich-Image01",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_back.jpg"
+    },
+    {
+      "id": "personal-dudnik_ivan_pavlovich-Image01_back",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Отделение Государственного банка",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Отделение Государственного банка.jpg",
+      "id": "personal-dudnik_ivan_pavlovich-Image01_r",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Панорама города",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Панорама города.jpg",
+      "id": "personal-dudnik_vera_ivanovna-Image03",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image03_back.jpg"
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image03_back",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image03_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Сад Общественного Собрания.",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Сад Общественного Собрания..jpg",
+      "id": "personal-dudnik_vera_ivanovna-Image13",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image13.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg"
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image13_back",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Собор и Введенская гора",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Собор и Введенская гора.jpg",
+      "id": "personal-dudnik_vera_ivanovna-Image15",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image15.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Соборная площадь",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Соборная площадь.jpg",
+      "id": "personal-kanivets_darya_nikitichna-Image05",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_back.jpg"
+    },
+    {
+      "id": "personal-kanivets_darya_nikitichna-Image05_back",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Торговая улица",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Торговая улица.jpg",
+      "id": "personal-kanivets_darya_nikitichna-Image05_r",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Угол улиц Торговая и Орловская",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Угол улиц Торговая и Орловская.jpg",
+      "id": "personal-nikonets_andrey_pavlovich-01",
+      "src": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Ул. Торговая 1",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Ул. Торговая 1.jpg",
+      "id": "personal-nikonets_pavel_andreevich-1938",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/nikonets_pavel_andreevich/1938_back.jpg"
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-1938_back",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Ул. Торговая",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Ул. Торговая.jpg",
+      "id": "personal-nikonets_pavel_andreevich-1938_restored",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-andreev grigoriy prohorovich-photo_elets-Церковь Святого Владимира",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/andreev grigoriy prohorovich/photo_elets/Церковь Святого Владимира.jpg",
+      "id": "personal-nikonets_pavel_andreevich-NikonetsPA",
+      "src": "/photos/personal/nikonets_pavel_andreevich/NikonetsPA.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-anna vasilievna-Image66",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/anna vasilievna/Image66.jpg",
+      "id": "personal-nikonets_pavel_andreevich-table",
+      "src": "/photos/personal/nikonets_pavel_andreevich/table.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-anna vasilievna-Image67",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/anna vasilievna/Image67.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-armonika-IMG_7612",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/armonika/IMG_7612.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-andreev nikolai grigorievich-armonika-IMG_7614",
-      "src": "/photos/andreeva vera nikolaevna/andreev nikolai grigorievich/armonika/IMG_7614.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image27",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image27.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image34",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image34.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image35",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image35.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image53",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image53.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image54",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image54.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image55",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image55.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image58",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image58.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Image59",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Image59.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Scan4",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Scan4.jpg",
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_0874",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg",
       "caption": "",
       "category": "personal",
       "people": [
         {
-          "personId": "p007",
+          "personId": "p001",
           "coords": [
-            33.758331804561855,
-            26.550952267810473,
-            60.56686846450192,
-            50.880988407718185
+            49.686520376175544,
+            29.832810867293624,
+            62.85266457680251,
+            49.686520376175544
           ]
         }
       ]
     },
     {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Scan4a",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Scan4a.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Scan4b",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Scan4b.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-Scan4c",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/Scan4c.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image24",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image24.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image25",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image25.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image49",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image49.jpg",
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_1496a",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_1496a.jpg",
       "caption": "",
       "category": "personal",
-      "people": [
-        {
-          "personId": "p014",
-          "coords": [
-            31.743488540221577,
-            18.70771693323496,
-            73.26051700892945,
-            49.44039416259207
-          ]
-        }
-      ]
+      "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image50",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image50.jpg",
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_3546a",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_3546a.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image69",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image69.jpg",
+      "id": "personal-styopina_anna_vasilevna-Image66",
+      "src": "/photos/personal/styopina_anna_vasilevna/Image66.jpg",
       "caption": "",
       "category": "related",
-      "people": []
+      "people": [],
+      "backSrc": "/photos/personal/styopina_anna_vasilevna/Image66_back.jpg"
     },
     {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image69a",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image69a.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image70",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image70.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image79",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image79.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image79a",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image79a.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-Image80",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/Image80.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-1878-Hockley Abbey Works-Birmingha-02-530",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/1878-Hockley Abbey Works-Birmingha-02-530.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7601",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7601.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7602",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7602.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7603",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7603.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7606",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7606.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7608",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7608.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7610",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7610.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-IMG_7611",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/IMG_7611.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "andreeva vera nikolaevna-belyaeva elena alekseevna-belyaev aleksey ivanovich-ruler-cutter-Trade Mark-280",
-      "src": "/photos/andreeva vera nikolaevna/belyaeva elena alekseevna/belyaev aleksey ivanovich/ruler-cutter/Trade Mark-280.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-Image03",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/Image03.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-Image03b",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/Image03b.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-Image13",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/Image13.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-Image14",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/Image14.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-Image15",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/Image15.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-dudnik ivan pavlovich i aleksandra egorovna-Image01",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/dudnik ivan pavlovich i aleksandra egorovna/Image01.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-dudnik vera ivanova-dudnik ivan pavlovich i aleksandra egorovna-Image01b",
-      "src": "/photos/nikonets vladimir pavlovich/dudnik vera ivanova/dudnik ivan pavlovich i aleksandra egorovna/Image01b.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-1938_back",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/1938_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-1938_restored",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/1938_restored.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-NikonetsPA",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/NikonetsPA.jpg",
-      "caption": "",
-      "category": "personal",
-      "people": [
-        {
-          "personId": "p004"
-        }
-      ]
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-Scan1",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/Scan1.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-Scan2",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/Scan2.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-Scan3",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/Scan3.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-kanivets darya nikitichna-Image05",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/kanivets darya nikitichna/Image05.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-kanivets darya nikitichna-Image05_r",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/kanivets darya nikitichna/Image05_r.JPG",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-kanivets darya nikitichna-Image06",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/kanivets darya nikitichna/Image06.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-nikonets andrey pavlovich-Изображение 001",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/nikonets andrey pavlovich/Изображение 001.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-nikonets andrey pavlovich-Изображение",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/nikonets andrey pavlovich/Изображение.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "nikonets vladimir pavlovich-nikonets pavel andreevich-table",
-      "src": "/photos/nikonets vladimir pavlovich/nikonets pavel andreevich/table.jpg",
+      "id": "personal-styopina_anna_vasilevna-Image66_back",
+      "src": "/photos/personal/styopina_anna_vasilevna/Image66_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -1234,6 +1537,20 @@
     {
       "title": "Из письма Людмилы Павловны Романовой",
       "richText": "<p>Теперь выполняю просьбу Ирушки о нашем генеалогическом древе, на котором не оказалось листочков и веточек в виде маркиз, лордов и т.д. Я думаю, что Ирочка все сама знает. Мои источники: мама, которая мало что рассказывала и Наташа<span>&nbsp; </span>/ от бабушки Шуры.</p><p>Фамилию нашего прадеда я не знаю. Звали его Василий, он был небогатым купцом, имел лавку и мельницу недалеко от Ельца. Про прабабушку ничего не знаю. Овдовев в возрасте 50-54 лет, он женился на очень молодой, хорошенькой девушке из обедневшей дворянской семьи, получившей образование (играла «на фортепьянах»). Она была очень доброй и пыталась помочь нашей бабушке Анне Васильевне, когда она потеряла мужа.</p><p>Прадедушка Василий очень ее любил, особенно когда она родила ему сына и очень ее баловал, своих же внучек не любил.</p><p>Перед войной она жила вместе с семьей сына Николая (который был учителем) в Волоколамске. Мы с бабушкой ездили к ним, и она мне очень понравилась: такая седенькая милая старушка. Нашу бабушку А.В. отец очень рано выдал замуж (16-18 лет) за Стёпина Николая, который был приказчиком и старше лет на 10, а может быть и больше. По характеру он был замкнутым, страдал заболеванием сердца, отчего и рано умер. У них с А.В. было 4 детей: Ваня, который умер подростком также от болезни сердца, и 3 дочери (т.Шура, т.Муся и моя мама). С детьми дед Николай общался мало.</p><p>Овдовев в возрасте примерно 24 лет, с 4 детьми бабушка оказалась в трудном положении. Какое-то время она жила на мельнице, отец ей не помогал, а мачеха ей сочувствовала и помогала, чем могла.</p><p>Вернувшись в Елец, бабушка А.В. встретилась со своим далеким родственником Григорием Прохоровичем Андреевым, младше ее на несколько лет. К этому времени бабушка А.В. была нехороша собой, образования не имела, характер был властный. А ваш дедушка был высоким, красивым, очень общительным мужчиной, очень добрым. Работал он главным приказчиком в немецкой фирме, которая закупала яйца и топлёное масло в России.</p><p>Ваш дедушка был уважаемым человеком, церковным старостой, очень любил церковное пение. По праздникам он ездил в разные церкви Ельца, чтобы сравнивать «где лучше поют». Был он довольно состоятельным человеком, имел 2 дома на Соборной площади (в центре Ельца). Мать его очень противилась его браку. У них с А.В. родилось 4 детей: Катенька, которая умерла в раннем детстве от скарлатины, Саша (умер в возрасте 18-19 лет от брюшного тифа), ваш папа (Николай Григорьевич) и т.Тося. Г.П. очень хорошо относился к падчерицам, но дал образование только моей маме (она кончила частную гимназию). К т.Мусе многократно сватался Король Василий Дмитриевич, который имел свое кожевенное дело вместе с братьями в Рязани. Отказывали ему, т.к. старшая сестра т.Шура еще была на выданье. (потом т.Муся вышла замуж за Короля, вот вам Король и Королева). Потом его раскулачили и выслали всю семью в Котлас, где они прожили несколько лет, а затем приехали к нам в &lt;…&gt;, где вначале жили у нас, а потом получили маленький домик.</p><p>Т.Шура вышла замуж за весовщика на железной дороге, Корякина Андрея Николаевича и стала жить в «лучке» (?) (пригород Ельца) в своем маленьком доме.</p><p>К этому времени дедушка Г.П. умер от нераспознанного аппендицита (перитонита). Дома отобрали. Бабушка А.В. вместе с вдовой сестрой Г.П. – т.Настей поселилась с вашим папой &lt;…&gt; у т.Шуры (как они помещались не знаю)</p><p>Вот такая «Сага о Форсайтах». Все!!!</p>",
+      "personIds": []
+    },
+    {
+      "title": "Воспоминания Марины Курсановой",
+      "richText": "<p>Никонцы родом из-под Сум, жили на хуторе. Были зажиточными людьми. Куда они все делись после революции - непонятно. Мама говорит, что дед Павел ни с кем из родни по своей линии не общался. Скорее всего, их всех репрессировали. Он поехал в Дагестан заниматься мелиорацией - хотел разбить сады по всему Дагестану, вот такая у него была мечта. Романтик. Заехал по дороге на Кубань и там познакомился с бабушкой Верой, красавицей и певуньей, одной из трех сестер - еще были Лена и Шура. Фамилия Дудник. Это уже из Воронежской губернии, тоже были образованные и зажиточные люди, из Кубанского казачества. Я тетушек хорошо помню. Забрал всех трех с собой (уговорил поехать) в Дагестан, а на Вере женился. Бабушка Вера рано умерла - в 36 лет, от сепсиса, как мне рассказывала мама. Осталась мама - 12 летняя девочка и братья-близнецы - Сергей и Володя. Мама их, по сути, вырастила, заменила мать. Тетки, конечно, помогали, но дед Павел был строг и не любил чужих женщин в доме. Так и прожил почти до ста лет бобылем. Но это было уже после войны. А до войны он еще усыновил сироту - Сережу Горячева и вырастил его. В первые дни войны дед Павел пошел воевать. И прошел всю войну. А Сережа - как только ему исполнилось 18 - пошел добровольцем на фронт. Его почти сразу убили. Дед, вернувшись, не мог теткам простить, что они отпустили мальчика на верную погибель. Он о войне никогда ничего не рассказывал. Так говорила мама, и я так помню. А еще наш прапрадед был запорожским казаком и привел из какого-то похода жену-турчанку. Так что у нас есть и турецкая кровь))))</p><p></p><p>Я поищу фотографии - у мамы много было.</p><p></p><p>Дед очень любил Шевченко - даже незадолго до смерти простил маму прислать ему томик стихов - хоть на русском, хоть на украинском. Был неразговорчив, молчалив, но с золотым сердцем и очень щедрый.</p><p></p>",
+      "personIds": [
+        "p004",
+        "p005",
+        "p002"
+      ]
+    },
+    {
+      "title": "",
+      "richText": "",
       "personIds": []
     }
   ]

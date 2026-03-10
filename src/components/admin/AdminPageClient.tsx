@@ -12,7 +12,7 @@ import { AdminTextsTab } from './AdminTextsTab';
 import { AdminPhotosTab } from './AdminPhotosTab';
 import { ImportMergeDialog } from './ImportMergeDialog';
 import { Dialog } from '@/components/ui/molecules/Dialog';
-import { ADMIN_TAB_COOKIE, STORAGE_KEYS } from '@/lib/constants/storage';
+import { ADMIN_TAB_COOKIE } from '@/lib/constants/storage';
 import type { Person } from '@/lib/types/person';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { PhotoEntry } from '@/lib/types/photo';
@@ -69,45 +69,18 @@ interface StoredPayload {
 }
 
 function loadStoredPayload(): StoredPayload | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEYS.adminData);
-    if (!raw) return null;
-    const parsed: unknown = JSON.parse(raw);
-
-    if (
-      parsed &&
-      typeof parsed === 'object' &&
-      'data' in parsed &&
-      'bundledHash' in parsed
-    ) {
-      const p = parsed as StoredPayload;
-      if (validateImportData(p.data)) return p;
-    }
-
-    // Legacy format: plain AdminDataSections without hash wrapper
-    if (validateImportData(parsed)) {
-      return { data: parsed, bundledHash: '' };
-    }
-
-    return null;
-  } catch {
-    return null;
-  }
+  // Admin data is no longer restored from localStorage.
+  // Always start from the bundled server data.
+  return null;
 }
 
-function saveToStorage(data: AdminDataSections, bundledHash: string) {
-  try {
-    const payload: StoredPayload = { data, bundledHash };
-    localStorage.setItem(STORAGE_KEYS.adminData, JSON.stringify(payload));
-  } catch {
-    // quota exceeded or private mode
-  }
+function saveToStorage(_data: AdminDataSections, _bundledHash: string) {
+  // no-op: admin data is not persisted between sessions anymore
 }
 
 /**
- * Outer shell: resolves initial data (localStorage > server props) via
- * lazy useState. Detects bundled-data changes (new deploy) and triggers
- * the merge dialog when the user's localStorage diverges from the bundle.
+ * Outer shell: resolves initial data from server props and wires
+ * merge dialog when imported JSON differs from current data.
  */
 export function AdminPageClient({
   rootPersonId: serverRoot,
@@ -128,7 +101,7 @@ export function AdminPageClient({
 
   const serverHash = useMemo(() => hashData(serverData), [serverData]);
 
-  // Resolve initial state from localStorage in a single pass (lazy init)
+  // Resolve initial state from bundled server data in a single pass (lazy init)
   const [initSnapshot] = useState(() => {
     const stored = loadStoredPayload();
     if (!stored) return { data: serverData, conflict: null as null };
