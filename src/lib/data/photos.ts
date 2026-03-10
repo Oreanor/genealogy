@@ -160,7 +160,8 @@ export function getAvatarCropStyles(
   return {
     backgroundImage: `url(${encoded})`,
     backgroundRepeat: 'no-repeat',
-    backgroundSize: `${size}% ${size}%`,
+    // Use uniform horizontal scale and auto height to avoid stretching.
+    backgroundSize: `${size}% auto`,
     backgroundPosition: `${posX}% ${posY}%`,
   };
 }

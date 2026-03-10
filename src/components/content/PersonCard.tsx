@@ -16,9 +16,10 @@ import { ImageLightbox } from '@/components/ui/ImageLightbox';
 
 interface PersonCardProps {
   person: Person;
+  showPhotos?: boolean;
 }
 
-export function PersonCard({ person }: PersonCardProps) {
+export function PersonCard({ person, showPhotos = true }: PersonCardProps) {
   const { t, routes } = useLocaleRoutes();
   const pathname = usePathname() ?? '';
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -145,7 +146,7 @@ export function PersonCard({ person }: PersonCardProps) {
           </ul>
         </div>
       )}
-      {personPhotos.length > 0 && (
+      {showPhotos && personPhotos.length > 0 && (
         <div className="space-y-3">
           <h3 className="text-base font-medium text-(--ink)">{t('personPhotos')}</h3>
           <ul className="flex flex-wrap gap-3">

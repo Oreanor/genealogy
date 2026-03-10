@@ -1,15 +1,12 @@
 'use client';
 
 import { memo } from 'react';
-import { useTranslations } from '@/lib/i18n/context';
-import { formatLifeDates, getFullName } from '@/lib/utils/person';
-import { getTreeRoleKey } from '@/lib/utils/relationship';
+import { getFullName } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import Image from 'next/image';
 
 const MAX_NAME_LEN = 22;
-const MAX_YEARS_LEN = 24;
 
 export interface TreeNodeProps {
   person: Person | null;
@@ -30,17 +27,10 @@ export const TreeNode = memo(function TreeNode({
   scale,
   onPersonClick,
 }: TreeNodeProps) {
-  const t = useTranslations();
   const hasPerson = !!person;
-  const roleKey = getTreeRoleKey(level, index, person);
-  const role = roleKey ? t(roleKey) : '';
   const surname = hasPerson && person?.lastName?.trim() ? truncate(person.lastName.trim(), MAX_NAME_LEN) : '';
-  const firstAndPatronymic = hasPerson
-    ? [person?.firstName, person?.patronymic].filter((s) => s?.trim()).join(' ')
-    : '';
-  const displayFirstPatronymic = firstAndPatronymic ? truncate(firstAndPatronymic, MAX_NAME_LEN) : '';
-  const lifeDates = formatLifeDates(person?.birthDate, person?.deathDate);
-  const displayYears = lifeDates ? truncate(lifeDates, MAX_YEARS_LEN) : '';
+  const firstName = hasPerson && person?.firstName?.trim() ? truncate(person.firstName.trim(), MAX_NAME_LEN) : '';
+  const patronymic = hasPerson && person?.patronymic?.trim() ? truncate(person.patronymic.trim(), MAX_NAME_LEN) : '';
 
   const strokeClass = hasPerson ? 'outline-(--tree-stroke) border-(--tree-stroke)' : 'outline-gray-300 border-gray-300';
   const plaqueStrokeClass = hasPerson ? 'border-(--tree-plaque-stroke)' : 'border-gray-300';
@@ -48,11 +38,10 @@ export const TreeNode = memo(function TreeNode({
 
   const content = (
     <>
-      <div className="relative">
-      {/* Oval: light ring between outlines, plaque color inside inner oval */}
+      <div className="relative z-10">
       <div
-        className={`relative shrink-0 rounded-[50%] p-[2px] outline outline-2 outline-offset-2 bg-(--background) ${strokeClass}`}
-        style={{ width: '4.1rem', height: '5.3rem' }}
+        className={`relative shrink-0 rounded-[50%] p-[1px] outline outline-2 bg-(--background) ${strokeClass}`}
+        style={{ width: '5.8rem', height: '7.4rem' }}
       >
         <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
           {hasPerson && (() => {
@@ -84,20 +73,11 @@ export const TreeNode = memo(function TreeNode({
 
       {/* Plaque below portrait */}
       <div className={`mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-2 py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
-        {hasPerson && role && (
-          <div className="text-xs leading-tight text-(--tree-stroke)">
-            {role}
-          </div>
-        )}
-        {hasPerson && (surname || displayFirstPatronymic) && (
-          <div className="text-sm font-semibold leading-tight text-(--ink)">
-            {surname && <div className="truncate">{surname}</div>}
-            {displayFirstPatronymic && <div className="truncate">{displayFirstPatronymic}</div>}
-          </div>
-        )}
-        {hasPerson && displayYears && (
-          <div className="text-xs leading-tight text-(--tree-stroke)">
-            {displayYears}
+        {hasPerson && (surname || firstName || patronymic) && (
+          <div className="leading-tight text-(--ink)">
+            {surname && <div className="truncate text-md font-semibold">{surname}</div>}
+            {firstName && <div className="truncate text-sm font-semibold">{firstName}</div>}
+            {patronymic && <div className="truncate text-sm font-semibold">{patronymic}</div>}
           </div>
         )}
       </div>

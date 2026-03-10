@@ -12,9 +12,10 @@ const VIEW_WIDTH = 120;
 const VIEW_HEIGHT = 98;
 const TREE_TOP_OFFSET = 8;
 
-const OFFSET_PX_BY_LEVEL: number[] = [0, 10, 20, 30, 40];
+const OFFSET_PX_BY_LEVEL: number[] = [-10, 30, 20, -10, 0];
 function getLevelOffsetPx(level: number): number {
-  return OFFSET_PX_BY_LEVEL[level] ?? level * 10;
+  const base = OFFSET_PX_BY_LEVEL[level] ?? level * 10;
+  return base;
 }
 
 function getNodePosition(level: number, index: number, totalLevels: number) {

@@ -11,7 +11,8 @@
       "gender": "m",
       "patronymic": "Владимирович",
       "lastName": "Никонец",
-      "birthDate": "25.07.1980"
+      "birthDate": "25.07.1980",
+      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg"
     },
     {
       "id": "p002",
@@ -24,7 +25,8 @@
       "patronymic": "Павлович",
       "lastName": "Никонец",
       "birthDate": "05.08.1947",
-      "deathDate": "13.09.2021"
+      "deathDate": "13.09.2021",
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg"
     },
     {
       "id": "p003",
@@ -37,7 +39,8 @@
       "patronymic": "Николаевна",
       "lastName": "Андреева",
       "birthDate": "15.11.1949",
-      "deathDate": "26.12.2020"
+      "deathDate": "26.12.2020",
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg"
     },
     {
       "id": "p004",
@@ -48,7 +51,8 @@
       "motherId": "p009",
       "gender": "m",
       "patronymic": "Андреевич",
-      "lastName": "Никонец"
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg"
     },
     {
       "id": "p005",
@@ -59,7 +63,8 @@
       "motherId": "p011",
       "gender": "f",
       "patronymic": "Ивановна",
-      "lastName": "Дудник"
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg"
     },
     {
       "id": "p006",
@@ -70,7 +75,8 @@
       "motherId": "p013",
       "gender": "m",
       "patronymic": "Григорьевич",
-      "lastName": "Андреев"
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg"
     },
     {
       "id": "p007",
@@ -81,7 +87,8 @@
       "motherId": "p015",
       "gender": "f",
       "patronymic": "Алексеевна",
-      "lastName": "Беляева"
+      "lastName": "Беляева",
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg"
     },
     {
       "id": "p008",
@@ -99,7 +106,8 @@
       "occupation": "",
       "gender": "f",
       "patronymic": "Никитична",
-      "lastName": "Канивец"
+      "lastName": "Канивец",
+      "avatarPhotoSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG"
     },
     {
       "id": "p010",
@@ -108,7 +116,8 @@
       "occupation": "",
       "gender": "m",
       "patronymic": "Павлович",
-      "lastName": "Дудник"
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG"
     },
     {
       "id": "p011",
@@ -117,7 +126,8 @@
       "occupation": "",
       "gender": "f",
       "patronymic": "Егоровна",
-      "lastName": "Дудник"
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG"
     },
     {
       "id": "p012",
@@ -126,7 +136,8 @@
       "occupation": "",
       "gender": "m",
       "patronymic": "Прохорович",
-      "lastName": "Андреев"
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg"
     },
     {
       "id": "p013",
@@ -144,7 +155,8 @@
       "occupation": "",
       "gender": "m",
       "patronymic": "Иванович",
-      "lastName": "Беляев"
+      "lastName": "Беляев",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg"
     },
     {
       "id": "p015",
@@ -154,18 +166,6 @@
       "gender": "f",
       "patronymic": "Филимоновна",
       "lastName": "Беляева"
-    },
-    {
-      "id": "p016",
-      "firstName": "Олег",
-      "birthPlace": "",
-      "occupation": "",
-      "gender": "m",
-      "patronymic": "Владимирович",
-      "lastName": "Никонец",
-      "birthDate": "26.11.1974",
-      "fatherId": "p002",
-      "motherId": "p003"
     },
     {
       "id": "p017",
@@ -188,26 +188,6 @@
       "lastName": "Андреева",
       "fatherId": "p006",
       "motherId": "p007"
-    },
-    {
-      "id": "p019",
-      "firstName": "Артур",
-      "birthPlace": "",
-      "occupation": "",
-      "gender": "m",
-      "patronymic": "Васильевич",
-      "lastName": "Аксененко",
-      "motherId": "p017",
-      "fatherId": "p020"
-    },
-    {
-      "id": "p020",
-      "firstName": "Василий",
-      "birthPlace": "",
-      "occupation": "",
-      "gender": "m",
-      "patronymic": "Иванович",
-      "lastName": "Аксененко"
     }
   ],
   "photos": [
@@ -957,7 +937,17 @@
       "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image62.jpg",
       "caption": "",
       "category": "related",
-      "people": [],
+      "people": [
+        {
+          "personId": "p012",
+          "coords": [
+            34.48180604367777,
+            13.745670088911677,
+            67.87703924246843,
+            48.31993197193842
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image62_back.jpg"
     },
     {
@@ -971,8 +961,18 @@
       "id": "personal-andreev_nikolay_grigorevich-Image16",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image16.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            45.99955877486487,
+            15.666462415746496,
+            61.53068353127183,
+            27.991546512936587
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image16_back.jpg"
     },
     {
@@ -986,22 +986,52 @@
       "id": "personal-andreev_nikolay_grigorevich-Image18",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image18.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            46.22933313694443,
+            10.383162844208789,
+            61.31200058916669,
+            24.6292174174024
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image21",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image21.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.705882352941174,
+            29.43177270908363,
+            64.8235294117647,
+            49.43977591036415
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image22",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image22.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            26.3110730148835,
+            8.622414526173623,
+            43.01800046754461,
+            21.747992896981216
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image22__back",
@@ -1013,16 +1043,33 @@
     {
       "id": "personal-andreev_nikolay_grigorevich-Image28",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image28.jpg",
-      "caption": "",
+      "caption": "Свидетельство о браке",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image36",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image36.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.93437910487541,
+            8.783623244588393,
+            61.209998286660706,
+            23.509697750322008
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image36_back.jpg"
     },
     {
@@ -1036,22 +1083,49 @@
       "id": "personal-andreev_nikolay_grigorevich-Image38",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image38.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            44.521427552201416,
+            31.03280103042505,
+            54.668400107811586,
+            41.43709280078032
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image39",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image39.jpg",
-      "caption": "",
+      "caption": "Дом деда в Брянске",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p003"
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image40",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image40.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            26.64110457721164,
+            13.265472007202971,
+            77.60797832138184,
+            55.84303525204146
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image40_back.jpg"
     },
     {
@@ -1065,8 +1139,18 @@
       "id": "personal-andreev_nikolay_grigorevich-Image43",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image43.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            18.96551724137931,
+            22.068757942612535,
+            27.58620689655172,
+            39.191358437562705
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image43_back.jpg"
     },
     {
@@ -1080,8 +1164,36 @@
       "id": "personal-andreev_nikolay_grigorevich-Image60",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            17.0846394984326,
+            14.369678375676514,
+            35.57993730407524,
+            46.80099279533938
+          ]
+        },
+        {
+          "personId": "p017",
+          "coords": [
+            54.85893416927899,
+            45.477265676169466,
+            72.5705329153605,
+            75.92298941707746
+          ]
+        },
+        {
+          "personId": "p018",
+          "coords": [
+            34.639498432601876,
+            37.09366058809335,
+            51.72413793103448,
+            69.52497500775621
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60_back.jpg"
     },
     {
@@ -1095,15 +1207,35 @@
       "id": "personal-andreev_nikolay_grigorevich-Image68",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image68.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            28.92472597543061,
+            50.880988407718185,
+            39.46276655850969,
+            60.64501606912851
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image71",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image71.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            58.77742946708464,
+            9.354626775155406,
+            77.11598746081505,
+            39.75842725021479
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image71_back.jpg"
     },
     {
@@ -1117,8 +1249,18 @@
       "id": "personal-andreev_nikolay_grigorevich-Image73",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image73.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            27.58620689655172,
+            31.458401193190586,
+            42.63322884012539,
+            61.08244329773191
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image73_back.jpg"
     },
     {
@@ -1132,8 +1274,18 @@
       "id": "personal-andreev_nikolay_grigorevich-Image75",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image75.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            35.294117647058826,
+            11.344537815126053,
+            49.57983193277311,
+            24.469787915166066
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image75_back.jpg"
     },
     {
@@ -1147,22 +1299,46 @@
       "id": "personal-andreev_nikolay_grigorevich-Image77",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image77.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            57.83699059561128,
+            37.02763723858337,
+            71.00313479623824,
+            58.12224987227871
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Image83",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Image83.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            58.32425666119357,
+            19.667108521121477,
+            75.17923040658073,
+            34.39336718105195
+          ]
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Scan5",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Scan5.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ],
       "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Scan5_back.jpg"
     },
     {
@@ -1176,22 +1352,49 @@
       "id": "personal-andreev_nikolay_grigorevich-Scan6",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Scan6.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ]
     },
     {
       "id": "personal-andreev_nikolay_grigorevich-Scan7",
       "src": "/photos/personal/andreev_nikolay_grigorevich/Scan7.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ]
     },
     {
       "id": "personal-andreeva_irina_nikolaevna-Image29",
       "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p017",
+          "coords": [
+            48.27586206896552,
+            35.53759119105759,
+            70.53291536050156,
+            66.79356316260446
+          ]
+        },
+        {
+          "personId": "p018",
+          "coords": [
+            29.780564263322884,
+            29.907633506741693,
+            49.843260188087775,
+            60.19292311892376
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg"
     },
     {
@@ -1205,8 +1408,18 @@
       "id": "personal-andreeva_vera_nikolaevna-Image56",
       "src": "/photos/personal/andreeva_vera_nikolaevna/Image56.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p003",
+          "coords": [
+            29.08476512303079,
+            3.6615103730288743,
+            68.07386607015373,
+            36.63511198369328
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg"
     },
     {
@@ -1220,8 +1433,18 @@
       "id": "personal-belyaev_aleksey_ivanovich-Image24",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            47.492163009404386,
+            15.333896617278736,
+            56.26959247648903,
+            27.500829837955283
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24_back.jpg"
     },
     {
@@ -1235,8 +1458,18 @@
       "id": "personal-belyaev_aleksey_ivanovich-Image49",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            31.743488540221577,
+            18.54765090599873,
+            73.51061959006624,
+            47.35953580852102
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49_back.jpg"
     },
     {
@@ -1250,15 +1483,53 @@
       "id": "personal-belyaev_aleksey_ivanovich-Image69",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            20.49316097744233,
+            29.592206785298934,
+            43.225013234063624,
+            52.3215826528443
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            52.405184337699154,
+            14.54600022509285,
+            69.89122453510015,
+            30.232470894243875
+          ]
+        }
+      ]
     },
     {
       "id": "personal-belyaev_aleksey_ivanovich-Image69a",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69a.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            16.54129990219614,
+            27.991546512936587,
+            43.627634035742865,
+            53.44204484349794
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            52.50466791144305,
+            12.30507584378556,
+            70.4863519160665,
+            28.79187664911776
+          ]
+        }
+      ]
     },
     {
       "id": "personal-belyaev_aleksey_ivanovich-Image70",
@@ -1271,8 +1542,27 @@
       "id": "personal-belyaev_aleksey_ivanovich-Image79",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.051431911163064,
+            45.11792511817522,
+            55.61075394506136,
+            55.04214291073707
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            70.572764465225,
+            35.0336392967011,
+            84.36586791350088,
+            44.79778906035065
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg"
     },
     {
@@ -1286,22 +1576,55 @@
       "id": "personal-belyaev_aleksey_ivanovich-Image79a",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79a.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            37.53480416026769,
+            47.03940375404855,
+            52.39789739171692,
+            63.36613853214451
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            72.37517324043901,
+            30.712668975952575,
+            86.59899364472912,
+            47.83973389022972
+          ]
+        }
+      ]
     },
     {
       "id": "personal-belyaeva_elena_alekseevna-Image27",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Image27.jpg",
-      "caption": "",
+      "caption": "Свидетельство о рождении бабушки",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p007"
+        }
+      ]
     },
     {
       "id": "personal-belyaeva_elena_alekseevna-Image34",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Image34.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            29.51169555414035,
+            21.748971450723424,
+            81.72601938071223,
+            63.52620455938075
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg"
     },
     {
@@ -1315,8 +1638,27 @@
       "id": "personal-belyaeva_elena_alekseevna-Image53",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            57.210031347962385,
+            11.551312649164675,
+            75.07836990595611,
+            37.25454695086824
+          ]
+        },
+        {
+          "personId": "p003",
+          "coords": [
+            35.26645768025078,
+            17.450415603654022,
+            49.52978056426332,
+            42.52160316023373
+          ]
+        }
+      ]
     },
     {
       "id": "personal-belyaeva_elena_alekseevna-Image54",
@@ -1337,8 +1679,18 @@
       "id": "personal-belyaeva_elena_alekseevna-Image58",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Image58.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            65.8307210031348,
+            41.29551338773638,
+            85.8934169278997,
+            72.96725985645463
+          ]
+        }
+      ]
     },
     {
       "id": "personal-belyaeva_elena_alekseevna-Image59",
@@ -1351,8 +1703,18 @@
       "id": "personal-belyaeva_elena_alekseevna-Scan4",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            33.954014553904486,
+            27.351282403991643,
+            60.76255121384455,
+            50.56085635324571
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg"
     },
     {
@@ -1367,7 +1729,14 @@
       "src": "/photos/personal/dudnik_ivan_pavlovich/Image01.jpg",
       "caption": "",
       "category": "related",
-      "people": [],
+      "people": [
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p010"
+        }
+      ],
       "backSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_back.jpg"
     },
     {
@@ -1382,14 +1751,52 @@
       "src": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
       "caption": "",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p011",
+          "coords": [
+            48.11912225705329,
+            31.09607956233723,
+            55.64263322884012,
+            43.6247006799154
+          ]
+        },
+        {
+          "personId": "p010",
+          "coords": [
+            39.341692789968654,
+            10.513344869173087,
+            48.11912225705329,
+            25.279219757747367
+          ]
+        }
+      ]
     },
     {
       "id": "personal-dudnik_vera_ivanovna-Image03",
       "src": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p005",
+          "coords": [
+            51.923365890308034,
+            5.102104618154988,
+            68.03155522163786,
+            18.227518851526256
+          ]
+        },
+        {
+          "personId": "p002",
+          "coords": [
+            42.30653643876784,
+            27.671414458464117,
+            60.09767092411721,
+            40.79682869183538
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image03_back.jpg"
     },
     {
@@ -1403,9 +1810,14 @@
       "id": "personal-dudnik_vera_ivanovna-Image13",
       "src": "/photos/personal/dudnik_vera_ivanovna/Image13.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg"
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p005"
+        }
+      ],
+      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg",
+      "hidden": false
     },
     {
       "id": "personal-dudnik_vera_ivanovna-Image13_back",
@@ -1418,15 +1830,45 @@
       "id": "personal-dudnik_vera_ivanovna-Image15",
       "src": "/photos/personal/dudnik_vera_ivanovna/Image15.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p005",
+          "coords": [
+            57.36677115987461,
+            8.271959190180137,
+            79.62382445141067,
+            42.14410967639088
+          ]
+        }
+      ],
+      "hidden": false
     },
     {
       "id": "personal-kanivets_darya_nikitichna-Image05",
       "src": "/photos/personal/kanivets_darya_nikitichna/Image05.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            10.38390596179698,
+            42.237422936961494,
+            24.18951449026167,
+            54.88263908862405
+          ]
+        },
+        {
+          "personId": "p009",
+          "coords": [
+            39.19561071685372,
+            22.70936761414083,
+            55.202113358551905,
+            37.595508147110685
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_back.jpg"
     },
     {
@@ -1440,22 +1882,70 @@
       "id": "personal-kanivets_darya_nikitichna-Image05_r",
       "src": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p009",
+          "coords": [
+            40.12993831211445,
+            22.389235559668364,
+            56.93004331277071,
+            38.715970337764325
+          ]
+        },
+        {
+          "personId": "p004",
+          "coords": [
+            6.739729623310145,
+            41.59715882801655,
+            23.11983199894999,
+            54.88263908862405
+          ]
+        }
+      ]
     },
     {
       "id": "personal-nikonets_andrey_pavlovich-01",
       "src": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p008",
+          "coords": [
+            30.327613711528738,
+            24.630159940975652,
+            69.17435119256061,
+            55.52290319756899
+          ]
+        }
+      ]
     },
     {
       "id": "personal-nikonets_pavel_andreevich-1938",
       "src": "/photos/personal/nikonets_pavel_andreevich/1938.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            34.639498432601876,
+            27.810746307166355,
+            48.11912225705329,
+            48.245500870799205
+          ]
+        },
+        {
+          "personId": "p005",
+          "coords": [
+            14.733542319749215,
+            33.59027285041605,
+            28.683385579937305,
+            54.0250274140489
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/nikonets_pavel_andreevich/1938_back.jpg"
     },
     {
@@ -1469,22 +1959,57 @@
       "id": "personal-nikonets_pavel_andreevich-1938_restored",
       "src": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            35.893416927899686,
+            28.588579935648085,
+            48.27586206896552,
+            48.05423490051065
+          ]
+        },
+        {
+          "personId": "p005",
+          "coords": [
+            17.24137931034483,
+            35.96503865917495,
+            27.58620689655172,
+            52.56207078711041
+          ]
+        }
+      ],
+      "hidden": false
     },
     {
       "id": "personal-nikonets_pavel_andreevich-NikonetsPA",
       "src": "/photos/personal/nikonets_pavel_andreevich/NikonetsPA.jpg",
       "caption": "",
-      "category": "related",
-      "people": []
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            22.283554009442337,
+            8.783623244588393,
+            70.90092648468283,
+            52.801780734553006
+          ]
+        }
+      ],
+      "hidden": false
     },
     {
       "id": "personal-nikonets_pavel_andreevich-table",
       "src": "/photos/personal/nikonets_pavel_andreevich/table.jpg",
       "caption": "",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p004"
+        }
+      ]
     },
     {
       "id": "personal-nikonets_sergey_vladimirovich-IMG_0874",
@@ -1508,21 +2033,45 @@
       "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_1496a.jpg",
       "caption": "",
       "category": "personal",
-      "people": []
+      "people": [
+        {
+          "personId": "p001",
+          "coords": [
+            13.106070048610247,
+            7.021734237050746,
+            84.10195687398728,
+            85.77520446189631
+          ]
+        }
+      ]
     },
     {
       "id": "personal-nikonets_sergey_vladimirovich-IMG_3546a",
       "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_3546a.jpg",
       "caption": "",
       "category": "related",
-      "people": []
+      "people": [
+        {
+          "personId": "p001"
+        }
+      ]
     },
     {
       "id": "personal-styopina_anna_vasilevna-Image66",
       "src": "/photos/personal/styopina_anna_vasilevna/Image66.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "group",
+      "people": [
+        {
+          "personId": "p013",
+          "coords": [
+            36.36363636363637,
+            25.27559564219442,
+            52.66457680250783,
+            52.7931335466977
+          ]
+        }
+      ],
       "backSrc": "/photos/personal/styopina_anna_vasilevna/Image66_back.jpg"
     },
     {

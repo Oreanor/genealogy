@@ -1,12 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-import { getPersonById, getPersons } from '@/lib/data/persons';
-import {
-  getPhotosByPerson,
-  getLightboxFacesFromPhoto,
-} from '@/lib/data/photos';
+import { getPersonById } from '@/lib/data/persons';
+import { getPhotosByPerson, getLightboxFacesFromPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { formatLifeDates, getFullName } from '@/lib/utils/person';
 import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
@@ -17,9 +14,10 @@ import { useTranslations } from '@/lib/i18n/context';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { BookSpread } from '@/components/book/BookSpread';
 import { BookPage } from '@/components/book/BookPage';
+import { getPersons } from '@/lib/data/persons';
+import { List, ListX } from 'lucide-react';
 
 function RelativesGroup({
   label,
@@ -238,52 +236,66 @@ function PersonInfoContent({
 }
 
 function RightPageContent({
-  firstPhoto,
-  historyMentions,
-  onPhotoClick,
+  photo,
+  showFaces,
 }: {
-  firstPhoto: PhotoEntry | null;
-  historyMentions: { entry: { title: string; richText: string }; index: number }[];
-  onPhotoClick: () => void;
+  photo: PhotoEntry | null;
+  showFaces: boolean;
 }) {
   const t = useTranslations();
 
-  if (firstPhoto) {
+  if (photo) {
+    const persons = getPersons();
+    const faces = getLightboxFacesFromPhoto(photo, persons);
+    const hasFaces = faces.length > 0;
+
     return (
-      <button
-        type="button"
-        className="relative flex-1 overflow-hidden rounded bg-(--paper-light) focus:outline-none"
-        onClick={onPhotoClick}
-        aria-label={t('openFullscreen')}
-      >
+      <div className="relative flex-1 overflow-hidden rounded bg-(--paper-light)">
         <Image
-          src={firstPhoto.src}
-          alt={firstPhoto.caption ?? ''}
+          src={photo.src}
+          alt={photo.caption ?? ''}
           fill
           className="object-contain"
           sizes="(max-width: 600px) 100vw, 50vw"
         />
-      </button>
-    );
-  }
-
-  if (historyMentions.length > 0) {
-    return (
-      <div className="flex-1 overflow-y-auto">
-        <h3 className="mb-2 text-sm font-medium text-(--ink)">
-          {historyMentions[0].entry.title}
-        </h3>
-        <div
-          className="prose-sm text-(--ink) leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: historyMentions[0].entry.richText }}
-        />
+        {hasFaces && (
+          <>
+            {showFaces &&
+              faces.map((face, i) => {
+                const [l, t_, r, b] = face.coords;
+                const w = r - l;
+                const h = b - t_;
+                return (
+                  <div key={`${i}-${face.displayName}`} className="pointer-events-none absolute inset-0">
+                    <div
+                      className="absolute border border-white/90 bg-black/10"
+                      style={{
+                        left: `${l}%`,
+                        top: `${t_}%`,
+                        width: `${w}%`,
+                        height: `${h}%`,
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            <button
+              type="button"
+              className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded bg-black/60 text-white hover:bg-black/80 focus:outline-none"
+              title={showFaces ? t('lightboxHideLabels') : t('lightboxShowLabels')}
+              aria-label={showFaces ? t('lightboxHideLabels') : t('lightboxShowLabels')}
+            >
+              {showFaces ? <ListX className="size-[16px]" /> : <List className="size-[16px]" />}
+            </button>
+          </>
+        )}
       </div>
     );
   }
 
   return (
     <div className="flex flex-1 items-center justify-center text-center text-sm text-(--ink-muted)">
-      {t('noMediaData')}
+      {t('noPhotosYet')}
     </div>
   );
 }
@@ -291,10 +303,14 @@ function RightPageContent({
 export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDetailPanelProps) {
   const pathname = usePathname() ?? '';
   const personPhotos = getPhotosByPerson(person.id);
-  const historyMentions = getHistoryEntriesByPerson(person.id);
-  const [lightboxPhoto, setLightboxPhoto] = useState<PhotoEntry | null>(null);
-  const persons = getPersons();
   const firstPhoto = personPhotos[0] ?? null;
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
+  const [showFaces, setShowFaces] = useState(false);
+  const t = useTranslations();
+
+  useEffect(() => {
+    setSelectedPhoto(firstPhoto);
+  }, [firstPhoto]);
 
   return (
     <>
@@ -319,33 +335,36 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson }: PersonDet
                     pathname={pathname}
                     personPhotos={personPhotos}
                     onSelectPerson={onSelectPerson}
-                    onPhotoClick={(photo) => setLightboxPhoto(photo)}
+                      onPhotoClick={(photo) => setSelectedPhoto(photo)}
                   />
                 </BookPage>
               }
               right={
                 <BookPage className="flex flex-col overflow-hidden">
                   <RightPageContent
-                    firstPhoto={firstPhoto}
-                    historyMentions={historyMentions}
-                    onPhotoClick={() => { if (firstPhoto) setLightboxPhoto(firstPhoto); }}
-                  />
+                      photo={selectedPhoto}
+                      showFaces={showFaces}
+                    />
+                    {selectedPhoto && (
+                      <button
+                        type="button"
+                        onClick={() => setShowFaces((v) => !v)}
+                        className="mt-2 self-end rounded bg-black/60 px-2 py-1 text-xs text-white hover:bg-black/80 focus:outline-none"
+                      >
+                        {showFaces ? t('lightboxHideLabels') : t('lightboxShowLabels')}
+                      </button>
+                    )}
+                    {selectedPhoto?.caption && (
+                      <p className="mt-2 text-center text-sm text-(--ink)">
+                        {selectedPhoto.caption}
+                      </p>
+                    )}
                 </BookPage>
               }
             />
           </div>
         </div>
       </div>
-      {lightboxPhoto && (
-        <ImageLightbox
-          src={lightboxPhoto.src}
-          alt={lightboxPhoto.caption ?? ''}
-          caption={lightboxPhoto.caption}
-          faces={getLightboxFacesFromPhoto(lightboxPhoto, persons)}
-          open
-          onClose={() => setLightboxPhoto(null)}
-        />
-      )}
     </>
   );
 }

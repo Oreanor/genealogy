@@ -261,6 +261,24 @@ export function PhotoEditLightbox({
               className="block max-h-[85vh] max-w-full select-none object-contain pointer-events-none"
               draggable={false}
             />
+            {(photo.people ?? [])
+              .filter((p) => Array.isArray(p.coords) && p.coords.length >= 4)
+              .map((p, i) => {
+                const [l, t_, r, b] = p.coords as number[];
+                return (
+                  <div
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={i}
+                    className="absolute pointer-events-none border border-(--accent) bg-(--hotspot-fill)"
+                    style={{
+                      left: `${l}%`,
+                      top: `${t_}%`,
+                      width: `${r - l}%`,
+                      height: `${b - t_}%`,
+                    }}
+                  />
+                );
+              })}
             {faceEditMode && hasFirstPoint && (
               <div
                 className="absolute pointer-events-none h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-(--accent) shadow-md"

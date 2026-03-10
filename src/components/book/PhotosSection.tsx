@@ -5,11 +5,9 @@ import { useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { BookSpread } from './BookSpread';
 import { BookPage } from './BookPage';
-import { getPhotos, getLightboxFacesFromPhoto } from '@/lib/data/photos';
-import { getPersons } from '@/lib/data/persons';
+import { getPhotos } from '@/lib/data/photos';
 import Image from 'next/image';
 import { NavButton } from '@/components/ui/NavButton';
-import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { SECTION_HEADING_CLASS } from '@/lib/constants/theme';
 import type { PhotoEntry } from '@/lib/types/photo';
 
@@ -21,7 +19,6 @@ export function PhotosSection() {
   const pathname = usePathname() ?? '';
   const router = useRouter();
   const { t } = useLocaleRoutes();
-  const [photosLightbox, setPhotosLightbox] = useState<PhotoEntry | null>(null);
 
   const photos = getPhotos();
   const spreadParam = searchParams.get('spread');
@@ -36,13 +33,19 @@ export function PhotosSection() {
   const hasPrev = spread > 0;
   const hasNext = spread < totalSpreads - 1;
 
+  const initialSelected =
+    leftPhotos[0] ?? rightPhotos[0] ?? photos[0] ?? null;
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(
+    initialSelected
+  );
+
   const photoGrid = (list: PhotoEntry[]) => (
     <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
       {list.map((photo) => (
         <button
           key={photo.id}
           type="button"
-          onClick={() => setPhotosLightbox(photo)}
+          onClick={() => setSelectedPhoto(photo)}
           className="relative block aspect-[3/4] w-full overflow-hidden rounded bg-(--paper-light) transition-opacity hover:opacity-90 focus:outline-none"
         >
           <Image
@@ -71,11 +74,30 @@ export function PhotosSection() {
           </BookPage>
         }
         right={
-          <BookPage>
+          <BookPage className="flex flex-col overflow-hidden">
             <div className={SECTION_HEADING_CLASS} aria-hidden>&nbsp;</div>
-            <div className="flex-1 min-h-0 overflow-y-auto">
-              {photoGrid(rightPhotos)}
+            <div className="flex-1 min-h-0 overflow-hidden">
+              {selectedPhoto ? (
+                <div className="relative h-full w-full">
+                  <Image
+                    src={selectedPhoto.src}
+                    alt={selectedPhoto.caption ?? selectedPhoto.id}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 600px) 100vw, 50vw"
+                  />
+                </div>
+              ) : (
+                <div className="flex h-full items-center justify-center text-sm text-(--ink-muted)">
+                  {t('noPhotosYet')}
+                </div>
+              )}
             </div>
+            {selectedPhoto?.caption && (
+              <p className="mt-2 text-center text-sm text-(--ink)">
+                {selectedPhoto.caption}
+              </p>
+            )}
           </BookPage>
         }
       />
@@ -96,16 +118,6 @@ export function PhotosSection() {
             />
           </div>
         </>
-      )}
-      {photosLightbox && (
-        <ImageLightbox
-          src={photosLightbox.src}
-          alt={photosLightbox.caption ?? photosLightbox.id}
-          caption={photosLightbox.caption}
-          faces={getLightboxFacesFromPhoto(photosLightbox, getPersons())}
-          open
-          onClose={() => setPhotosLightbox(null)}
-        />
       )}
     </div>
   );

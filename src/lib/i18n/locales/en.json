@@ -56,7 +56,7 @@
   "chapters_family-tree": "Family Tree",
   "chapters_persons": "Persons",
   "personsSearchPlaceholder": "Search by surname, name…",
-  "personsSelectHint": "Select a person from the list on the left",
+  "personsSelectHint": "No person selected",
   "chapters_history": "Texts",
   "historySearchPlaceholder": "Search by title, text…",
   "historySelectHint": "Select a text from the list on the left",
