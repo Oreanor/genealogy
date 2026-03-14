@@ -45,8 +45,11 @@ export function PersonsSection() {
   const [showFaces, setShowFaces] = useState(false);
 
   useEffect(() => {
-    setSelectedPhoto(firstPhoto);
-  }, [firstPhoto]);
+    const first = selectedPersonId
+      ? (getPhotosByPerson(selectedPersonId)[0] ?? null)
+      : null;
+    setSelectedPhoto(first);
+  }, [selectedPersonId]);
 
   return (
     <BookSpread

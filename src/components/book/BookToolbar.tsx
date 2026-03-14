@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { BookOpen, Clipboard, Save, FileDown, Upload } from 'lucide-react';
@@ -35,6 +35,7 @@ export function BookToolbar() {
   const { t } = useLocaleRoutes();
   const [pdfOpen, setPdfOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const closePdfPreview = useCallback(() => setPdfOpen(false), []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -114,7 +115,7 @@ export function BookToolbar() {
           onChange={handleFileChange}
         />
       )}
-      <PdfPreviewDialog open={pdfOpen} onClose={() => setPdfOpen(false)} />
+      <PdfPreviewDialog open={pdfOpen} onClose={closePdfPreview} />
     </>
   );
 }

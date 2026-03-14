@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
 import { buildTreeMatrix } from '@/lib/utils/tree';
 import { TreeNode } from './TreeNode';
@@ -32,7 +33,7 @@ function getNodePosition(level: number, index: number, totalLevels: number) {
 
 export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
   const rootPersonId = useRootPersonId();
-  const matrix = buildTreeMatrix(rootPersonId);
+  const matrix = useMemo(() => buildTreeMatrix(rootPersonId), [rootPersonId]);
   const totalLevels = matrix.length;
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 import { getRootPersonId } from '@/lib/data/root';
 
 interface RootPersonContextValue {
@@ -12,8 +12,12 @@ const RootPersonContext = createContext<RootPersonContextValue | null>(null);
 
 export function RootPersonProvider({ children }: { children: ReactNode }) {
   const [rootPersonId, setRootPersonId] = useState(() => getRootPersonId());
+  const value = useMemo(
+    () => ({ rootPersonId, setRootPersonId }),
+    [rootPersonId]
+  );
   return (
-    <RootPersonContext.Provider value={{ rootPersonId, setRootPersonId }}>
+    <RootPersonContext.Provider value={value}>
       {children}
     </RootPersonContext.Provider>
   );

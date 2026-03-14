@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 
 export interface AdminToolbarActions {
   onCopy: () => void;
@@ -17,8 +17,9 @@ const AdminToolbarContext = createContext<AdminToolbarContextValue | null>(null)
 
 export function AdminToolbarProvider({ children }: { children: ReactNode }) {
   const [actions, setActions] = useState<AdminToolbarActions | null>(null);
+  const value = useMemo(() => ({ actions, setActions }), [actions]);
   return (
-    <AdminToolbarContext.Provider value={{ actions, setActions }}>
+    <AdminToolbarContext.Provider value={value}>
       {children}
     </AdminToolbarContext.Provider>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
@@ -20,6 +20,7 @@ export function BookView() {
   const searchParams = useSearchParams();
   const { t } = useLocaleRoutes();
   const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(null);
+  const closePersonPanel = useCallback(() => setSelectedTreePersonId(null), []);
   const sectionParam = searchParams.get('section') ?? '';
   const section: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
 
@@ -50,7 +51,7 @@ export function BookView() {
           <PersonDetailPanel
             key={selectedTreePerson.id}
             person={selectedTreePerson}
-            onClose={() => setSelectedTreePersonId(null)}
+            onClose={closePersonPanel}
             onSelectPerson={setSelectedTreePersonId}
           />
         )}

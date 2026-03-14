@@ -1,6 +1,6 @@
-# Родословная вашей семьи
+# Your Family Genealogy
 
-Интерактивный альбом-книга о генеалогии **вашей семьи** на Next.js. Не привязан к одной фамилии: в одном конфиге задаёте фамилию «хозяина» альбома — заголовок и описание подставляются во всех языках. Пользователь листает развороты, переходит по главам и на карточки персон из древа или с интерактивных фото.
+An interactive album-book about **your family's** genealogy built with Next.js. Not tied to a single surname: you configure the album "owner's" surname in one place — the title and description are generated in all languages. Users browse spreads, navigate chapters, and open person cards from the family tree or interactive photos.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
@@ -8,66 +8,67 @@
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-38bdf8)
 ![Vitest](https://img.shields.io/badge/Vitest-4-yellow)
 
-## Возможности
+## Features
 
-- **Титульный разворот** — название семьи, обложка, оглавление глав
-- **Семейное древо** — до 6 уровней (от «я» до прапрапрадедов)
-- **Персоны** — разворот на одну персону, навигация между ними
-- **История, Фото, Другие материалы** — главы с гипертекстом и разворотами
-- **Интерактивные фото** — кликабельные зоны (rect/polygon) → переход к персоне
-- **Мультиязычность** — русский, английский, немецкий, французский, испанский, итальянский, португальский, нидерландский, украинский, польский; выбор языка сохраняется
-- **Настройки** — цвет страниц и язык в localStorage (одна «настройка» на всё)
-- **Адаптивный интерфейс** — удобно на планшетах и десктопах
+- **Title spread** — family name, cover, chapter table of contents
+- **Family tree** — up to 6 levels (from "me" to great-great-great-grandparents)
+- **Persons** — one spread per person, navigation between them
+- **History, Photos, Other materials** — chapters with hypertext and spreads
+- **Interactive photos** — clickable areas (rect/polygon) → navigate to a person
+- **Multilingual** — Russian, English, German, French, Spanish, Italian, Portuguese, Dutch, Ukrainian, Polish; language choice is persisted
+- **Settings** — page color and language in localStorage (one "settings" object for all)
+- **Responsive UI** — comfortable on tablets and desktops
 
-## Настройка под свою семью
+## Customizing for Your Family
 
-- **Фамилия и бренд** — в `src/lib/constants/owner.ts` задаёте `FAMILY_SURNAME`. Заголовок книги («Родословная семьи …») и описание строятся из неё во всех локалях.
-- **Данные** — в одном файле `src/data/data.json` хранятся секции `persons`, `pages`, `photos`, `history`; имена и тексты — ваши, без привязки к конкретной фамилии в коде.
-- **Корень древа** — в `src/lib/constants/chapters.ts` задаётся `ROOT_PERSON_ID` (персона «я»).
+- **Surname and branding** — in `src/lib/data/owner.ts` (e.g. from `data.json` root) the book title and description are built in all locales.
+- **Data** — a single file `src/data/data.json` holds sections `persons`, `photos`, `history`, and `rootPersonId`; names and texts are yours, with no hardcoded surname in the code.
+- **Tree root** — `rootPersonId` in `data.json` or first person; override in admin (root column).
 
-## Быстрый старт
+## Quick Start
 
 ```bash
 npm install
 npm run dev
 ```
 
-Откройте [http://localhost:3000](http://localhost:3000) — откроется главная в выбранной локали (по умолчанию редирект на `/ru`). Язык переключается кнопкой в правом верхнем углу (рядом с выбором цвета страниц).
+Open [http://localhost:3000](http://localhost:3000) — the main page opens in the selected locale (by default redirects to `/ru`). Switch language with the button in the top-right corner (next to the page color picker).
 
-## Скрипты
+## Scripts
 
-| Команда | Описание |
-|---------|----------|
-| `npm run dev` | Запуск в режиме разработки |
-| `npm run build` | Сборка для production |
-| `npm run start` | Запуск production-сборки |
-| `npm run test` | Запуск тестов |
-| `npm run test:watch` | Тесты в watch-режиме |
-| `npm run test:coverage` | Покрытие кода тестами (пороги 90% / branches 79%) |
-| `npm run type-check` | Проверка типов TypeScript |
-| `npm run lint` | Проверка ESLint |
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Run production build |
+| `npm run test` | Run tests |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Code coverage (thresholds 90% / branches 79%) |
+| `npm run type-check` | TypeScript type checking |
+| `npm run lint` | ESLint check |
 
-## Структура проекта
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Корневой layout
-│   └── [locale]/               # Локали: /ru, /en, ...
+│   ├── layout.tsx              # Root layout
+│   └── [locale]/               # Locales: /ru, /en, ...
 │       ├── layout.tsx          # I18nProvider, SetDocumentLang
-│       ├── page.tsx            # Главная (титульный разворот)
-│       └── chapter/[slug]/     # Chapters: /ru/chapter/family-tree, ...
+│       ├── page.tsx            # Home (book view)
+│       ├── admin/              # Admin panel
+│       └── chapter/[slug]/     # Legacy redirect to ?section=
 ├── components/
-│   ├── book/                   # BookLayout, BookSpread, SpreadNavigation, TitleSpread, TocBookmark
+│   ├── book/                   # BookLayout, BookSpread, SectionBookmarks, …
 │   ├── content/                # RichText, ContentBlocks, ImageWithHotspots, PersonCard
 │   ├── tree/                   # FamilyTree, TreeNode
 │   └── ui/                     # NavButton, PageColorPicker, LocaleSwitcher
 ├── data/
-│   └── data.json               # Единый файл: persons, pages, photos, history
+│   └── data.json               # Single data file: persons, photos, history, rootPersonId
 ├── lib/
-│   ├── constants/              # chapters, routes, owner, storage
-│   ├── i18n/                   # локали, сообщения, useLocaleRoutes
-│   ├── data/                   # persons, pages, spreads
+│   ├── constants/              # chapters, routes, sections, storage
+│   ├── data/                   # persons, photos, history, root, spreads, owner
+│   ├── i18n/                   # locales, messages, useLocaleRoutes
 │   ├── types/
 │   └── utils/
 ├── hooks/
@@ -76,44 +77,36 @@ src/
 └── middleware.ts               # Redirect / and /chapter/* to /{locale}/...
 ```
 
-## Данные
+## Data
 
-Все данные приложения лежат в **одном** файле **`src/data/data.json`** (секции: `persons`, `pages`, `photos`, `history`). В админке можно скопировать или скачать один JSON — у него та же структура. Чтобы обновить данные в проекте, сохраните скачанный файл как `src/data/data.json` (заменить один файл).
+All application data lives in **one** file: **`src/data/data.json`** (sections: `persons`, `photos`, `history`, `rootPersonId`). In the admin panel you can copy or download a single JSON — it uses the same structure. To update data in the project, save the downloaded file as `src/data/data.json` (replace the existing file). Read data only via `@/lib/data/*` modules; see `src/data/README.md`.
 
-### Персоны (`data.json` → `persons`)
+### Persons (`data.json` → `persons`)
 
-Ваши персоны: id, имя, годы, место рождения, род занятий, `parentIds` для построения древа. Фамилия в заголовке книги берётся из конфига, а не из этих записей.
+Your persons: id, firstName, patronymic, lastName, birthDate, deathDate, birthPlace, residenceCity, occupation, comment, avatarPhotoSrc, fatherId, motherId, gender. The surname in the book title comes from the data/owner layer, not from a single constant.
 
-```json
-{
-  "id": "person-1",
-  "name": "Иван Петрович Никонец",
-  "birthYears": "1925–1998",
-  "birthPlace": "д. Заозерье",
-  "occupation": "учитель",
-  "parentIds": ["person-2", "person-3"],
-  "gender": "m"
-}
-```
+### Spreads
 
-### Развороты (`data.json` → `pages`)
+History section uses one spread with entries; Persons section builds one spread per person. Tree and Photos are single-section views.
 
-Левая и правая страница разворота с блоками контента (paragraph, heading, list), изображениями и hotspots. Глава «Персоны» собирается из списка персон: один разворот = одна персона.
+### Photos (`public/photos/` and `data.json` → `photos`)
 
-### Фото (`public/photos/` и `data.json` → `photos`)
+Create the `public/photos/` folder and any subfolder structure (e.g. by category). Add photos there (jpg, png, gif, webp). In the admin panel (Photos tab) they can be scanned and managed. Captions and people on photos are stored in the `photos` section in `data.json`.
 
-Создайте папку `public/photos/` и любую структуру подпапок (например `2020/`, `family/`). Заливайте туда фото (jpg, png, gif, webp). В админке (вкладка Photos) они появятся автоматически после сканирования. Подписи и люди на фото сохраняются в секции `photos` в `data.json`.
-
-## Деплой
+## Deploy
 
 ### Vercel
 
-Подключите репозиторий к [vercel.com](https://vercel.com). Деплой выполняется автоматически при push.
+Connect the repository to [vercel.com](https://vercel.com). Deploy runs automatically on push.
 
 ### Standalone / Docker
 
-См. [DEPLOY.md](DEPLOY.md) (если есть в репозитории).
+See [DEPLOY.md](DEPLOY.md) (if present in the repository).
 
-## Спецификация
+## Specification
 
-Подробное описание: [SPEC.md](SPEC.md) (если есть в репозитории).
+Detailed description: [SPEC.md](SPEC.md) (if present in the repository).
+
+---
+
+**Russian:** [README.ru.md](README.ru.md)
