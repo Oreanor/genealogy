@@ -26,6 +26,8 @@ function getScaleForLevel(level: number, isMobile: boolean): number {
 }
 
 const OFFSET_PX_BY_LEVEL: number[] = [-10, 30, 20, -10, 0];
+/** On mobile: shift root (0) up so it doesn't get cut when viewport height shrinks */
+const MOBILE_ROOT_UP_PX = 28;
 /** On mobile: shift parents (1) and grandparents (2) up by 40px */
 const MOBILE_LEVEL_UP_PX = 40;
 /** On mobile: shift grandparents (2) and all levels below up by extra 20px */
@@ -34,6 +36,7 @@ const MOBILE_DEDY_UP_PX = 20;
 function getLevelOffsetPx(level: number, isMobile: boolean): number {
   const base = OFFSET_PX_BY_LEVEL[level] ?? level * 10;
   if (!isMobile) return base;
+  if (level === 0) return base - MOBILE_ROOT_UP_PX;
   if (level === 1) return base - MOBILE_LEVEL_UP_PX;
   if (level >= 2) return (level === 2 ? base - MOBILE_LEVEL_UP_PX : base) - MOBILE_DEDY_UP_PX;
   return base;
