@@ -110,6 +110,7 @@ export function PersonsSection() {
                   setSelectedHistoryIndex(null);
                   if (toggleBack) {
                     setShowPhotoBack((v) => !v);
+                    if (isMobile) setLightboxOpen(true);
                   } else {
                     setSelectedPhoto(photo);
                     setShowPhotoBack(false);

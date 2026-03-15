@@ -63,6 +63,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               setSelectedHistoryIndex(null);
               if (toggleBack) {
                 setShowPhotoBack((v) => !v);
+                if (isMobile) setLightboxOpen(true);
               } else {
                 setSelectedPhoto(photo);
                 setShowPhotoBack(false);

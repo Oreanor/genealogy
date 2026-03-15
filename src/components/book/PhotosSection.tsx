@@ -90,6 +90,7 @@ export function PhotosSection() {
     (photo: PhotoEntry, toggleBack?: boolean) => {
       if (toggleBack) {
         setShowPhotoBack((v) => !v);
+        if (isMobile) setLightboxOpen(true);
       } else {
         setSelectedPhoto(photo);
         setShowPhotoBack(false);
