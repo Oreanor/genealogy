@@ -32,7 +32,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
         className={
           isAdmin
             ? 'ml-12 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 md:ml-16 max-w-none'
-            : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0'
+            : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0 pl-12 md:pl-0'
         }
       >
         <div

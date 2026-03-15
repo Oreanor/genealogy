@@ -56,7 +56,7 @@ export function FamilyTree({ onPersonClick }: FamilyTreeProps) {
   const totalLevels = matrix.length;
 
   return (
-    <div className="flex min-h-0 flex-1 justify-center overflow-x-hidden overflow-y-auto md:overflow-visible">
+    <div className="tree-scroll-hide-scrollbar flex min-h-0 flex-1 justify-center overflow-x-hidden overflow-y-auto md:overflow-visible">
       <div
         className="relative w-full min-h-full max-w-full origin-top md:min-h-0"
         style={{ aspectRatio: `${VIEW_WIDTH} / ${VIEW_HEIGHT}` }}

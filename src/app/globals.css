@@ -105,3 +105,14 @@ body {
 *::-webkit-scrollbar-corner {
   background: var(--scrollbar-track);
 }
+
+/* Дерево на мобиле: скролл по жесту без видимого скроллбара */
+@media (max-width: 767px) {
+  .tree-scroll-hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tree-scroll-hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
