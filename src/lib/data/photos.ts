@@ -1,12 +1,15 @@
 import type { PhotoEntry, PhotoCategory } from '@/lib/types/photo';
 import type { Person } from '@/lib/types/person';
-import { getFullName } from '@/lib/utils/person';
 import appData from '@/data/data.json';
 
-/** Face rect + display name for lightbox overlay. */
+/** Face rect + name parts for overlay (Ф, И, О from admin). */
 export type LightboxFace = {
   coords: [number, number, number, number];
-  displayName: string;
+  /** Fallback when no person (custom label). */
+  displayName?: string;
+  lastName?: string;
+  firstName?: string;
+  patronymic?: string;
 };
 
 /** Build lightbox faces from photo.people (only entries with valid coords). */
@@ -16,12 +19,21 @@ export function getLightboxFacesFromPhoto(photo: PhotoEntry | null, persons: Per
     .filter((p): p is typeof p & { coords: [number, number, number, number] } =>
       Array.isArray(p.coords) && p.coords.length >= 4
     )
-    .map((p) => ({
-      coords: p.coords,
-      displayName: p.personId
-        ? (getFullName(persons.find((x) => x.id === p.personId) ?? null) || p.personId)
-        : (p.label ?? '—'),
-    }));
+    .map((p) => {
+      if (p.personId) {
+        const person = persons.find((x) => x.id === p.personId) ?? null;
+        return {
+          coords: p.coords,
+          lastName: person?.lastName?.trim() || undefined,
+          firstName: person?.firstName?.trim() || undefined,
+          patronymic: person?.patronymic?.trim() || undefined,
+        };
+      }
+      return {
+        coords: p.coords,
+        displayName: p.label?.trim() || '—',
+      };
+    });
 }
 
 const raw = (appData as { photos: PhotoEntry[] }).photos;
@@ -113,6 +125,53 @@ export function getPhotosByPerson(personId: string): PhotoEntry[] {
   return sortPhotosForDisplay(
     visible.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId))
   );
+}
+
+/** Split person photos for panel carousels: no-series (personal → group → related) and by series. */
+export function splitPersonPhotosForCarousels(photos: PhotoEntry[]): {
+  noSeries: PhotoEntry[];
+  bySeries: { seriesName: string; photos: PhotoEntry[] }[];
+} {
+  const noSeries = sortPhotosForDisplay(
+    photos.filter((p) => !(p.series ?? '').trim())
+  );
+  const withSeries = photos.filter((p) => (p.series ?? '').trim());
+  const seriesMap = new Map<string, PhotoEntry[]>();
+  for (const p of withSeries) {
+    const name = (p.series ?? '').trim();
+    if (!seriesMap.has(name)) seriesMap.set(name, []);
+    seriesMap.get(name)!.push(p);
+  }
+  const bySeries = [...seriesMap.entries()].map(([seriesName, list]) => ({
+    seriesName,
+    photos: sortPhotosForDisplay(list),
+  }));
+  return { noSeries, bySeries };
+}
+
+/** Split all photos for section carousels: personal, group, related (each no-series), then by series. */
+export function splitAllPhotosForCarousels(photos: PhotoEntry[]): {
+  personal: PhotoEntry[];
+  group: PhotoEntry[];
+  related: PhotoEntry[];
+  bySeries: { seriesName: string; photos: PhotoEntry[] }[];
+} {
+  const hasNoSeries = (p: PhotoEntry) => !(p.series ?? '').trim();
+  const personal = sortPhotosForDisplay(photos.filter((p) => p.category === 'personal' && hasNoSeries(p)));
+  const group = sortPhotosForDisplay(photos.filter((p) => p.category === 'group' && hasNoSeries(p)));
+  const related = sortPhotosForDisplay(photos.filter((p) => (p.category === 'related' || !p.category) && hasNoSeries(p)));
+  const withSeries = photos.filter((p) => (p.series ?? '').trim());
+  const seriesMap = new Map<string, PhotoEntry[]>();
+  for (const p of withSeries) {
+    const name = (p.series ?? '').trim();
+    if (!seriesMap.has(name)) seriesMap.set(name, []);
+    seriesMap.get(name)!.push(p);
+  }
+  const bySeries = [...seriesMap.entries()].map(([seriesName, list]) => ({
+    seriesName,
+    photos: sortPhotosForDisplay(list),
+  }));
+  return { personal, group, related, bySeries };
 }
 
 /** Image URLs by category: front (src) and back (backSrc) if present. */

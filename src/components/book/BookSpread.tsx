@@ -1,3 +1,5 @@
+import { BOOK_SPREAD_SHADOW } from '@/lib/constants/theme';
+
 interface BookSpreadProps {
   /** Left and right pages. Omit if fullWidth is set. */
   left?: React.ReactNode;
@@ -8,12 +10,12 @@ interface BookSpreadProps {
   wide?: boolean;
 }
 
-/** 2×A5: 296×210 mm. */
+/** 2×A5: 296×210 mm. Mobile: single column, right half hidden, no bottom rounding so scroll is visible. */
 const spreadClass2 =
-  'flex w-full min-w-0 max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*296/210)] aspect-[296/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
+  `flex w-full min-w-0 flex-col md:flex-row max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*296/210)] md:aspect-[296/210] min-h-[320px] overflow-hidden rounded-t-lg ${BOOK_SPREAD_SHADOW} md:rounded-lg`;
 /** 3×A5: 444×210 mm. */
 const spreadClassWide =
-  'flex w-full min-w-0 max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*444/210)] aspect-[444/210] min-h-[320px] overflow-hidden rounded-lg shadow-xl';
+  `flex w-full min-w-0 max-h-[calc(100vh-4rem)] max-w-[calc((100vh-6rem)*444/210)] aspect-[444/210] min-h-[320px] overflow-hidden rounded-lg ${BOOK_SPREAD_SHADOW}`;
 
 export function BookSpread({ left, right, fullWidth, wide }: BookSpreadProps) {
   const spreadClass = wide ? spreadClassWide : spreadClass2;
@@ -26,8 +28,8 @@ export function BookSpread({ left, right, fullWidth, wide }: BookSpreadProps) {
   }
   return (
     <div className={spreadClass}>
-      <div className="min-w-0 flex-1 border-r border-(--border-subtle)">{left}</div>
-      <div className="min-w-0 flex-1">{right}</div>
+      <div className="min-h-0 min-w-0 flex-1 overflow-hidden border-r border-(--border-subtle) md:border-r">{left}</div>
+      <div className="hidden min-w-0 flex-1 md:block">{right}</div>
     </div>
   );
 }

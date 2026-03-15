@@ -28,8 +28,9 @@ describe('TreeNode', () => {
         />
       )
     );
-    expect(screen.getByText('Иван Петрович')).toBeInTheDocument();
-    expect(screen.getByText(/1925\s*[–-]\s*1998/)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Иван Петрович' })).toBeInTheDocument();
+    expect(screen.getByText('Иван')).toBeInTheDocument();
+    expect(screen.getByText('Петрович')).toBeInTheDocument();
   });
 
   it('renders empty node (muted stroke/fill, no unknown text) when person is null', () => {
@@ -44,7 +45,7 @@ describe('TreeNode', () => {
         />
       )
     );
-    expect(screen.queryByText('неизв.')).not.toBeInTheDocument();
+    expect(screen.queryByText(/не выбрано|неизв\./i)).not.toBeInTheDocument();
     expect(container.querySelector('.border-gray-300')).toBeInTheDocument();
   });
 

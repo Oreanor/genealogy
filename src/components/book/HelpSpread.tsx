@@ -22,7 +22,7 @@ export function HelpSpread() {
           className="h-full w-full overflow-y-auto bg-(--paper) p-6 sm:p-8 md:p-9 shadow-inner"
           style={{ columns: 2, columnGap: '2.5rem', columnRule: '1px solid var(--border-subtle)' }}
         >
-          <h2 className="book-serif mb-5 text-xl font-semibold text-(--ink) md:text-2xl">
+          <h2 className="book-serif mb-5 hidden text-xl font-semibold text-(--ink) md:mb-5 md:block md:text-2xl">
             {t('adminHelp')}
           </h2>
           <p className="mb-6 text-base leading-relaxed text-(--ink)">

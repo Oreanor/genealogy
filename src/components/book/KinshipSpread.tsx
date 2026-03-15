@@ -77,25 +77,6 @@ function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: s
   );
 }
 
-function PersonAvatar({ person, pathname }: Readonly<{ person: Person; pathname: string }>) {
-  const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
-  if (!avatar) return null;
-  return (
-    <Link href={`${pathname}?section=persons&id=${person.id}`} className="flex flex-col items-center gap-2 transition-opacity hover:opacity-80">
-      <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-full border-2 border-(--border-subtle) bg-(--paper-light) shadow-md">
-        <Image
-          src={avatar.src}
-          alt={getFullName(person)}
-          fill
-          className="object-cover"
-          sizes="112px"
-        />
-      </div>
-      <p className="text-center text-xs text-(--ink-muted)">{getFullName(person)}</p>
-    </Link>
-  );
-}
-
 function edgeLabel(kind: EdgeKind, targetPerson: Person | null, t: (k: string) => string): string {
   if (kind === 'spouse') return targetPerson?.gender === 'f' ? t('kinWife') : t('kinHusband');
   if (kind === 'parent') return targetPerson?.gender === 'f' ? t('kinMother') : t('kinFather');
@@ -251,7 +232,7 @@ export function KinshipSpread() {
     <BookSpread
       fullWidth={
         <div className="flex h-full w-full flex-col bg-(--paper) p-6 sm:p-8 md:p-9 shadow-inner">
-          <h2 className="book-serif mb-6 text-center text-xl font-semibold text-(--ink) md:text-2xl">
+          <h2 className="book-serif mb-6 hidden text-center text-xl font-semibold text-(--ink) md:mb-6 md:block md:text-2xl">
             {t('chapters_kinship')}
           </h2>
 
@@ -336,14 +317,6 @@ export function KinshipSpread() {
               {personB && <PersonInfo person={personB} pathname={pathname} />}
             </div>
           </div>
-
-          {/* Avatars row */}
-          {personA && personB && (
-            <div className="mt-6 flex items-start justify-center gap-12 sm:gap-20 md:gap-28">
-              <PersonAvatar person={personA} pathname={pathname} />
-              <PersonAvatar person={personB} pathname={pathname} />
-            </div>
-          )}
 
           {/* Chain: path through common ancestor */}
           {resultAtoB && resultAtoB.path.length > 2 && (

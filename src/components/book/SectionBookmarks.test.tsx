@@ -6,6 +6,7 @@ import { withI18n } from '@/lib/i18n/test-utils';
 vi.mock('next/navigation', () => ({
   usePathname: () => '/ru',
   useSearchParams: () => new URLSearchParams('section=persons'),
+  useRouter: () => ({ push: vi.fn() }),
 }));
 
 vi.mock('next/link', () => ({

@@ -17,9 +17,13 @@ import { ImageLightbox } from '@/components/ui/ImageLightbox';
 interface PersonCardProps {
   person: Person;
   showPhotos?: boolean;
+  /** Rendered after main content, before mentions (e.g. custom photos block in section). */
+  renderAfterContent?: React.ReactNode;
+  /** When set, mention links open in-place (e.g. right page) instead of navigating to history section. */
+  onHistoryClick?: (index: number) => void;
 }
 
-export function PersonCard({ person, showPhotos = true }: PersonCardProps) {
+export function PersonCard({ person, showPhotos = true, renderAfterContent, onHistoryClick }: PersonCardProps) {
   const { t, routes } = useLocaleRoutes();
   const pathname = usePathname() ?? '';
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -129,23 +133,7 @@ export function PersonCard({ person, showPhotos = true }: PersonCardProps) {
           <span className="font-medium">{t('comment')}</span> {person.comment}
         </p>
       )}
-      {historyMentions.length > 0 && (
-        <div className="space-y-2">
-          <h3 className="text-base font-medium text-(--ink)">{t('personMentionedInStories')}</h3>
-          <ul className="flex flex-wrap gap-3">
-            {historyMentions.map(({ entry, index }) => (
-              <li key={index}>
-                <Link
-                  href={`${pathname}?section=history&entry=${index}`}
-                  className={`rounded px-3 py-2 text-base ${CONTENT_LINK_CLASS}`}
-                >
-                  {entry.title || `${t('chapters_history')} ${index + 1}`}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {renderAfterContent}
       {showPhotos && personPhotos.length > 0 && (
         <div className="space-y-3">
           <h3 className="text-base font-medium text-(--ink)">{t('personPhotos')}</h3>
@@ -176,12 +164,41 @@ export function PersonCard({ person, showPhotos = true }: PersonCardProps) {
                 src={photo.src}
                 alt={photo.caption || ''}
                 caption={photo.caption}
+                backSrc={photo.backSrc}
+                backCaption={photo.backCaption}
                 faces={getLightboxFacesFromPhoto(photo, getPersons())}
                 open
                 onClose={() => setLightboxIndex(null)}
               />
             ) : null;
           })()}
+        </div>
+      )}
+      {historyMentions.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="text-base font-medium text-(--ink)">{t('personMentionedInStories')}</h3>
+          <ul className="flex flex-wrap gap-3">
+            {historyMentions.map(({ entry, index }) => (
+              <li key={index}>
+                {onHistoryClick ? (
+                  <button
+                    type="button"
+                    onClick={() => onHistoryClick(index)}
+                    className={`rounded px-3 py-2 text-base ${CONTENT_LINK_CLASS}`}
+                  >
+                    {entry.title || `${t('chapters_history')} ${index + 1}`}
+                  </button>
+                ) : (
+                  <Link
+                    href={`${pathname}?section=history&entry=${index}`}
+                    className={`rounded px-3 py-2 text-base ${CONTENT_LINK_CLASS}`}
+                  >
+                    {entry.title || `${t('chapters_history')} ${index + 1}`}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

@@ -350,8 +350,20 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Александро-Михайловская церковь",
-      "src": "/photos/others/photo_elets/Александро-Михайловская церковь.jpg",
+      "id": "others-photo_elets-aleksandro-mikhaylovskaya_cerkov",
+      "src": "/photos/others/photo_elets/aleksandro-mikhaylovskaya_cerkov.jpg",
+      "caption": "Александро-Михайловская церковь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-bez_podpisi_1",
+      "src": "/photos/others/photo_elets/bez_podpisi_1.jpg",
       "caption": "",
       "category": "related",
       "people": [
@@ -362,8 +374,8 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Без подписи 1",
-      "src": "/photos/others/photo_elets/Без подписи 1.jpg",
+      "id": "others-photo_elets-bez_podpisi",
+      "src": "/photos/others/photo_elets/bez_podpisi.jpg",
       "caption": "",
       "category": "related",
       "people": [
@@ -374,9 +386,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Без подписи",
-      "src": "/photos/others/photo_elets/Без подписи.jpg",
-      "caption": "",
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa_1.jpg",
+      "caption": "Великокняжеская улица 1",
       "category": "related",
       "people": [
         {
@@ -386,9 +398,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Великокняжеская улица 1",
-      "src": "/photos/others/photo_elets/Великокняжеская улица 1.jpg",
-      "caption": "",
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa.jpg",
+      "caption": "Великокняжеская улица",
       "category": "related",
       "people": [
         {
@@ -398,9 +410,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Великокняжеская улица",
-      "src": "/photos/others/photo_elets/Великокняжеская улица.jpg",
-      "caption": "",
+      "id": "others-photo_elets-gorodskoy_sad",
+      "src": "/photos/others/photo_elets/gorodskoy_sad.jpg",
+      "caption": "Городской сад",
       "category": "related",
       "people": [
         {
@@ -410,9 +422,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Городской сад",
-      "src": "/photos/others/photo_elets/Городской сад.jpg",
-      "caption": "",
+      "id": "others-photo_elets-gosudarstvennyy_bank",
+      "src": "/photos/others/photo_elets/gosudarstvennyy_bank.jpg",
+      "caption": "Государственный банк",
       "category": "related",
       "people": [
         {
@@ -422,9 +434,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Государственный банк",
-      "src": "/photos/others/photo_elets/Государственный банк.jpg",
-      "caption": "",
+      "id": "others-photo_elets-dom_trudolyubiya",
+      "src": "/photos/others/photo_elets/dom_trudolyubiya.jpg",
+      "caption": "Дом Трудолюбия",
       "category": "related",
       "people": [
         {
@@ -434,9 +446,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Дом Трудолюбия",
-      "src": "/photos/others/photo_elets/Дом Трудолюбия.jpg",
-      "caption": "",
+      "id": "others-photo_elets-dom_prizreniya",
+      "src": "/photos/others/photo_elets/dom_prizreniya.jpg",
+      "caption": "Дом призрения",
       "category": "related",
       "people": [
         {
@@ -446,9 +458,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Дом призрения",
-      "src": "/photos/others/photo_elets/Дом призрения.jpg",
-      "caption": "",
+      "id": "others-photo_elets-zheleznodorozhnyy_most",
+      "src": "/photos/others/photo_elets/zheleznodorozhnyy_most.jpg",
+      "caption": "Железнодорожный мост",
       "category": "related",
       "people": [
         {
@@ -458,9 +470,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Железнодорожный мост",
-      "src": "/photos/others/photo_elets/Железнодорожный мост.jpg",
-      "caption": "",
+      "id": "others-photo_elets-zhenskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/zhenskaya_gimnaziya.jpg",
+      "caption": "Женская гимназия",
       "category": "related",
       "people": [
         {
@@ -470,9 +482,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Женская гимназия",
-      "src": "/photos/others/photo_elets/Женская гимназия.jpg",
-      "caption": "",
+      "id": "others-photo_elets-zhenskiy_monastyr",
+      "src": "/photos/others/photo_elets/zhenskiy_monastyr.jpg",
+      "caption": "Женский монастырь",
       "category": "related",
       "people": [
         {
@@ -482,9 +494,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Женский монастырь",
-      "src": "/photos/others/photo_elets/Женский монастырь.jpg",
-      "caption": "",
+      "id": "others-photo_elets-i_f_yakhontov_s_gimnazistkami_3_iyunya_1913",
+      "src": "/photos/others/photo_elets/i_f_yakhontov_s_gimnazistkami_3_iyunya_1913.jpg",
+      "caption": "И. Ф. Яхонтов с гимназистками. 3 июня 1913 года",
       "category": "related",
       "people": [
         {
@@ -494,9 +506,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-И. Ф. Яхонтов с гимназистками. 3 июня 1913 года.",
-      "src": "/photos/others/photo_elets/И. Ф. Яхонтов с гимназистками. 3 июня 1913 года..jpg",
-      "caption": "",
+      "id": "others-photo_elets-kazennaya_muzhskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/kazennaya_muzhskaya_gimnaziya.jpg",
+      "caption": "Казенная мужская гимназия",
       "category": "related",
       "people": [
         {
@@ -506,9 +518,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Казенная мужская гимназия",
-      "src": "/photos/others/photo_elets/Казенная мужская гимназия.jpg",
-      "caption": "",
+      "id": "others-photo_elets-kolokolnya_i_stena_zhenskogo_monastyrya",
+      "src": "/photos/others/photo_elets/kolokolnya_i_stena_zhenskogo_monastyrya.jpg",
+      "caption": "Колокольня и стена Женского монастыря",
       "category": "related",
       "people": [
         {
@@ -518,9 +530,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Колокольня и стена Женского монастыря",
-      "src": "/photos/others/photo_elets/Колокольня и стена Женского монастыря.jpg",
-      "caption": "",
+      "id": "others-photo_elets-monastyr",
+      "src": "/photos/others/photo_elets/monastyr.jpg",
+      "caption": "Монастырь",
       "category": "related",
       "people": [
         {
@@ -530,9 +542,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Монастырь",
-      "src": "/photos/others/photo_elets/Монастырь.jpg",
-      "caption": "",
+      "id": "others-photo_elets-muzhskaya_gimnaziya_2",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya_2.jpg",
+      "caption": "Мужская гимназия",
       "category": "related",
       "people": [
         {
@@ -542,9 +554,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Мужская гимназия.",
-      "src": "/photos/others/photo_elets/Мужская гимназия..jpg",
-      "caption": "",
+      "id": "others-photo_elets-muzhskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya.jpg",
+      "caption": "Мужская гимназия",
       "category": "related",
       "people": [
         {
@@ -554,9 +566,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Мужская гимназия",
-      "src": "/photos/others/photo_elets/Мужская гимназия.jpg",
-      "caption": "",
+      "id": "others-photo_elets-novyy_i_staryy_sobery",
+      "src": "/photos/others/photo_elets/novyy_i_staryy_sobery.jpg",
+      "caption": "Новый и Старый соборы",
       "category": "related",
       "people": [
         {
@@ -566,9 +578,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Новый и Старый соборы",
-      "src": "/photos/others/photo_elets/Новый и Старый соборы.jpg",
-      "caption": "",
+      "id": "others-photo_elets-obshchiy_vid_goroda_2",
+      "src": "/photos/others/photo_elets/obshchiy_vid_goroda_2.jpg",
+      "caption": "Общий вид города",
       "category": "related",
       "people": [
         {
@@ -578,9 +590,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Общий вид города.",
-      "src": "/photos/others/photo_elets/Общий вид города..jpg",
-      "caption": "",
+      "id": "others-photo_elets-obshchiy_vid_s_zapadnoy_storony",
+      "src": "/photos/others/photo_elets/obshchiy_vid_s_zapadnoy_storony.jpg",
+      "caption": "Общий вид с западной стороны",
       "category": "related",
       "people": [
         {
@@ -590,9 +602,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Общий вид с западной стороны",
-      "src": "/photos/others/photo_elets/Общий вид с западной стороны.jpg",
-      "caption": "",
+      "id": "others-photo_elets-okruzhnoy_sud",
+      "src": "/photos/others/photo_elets/okruzhnoy_sud.jpg",
+      "caption": "Окружной суд",
       "category": "related",
       "people": [
         {
@@ -602,9 +614,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Окружной суд",
-      "src": "/photos/others/photo_elets/Окружной суд.jpg",
-      "caption": "",
+      "id": "others-photo_elets-orlovskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa_1.jpg",
+      "caption": "Орловская улица 1",
       "category": "related",
       "people": [
         {
@@ -614,9 +626,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Орловская улица 1",
-      "src": "/photos/others/photo_elets/Орловская улица 1.jpg",
-      "caption": "",
+      "id": "others-photo_elets-orlovskaya_ulitsa",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa.jpg",
+      "caption": "Орловская улица",
       "category": "related",
       "people": [
         {
@@ -626,9 +638,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Орловская улица",
-      "src": "/photos/others/photo_elets/Орловская улица.jpg",
-      "caption": "",
+      "id": "others-photo_elets-otdelenie_gosudarstvennogo_banka",
+      "src": "/photos/others/photo_elets/otdelenie_gosudarstvennogo_banka.jpg",
+      "caption": "Отделение Государственного банка",
       "category": "related",
       "people": [
         {
@@ -638,9 +650,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Отделение Государственного банка",
-      "src": "/photos/others/photo_elets/Отделение Государственного банка.jpg",
-      "caption": "",
+      "id": "others-photo_elets-panorama_goroda",
+      "src": "/photos/others/photo_elets/panorama_goroda.jpg",
+      "caption": "Панорама города",
       "category": "related",
       "people": [
         {
@@ -650,9 +662,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Панорама города",
-      "src": "/photos/others/photo_elets/Панорама города.jpg",
-      "caption": "",
+      "id": "others-photo_elets-sad_obshchestvennogo_sobraniya",
+      "src": "/photos/others/photo_elets/sad_obshchestvennogo_sobraniya.jpg",
+      "caption": "Сад Общественного Собрания",
       "category": "related",
       "people": [
         {
@@ -662,9 +674,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Сад Общественного Собрания.",
-      "src": "/photos/others/photo_elets/Сад Общественного Собрания..jpg",
-      "caption": "",
+      "id": "others-photo_elets-sobor_i_vvedenskaya_gora",
+      "src": "/photos/others/photo_elets/sobor_i_vvedenskaya_gora.jpg",
+      "caption": "Собор и Введенская гора",
       "category": "related",
       "people": [
         {
@@ -674,9 +686,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Собор и Введенская гора",
-      "src": "/photos/others/photo_elets/Собор и Введенская гора.jpg",
-      "caption": "",
+      "id": "others-photo_elets-sobornaya_ploshchad",
+      "src": "/photos/others/photo_elets/sobornaya_ploshchad.jpg",
+      "caption": "Соборная площадь",
       "category": "related",
       "people": [
         {
@@ -686,9 +698,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Соборная площадь",
-      "src": "/photos/others/photo_elets/Соборная площадь.jpg",
-      "caption": "",
+      "id": "others-photo_elets-torgovaya_ulitsa",
+      "src": "/photos/others/photo_elets/torgovaya_ulitsa.jpg",
+      "caption": "Торговая улица",
       "category": "related",
       "people": [
         {
@@ -698,9 +710,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Торговая улица",
-      "src": "/photos/others/photo_elets/Торговая улица.jpg",
-      "caption": "",
+      "id": "others-photo_elets-ugol_ulits_torgovaya_i_orlovskaya",
+      "src": "/photos/others/photo_elets/ugol_ulits_torgovaya_i_orlovskaya.jpg",
+      "caption": "Угол улиц Торговая и Орловская",
       "category": "related",
       "people": [
         {
@@ -710,9 +722,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Угол улиц Торговая и Орловская",
-      "src": "/photos/others/photo_elets/Угол улиц Торговая и Орловская.jpg",
-      "caption": "",
+      "id": "others-photo_elets-ul_torgovaya_1",
+      "src": "/photos/others/photo_elets/ul_torgovaya_1.jpg",
+      "caption": "Ул. Торговая 1",
       "category": "related",
       "people": [
         {
@@ -722,9 +734,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Ул. Торговая 1",
-      "src": "/photos/others/photo_elets/Ул. Торговая 1.jpg",
-      "caption": "",
+      "id": "others-photo_elets-ul_torgovaya",
+      "src": "/photos/others/photo_elets/ul_torgovaya.jpg",
+      "caption": "Ул. Торговая",
       "category": "related",
       "people": [
         {
@@ -734,21 +746,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-Ул. Торговая",
-      "src": "/photos/others/photo_elets/Ул. Торговая.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-Церковь Святого Владимира",
-      "src": "/photos/others/photo_elets/Церковь Святого Владимира.jpg",
-      "caption": "",
+      "id": "others-photo_elets-tserkov_svyatogo_vladimira",
+      "src": "/photos/others/photo_elets/tserkov_svyatogo_vladimira.jpg",
+      "caption": "Церковь Святого Владимира",
       "category": "related",
       "people": [
         {

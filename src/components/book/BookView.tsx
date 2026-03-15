@@ -15,6 +15,7 @@ import { PersonsSection } from './PersonsSection';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
 import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
+import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 
 export function BookView() {
   const searchParams = useSearchParams();
@@ -37,22 +38,30 @@ export function BookView() {
       selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
     return (
       <>
-        <BookSpread
-          fullWidth={
-            <BookPage className="p-3 sm:p-5 md:p-6">
-              <h1 className="book-serif mb-2 text-center text-xl font-semibold text-(--ink) md:text-2xl lg:text-3xl">
-                {t('treeTitle')}
-              </h1>
-              <FamilyTree onPersonClick={setSelectedTreePersonId} />
-            </BookPage>
-          }
-        />
+        <div className={selectedTreePerson ? 'hidden' : 'flex min-w-0 flex-1 flex-col overflow-hidden min-h-[calc(100vh-10rem)] md:min-h-0 md:flex-none'}>
+          {/* Mobile: full height vertical block, no book aspect. Desktop: book spread proportions (sized by aspect + max-h) */}
+          <div
+            className={
+              `flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:max-h-[calc(100vh-4rem)] md:max-w-[calc((100vh-6rem)*296/210)] md:aspect-[296/210] md:min-h-[320px] md:flex-initial md:rounded-lg ${BOOK_SPREAD_SHADOW_MD}`
+            }
+          >
+            <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
+              <BookPage className="flex h-full min-h-0 min-w-0 flex-col p-2 sm:p-5 md:p-6">
+                <h1 className="book-serif mb-1 hidden text-center text-lg font-semibold text-(--ink) md:mb-2 md:block md:text-2xl lg:text-3xl">
+                  {t('treeTitle')}
+                </h1>
+                <FamilyTree onPersonClick={setSelectedTreePersonId} />
+              </BookPage>
+            </div>
+          </div>
+        </div>
         {selectedTreePerson && (
           <PersonDetailPanel
             key={selectedTreePerson.id}
             person={selectedTreePerson}
             onClose={closePersonPanel}
             onSelectPerson={setSelectedTreePersonId}
+            inline
           />
         )}
       </>

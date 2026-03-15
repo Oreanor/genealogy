@@ -1,15 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { getKinship } from './kinship';
+import { PERSONS_FIXTURE } from '@/lib/data/__fixtures__/persons';
 
-// From data.json:
-// p001 Сергей (m), father=p002, mother=p003
-// p002 Владимир (m), father=p004, mother=p005
-// p003 Вера Андреева (f), father=p006, mother=p007
-// p016 Олег (m), father=p002, mother=p003
-// p004 Павел (m), father=p008, mother=p009
-// p005 Вера Дудник (f), father=p010, mother=p011
-// p007 Елена Беляева (f), father=p014, mother=p015
-// p015 Татьяна Беляева (f)
+vi.mock('@/lib/data/persons', () => ({
+  getPersons: () => PERSONS_FIXTURE,
+  getPersonById: (id: string) => PERSONS_FIXTURE.find((p) => p.id === id) ?? null,
+}));
+
+// Fixture: p001 Иван (father p002, mother p003), p002 Пётр, p003 Мария, p016 Олег (father p002, mother p003), etc.
 
 describe('getKinship', () => {
   it.each([
@@ -26,8 +24,8 @@ describe('getKinship', () => {
     ['p002', 'p016', 'kinSon', 'Владимир→Олег = сын'],
     ['p002', 'p003', 'kinWife', 'Владимир→Вера = жена'],
     ['p003', 'p002', 'kinHusband', 'Вера→Владимир = муж'],
-    ['p007', 'p015', 'kinMother', 'Елена→Татьяна = мать'],
-    ['p015', 'p007', 'kinDaughter', 'Татьяна→Елена = дочь'],
+    ['p007', 'p015', 'kinDaughter', 'Елена→Ольга = дочь'],
+    ['p015', 'p007', 'kinMother', 'Ольга→Елена = мать'],
   ])('%s → %s = %s (%s)', (a, b, expected) => {
     const r = getKinship(a, b);
     expect(r).not.toBeNull();

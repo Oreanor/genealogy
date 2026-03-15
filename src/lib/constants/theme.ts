@@ -9,3 +9,7 @@ export const CONTENT_LINK_CLASS =
 /** Shared class for section headings inside the book (serif, responsive size) */
 export const SECTION_HEADING_CLASS =
   'book-serif mb-5 text-xl font-semibold text-(--ink) md:text-2xl lg:text-3xl';
+
+/** Drop shadow under the book container (spread / tree block) — same everywhere. Use BOOK_SPREAD_SHADOW_MD where shadow only on desktop. */
+export const BOOK_SPREAD_SHADOW = 'shadow-xl';
+export const BOOK_SPREAD_SHADOW_MD = 'md:shadow-xl';

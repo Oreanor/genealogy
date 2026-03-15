@@ -14,7 +14,7 @@ interface BookLayoutProps {
 export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
   const pathname = usePathname() ?? '';
   const isAdmin = pathname.includes('/admin');
-  const bookMaxW = isAdmin ? '' : 'max-w-[calc((100vh-6rem)*296/210)]';
+  const bookMaxW = isAdmin ? '' : 'max-w-full md:max-w-[calc((100vh-6rem)*296/210)]';
 
   return (
     <AdminToolbarProvider>
@@ -24,7 +24,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
             ? 'h-screen flex-col overflow-hidden'
             : alignTop
               ? 'min-h-screen flex-col items-center justify-start pt-16'
-              : 'min-h-screen flex-col items-center justify-start pt-2 pb-2 sm:pt-3 sm:pb-3 md:pt-4 md:pb-4'
+              : 'h-screen min-h-screen flex-col items-center justify-start pt-2 pb-2 sm:pt-3 sm:pb-3 md:pt-4 md:pb-4'
         }`}
       >
         <BookToolbar />
@@ -32,14 +32,14 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
         className={
           isAdmin
             ? 'ml-12 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 md:ml-16 max-w-none'
-            : 'mx-auto flex w-full max-w-[100%] flex-col items-center gap-0'
+            : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0'
         }
       >
         <div
-          className={`flex w-full min-w-0 flex-col ${isAdmin ? 'max-w-full' : bookMaxW}`}
+          className={`flex w-full min-w-0 flex-1 flex-col min-h-0 ${isAdmin ? 'max-w-full' : bookMaxW}`}
         >
           {!isAdmin && <SectionBookmarks />}
-          <div className={!isAdmin ? 'book-content' : ''}>{children}</div>
+          <div className={!isAdmin ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 md:pt-0' : ''}>{children}</div>
 
         </div>
       </div>

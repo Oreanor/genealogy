@@ -40,8 +40,7 @@ export const TreeNode = memo(function TreeNode({
     <>
       <div className="relative z-10">
       <div
-        className={`relative shrink-0 rounded-[50%] p-[1px] outline outline-2 bg-(--background) ${strokeClass}`}
-        style={{ width: '5.8rem', height: '7.4rem' }}
+        className={`relative shrink-0 rounded-[50%] p-[1px] outline outline-2 bg-(--background) ${strokeClass} w-[3rem] h-[3.8rem] md:w-[5.8rem] md:h-[7.4rem]`}
       >
         <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
           {hasPerson && (() => {
@@ -72,12 +71,12 @@ export const TreeNode = memo(function TreeNode({
       </div>
 
       {/* Plaque below portrait */}
-      <div className={`mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-2 py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
+      <div className={`mt-[-0.15rem] md:mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-1.5 py-1 md:px-2 md:py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
         {hasPerson && (surname || firstName || patronymic) && (
           <div className="leading-tight text-(--ink)">
-            {surname && <div className="truncate text-md font-semibold">{surname}</div>}
-            {firstName && <div className="truncate text-sm font-semibold">{firstName}</div>}
-            {patronymic && <div className="truncate text-sm font-semibold">{patronymic}</div>}
+            {surname && <div className="truncate text-xs font-semibold md:text-base">{surname}</div>}
+            {firstName && <div className="truncate text-[10px] font-semibold md:text-sm">{firstName}</div>}
+            {patronymic && <div className="truncate text-[10px] font-semibold md:text-sm">{patronymic}</div>}
           </div>
         )}
       </div>
@@ -85,8 +84,8 @@ export const TreeNode = memo(function TreeNode({
   );
 
   const wrapperClass =
-    'flex flex-col items-center origin-top';
-  const style = { transform: `scale(${scale})`, minWidth: '5rem' };
+    'flex flex-col items-center origin-top min-w-[2.5rem] md:min-w-[5rem]';
+  const style = { transform: `scale(${scale})` };
 
   if (hasPerson) {
     return (

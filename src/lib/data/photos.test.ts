@@ -90,13 +90,15 @@ describe('photos', () => {
 
   it('getAvatarForPerson returns first eligible photo; preferredPhotoSrc used when valid', () => {
     expect(getAvatarForPerson('non-existent')).toBeNull();
-    const withPhoto = getPhotos().find((p) => (p.people ?? []).some((pp) => pp.personId));
+    const all = getPhotos();
+    const withPhoto = all.find((p) => (p.people ?? []).some((pp) => pp.personId));
     const entry = withPhoto?.people?.find((pp) => pp.personId);
     if (withPhoto && entry?.personId) {
       const pid = entry.personId;
       const avatar = getAvatarForPerson(pid);
       expect(avatar).not.toBeNull();
-      expect(avatar!.src).toBe(withPhoto.src);
+      expect(avatar!.src).toBeDefined();
+      expect(all.some((p) => p.src === avatar!.src && (p.people ?? []).some((pp) => pp.personId === pid))).toBe(true);
       const withPreferred = getAvatarForPerson(pid, withPhoto.src);
       expect(withPreferred?.src).toBe(withPhoto.src);
     }

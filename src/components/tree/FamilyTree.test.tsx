@@ -22,12 +22,12 @@ describe('FamilyTree', () => {
 
   it('renders person nodes', () => {
     const { container } = render(withI18n(<FamilyTree onPersonClick={onPersonClick} />));
-    expect(container.textContent).toMatch(/Никонец\s*Иван Петрович/);
+    expect(container.textContent).toMatch(/Никонец\s*Иван\s*Петрович/);
   });
 
   it('calls onPersonClick when node is clicked', () => {
     render(withI18n(<FamilyTree onPersonClick={onPersonClick} />));
-    const btn = screen.getByRole('button', { name: /Никонец\s*Иван Петрович/ });
+    const btn = screen.getByRole('button', { name: /Никонец\s*Иван\s*Петрович/ });
     fireEvent.click(btn);
     expect(onPersonClick).toHaveBeenCalledWith('p001');
   });

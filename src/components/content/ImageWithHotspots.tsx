@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { getPersonById } from '@/lib/data/persons';
-import { getFullName } from '@/lib/utils/person';
 import type { LightboxFace } from '@/lib/data/photos';
 
 interface ImageWithHotspotsProps {
@@ -38,10 +37,15 @@ export function ImageWithHotspots({ config, className = '' }: ImageWithHotspotsP
 
   const lightboxFaces: LightboxFace[] = useMemo(() => {
     const rectHotspots = (config.hotspots ?? []).filter((h) => h.shape === 'rect' && h.coords.length >= 4);
-    return rectHotspots.map((h) => ({
-      coords: [h.coords[0]!, h.coords[1]!, h.coords[2]!, h.coords[3]!] as [number, number, number, number],
-      displayName: getFullName(getPersonById(h.personId) ?? null) || h.personId,
-    }));
+    return rectHotspots.map((h) => {
+      const person = getPersonById(h.personId) ?? null;
+      return {
+        coords: [h.coords[0]!, h.coords[1]!, h.coords[2]!, h.coords[3]!] as [number, number, number, number],
+        lastName: person?.lastName?.trim() || undefined,
+        firstName: person?.firstName?.trim() || undefined,
+        patronymic: person?.patronymic?.trim() || undefined,
+      };
+    });
   }, [config.hotspots]);
 
   return (
