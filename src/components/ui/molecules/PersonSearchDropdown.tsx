@@ -35,6 +35,7 @@ export function PersonSearchDropdown({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={onFocus}
+        onClick={onFocus}
         onBlur={() => setTimeout(onBlur, 150)}
         aria-label={ariaLabel}
       />

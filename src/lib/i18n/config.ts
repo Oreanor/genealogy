@@ -14,7 +14,7 @@ export const LOCALES = [
 
 export type Locale = (typeof LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = 'ru';
+export const DEFAULT_LOCALE: Locale = 'en';
 
 export function isLocale(s: string): s is Locale {
   return (LOCALES as readonly string[]).includes(s);
