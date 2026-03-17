@@ -7,6 +7,18 @@ vi.mock('./SectionBookmarks', () => ({
   SectionBookmarks: () => <nav aria-label="Nav">Закладки</nav>,
 }));
 
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/en',
+  useSearchParams: () => new URLSearchParams(),
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+  }),
+}));
+
 vi.mock('@/components/ui/PageColorPickerClient', () => ({
   PageColorPicker: () => null,
 }));

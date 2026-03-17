@@ -20,7 +20,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
   const isAdmin = pathname.includes('/admin');
   const bookMaxW = isAdmin ? '' : 'max-w-full md:max-w-[calc((100vh-6rem)*296/210)]';
 
-  const sectionParam = searchParams.get('section') ?? '';
+  const sectionParam = searchParams?.get('section') ?? '';
   const currentSectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
   const currentSectionMeta = SECTIONS.find(({ id }) => id === currentSectionId);
   const currentSectionTitle = !isAdmin && currentSectionMeta ? t(currentSectionMeta.i18nKey) : null;
