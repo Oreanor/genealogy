@@ -187,7 +187,7 @@ export function PageColorPicker() {
       </button>
       {open && (
         <div
-          className="absolute left-full top-0 z-[100] ml-2 flex w-[220px] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl"
+          className="absolute bottom-full right-0 z-[100] mb-2 flex w-[220px] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl md:bottom-auto md:left-full md:right-auto md:top-0 md:mb-0 md:ml-2"
           data-picker-area
         >
           <div

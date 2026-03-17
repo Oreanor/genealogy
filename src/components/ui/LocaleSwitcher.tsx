@@ -67,7 +67,7 @@ export function LocaleSwitcher() {
       </button>
       {open && (
         <div
-          className="absolute left-0 top-full z-10 mt-2 w-9 rounded-xl border border-(--border) bg-(--surface) p-2 shadow-xl md:w-11"
+          className="absolute left-0 bottom-full mb-2 z-10 w-9 rounded-xl border border-(--border) bg-(--surface) p-2 shadow-xl md:bottom-auto md:top-full md:mb-0 md:mt-2 md:w-11"
           role="listbox"
           aria-label={t('selectLanguage')}
         >

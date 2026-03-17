@@ -37,24 +37,8 @@ export function SectionBookmarks() {
       className="z-30 ml-4 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-8 md:ml-6 md:pl-1 md:pr-10"
       aria-label={t('navAria')}
     >
-      {/* Mobile: single dropdown (portrait/narrow) */}
-      <div className="flex w-full justify-center md:hidden">
-        <select
-          value={current}
-          onChange={handleSectionChange}
-          className="w-full max-w-[280px] rounded-md border-2 border-(--border) bg-(--paper) px-3 py-2 text-(--ink) shadow-md focus:outline-none focus:ring-2 focus:ring-(--ink)"
-          aria-label={t('navAria')}
-        >
-          {SECTIONS.map(({ id, i18nKey }) => (
-            <option key={id} value={id}>
-              {t(i18nKey)}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Desktop: tab links */}
-      <div className="hidden flex-row flex-wrap gap-1 md:flex">
+      {/* Desktop: tab links (mobile moved to bottom toolbar) */}
+      <div className="flex-row flex-wrap gap-1 max-md:hidden">
         {mainSections.map(({ id, i18nKey }) => {
           const isActive = current === id;
           const href = id === 'tree' ? pathname : `${pathname}?section=${id}`;

@@ -44,7 +44,11 @@ export function PersonSearchDropdown({
             <li key={p.id}>
               <button
                 type="button"
-                onClick={() => onSelectPerson(p)}
+                onMouseDown={(e) => {
+                  // Обрабатываем выбор до blur инпута, чтобы клик не «терялся»
+                  e.preventDefault();
+                  onSelectPerson(p);
+                }}
                 className="block w-full px-3 py-1 text-left text-sm text-(--ink) hover:bg-(--paper-light)"
               >
                 {getDisplayName(p)}

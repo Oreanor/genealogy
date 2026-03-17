@@ -40,7 +40,7 @@ export const TreeNode = memo(function TreeNode({
     <>
       <div className="relative z-10">
       <div
-        className={`relative shrink-0 rounded-[50%] p-[1px] outline outline-2 bg-(--background) ${strokeClass} w-[3rem] h-[3.8rem] md:w-[5.8rem] md:h-[7.4rem]`}
+        className={`relative shrink-0 rounded-[50%] p-[1px] outline outline-2 bg-(--background) ${strokeClass} w-[3.6rem] h-[4.6rem] md:w-[5.8rem] md:h-[7.4rem]`}
       >
         <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
           {hasPerson && (() => {

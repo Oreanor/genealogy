@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useLocaleRoutes } from '@/lib/i18n/context';
@@ -18,9 +18,11 @@ import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDrop
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
 import { SECTION_HEADING_CLASS } from '@/lib/constants/theme';
+import { Button } from '@/components/ui/atoms/Button';
 
 export function PersonsSection() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { t, routes } = useLocaleRoutes();
   const [personsSearch, setPersonsSearch] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
@@ -41,6 +43,12 @@ export function PersonsSection() {
   );
 
   useEffect(() => {
+    // Debug: отслеживаем изменения id в урле и выбранной персоны
+    // eslint-disable-next-line no-console
+    console.log('[PersonsSection] effect personId -> selectedPersonId', {
+      personId,
+      prevSelectedPersonId: selectedPersonId,
+    });
     setSelectedPersonId(personId ?? null);
   }, [personId]);
 
@@ -56,6 +64,7 @@ export function PersonsSection() {
   const [showFaces, setShowFaces] = useState(false);
   const [showPhotoBack, setShowPhotoBack] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
   const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
   const isMobile = useIsMobile();
 
@@ -89,9 +98,20 @@ export function PersonsSection() {
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setSearchFocused(false)}
               onSelectPerson={(p) => {
+                // Debug: клик по элементу в дропдауне
+                // eslint-disable-next-line no-console
+                console.log('[PersonsSection] onSelectPerson', {
+                  id: p.id,
+                  fullName: getFullName(p),
+                });
                 setSelectedPersonId(p.id);
-                setPersonsSearch('');
+                router.push(routes.person(p.id));
+                setPersonsSearch(getFullName(p) || p.id);
                 setSearchFocused(false);
+                // Принудительно снимаем фокус, чтобы повторный клик по полю снова открывал список
+                if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
+                  document.activeElement.blur();
+                }
               }}
               filteredPersons={filteredSortedPersons}
               getDisplayName={(p) => getFullName(p) || p.id}
@@ -118,10 +138,13 @@ export function PersonsSection() {
                     if (isMobile) setLightboxOpen(true);
                   }
                 }}
-                onHistoryClick={(index) => {
-                  setSelectedHistoryIndex(index);
-                  setSelectedPhoto(null);
-                }}
+              onHistoryClick={(index) => {
+                setSelectedHistoryIndex(index);
+                setSelectedPhoto(null);
+                if (isMobile) {
+                  setTextLightboxOpen(true);
+                }
+              }}
                 renderPersonLink={(p) => (
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
                     {getFullName(p)}
@@ -142,7 +165,7 @@ export function PersonsSection() {
             photo={selectedPerson ? selectedPhoto : null}
             showFaces={showFaces}
             showBack={showPhotoBack}
-            historyEntry={selectedHistoryEntry}
+            historyEntry={isMobile ? null : selectedHistoryEntry}
             onBigPhotoClick={selectedPhoto ? () => setLightboxOpen(true) : undefined}
             onToggleFaces={() => setShowFaces((v) => !v)}
             photoContainerRef={photoContainerRef}
@@ -170,6 +193,33 @@ export function PersonsSection() {
         open
         onClose={() => setLightboxOpen(false)}
       />
+    )}
+    {isMobile && textLightboxOpen && selectedHistoryEntry && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4">
+        <div className="flex max-h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
+          <div className="flex-1 space-y-3 overflow-y-auto p-4">
+            <h3 className="book-serif text-lg font-semibold text-(--ink)">
+              {selectedHistoryEntry.title}
+            </h3>
+            <div
+              className="book-serif prose-sm text-(--ink) leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: selectedHistoryEntry.richText }}
+            />
+          </div>
+          <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">
+            <Button
+              variant="secondary"
+              className="px-4"
+              onClick={() => {
+                setTextLightboxOpen(false);
+                setSelectedHistoryIndex(null);
+              }}
+            >
+              {t('back')}
+            </Button>
+          </div>
+        </div>
+      </div>
     )}
   </>
   );

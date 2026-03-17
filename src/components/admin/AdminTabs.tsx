@@ -26,7 +26,8 @@ export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
   );
   return (
     <div>
-      <nav className="flex flex-wrap items-end justify-between gap-1 border-b border-(--border)">
+      {/* Верхние вкладки скрыты на мобиле, показываем только на md+ */}
+      <nav className="hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:flex">
         <div className="flex flex-wrap gap-1">
           {ADMIN_TAB_IDS.map((id) => (
             <button
