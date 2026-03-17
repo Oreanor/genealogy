@@ -84,7 +84,7 @@ export function BookToolbar() {
   return (
     <>
       {/* Desktop: прежняя вертикальная панель слева */}
-      <div className="absolute left-2 top-[2vh] z-20 hidden flex-col items-start gap-2 md:flex">
+      <div className="absolute left-2 top-4 z-20 hidden flex-col items-start gap-2 md:flex">
         <Tooltip label={isAdmin ? t('tooltipToBook') : t('adminTitle')} side="right">
           {isAdmin ? <BookLinkButton title={t('tooltipToBook')} /> : <AdminButton />}
         </Tooltip>

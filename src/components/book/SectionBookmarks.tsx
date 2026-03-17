@@ -34,7 +34,7 @@ export function SectionBookmarks() {
 
   return (
     <nav
-      className="z-30 ml-4 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-8 md:ml-6 md:pl-1 md:pr-10"
+      className="z-30 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-6 md:ml-4 md:pl-0 md:pr-8"
       aria-label={t('navAria')}
     >
       {/* Desktop: tab links (mobile moved to bottom toolbar) */}

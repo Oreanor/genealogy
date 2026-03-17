@@ -41,7 +41,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
           className={
             isAdmin
               ? 'ml-0 md:ml-16 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 max-w-none'
-              : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0 pl-0 md:pl-0'
+              : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0 pl-0 md:pl-16'
           }
         >
           <div
@@ -49,8 +49,9 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
               isAdmin ? 'max-w-full' : bookMaxW
             }`}
           >
+            {/* Заголовок раздела показываем только на мобиле, на десктопе скрываем */}
             {!isAdmin && currentSectionTitle && (
-              <div className="flex w-full justify-center pt-3 pb-1 md:pt-2 md:pb-2">
+              <div className="flex w-full justify-center pt-3 pb-1 md:hidden">
                 <h1 className="font-serif text-base font-semibold text-(--ink) md:text-lg">
                   {currentSectionTitle}
                 </h1>
