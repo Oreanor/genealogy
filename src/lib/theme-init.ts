@@ -11,7 +11,8 @@ const PALETTE = [
   '#ecfdf5', '#22c55e', '#0ea5e9', '#3b82f6',
   '#f5f3ff', '#8b5cf6', '#a16207', '#1f2937',
 ];
-const DEFAULT_PAPER = '#ffffff';
+// Light, slightly grayish violet as default paper color
+const DEFAULT_PAPER = '#f5f3ff';
 
 export function initThemeFromStorage() {
   if (typeof window === 'undefined') return;
