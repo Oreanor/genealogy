@@ -212,7 +212,19 @@ export function BookToolbar() {
                 </Button>
               </Tooltip>
               {adminMoreOpen && (
-                <div className="absolute bottom-10 right-0 flex min-w-[160px] flex-col gap-1 rounded-lg border border-(--border) bg-(--paper) p-2 shadow-xl">
+                <div className="absolute bottom-10 right-0 flex min-w-[180px] flex-col gap-1 rounded-lg border border-(--border) bg-(--paper) p-2 shadow-xl">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="justify-start text-xs"
+                    onClick={() => {
+                      fileInputRef.current?.click();
+                      setAdminMoreOpen(false);
+                    }}
+                  >
+                    <Upload className="mr-1.5 size-3.5" aria-hidden />
+                    {t('adminImportJson')}
+                  </Button>
                   <Button
                     variant="secondary"
                     size="sm"

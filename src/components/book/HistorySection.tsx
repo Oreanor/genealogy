@@ -10,6 +10,8 @@ import { getHistoryEntries } from '@/lib/data/history';
 import Link from 'next/link';
 import { SearchField } from '@/components/ui/molecules/SearchField';
 import { CONTENT_LINK_CLASS, SECTION_HEADING_CLASS } from '@/lib/constants/theme';
+import { useIsMobile } from '@/hooks/useIsMobile';
+import { Button } from '@/components/ui/atoms/Button';
 
 export function HistorySection() {
   const searchParams = useSearchParams();
@@ -17,6 +19,8 @@ export function HistorySection() {
   const router = useRouter();
   const { t } = useLocaleRoutes();
   const [historySearch, setHistorySearch] = useState('');
+  const isMobile = useIsMobile();
+  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
 
   const entries = getHistoryEntries();
   const entryParam = searchParams.get('entry');
@@ -39,44 +43,45 @@ export function HistorySection() {
     textScrollRef.current?.scrollTo({ top: 0 });
   }, [entryIndex]);
 
-  const handleMobileEntryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const idx = e.target.value === '' ? -1 : parseInt(e.target.value, 10);
-    const url = idx >= 0 ? `${pathname}?section=history&entry=${idx}` : `${pathname}?section=history`;
-    router.push(url);
-  };
-
   return (
     <>
-      {/* Mobile: dropdown + text below on book-style panel with scroll */}
-      <div className="flex min-h-0 flex-1 flex-col gap-4 md:hidden">
-        <select
-          value={entryIndex >= 0 ? entryIndex : ''}
-          onChange={handleMobileEntryChange}
-          className="w-full max-w-[280px] rounded-md border-2 border-(--border) bg-(--paper) px-3 py-2 text-(--ink) shadow-md focus:outline-none focus:ring-2 focus:ring-(--ink)"
-          aria-label={t('chapters_history')}
-        >
-          <option value="">{t('historySelectHint')}</option>
-          {filteredHistoryEntries.map((entry) => {
-            const originalIndex = entries.indexOf(entry);
-            return (
-              <option key={originalIndex} value={originalIndex}>
-                {entry.title || `${t('chapters_history')} ${originalIndex + 1}`}
-              </option>
-            );
-          })}
-        </select>
-        <div className="min-h-0 flex-1 overflow-hidden rounded-lg shadow-inner">
-          <div
-            ref={textScrollRef}
-            className="h-full overflow-y-auto bg-(--paper) p-4 sm:p-5"
-          >
-            {selectedEntry ? (
-              <HistoryContentRenderer entries={[selectedEntry]} />
-            ) : (
-              <p className="text-(--ink-muted) py-6 text-base">{t('historySelectHint')}</p>
-            )}
-          </div>
+      {/* Mobile: список текстов в одной колонке, контент в лайтбоксе */}
+      <div className="flex min-h-0 flex-1 flex-col px-4 md:hidden">
+        <div className="mt-2">
+          <SearchField
+            placeholder={t('historySearchPlaceholder')}
+            value={historySearch}
+            onChange={(e) => setHistorySearch(e.target.value)}
+            aria-label={t('historySearchPlaceholder')}
+          />
         </div>
+        <ul className="mt-3 flex-1 min-h-0 overflow-y-auto space-y-1">
+          {filteredHistoryEntries.length === 0 ? (
+            <li className="text-(--ink-muted)">{t('nothingFound')}</li>
+          ) : (
+            filteredHistoryEntries.map((entry) => {
+              const originalIndex = entries.indexOf(entry);
+              const isSelected = selectedEntry === entry;
+              return (
+                <li key={originalIndex}>
+                  <button
+                    type="button"
+                    className={`block w-full rounded-md px-3 py-1.5 text-left text-base transition-colors hover:bg-(--paper-light) ${CONTENT_LINK_CLASS} ${
+                      isSelected ? 'bg-(--paper-light) font-medium' : ''
+                    }`}
+                    onClick={() => {
+                      const url = `${pathname}?section=history&entry=${originalIndex}`;
+                      router.push(url);
+                      setTextLightboxOpen(true);
+                    }}
+                  >
+                    {entry.title || `${t('chapters_history')} ${originalIndex + 1}`}
+                  </button>
+                </li>
+              );
+            })
+          )}
+        </ul>
       </div>
 
       {/* Desktop: two columns */}
@@ -135,6 +140,32 @@ export function HistorySection() {
           }
         />
       </div>
+      {isMobile && textLightboxOpen && selectedEntry && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4">
+          <div className="flex max-h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
+            <div
+              ref={textScrollRef}
+              className="flex-1 overflow-y-auto px-5 pb-5"
+            >
+              <div className="h-4" />
+              <HistoryContentRenderer entries={[selectedEntry]} />
+            </div>
+            <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">
+              <Button
+                variant="secondary"
+                className="px-4"
+                onClick={() => {
+                  setTextLightboxOpen(false);
+                  const url = `${pathname}?section=history`;
+                  router.push(url);
+                }}
+              >
+                {t('back')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
