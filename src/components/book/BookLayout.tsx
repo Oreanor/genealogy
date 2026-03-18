@@ -61,7 +61,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
             <div
               className={
                 !isAdmin
-                  ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 md:pt-0'
+                  ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 pb-20 md:pt-0 md:pb-0'
                   : ''
               }
             >
