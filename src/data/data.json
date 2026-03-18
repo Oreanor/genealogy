@@ -97,7 +97,8 @@
       "occupation": "",
       "gender": "m",
       "patronymic": "Павлович",
-      "lastName": "Никонец"
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg"
     },
     {
       "id": "p009",
@@ -362,18 +363,6 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-bez_podpisi_1",
-      "src": "/photos/others/photo_elets/bez_podpisi_1.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
       "id": "others-photo_elets-bez_podpisi",
       "src": "/photos/others/photo_elets/bez_podpisi.jpg",
       "caption": "",
@@ -386,9 +375,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-velikoknyazheskaya_ulitsa_1",
-      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa_1.jpg",
-      "caption": "Великокняжеская улица 1",
+      "id": "others-photo_elets-bez_podpisi_1",
+      "src": "/photos/others/photo_elets/bez_podpisi_1.jpg",
+      "caption": "",
       "category": "related",
       "people": [
         {
@@ -398,9 +387,21 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-velikoknyazheskaya_ulitsa",
-      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa.jpg",
-      "caption": "Великокняжеская улица",
+      "id": "others-photo_elets-dom_prizreniya",
+      "src": "/photos/others/photo_elets/dom_prizreniya.jpg",
+      "caption": "Дом призрения",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-dom_trudolyubiya",
+      "src": "/photos/others/photo_elets/dom_trudolyubiya.jpg",
+      "caption": "Дом Трудолюбия",
       "category": "related",
       "people": [
         {
@@ -425,66 +426,6 @@
       "id": "others-photo_elets-gosudarstvennyy_bank",
       "src": "/photos/others/photo_elets/gosudarstvennyy_bank.jpg",
       "caption": "Государственный банк",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-dom_trudolyubiya",
-      "src": "/photos/others/photo_elets/dom_trudolyubiya.jpg",
-      "caption": "Дом Трудолюбия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-dom_prizreniya",
-      "src": "/photos/others/photo_elets/dom_prizreniya.jpg",
-      "caption": "Дом призрения",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-zheleznodorozhnyy_most",
-      "src": "/photos/others/photo_elets/zheleznodorozhnyy_most.jpg",
-      "caption": "Железнодорожный мост",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-zhenskaya_gimnaziya",
-      "src": "/photos/others/photo_elets/zhenskaya_gimnaziya.jpg",
-      "caption": "Женская гимназия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Елец"
-    },
-    {
-      "id": "others-photo_elets-zhenskiy_monastyr",
-      "src": "/photos/others/photo_elets/zhenskiy_monastyr.jpg",
-      "caption": "Женский монастырь",
       "category": "related",
       "people": [
         {
@@ -542,8 +483,8 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-muzhskaya_gimnaziya_2",
-      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya_2.jpg",
+      "id": "others-photo_elets-muzhskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya.jpg",
       "caption": "Мужская гимназия",
       "category": "related",
       "people": [
@@ -554,8 +495,8 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-muzhskaya_gimnaziya",
-      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya.jpg",
+      "id": "others-photo_elets-muzhskaya_gimnaziya_2",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya_2.jpg",
       "caption": "Мужская гимназия",
       "category": "related",
       "people": [
@@ -614,9 +555,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-orlovskaya_ulitsa_1",
-      "src": "/photos/others/photo_elets/orlovskaya_ulitsa_1.jpg",
-      "caption": "Орловская улица 1",
+      "id": "others-photo_elets-orlovskaya_ulitsa",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa.jpg",
+      "caption": "Орловская улица",
       "category": "related",
       "people": [
         {
@@ -626,9 +567,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-orlovskaya_ulitsa",
-      "src": "/photos/others/photo_elets/orlovskaya_ulitsa.jpg",
-      "caption": "Орловская улица",
+      "id": "others-photo_elets-orlovskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa_1.jpg",
+      "caption": "Орловская улица 1",
       "category": "related",
       "people": [
         {
@@ -674,9 +615,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-sobor_i_vvedenskaya_gora",
-      "src": "/photos/others/photo_elets/sobor_i_vvedenskaya_gora.jpg",
-      "caption": "Собор и Введенская гора",
+      "id": "others-photo_elets-sobornaya_ploshchad",
+      "src": "/photos/others/photo_elets/sobornaya_ploshchad.jpg",
+      "caption": "Соборная площадь",
       "category": "related",
       "people": [
         {
@@ -686,9 +627,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-sobornaya_ploshchad",
-      "src": "/photos/others/photo_elets/sobornaya_ploshchad.jpg",
-      "caption": "Соборная площадь",
+      "id": "others-photo_elets-sobor_i_vvedenskaya_gora",
+      "src": "/photos/others/photo_elets/sobor_i_vvedenskaya_gora.jpg",
+      "caption": "Собор и Введенская гора",
       "category": "related",
       "people": [
         {
@@ -710,9 +651,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-ugol_ulits_torgovaya_i_orlovskaya",
-      "src": "/photos/others/photo_elets/ugol_ulits_torgovaya_i_orlovskaya.jpg",
-      "caption": "Угол улиц Торговая и Орловская",
+      "id": "others-photo_elets-tserkov_svyatogo_vladimira",
+      "src": "/photos/others/photo_elets/tserkov_svyatogo_vladimira.jpg",
+      "caption": "Церковь Святого Владимира",
       "category": "related",
       "people": [
         {
@@ -722,9 +663,9 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-ul_torgovaya_1",
-      "src": "/photos/others/photo_elets/ul_torgovaya_1.jpg",
-      "caption": "Ул. Торговая 1",
+      "id": "others-photo_elets-ugol_ulits_torgovaya_i_orlovskaya",
+      "src": "/photos/others/photo_elets/ugol_ulits_torgovaya_i_orlovskaya.jpg",
+      "caption": "Угол улиц Торговая и Орловская",
       "category": "related",
       "people": [
         {
@@ -746,9 +687,69 @@
       "series": "Елец"
     },
     {
-      "id": "others-photo_elets-tserkov_svyatogo_vladimira",
-      "src": "/photos/others/photo_elets/tserkov_svyatogo_vladimira.jpg",
-      "caption": "Церковь Святого Владимира",
+      "id": "others-photo_elets-ul_torgovaya_1",
+      "src": "/photos/others/photo_elets/ul_torgovaya_1.jpg",
+      "caption": "Ул. Торговая 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa.jpg",
+      "caption": "Великокняжеская улица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa_1.jpg",
+      "caption": "Великокняжеская улица 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-zheleznodorozhnyy_most",
+      "src": "/photos/others/photo_elets/zheleznodorozhnyy_most.jpg",
+      "caption": "Железнодорожный мост",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-zhenskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/zhenskaya_gimnaziya.jpg",
+      "caption": "Женская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Елец"
+    },
+    {
+      "id": "others-photo_elets-zhenskiy_monastyr",
+      "src": "/photos/others/photo_elets/zhenskiy_monastyr.jpg",
+      "caption": "Женский монастырь",
       "category": "related",
       "people": [
         {
@@ -772,6 +773,18 @@
     {
       "id": "others-ruler-cutter-1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879",
       "src": "/photos/others/ruler-cutter/1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец"
+    },
+    {
+      "id": "others-ruler-cutter-image",
+      "src": "/photos/others/ruler-cutter/image.png",
       "caption": "",
       "category": "related",
       "people": [
@@ -878,16 +891,721 @@
       "series": "Линейка и резец"
     },
     {
-      "id": "others-ruler-cutter-image",
-      "src": "/photos/others/ruler-cutter/image.png",
-      "caption": "",
+      "id": "others-sumy-01",
+      "src": "/photos/others/sumy/sumy_01.jpg",
+      "caption": "Сумы Окрестности Луки Изд. Гончаренко В. И. 1910-1912 г.",
       "category": "related",
       "people": [
         {
-          "personId": "p014"
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
         }
       ],
-      "series": "Линейка и резец"
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-02",
+      "src": "/photos/others/sumy/sumy_02.jpg",
+      "caption": "Сумы №25 1-ая мужская гимназия Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-03",
+      "src": "/photos/others/sumy/sumy_03.jpg",
+      "caption": "Сумы Базарная площадь Изд. Ильченко И. Г. 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-04",
+      "src": "/photos/others/sumy/sumy_04.jpg",
+      "caption": "Сумы Городской сад 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-05",
+      "src": "/photos/others/sumy/sumy_05.jpg",
+      "caption": "Сумы Машиностроительные заводы 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-06",
+      "src": "/photos/others/sumy/sumy_06.jpg",
+      "caption": "Сумы №9а Собор Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-07",
+      "src": "/photos/others/sumy/sumy_07.jpg",
+      "caption": "Сумы Общий вид 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-08",
+      "src": "/photos/others/sumy/sumy_08.jpg",
+      "caption": "Сумы Почтово-телеграфная контора Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-09",
+      "src": "/photos/others/sumy/sumy_09.jpg",
+      "caption": "Сумы Станция ж. д. Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-10",
+      "src": "/photos/others/sumy/sumy_10.jpg",
+      "caption": "Сумы Базарная площадь 1905 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-11",
+      "src": "/photos/others/sumy/sumy_11.jpg",
+      "caption": "Сумы р. Псёл 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-12",
+      "src": "/photos/others/sumy/sumy_12.jpg",
+      "caption": "Сумы Новый городской парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-13",
+      "src": "/photos/others/sumy/sumy_13.jpg",
+      "caption": "Суды 44 Городс. парк имени Лещинских Изд. Гончаренко В. И. 1910-1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-14",
+      "src": "/photos/others/sumy/sumy_14.jpg",
+      "caption": "Сумы №47 р. Псёл Купанье Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-15",
+      "src": "/photos/others/sumy/sumy_15.jpg",
+      "caption": "Сумы №5 Бетонный мост на р. Сумке Изд. Суворина А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-16",
+      "src": "/photos/others/sumy/sumy_16.jpg",
+      "caption": "Сумы 34 Общественное собрание Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-17",
+      "src": "/photos/others/sumy/sumy_17.jpg",
+      "caption": "Сумы №1 Соборная улица Изд. Суворина А. С. 1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-18",
+      "src": "/photos/others/sumy/sumy_18.jpg",
+      "caption": "Сумы. Собор",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-19",
+      "src": "/photos/others/sumy/sumy_19.jpg",
+      "caption": "Сумы Река Сумка Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-20",
+      "src": "/photos/others/sumy/sumy_20.jpg",
+      "caption": "Суды Вид нового места 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-21",
+      "src": "/photos/others/sumy/sumy_21.jpg",
+      "caption": "Сумы №27 Воскресенская улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-22",
+      "src": "/photos/others/sumy/sumy_22.jpg",
+      "caption": "Сумы Городской сквер Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-23",
+      "src": "/photos/others/sumy/sumy_23.jpg",
+      "caption": "Сумы Вид с птичьего полёта 1905 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-24",
+      "src": "/photos/others/sumy/sumy_24.jpg",
+      "caption": "Сумы Соборная улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-25",
+      "src": "/photos/others/sumy/sumy_25.jpg",
+      "caption": "Сумы Общий вид 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-26",
+      "src": "/photos/others/sumy/sumy_26.jpg",
+      "caption": "Сумы №12 Лодочная пристань на р. Псёл Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-27",
+      "src": "/photos/others/sumy/sumy_27.jpg",
+      "caption": "Сумы №3 Памятник И. Г. Харитоненко Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-28",
+      "src": "/photos/others/sumy/sumy_28.jpg",
+      "caption": "Сумы Окружной суд Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-29",
+      "src": "/photos/others/sumy/sumy_29.jpg",
+      "caption": "Сумы №9 Троицкая улица Изд. Суворин А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-30",
+      "src": "/photos/others/sumy/sumy_30.jpg",
+      "caption": "Сумы Сквер 1905-1907 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-31",
+      "src": "/photos/others/sumy/sumy_31.jpg",
+      "caption": "Сумы Писаревский мост 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-32",
+      "src": "/photos/others/sumy/sumy_32.jpg",
+      "caption": "Сумы Вид с Кустово на парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-33",
+      "src": "/photos/others/sumy/sumy_33.jpg",
+      "caption": "Сумы Разлив у 3-го моста Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-34",
+      "src": "/photos/others/sumy/sumy_34.jpg",
+      "caption": "Сумы Короленковский берег 1905-1909 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-35",
+      "src": "/photos/others/sumy/sumy_35.jpg",
+      "caption": "Сумы Собор Изд. Магазин Реньен 1900-1901 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-36",
+      "src": "/photos/others/sumy/sumy_36.jpg",
+      "caption": "Сумы 48 Сад ШВЕЙЦАРИЯ Осиротелая аллея Любви Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-37",
+      "src": "/photos/others/sumy/sumy_37.jpg",
+      "caption": "Сумы Вид реки Псёл 1905 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-38",
+      "src": "/photos/others/sumy/sumy_38.jpg",
+      "caption": "Сумы Покровская площадь, Воскресенская улица 1905-1910 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-39",
+      "src": "/photos/others/sumy/sumy_39.jpg",
+      "caption": "Сумы 36 Пансион мужской гимназии Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-40",
+      "src": "/photos/others/sumy/sumy_40.jpg",
+      "caption": "Сумы Мост через Сумку Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-41",
+      "src": "/photos/others/sumy/sumy_41.jpg",
+      "caption": "Сумы №33 4-й мост Ледоход на Псле Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "personal-andreeva_irina_nikolaevna-Image29",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p017",
+          "coords": [
+            48.27586206896552,
+            35.53759119105759,
+            70.53291536050156,
+            66.79356316260446
+          ]
+        },
+        {
+          "personId": "p018",
+          "coords": [
+            29.780564263322884,
+            29.907633506741693,
+            49.843260188087775,
+            60.19292311892376
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_irina_nikolaevna-Image29_back",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreeva_vera_nikolaevna-Image56",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p003",
+          "coords": [
+            29.08476512303079,
+            3.6615103730288743,
+            68.07386607015373,
+            36.63511198369328
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_vera_nikolaevna-Image56_back",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
     },
     {
       "id": "personal-andreev_grigoriy_prokhorovich-Image19",
@@ -914,12 +1632,12 @@
           ]
         },
         {
-          "personId": "p015",
+          "personId": "p013",
           "coords": [
-            45.31195364403817,
-            34.87438568409469,
-            55.32910401784971,
-            43.03775307314267
+            45.093872720426056,
+            34.616083873704625,
+            53.87325837861101,
+            43.79532553582611
           ]
         }
       ],
@@ -1371,60 +2089,127 @@
       ]
     },
     {
-      "id": "personal-andreeva_irina_nikolaevna-Image29",
-      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
-      "caption": "",
-      "category": "group",
+      "id": "personal-belyaeva_elena_alekseevna-Image27",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image27.jpg",
+      "caption": "Свидетельство о рождении бабушки",
+      "category": "related",
       "people": [
         {
-          "personId": "p017",
-          "coords": [
-            48.27586206896552,
-            35.53759119105759,
-            70.53291536050156,
-            66.79356316260446
-          ]
-        },
+          "personId": "p007"
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image34",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
         {
-          "personId": "p018",
+          "personId": "p007",
           "coords": [
-            29.780564263322884,
-            29.907633506741693,
-            49.843260188087775,
-            60.19292311892376
+            29.51169555414035,
+            21.748971450723424,
+            81.72601938071223,
+            63.52620455938075
           ]
         }
       ],
-      "backSrc": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg"
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg"
     },
     {
-      "id": "personal-andreeva_irina_nikolaevna-Image29_back",
-      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image34_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
     },
     {
-      "id": "personal-andreeva_vera_nikolaevna-Image56",
-      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image53",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            57.210031347962385,
+            11.551312649164675,
+            75.07836990595611,
+            37.25454695086824
+          ]
+        },
+        {
+          "personId": "p003",
+          "coords": [
+            35.26645768025078,
+            17.450415603654022,
+            49.52978056426332,
+            42.52160316023373
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image54",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image54_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image58",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            65.8307210031348,
+            41.29551338773638,
+            85.8934169278997,
+            72.96725985645463
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image59",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image59.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Scan4",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
       "caption": "",
       "category": "personal",
       "people": [
         {
-          "personId": "p003",
+          "personId": "p007",
           "coords": [
-            29.08476512303079,
-            3.6615103730288743,
-            68.07386607015373,
-            36.63511198369328
+            33.954014553904486,
+            27.351282403991643,
+            60.76255121384455,
+            50.56085635324571
           ]
         }
       ],
-      "backSrc": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg"
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg"
     },
     {
-      "id": "personal-andreeva_vera_nikolaevna-Image56_back",
-      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Scan4_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -1442,6 +2227,24 @@
             15.333896617278736,
             56.26959247648903,
             27.500829837955283
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            34.24764890282132,
+            28.56453121699508,
+            42.711598746081506,
+            41.89021998249796
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            56.34796238244514,
+            25.47451643079152,
+            63.87147335423198,
+            38.02770149974351
           ]
         }
       ],
@@ -1566,13 +2369,6 @@
       "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg"
     },
     {
-      "id": "personal-belyaev_aleksey_ivanovich-Image79_back",
-      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
       "id": "personal-belyaev_aleksey_ivanovich-Image79a",
       "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79a.jpg",
       "caption": "",
@@ -1599,127 +2395,8 @@
       ]
     },
     {
-      "id": "personal-belyaeva_elena_alekseevna-Image27",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image27.jpg",
-      "caption": "Свидетельство о рождении бабушки",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p007"
-        }
-      ]
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image34",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34.jpg",
-      "caption": "",
-      "category": "personal",
-      "people": [
-        {
-          "personId": "p007",
-          "coords": [
-            29.51169555414035,
-            21.748971450723424,
-            81.72601938071223,
-            63.52620455938075
-          ]
-        }
-      ],
-      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg"
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image34_back",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image53",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
-      "caption": "",
-      "category": "group",
-      "people": [
-        {
-          "personId": "p007",
-          "coords": [
-            57.210031347962385,
-            11.551312649164675,
-            75.07836990595611,
-            37.25454695086824
-          ]
-        },
-        {
-          "personId": "p003",
-          "coords": [
-            35.26645768025078,
-            17.450415603654022,
-            49.52978056426332,
-            42.52160316023373
-          ]
-        }
-      ]
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image54",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg"
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image54_back",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image58",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58.jpg",
-      "caption": "",
-      "category": "group",
-      "people": [
-        {
-          "personId": "p007",
-          "coords": [
-            65.8307210031348,
-            41.29551338773638,
-            85.8934169278997,
-            72.96725985645463
-          ]
-        }
-      ]
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image59",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image59.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Scan4",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
-      "caption": "",
-      "category": "personal",
-      "people": [
-        {
-          "personId": "p007",
-          "coords": [
-            33.954014553904486,
-            27.351282403991643,
-            60.76255121384455,
-            50.56085635324571
-          ]
-        }
-      ],
-      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg"
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Scan4_back",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image79_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -2080,466 +2757,6 @@
       "caption": "",
       "category": "related",
       "people": []
-    },
-    {
-      "id": "others-sumy-01",
-      "src": "/photos/others/sumy/sumy_01.jpg",
-      "caption": "Сумы Окрестности Луки Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-02",
-      "src": "/photos/others/sumy/sumy_02.jpg",
-      "caption": "Сумы №25 1-ая мужская гимназия Изд. Гончаренко В. И. 1910-1915 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-03",
-      "src": "/photos/others/sumy/sumy_03.jpg",
-      "caption": "Сумы Базарная площадь Изд. Ильченко И. Г. 1905-1910 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-04",
-      "src": "/photos/others/sumy/sumy_04.jpg",
-      "caption": "Сумы Городской сад 1905-1910 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-05",
-      "src": "/photos/others/sumy/sumy_05.jpg",
-      "caption": "Сумы Машиностроительные заводы 1905-1910 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-06",
-      "src": "/photos/others/sumy/sumy_06.jpg",
-      "caption": "Сумы №9а Собор Изд. Гончаренко В. И. 1910-1915 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-07",
-      "src": "/photos/others/sumy/sumy_07.jpg",
-      "caption": "Сумы Общий вид 1905-1910 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-08",
-      "src": "/photos/others/sumy/sumy_08.jpg",
-      "caption": "Сумы Почтово-телеграфная контора Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-09",
-      "src": "/photos/others/sumy/sumy_09.jpg",
-      "caption": "Сумы Станция ж. д. Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-10",
-      "src": "/photos/others/sumy/sumy_10.jpg",
-      "caption": "Сумы Базарная площадь 1905 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-11",
-      "src": "/photos/others/sumy/sumy_11.jpg",
-      "caption": "Сумы р. Псёл 1905-1910 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-12",
-      "src": "/photos/others/sumy/sumy_12.jpg",
-      "caption": "Сумы Новый городской парк Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-13",
-      "src": "/photos/others/sumy/sumy_13.jpg",
-      "caption": "Суды 44 Городс. парк имени Лещинских Изд. Гончаренко В. И. 1910-1917 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-14",
-      "src": "/photos/others/sumy/sumy_14.jpg",
-      "caption": "Сумы №47 р. Псёл Купанье Изд. Гончаренко В. И. 1910-1915 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-15",
-      "src": "/photos/others/sumy/sumy_15.jpg",
-      "caption": "Сумы №5 Бетонный мост на р. Сумке Изд. Суворина А. С. 1911-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-16",
-      "src": "/photos/others/sumy/sumy_16.jpg",
-      "caption": "Сумы 34 Общественное собрание Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-17",
-      "src": "/photos/others/sumy/sumy_17.jpg",
-      "caption": "Сумы №1 Соборная улица Изд. Суворина А. С. 1915 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-18",
-      "src": "/photos/others/sumy/sumy_18.jpg",
-      "caption": "Сумы. Собор",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-19",
-      "src": "/photos/others/sumy/sumy_19.jpg",
-      "caption": "Сумы Река Сумка Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-20",
-      "src": "/photos/others/sumy/sumy_20.jpg",
-      "caption": "Суды Вид нового места 1905-1909 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-21",
-      "src": "/photos/others/sumy/sumy_21.jpg",
-      "caption": "Сумы №27 Воскресенская улица Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-22",
-      "src": "/photos/others/sumy/sumy_22.jpg",
-      "caption": "Сумы Городской сквер Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-23",
-      "src": "/photos/others/sumy/sumy_23.jpg",
-      "caption": "Сумы Вид с птичьего полёта 1905 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-24",
-      "src": "/photos/others/sumy/sumy_24.jpg",
-      "caption": "Сумы Соборная улица Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-25",
-      "src": "/photos/others/sumy/sumy_25.jpg",
-      "caption": "Сумы Общий вид 1905-1909 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-26",
-      "src": "/photos/others/sumy/sumy_26.jpg",
-      "caption": "Сумы №12 Лодочная пристань на р. Псёл Изд. Суворина А. С. 1917 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-27",
-      "src": "/photos/others/sumy/sumy_27.jpg",
-      "caption": "Сумы №3 Памятник И. Г. Харитоненко Изд. Суворина А. С. 1917 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-28",
-      "src": "/photos/others/sumy/sumy_28.jpg",
-      "caption": "Сумы Окружной суд Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-29",
-      "src": "/photos/others/sumy/sumy_29.jpg",
-      "caption": "Сумы №9 Троицкая улица Изд. Суворин А. С. 1911-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-30",
-      "src": "/photos/others/sumy/sumy_30.jpg",
-      "caption": "Сумы Сквер 1905-1907 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-31",
-      "src": "/photos/others/sumy/sumy_31.jpg",
-      "caption": "Сумы Писаревский мост 1905-1909 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-32",
-      "src": "/photos/others/sumy/sumy_32.jpg",
-      "caption": "Сумы Вид с Кустово на парк Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-33",
-      "src": "/photos/others/sumy/sumy_33.jpg",
-      "caption": "Сумы Разлив у 3-го моста Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [
-        { "personId": "p004" },
-        { "personId": "p008" },
-        { "personId": "p009" }
-      ],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-34",
-      "src": "/photos/others/sumy/sumy_34.jpg",
-      "caption": "Сумы Короленковский берег 1905-1909 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-35",
-      "src": "/photos/others/sumy/sumy_35.jpg",
-      "caption": "Сумы Собор Изд. Магазин Реньен 1900-1901 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-36",
-      "src": "/photos/others/sumy/sumy_36.jpg",
-      "caption": "Сумы 48 Сад ШВЕЙЦАРИЯ Осиротелая аллея Любви Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-37",
-      "src": "/photos/others/sumy/sumy_37.jpg",
-      "caption": "Сумы Вид реки Псёл 1905 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-38",
-      "src": "/photos/others/sumy/sumy_38.jpg",
-      "caption": "Сумы Покровская площадь, Воскресенская улица 1905-1910 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-39",
-      "src": "/photos/others/sumy/sumy_39.jpg",
-      "caption": "Сумы 36 Пансион мужской гимназии Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-40",
-      "src": "/photos/others/sumy/sumy_40.jpg",
-      "caption": "Сумы Мост через Сумку Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
-    },
-    {
-      "id": "others-sumy-41",
-      "src": "/photos/others/sumy/sumy_41.jpg",
-      "caption": "Сумы №33 4-й мост Ледоход на Псле Изд. Гончаренко В. И. 1910-1912 г.",
-      "category": "related",
-      "people": [],
-      "series": "Сумы"
     }
   ],
   "history": [
