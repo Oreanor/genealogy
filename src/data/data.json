@@ -2080,6 +2080,466 @@
       "caption": "",
       "category": "related",
       "people": []
+    },
+    {
+      "id": "others-sumy-01",
+      "src": "/photos/others/sumy/sumy_01.jpg",
+      "caption": "Сумы Окрестности Луки Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-02",
+      "src": "/photos/others/sumy/sumy_02.jpg",
+      "caption": "Сумы №25 1-ая мужская гимназия Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-03",
+      "src": "/photos/others/sumy/sumy_03.jpg",
+      "caption": "Сумы Базарная площадь Изд. Ильченко И. Г. 1905-1910 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-04",
+      "src": "/photos/others/sumy/sumy_04.jpg",
+      "caption": "Сумы Городской сад 1905-1910 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-05",
+      "src": "/photos/others/sumy/sumy_05.jpg",
+      "caption": "Сумы Машиностроительные заводы 1905-1910 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-06",
+      "src": "/photos/others/sumy/sumy_06.jpg",
+      "caption": "Сумы №9а Собор Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-07",
+      "src": "/photos/others/sumy/sumy_07.jpg",
+      "caption": "Сумы Общий вид 1905-1910 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-08",
+      "src": "/photos/others/sumy/sumy_08.jpg",
+      "caption": "Сумы Почтово-телеграфная контора Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-09",
+      "src": "/photos/others/sumy/sumy_09.jpg",
+      "caption": "Сумы Станция ж. д. Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-10",
+      "src": "/photos/others/sumy/sumy_10.jpg",
+      "caption": "Сумы Базарная площадь 1905 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-11",
+      "src": "/photos/others/sumy/sumy_11.jpg",
+      "caption": "Сумы р. Псёл 1905-1910 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-12",
+      "src": "/photos/others/sumy/sumy_12.jpg",
+      "caption": "Сумы Новый городской парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-13",
+      "src": "/photos/others/sumy/sumy_13.jpg",
+      "caption": "Суды 44 Городс. парк имени Лещинских Изд. Гончаренко В. И. 1910-1917 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-14",
+      "src": "/photos/others/sumy/sumy_14.jpg",
+      "caption": "Сумы №47 р. Псёл Купанье Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-15",
+      "src": "/photos/others/sumy/sumy_15.jpg",
+      "caption": "Сумы №5 Бетонный мост на р. Сумке Изд. Суворина А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-16",
+      "src": "/photos/others/sumy/sumy_16.jpg",
+      "caption": "Сумы 34 Общественное собрание Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-17",
+      "src": "/photos/others/sumy/sumy_17.jpg",
+      "caption": "Сумы №1 Соборная улица Изд. Суворина А. С. 1915 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-18",
+      "src": "/photos/others/sumy/sumy_18.jpg",
+      "caption": "Сумы. Собор",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-19",
+      "src": "/photos/others/sumy/sumy_19.jpg",
+      "caption": "Сумы Река Сумка Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-20",
+      "src": "/photos/others/sumy/sumy_20.jpg",
+      "caption": "Суды Вид нового места 1905-1909 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-21",
+      "src": "/photos/others/sumy/sumy_21.jpg",
+      "caption": "Сумы №27 Воскресенская улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-22",
+      "src": "/photos/others/sumy/sumy_22.jpg",
+      "caption": "Сумы Городской сквер Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-23",
+      "src": "/photos/others/sumy/sumy_23.jpg",
+      "caption": "Сумы Вид с птичьего полёта 1905 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-24",
+      "src": "/photos/others/sumy/sumy_24.jpg",
+      "caption": "Сумы Соборная улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-25",
+      "src": "/photos/others/sumy/sumy_25.jpg",
+      "caption": "Сумы Общий вид 1905-1909 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-26",
+      "src": "/photos/others/sumy/sumy_26.jpg",
+      "caption": "Сумы №12 Лодочная пристань на р. Псёл Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-27",
+      "src": "/photos/others/sumy/sumy_27.jpg",
+      "caption": "Сумы №3 Памятник И. Г. Харитоненко Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-28",
+      "src": "/photos/others/sumy/sumy_28.jpg",
+      "caption": "Сумы Окружной суд Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-29",
+      "src": "/photos/others/sumy/sumy_29.jpg",
+      "caption": "Сумы №9 Троицкая улица Изд. Суворин А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-30",
+      "src": "/photos/others/sumy/sumy_30.jpg",
+      "caption": "Сумы Сквер 1905-1907 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-31",
+      "src": "/photos/others/sumy/sumy_31.jpg",
+      "caption": "Сумы Писаревский мост 1905-1909 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-32",
+      "src": "/photos/others/sumy/sumy_32.jpg",
+      "caption": "Сумы Вид с Кустово на парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-33",
+      "src": "/photos/others/sumy/sumy_33.jpg",
+      "caption": "Сумы Разлив у 3-го моста Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        { "personId": "p004" },
+        { "personId": "p008" },
+        { "personId": "p009" }
+      ],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-34",
+      "src": "/photos/others/sumy/sumy_34.jpg",
+      "caption": "Сумы Короленковский берег 1905-1909 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-35",
+      "src": "/photos/others/sumy/sumy_35.jpg",
+      "caption": "Сумы Собор Изд. Магазин Реньен 1900-1901 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-36",
+      "src": "/photos/others/sumy/sumy_36.jpg",
+      "caption": "Сумы 48 Сад ШВЕЙЦАРИЯ Осиротелая аллея Любви Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-37",
+      "src": "/photos/others/sumy/sumy_37.jpg",
+      "caption": "Сумы Вид реки Псёл 1905 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-38",
+      "src": "/photos/others/sumy/sumy_38.jpg",
+      "caption": "Сумы Покровская площадь, Воскресенская улица 1905-1910 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-39",
+      "src": "/photos/others/sumy/sumy_39.jpg",
+      "caption": "Сумы 36 Пансион мужской гимназии Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-40",
+      "src": "/photos/others/sumy/sumy_40.jpg",
+      "caption": "Сумы Мост через Сумку Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
+    },
+    {
+      "id": "others-sumy-41",
+      "src": "/photos/others/sumy/sumy_41.jpg",
+      "caption": "Сумы №33 4-й мост Ледоход на Псле Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Сумы"
     }
   ],
   "history": [
