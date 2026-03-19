@@ -9,7 +9,7 @@ import { HistoryContentRenderer } from '@/components/content/HistoryContentRende
 import { getHistoryEntries } from '@/lib/data/history';
 import Link from 'next/link';
 import { SearchField } from '@/components/ui/molecules/SearchField';
-import { CONTENT_LINK_CLASS, SECTION_HEADING_CLASS } from '@/lib/constants/theme';
+import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { Button } from '@/components/ui/atoms/Button';
 
@@ -88,11 +88,11 @@ export function HistorySection() {
       <div className="hidden md:block">
         <BookSpread
           left={
-            <BookPage>
-              <h1 className={SECTION_HEADING_CLASS}>
+            <BookPage className="p-5 sm:p-6 md:p-7">
+              <h1 className="book-serif mb-3 border-b border-(--ink-muted)/35 pb-0 text-lg font-semibold text-(--ink) md:text-xl lg:text-2xl">
                 {t('chapters_history')}
               </h1>
-              <div className="mt-3">
+              <div className="mt-1.5">
                 <SearchField
                   placeholder={t('historySearchPlaceholder')}
                   value={historySearch}
@@ -100,7 +100,7 @@ export function HistorySection() {
                   aria-label={t('historySearchPlaceholder')}
                 />
               </div>
-              <ul className="mt-3 flex-1 min-h-0 overflow-y-auto space-y-1">
+              <ul className="mt-2.5 flex-1 min-h-0 overflow-y-auto space-y-0.5">
                 {filteredHistoryEntries.length === 0 ? (
                   <li className="text-(--ink-muted)">{t('nothingFound')}</li>
                 ) : (
@@ -111,7 +111,7 @@ export function HistorySection() {
                       <li key={originalIndex}>
                         <Link
                           href={`${pathname}?section=history&entry=${originalIndex}`}
-                          className={`block rounded-md px-3 py-1.5 text-base transition-colors hover:bg-(--paper-light) ${CONTENT_LINK_CLASS} ${isSelected ? 'bg-(--paper-light) font-medium' : ''}`}
+                          className={`block rounded-md px-2.5 py-1 text-sm transition-colors hover:bg-(--paper-light) ${CONTENT_LINK_CLASS} ${isSelected ? 'bg-(--paper-light) font-medium' : ''}`}
                         >
                           {entry.title || `${t('chapters_history')} ${originalIndex + 1}`}
                         </Link>
@@ -123,7 +123,7 @@ export function HistorySection() {
             </BookPage>
           }
           right={
-            <BookPage className="p-8 sm:p-10 md:p-12">
+            <BookPage className="p-5 sm:p-6 md:p-7">
               <div
                 ref={textScrollRef}
                 className="flex h-full min-h-0 flex-col overflow-y-auto"
@@ -131,7 +131,7 @@ export function HistorySection() {
                 {selectedEntry ? (
                   <HistoryContentRenderer entries={[selectedEntry]} />
                 ) : (
-                  <p className="text-(--ink-muted) py-6 text-base">
+                  <p className="py-4 text-sm text-(--ink-muted)">
                     {t('historySelectHint')}
                   </p>
                 )}

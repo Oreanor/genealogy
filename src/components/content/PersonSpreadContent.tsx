@@ -131,7 +131,9 @@ export function PersonSpreadLeftContent({
 
   return (
     <div className="flex flex-col gap-5 overflow-y-auto">
-      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{displayPersonName}</h2>
+      <h2 className="book-serif border-b border-(--ink-muted)/35 pb-0 text-2xl font-semibold text-(--ink)">
+        {displayPersonName}
+      </h2>
       {summaryParagraphs.length > 0 && (
         <div className="space-y-2.5 book-serif text-sm leading-relaxed text-(--ink)">
           {summaryParagraphs.map((paragraph, paragraphIdx) => (
@@ -154,7 +156,9 @@ export function PersonSpreadLeftContent({
         </div>
       )}
       <div className="space-y-3 pt-2">
-        <h3 className="book-serif text-base font-semibold text-(--ink)">{t('personPhotos')}</h3>
+        <h3 className="book-serif border-b border-(--ink-muted)/35 pb-0 text-base font-semibold text-(--ink)">
+          {t('personPhotos')}
+        </h3>
         {personPhotos.length > 0 ? (
           (() => {
             const { noSeries, bySeries } = splitPersonPhotosForCarousels(personPhotos);
@@ -184,15 +188,17 @@ export function PersonSpreadLeftContent({
         )}
       </div>
       <div className="space-y-2 pt-2">
-        <h3 className="book-serif text-base font-semibold text-(--ink)">{t('personMentionedInStories')}</h3>
+        <h3 className="book-serif border-b border-(--ink-muted)/35 pb-0 text-base font-semibold text-(--ink)">
+          {t('personMentionedInStories')}
+        </h3>
         {historyMentions.length > 0 ? (
-          <ul className="flex flex-wrap gap-2">
+          <ul className="space-y-1.5">
             {historyMentions.map(({ entry, index }) => (
               <li key={index}>
                 <button
                   type="button"
                   onClick={() => onHistoryClick(index)}
-                  className={`rounded px-2 py-1 text-sm ${CONTENT_LINK_CLASS}`}
+                  className={`text-left text-sm ${CONTENT_LINK_CLASS}`}
                 >
                   {entry.title || `${t('chapters_history')} ${index + 1}`}
                 </button>
@@ -264,6 +270,17 @@ export function PersonSpreadRightContent({
   const hasBack = Boolean(photo.backSrc);
   const displaySrc = hasBack && showBack && photo.backSrc ? photo.backSrc : photo.src;
   const displayCaption = hasBack && showBack && photo.backCaption != null ? photo.backCaption : photo.caption;
+  const normalizedCaption = (caption ?? '').trim();
+  const personalFace = photo.category === 'personal' ? faces[0] : null;
+  const personalFaceFullName = personalFace
+    ? [personalFace.lastName, personalFace.firstName, personalFace.patronymic]
+        .filter((part): part is string => Boolean(part && part.trim()))
+        .map((part) => formatNameByLocale(part, locale))
+        .join(' ')
+    : '';
+  const personalFaceCaption =
+    personalFaceFullName || (personalFace?.displayName ? formatNameByLocale(personalFace.displayName, locale) : '');
+  const finalCaption = normalizedCaption !== '' ? normalizedCaption : personalFaceCaption || '—';
   const bounds = imageBounds ?? { left: 0, top: 0, width: 100, height: 100 };
 
   const imageBlock = (
@@ -363,11 +380,9 @@ export function PersonSpreadRightContent({
           </button>
         )}
       </div>
-      {caption != null && caption !== '' && (
-        <p className="mt-2 text-center text-sm text-(--ink)">
-          {caption}
-        </p>
-      )}
+      <p className="mt-2 text-center text-sm font-semibold text-(--ink)">
+        {finalCaption}
+      </p>
     </>
   );
 }

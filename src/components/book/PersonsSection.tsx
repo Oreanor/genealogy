@@ -17,7 +17,6 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDropdown';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
-import { SECTION_HEADING_CLASS } from '@/lib/constants/theme';
 import { Button } from '@/components/ui/atoms/Button';
 
 export function PersonsSection() {
@@ -82,11 +81,11 @@ export function PersonsSection() {
     <>
     <BookSpread
       left={
-        <BookPage>
-          <h1 className={`${SECTION_HEADING_CLASS} hidden md:block`}>
+        <BookPage className="p-5 sm:p-6 md:p-7">
+          <h1 className="book-serif mb-3 hidden border-b border-(--ink-muted)/35 pb-0 text-lg font-semibold text-(--ink) md:block md:text-xl lg:text-2xl">
             {t('chapters_persons')}
           </h1>
-          <div className="mt-0 md:mt-3">
+          <div className="mt-0 md:mt-1.5">
             <PersonSearchDropdown
               value={personsSearch}
               onChange={setPersonsSearch}
@@ -109,7 +108,7 @@ export function PersonsSection() {
               searchFocused={searchFocused}
             />
           </div>
-          <div className="mt-4 flex-1 min-h-0 overflow-y-auto">
+          <div className="mt-2.5 flex-1 min-h-0 overflow-y-auto">
             {selectedPerson ? (
               <PersonSpreadLeftContent
                 person={selectedPerson}
@@ -141,7 +140,7 @@ export function PersonsSection() {
                 )}
               />
             ) : (
-              <p className="py-6 text-base text-(--ink-muted)">
+              <p className="py-4 text-sm text-(--ink-muted)">
                 {t('personsSelectHint')}
               </p>
             )}

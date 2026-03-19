@@ -21,7 +21,6 @@ import type { PhotoEntry } from '@/lib/types/photo';
 import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDropdown';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
-import { SECTION_HEADING_CLASS } from '@/lib/constants/theme';
 
 export function PhotosSection() {
   const pathname = usePathname() ?? '';
@@ -95,11 +94,11 @@ export function PhotosSection() {
     <>
       <BookSpread
         left={
-          <BookPage>
-            <h1 className={`${SECTION_HEADING_CLASS} hidden md:block`}>
+          <BookPage className="p-5 sm:p-6 md:p-7">
+            <h1 className="book-serif mb-3 hidden border-b border-(--ink-muted)/35 pb-0 text-lg font-semibold text-(--ink) md:block md:text-xl lg:text-2xl">
               {t('chapters_photos')}
             </h1>
-            <div className="mt-0 md:mt-3">
+            <div className="mt-0 md:mt-1.5">
               <PersonSearchDropdown
                 value={personsSearch}
                 onChange={setPersonsSearch}
@@ -120,12 +119,12 @@ export function PhotosSection() {
             </div>
 
             {selectedPerson && (
-              <h2 className="mt-2 book-serif text-2xl font-semibold text-(--ink)">
+              <h2 className="mt-1.5 book-serif text-xl font-semibold text-(--ink) md:text-2xl">
                 {getFullName(selectedPerson) || selectedPerson.id}
               </h2>
             )}
 
-            <div className="mt-4 flex-1 min-h-0 overflow-y-auto space-y-4">
+            <div className="mt-2.5 flex-1 min-h-0 overflow-y-auto space-y-2.5">
               {selectedPerson ? (
                 <>
                   {personSplit && personSplit.noSeries.length > 0 && (
@@ -187,7 +186,7 @@ export function PhotosSection() {
           </BookPage>
         }
         right={
-          <BookPage className="flex flex-col overflow-hidden">
+          <BookPage className="flex flex-col overflow-hidden p-5 sm:p-6 md:p-7">
             <PersonSpreadRightContent
               photo={selectedPhoto}
               showFaces={showFaces}

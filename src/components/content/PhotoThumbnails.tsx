@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ChevronDown, RotateCw } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { PhotoEntry } from '@/lib/types/photo';
 
@@ -71,15 +71,10 @@ export function PhotoThumbnails({ title, photos, selectedPhoto, onSelect }: Phot
                   src={photo.src}
                   alt={photo.caption ?? ''}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   sizes="(max-width: 768px) 30vw, 120px"
                   quality={55}
                 />
-                {photo.backSrc && (
-                  <span className="absolute bottom-0.5 right-0.5 flex items-center justify-center rounded bg-black/50 p-0.5">
-                    <RotateCw className="size-3.5 text-white" aria-hidden />
-                  </span>
-                )}
               </button>
             );
           })}

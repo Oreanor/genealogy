@@ -47,7 +47,7 @@ export function BookView() {
           >
             <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
               <BookPage className="flex h-full min-h-0 min-w-0 flex-col p-2 sm:p-5 md:p-6">
-                <h1 className="book-serif mb-1 hidden text-center text-lg font-semibold text-(--ink) md:mb-2 md:block md:text-2xl lg:text-3xl">
+                <h1 className="book-serif mb-2 hidden border-b border-(--ink-muted)/35 pb-0 text-center text-lg font-semibold text-(--ink) md:block md:text-2xl lg:text-3xl">
                   {t('treeTitle')}
                 </h1>
                 <FamilyTree onPersonClick={setSelectedTreePersonId} />

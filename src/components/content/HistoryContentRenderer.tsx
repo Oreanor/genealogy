@@ -12,7 +12,9 @@ export function HistoryContentRenderer({ entries }: HistoryContentRendererProps)
       {entries.map((entry, idx) => (
         <article key={idx} className="book-serif flex flex-col gap-4">
           {entry.title && (
-            <h2 className="text-xl font-semibold text-(--ink)">{entry.title}</h2>
+            <h2 className="border-b border-(--ink-muted)/35 pb-0 text-xl font-semibold text-(--ink)">
+              {entry.title}
+            </h2>
           )}
           {entry.richText && (
             <div
