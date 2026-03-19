@@ -46,15 +46,17 @@ export function PhotosSection() {
   );
 
   useEffect(() => {
-    setSelectedPersonId(personId ?? null);
-    setPersonsSearch('');
+    queueMicrotask(() => {
+      setSelectedPersonId(personId ?? null);
+      setPersonsSearch('');
+    });
   }, [personId, persons]);
 
   const selectedPerson = selectedPersonId
     ? persons.find((p) => p.id === selectedPersonId) ?? null
     : null;
 
-  const allPhotos = getPhotos();
+  const allPhotos = useMemo(() => getPhotos(), []);
   const personPhotos = selectedPerson ? getPhotosByPerson(selectedPerson.id) : allPhotos;
 
   const allSplit = useMemo(() => splitAllPhotosForCarousels(allPhotos), [allPhotos]);
@@ -70,9 +72,11 @@ export function PhotosSection() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    setSelectedPhoto(null);
-    setShowPhotoBack(false);
-    setImageBounds(null);
+    queueMicrotask(() => {
+      setSelectedPhoto(null);
+      setShowPhotoBack(false);
+      setImageBounds(null);
+    });
   }, [selectedPersonId, setImageBounds]);
 
   const handlePhotoSelect = useCallback(
@@ -87,7 +91,7 @@ export function PhotosSection() {
         if (isMobile) setLightboxOpen(true);
       }
     },
-    [setImageBounds, isMobile]
+    [setImageBounds, isMobile, setLightboxOpen]
   );
 
   return (

@@ -74,8 +74,10 @@ function loadStoredPayload(): StoredPayload | null {
   return null;
 }
 
-function saveToStorage(_data: AdminDataSections, _bundledHash: string) {
+function saveToStorage(data: AdminDataSections, bundledHash: string) {
   // no-op: admin data is not persisted between sessions anymore
+  void data;
+  void bundledHash;
 }
 
 /**

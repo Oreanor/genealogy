@@ -9,7 +9,7 @@ import { BookSpread } from './BookSpread';
 import { BookPage } from './BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
 import { getPersons } from '@/lib/data/persons';
-import { formatPersonNameForLocale, sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/utils/person';
+import { formatPersonNameForLocale, sortPersonsBySurname, personMatchesSearch } from '@/lib/utils/person';
 import { getPhotosByPerson, getLightboxFacesFromPhoto, getPreferredPanelPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import type { PhotoEntry } from '@/lib/types/photo';
@@ -43,7 +43,7 @@ export function PersonsSection() {
   );
 
   useEffect(() => {
-    setSelectedPersonId(personId ?? null);
+    queueMicrotask(() => setSelectedPersonId(personId ?? null));
   }, [personId]);
 
   const selectedPerson = selectedPersonId
@@ -63,13 +63,13 @@ export function PersonsSection() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const first = selectedPersonId
-      ? getPreferredPanelPhoto(selectedPersonId)
-      : null;
-    setSelectedPhoto(first);
-    setSelectedHistoryIndex(null);
-    setShowPhotoBack(false);
-    setImageBounds(null);
+    queueMicrotask(() => {
+      const first = selectedPersonId ? getPreferredPanelPhoto(selectedPersonId) : null;
+      setSelectedPhoto(first);
+      setSelectedHistoryIndex(null);
+      setShowPhotoBack(false);
+      setImageBounds(null);
+    });
   }, [selectedPersonId, setImageBounds]);
 
   const selectedHistoryEntry =

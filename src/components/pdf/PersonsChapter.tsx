@@ -146,7 +146,7 @@ function PersonInfoPage({ person, labels }: { person: Person; labels: PersonsLab
   );
 }
 
-function PersonPhotoPage({ person, labels }: { person: Person; labels: PersonsLabels }) {
+function PersonPhotoPage({ person }: { person: Person }) {
   const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
   if (!avatar) return null;
 
@@ -173,7 +173,7 @@ export function PersonsChapter({ labels }: { labels: PersonsLabels }) {
       {persons.map((person) => (
         <React.Fragment key={person.id}>
           <PersonInfoPage person={person} labels={labels} />
-          <PersonPhotoPage person={person} labels={labels} />
+          <PersonPhotoPage person={person} />
         </React.Fragment>
       ))}
     </>

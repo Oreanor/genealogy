@@ -19,7 +19,7 @@ function collectStrings(node: unknown, out: string[] = []) {
   return out;
 }
 
-function collectElementsByType(node: unknown, type: unknown, out: any[] = []) {
+function collectElementsByType(node: unknown, type: unknown, out: unknown[] = []) {
   if (node == null || typeof node === 'boolean') return out;
   if (Array.isArray(node)) {
     for (const n of node) collectElementsByType(n, type, out);
@@ -84,11 +84,13 @@ describe('htmlToPdfElements', () => {
     expect(collectElementsByType(nodes, View).length).toBeGreaterThan(0);
     const images = collectElementsByType(nodes, Image);
     expect(images.length).toBeGreaterThan(0);
-    expect((images[0] as any).props.src).toBe('img.jpg');
+    const firstImage = images[0] as { props?: { src?: string } } | undefined;
+    expect(firstImage?.props?.src).toBe('img.jpg');
 
     const links = collectElementsByType(nodes, Link);
     expect(links.length).toBeGreaterThan(0);
-    expect((links[0] as any).props.src).toBe('https://example.com');
+    const firstLink = links[0] as { props?: { src?: string } } | undefined;
+    expect(firstLink?.props?.src).toBe('https://example.com');
   });
 
   it('does not crash on malformed html with missing closing tags', () => {

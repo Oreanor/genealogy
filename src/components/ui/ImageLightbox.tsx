@@ -32,25 +32,13 @@ export function ImageLightbox({
   onClose,
 }: ImageLightboxProps) {
   const t = useTranslations();
-  const [showFaces, setShowFaces] = useState(false);
+  const [showFaces, setShowFaces] = useState(() => faces.length > 0);
   const [showBack, setShowBack] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const hasFaces = faces.length > 0;
   const hasBack = Boolean(backSrc);
   const displaySrc = hasBack && showBack && backSrc ? backSrc : src;
   const displayCaption = hasBack && showBack && backCaption != null ? backCaption : caption;
-
-  useEffect(() => {
-    if (!open) return;
-    setShowFaces(faces.length > 0);
-    setShowBack(false);
-    setIsLoading(true);
-  }, [open, faces.length]);
-
-  useEffect(() => {
-    if (!open) return;
-    setIsLoading(true);
-  }, [displaySrc, open]);
 
   useEffect(() => {
     if (!open) return;
@@ -86,7 +74,10 @@ export function ImageLightbox({
           className="block w-auto max-h-[calc(100vh-4rem)] max-w-[calc(100vw-1rem)] object-contain md:max-h-[calc(100vh-8rem)] md:max-w-[calc(100vw-2rem)]"
           onClick={(e) => {
             e.stopPropagation();
-            if (hasBack && !isLoading) setShowBack((v) => !v);
+            if (hasBack && !isLoading) {
+              setIsLoading(true);
+              setShowBack((v) => !v);
+            }
           }}
           onLoad={() => setIsLoading(false)}
           unoptimized

@@ -145,7 +145,7 @@ describe('Book sections coverage', () => {
     const thumbBtn = scope
       .getAllByRole('button')
       .find((b) => b.querySelector('img')?.getAttribute('src') === photo.src);
-    expect(thumbBtn).toBeTruthy();
+    if (!thumbBtn) throw new Error('Photo thumbnail button not found');
 
     const countImgSrc = (src: string) =>
       Array.from(container.querySelectorAll('img')).filter((img) => img.getAttribute('src') === src).length;

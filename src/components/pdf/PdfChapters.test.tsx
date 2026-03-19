@@ -84,8 +84,8 @@ describe('PDF chapters', () => {
       },
     });
 
-    const doc = tree as any;
-    expect(doc?.props?.title).toBe('Book');
+    const doc = tree as unknown as { props?: { title?: string } };
+    expect(doc.props?.title).toBe('Book');
   });
 });
 

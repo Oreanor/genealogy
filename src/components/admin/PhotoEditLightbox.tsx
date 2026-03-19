@@ -119,6 +119,7 @@ export function PhotoEditLightbox({
   onCancelPerson,
   isAddMode = false,
 }: PhotoEditLightboxProps) {
+  void isAddMode;
   const t = useTranslations();
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const [firstPoint, setFirstPoint] = useState<{ x: number; y: number } | null>(null);
@@ -267,7 +268,6 @@ export function PhotoEditLightbox({
                 const [l, t_, r, b] = p.coords as number[];
                 return (
                   <div
-                    // eslint-disable-next-line react/no-array-index-key
                     key={i}
                     className="absolute pointer-events-none border border-(--accent) bg-(--hotspot-fill)"
                     style={{

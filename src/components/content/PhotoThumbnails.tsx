@@ -17,8 +17,6 @@ const THUMB_CLASS =
   'relative aspect-square w-full overflow-hidden rounded border border-(--border-subtle) bg-(--paper-light) transition-opacity hover:opacity-80 focus:outline-none';
 
 export function PhotoThumbnails({ title, photos, selectedPhoto, onSelect }: PhotoThumbnailsProps) {
-  if (photos.length === 0) return null;
-
   const hasTitle = Boolean(title && title.trim());
   const defaultExpanded = false;
   const [expanded, setExpanded] = useState(defaultExpanded);
@@ -27,6 +25,8 @@ export function PhotoThumbnails({ title, photos, selectedPhoto, onSelect }: Phot
     const n = photos.length;
     return n === 1 ? '1' : String(n);
   }, [photos.length]);
+
+  if (photos.length === 0) return null;
 
   return (
     <div className="space-y-1">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { X } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n/context';
@@ -58,11 +58,7 @@ interface PdfPreviewDialogProps {
 export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
   const t = useTranslations();
   const labels = usePdfLabels();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const [isClient] = useState(() => typeof window !== 'undefined');
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

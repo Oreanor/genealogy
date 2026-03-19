@@ -1,4 +1,4 @@
-`use client`;
+'use client';
 
 import { useCallback, useRef, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
@@ -46,6 +46,7 @@ export function BookToolbar() {
 
   const sectionParam = searchParams.get('section') ?? '';
   const currentSection: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
+  const safeSectionForSelect: SectionId = currentSection === 'kinship' ? 'tree' : currentSection;
 
   const tabParam = searchParams.get('tab') ?? '';
   const currentAdminTab: AdminTabId = ADMIN_TAB_IDS.includes(
@@ -109,12 +110,12 @@ export function BookToolbar() {
             </select>
           ) : (
             <select
-              value={currentSection}
+              value={safeSectionForSelect}
               onChange={handleSectionChange}
               className="flex-1 rounded-md border border-(--border) bg-(--paper) px-2 py-1 text-xs text-(--ink) shadow-sm"
               aria-label={t('navAria')}
             >
-              {SECTIONS.filter(({ id }) => id !== 'help').map(({ id, i18nKey }) => (
+              {SECTIONS.filter(({ id }) => id !== 'help' && id !== 'kinship').map(({ id, i18nKey }) => (
                 <option key={id} value={id}>
                   {t(i18nKey)}
                 </option>

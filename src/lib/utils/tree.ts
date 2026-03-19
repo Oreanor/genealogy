@@ -1,5 +1,6 @@
 import { getPersonById } from '@/lib/data/persons';
 import type { Person } from '@/lib/types/person';
+import { getChildren } from '@/lib/data/familyRelations';
 
 export const MAX_TREE_LEVELS = 6; // self, parents, grandparents, great-grandparents, etc.
 /** Minimum levels: always draw slots up to great-grandparents (levels 0..3). */
@@ -47,4 +48,82 @@ export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
     matrix.push(Array.from({ length: count }, () => null));
   }
   return matrix;
+}
+
+export interface DescendantsTreeData {
+  matrix: (Person | null)[][];
+  parentKeyByChildKey: Record<string, string>;
+}
+
+/**
+ * Descendants tree matrix built level-by-level using real children links.
+ * Slots remain a fixed binary-like layout, but when children exceed capacity,
+ * extra children are truncated; `parentKeyByChildKey` keeps correct parent->child
+ * mapping for line drawing.
+ */
+export function buildDescendantsMatrix(rootPersonId: string): DescendantsTreeData {
+  const matrix: (Person | null)[][] = [];
+  const parentKeyByChildKey: Record<string, string> = {};
+  // Safety cap: don't let huge-family branches explode the layout.
+  const MAX_DESCENDANT_SLOTS = 12;
+
+  for (let level = 0; level < MAX_TREE_LEVELS; level++) {
+    const row: (Person | null)[] = [];
+
+    if (level === 0) {
+      row.push(getPersonById(rootPersonId));
+      matrix.push(row);
+      continue;
+    }
+
+    const prevRow = matrix[level - 1] ?? [];
+    const binCount = Math.pow(2, level);
+    let totalChildren = 0;
+    const parentsChildren: Array<{ parentIndex: number; children: Person[] }> = [];
+
+    for (let parentIndex = 0; parentIndex < prevRow.length; parentIndex += 1) {
+      const parent = prevRow[parentIndex];
+      if (!parent) continue;
+      const children = getChildren(parent.id)
+        .slice()
+        .sort((a, b) => a.id.localeCompare(b.id));
+      parentsChildren.push({ parentIndex, children });
+      totalChildren += children.length;
+    }
+
+    const slotCount = Math.min(MAX_DESCENDANT_SLOTS, Math.max(binCount, totalChildren));
+    const nextRow: (Person | null)[] = Array.from({ length: slotCount }, () => null);
+    let nextIndex = 0;
+
+    for (const { parentIndex, children } of parentsChildren) {
+      if (nextIndex >= slotCount) break;
+      const parentSlotKey = `${level - 1}-${parentIndex}`;
+
+      for (const child of children) {
+        if (nextIndex >= slotCount) break;
+        const childSlotKey = `${level}-${nextIndex}`;
+        nextRow[nextIndex] = child;
+        parentKeyByChildKey[childSlotKey] = parentSlotKey;
+        nextIndex += 1;
+      }
+    }
+
+    matrix.push(nextRow);
+
+    // Level 4 (great-great-great-grandparents): add deeper levels only if any person exists
+    if (level === 4) {
+      if (!nextRow.some((p) => p !== null)) break;
+    }
+
+    // Stop early if there are no children at this level.
+    if (nextIndex === 0) break;
+  }
+
+  while (matrix.length < MIN_TREE_LEVELS) {
+    // For descendants mode we use empty rows (no placeholders) unless deeper
+    // levels are built. This keeps layout stable without exploding width.
+    matrix.push([]);
+  }
+
+  return { matrix, parentKeyByChildKey };
 }

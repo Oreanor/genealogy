@@ -56,7 +56,6 @@ export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
 
   useLayoutEffect(() => {
     if (!visible) {
-      setPos(null);
       return;
     }
     const anchor = wrapperRef.current;

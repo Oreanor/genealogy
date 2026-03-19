@@ -1,6 +1,6 @@
-import type { Gender, Person } from '@/lib/types/person';
+import type { Gender } from '@/lib/types/person';
 import { getPersons, getPersonById } from '@/lib/data/persons';
-import { getChildren, getSpouse } from '@/lib/data/familyRelations';
+import { getSpouse } from '@/lib/data/familyRelations';
 
 export type EdgeKind = 'parent' | 'child' | 'spouse';
 interface Edge { to: string; kind: EdgeKind }

@@ -4,7 +4,7 @@ import { useLocaleRoutes } from '@/lib/i18n/context';
 import { SECTIONS, isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
 import Link from 'next/link';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { HelpCircle } from 'lucide-react';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { AdminButton } from '@/components/ui/AdminButton';
@@ -22,42 +22,39 @@ export function SectionBookmarks() {
   const { t } = useLocaleRoutes();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const sectionParam = searchParams.get('section') ?? '';
   const current: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
 
-  const handleSectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const id = e.target.value as SectionId;
-    const url = id === 'tree' ? pathname : `${pathname}?section=${id}`;
-    router.push(url);
-  };
-
   const RIGHT_IDS = new Set<string>(['help']);
-  const mainSections = SECTIONS.filter((s) => !RIGHT_IDS.has(s.id));
+  // Kinship is handled via selection mode on the Tree page, so hide it from the usual tabs.
+  const mainSections = SECTIONS.filter((s) => !RIGHT_IDS.has(s.id) && s.id !== 'kinship');
   const helpSection = SECTIONS.find((s) => s.id === 'help');
 
   return (
     <nav
-      className="z-30 mt-1 -mb-0.5 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-6 md:-mt-2 md:-mb-1 md:ml-4 md:pl-0 md:pr-8"
+      className="z-30 mt-1 mb-0 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-2 md:-mt-2 md:mb-0 md:ml-4 md:pl-0 md:pr-3"
       aria-label={t('navAria')}
     >
       {/* Desktop: tab links (mobile moved to bottom toolbar) */}
       <div className="flex-row flex-wrap gap-1 max-md:hidden">
-        {mainSections.map(({ id, i18nKey }) => {
+        {mainSections.map(({ id, i18nKey }, i) => {
           const isActive = current === id;
           const href = id === 'tree' ? pathname : `${pathname}?section=${id}`;
           return (
             <Link
               key={id}
               href={href}
-              className={`${BOOKMARK_BASE} ${isActive ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE}`}
+              style={{ zIndex: i }}
+              className={`${BOOKMARK_BASE} ${
+                i > 0 ? '-ml-[6px]' : ''
+              } ${isActive ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE}`}
             >
               {t(i18nKey)}
             </Link>
           );
         })}
       </div>
-      <div className="hidden shrink-0 flex-row items-center gap-1 md:flex">
+      <div className="hidden shrink-0 flex-row items-center gap-1 md:flex md:-mt-1">
         <Tooltip label={t('adminTitle')} side="bottom">
           <AdminButton />
         </Tooltip>

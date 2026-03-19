@@ -29,7 +29,7 @@ describe('usePhotoImageBounds', () => {
     const fakeEvent = {
       currentTarget: { naturalWidth: 0, naturalHeight: 100 } as HTMLImageElement,
       target: null,
-    } as React.SyntheticEvent<HTMLImageElement>;
+    } as unknown as React.SyntheticEvent<HTMLImageElement, Event>;
     result.current.onPhotoImageLoad(fakeEvent);
     expect(rafCallback).toBeNull();
     expect(result.current.imageBounds).toBeNull();
@@ -45,7 +45,7 @@ describe('usePhotoImageBounds', () => {
     const fakeEvent = {
       currentTarget: { naturalWidth: 400, naturalHeight: 200 } as HTMLImageElement,
       target: null,
-    } as React.SyntheticEvent<HTMLImageElement>;
+    } as unknown as React.SyntheticEvent<HTMLImageElement, Event>;
     result.current.onPhotoImageLoad(fakeEvent);
     expect(rafCallback).not.toBeNull();
     act(() => {
