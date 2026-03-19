@@ -138,34 +138,36 @@ export function PersonSpreadLeftContent({
           />
         </div>
       )}
-      {(person.birthDate || person.deathDate) && (
-        <p className="text-(--ink)">
-          <span className="font-medium">{t('years')}</span>{' '}
-          {formatLifeDates(person.birthDate, person.deathDate)}
-        </p>
-      )}
-      {person.birthPlace && (
-        <p className="text-(--ink)">
-          <span className="font-medium">{t('birthPlace')}</span> {person.birthPlace}
-        </p>
-      )}
-      {person.occupation && (
-        <p className="text-(--ink)">
-          <span className="font-medium">{t('occupation')}</span> {person.occupation}
-        </p>
-      )}
-      {person.residenceCity && (
-        <p className="text-(--ink)">
-          <span className="font-medium">{t('residenceCity')}</span> {person.residenceCity}
-        </p>
-      )}
-      {person.comment && (
-        <p className="text-(--ink)">
-          <span className="font-medium">{t('comment')}</span> {person.comment}
-        </p>
-      )}
-      <div className="space-y-3">
-        <h3 className="text-base font-semibold text-(--ink)">{t('personPhotos')}</h3>
+      <div className="space-y-2.5 text-(--ink)">
+        {(person.birthDate || person.deathDate) && (
+          <p>
+            <span className="font-medium">{t('years')}</span>{' '}
+            {formatLifeDates(person.birthDate, person.deathDate)}
+          </p>
+        )}
+        {person.birthPlace && (
+          <p>
+            <span className="font-medium">{t('birthPlace')}</span> {person.birthPlace}
+          </p>
+        )}
+        {person.occupation && (
+          <p>
+            <span className="font-medium">{t('occupation')}</span> {person.occupation}
+          </p>
+        )}
+        {person.residenceCity && (
+          <p>
+            <span className="font-medium">{t('residenceCity')}</span> {person.residenceCity}
+          </p>
+        )}
+        {person.comment && (
+          <p>
+            <span className="font-medium">{t('comment')}</span> {person.comment}
+          </p>
+        )}
+      </div>
+      <div className="space-y-3 pt-2">
+        <h3 className="book-serif text-base font-semibold text-(--ink)">{t('personPhotos')}</h3>
         {personPhotos.length > 0 ? (
           (() => {
             const { noSeries, bySeries } = splitPersonPhotosForCarousels(personPhotos);
@@ -194,8 +196,8 @@ export function PersonSpreadLeftContent({
           <p className="text-sm text-(--ink-muted)">{t('noPhotosYet')}</p>
         )}
       </div>
-      <div className="space-y-2">
-        <h3 className="text-base font-semibold text-(--ink)">{t('personMentionedInStories')}</h3>
+      <div className="space-y-2 pt-2">
+        <h3 className="book-serif text-base font-semibold text-(--ink)">{t('personMentionedInStories')}</h3>
         {historyMentions.length > 0 ? (
           <ul className="flex flex-wrap gap-2">
             {historyMentions.map(({ entry, index }) => (
