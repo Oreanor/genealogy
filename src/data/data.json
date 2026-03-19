@@ -1,6 +1,20 @@
 {
-  "rootPersonId": "p006",
+  "rootPersonId": "p008",
   "persons": [
+    {
+      "id": "p023",
+      "firstName": "Олег",
+      "birthPlace": "Воркута",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "m",
+      "lastName": "Никонец",
+      "patronymic": "Владимирович",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
+    },
     {
       "id": "p017",
       "firstName": "Надежда",
@@ -161,6 +175,17 @@
       "residenceCity": "Сумы"
     },
     {
+      "id": "p021",
+      "firstName": "Марина",
+      "birthPlace": "",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Курсанова",
+      "motherId": "p020"
+    },
+    {
       "id": "p008",
       "firstName": "Андрей",
       "birthPlace": "",
@@ -185,6 +210,18 @@
       "deathDate": "13.09.2021",
       "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
       "residenceCity": "Воркута"
+    },
+    {
+      "id": "p022",
+      "firstName": "Оксана",
+      "birthPlace": "",
+      "residenceCity": "Калуга",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Никонец",
+      "patronymic": "Сергеевна",
+      "fatherId": "p019"
     },
     {
       "id": "p004",
@@ -213,6 +250,33 @@
       "lastName": "Никонец",
       "birthDate": "25.07.1980",
       "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg"
+    },
+    {
+      "id": "p019",
+      "firstName": "Сергей",
+      "birthPlace": "Буйнакск",
+      "residenceCity": "Буйнакск",
+      "occupation": "",
+      "comment": "",
+      "gender": "m",
+      "lastName": "Никонец",
+      "patronymic": "Павлович",
+      "birthDate": "05.08.1947",
+      "fatherId": "p004",
+      "motherId": "p005"
+    },
+    {
+      "id": "p020",
+      "firstName": "Тамара",
+      "birthPlace": "",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Никонец",
+      "patronymic": "Павловна",
+      "fatherId": "p004",
+      "motherId": "p005"
     },
     {
       "id": "p013",

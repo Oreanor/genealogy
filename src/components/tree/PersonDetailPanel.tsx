@@ -13,8 +13,10 @@ import { BookSpread } from '@/components/book/BookSpread';
 import { BookPage } from '@/components/book/BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
+import { Button } from '@/components/ui/atoms/Button';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useRootPersonId, useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 
 interface PersonDetailPanelProps {
   person: Person;
@@ -33,6 +35,9 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
   const isMobile = useIsMobile();
   const locale = useLocale();
   const t = useTranslations();
+  const rootPersonId = useRootPersonId();
+  const setRootPersonId = useSetRootPersonId();
+  const isAlreadyTreeRoot = rootPersonId === person.id;
   const historyMentions = getHistoryEntriesByPerson(person.id);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -46,50 +51,63 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
   const spreadContent = (
     <BookSpread
       left={
-        <BookPage className="overflow-y-auto">
+        <BookPage className="min-h-0 overflow-hidden">
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <PersonSpreadLeftContent
+              person={person}
+              personPhotos={personPhotos}
+              selectedPhoto={selectedPhoto}
+              onPhotoClick={(photo, toggleBack) => {
+                setSelectedHistoryIndex(null);
+                if (toggleBack) {
+                  setShowPhotoBack((v) => !v);
+                  if (isMobile) setLightboxOpen(true);
+                } else {
+                  setSelectedPhoto(photo);
+                  setShowPhotoBack(false);
+                  setImageBounds(null);
+                  if (isMobile) setLightboxOpen(true);
+                }
+              }}
+              onHistoryClick={(index) => {
+                setSelectedHistoryIndex(index);
+                setSelectedPhoto(null);
+              }}
+              renderPersonLink={(p, displayName) => (
+                <button
+                  type="button"
+                  className={CONTENT_LINK_CLASS}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSelectPerson(p.id);
+                  }}
+                  role="button"
+                >
+                  {displayName ?? formatPersonNameForLocale(p, locale)}
+                </button>
+              )}
+            />
+          </div>
           {inline && (
-            <button
-              type="button"
-              onClick={onClose}
-              className="mb-3 text-sm text-(--link) hover:underline focus:outline-none"
-            >
-              ← {t('back')}
-            </button>
-          )}
-          <PersonSpreadLeftContent
-            person={person}
-            personPhotos={personPhotos}
-            selectedPhoto={selectedPhoto}
-            onPhotoClick={(photo, toggleBack) => {
-              setSelectedHistoryIndex(null);
-              if (toggleBack) {
-                setShowPhotoBack((v) => !v);
-                if (isMobile) setLightboxOpen(true);
-              } else {
-                setSelectedPhoto(photo);
-                setShowPhotoBack(false);
-                setImageBounds(null);
-                if (isMobile) setLightboxOpen(true);
-              }
-            }}
-            onHistoryClick={(index) => {
-              setSelectedHistoryIndex(index);
-              setSelectedPhoto(null);
-            }}
-            renderPersonLink={(p, displayName) => (
-              <button
+            <div className="mt-3 flex shrink-0 flex-wrap items-center gap-2 border-t border-(--ink-muted)/25 pt-3">
+              <Button
+                variant="secondary"
+                size="sm"
                 type="button"
-                className={CONTENT_LINK_CLASS}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onSelectPerson(p.id);
+                disabled={isAlreadyTreeRoot}
+                title={isAlreadyTreeRoot ? t('makeTreeRootAlready') : undefined}
+                onClick={() => {
+                  setRootPersonId(person.id);
+                  onClose();
                 }}
-                role="button"
               >
-                {displayName ?? formatPersonNameForLocale(p, locale)}
-              </button>
-            )}
-          />
+                {t('makeTreeRoot')}
+              </Button>
+              <Button variant="secondary" size="sm" type="button" onClick={onClose}>
+                ← {t('back')}
+              </Button>
+            </div>
+          )}
         </BookPage>
       }
       right={

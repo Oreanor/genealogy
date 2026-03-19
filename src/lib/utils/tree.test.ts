@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { buildTreeMatrix, MAX_TREE_LEVELS } from './tree';
+import { buildTreeMatrix, computeAncestorLayoutX, MAX_TREE_LEVELS } from './tree';
 import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
 import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
+import type { Person } from '@/lib/types/person';
 
 vi.mock('@/lib/data/persons', () => ({
   getPersons: () => PERSONS_FIXTURE,
@@ -35,5 +36,38 @@ describe('buildTreeMatrix', () => {
   it('respects MAX_TREE_LEVELS', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
     expect(matrix.length).toBeLessThanOrEqual(MAX_TREE_LEVELS);
+  });
+});
+
+describe('computeAncestorLayoutX', () => {
+  const W = 120;
+  const p = (id: string): Person => ({ id, firstName: 'T' });
+
+  it('keeps a single-child chain vertically aligned (centered)', () => {
+    const matrix: (Person | null)[][] = [[p('a')], [p('b'), null], [p('c'), null, null, null]];
+    const map = computeAncestorLayoutX(matrix, 3, W);
+    const cx = W / 2;
+    expect(map.get('0-0')).toBe(cx);
+    expect(map.get('1-0')).toBe(cx);
+    expect(map.get('2-0')).toBe(cx);
+  });
+
+  it('centers a sole mother slot like a sole father', () => {
+    const matrix: (Person | null)[][] = [[p('a')], [null, p('b')]];
+    const map = computeAncestorLayoutX(matrix, 2, W);
+    expect(map.get('1-1')).toBe(W / 2);
+  });
+
+  it('places two parents symmetrically around the root', () => {
+    const matrix: (Person | null)[][] = [[p('a')], [p('b'), p('c')]];
+    const map = computeAncestorLayoutX(matrix, 2, W);
+    const mid = W / 2;
+    const left = map.get('1-0') ?? 0;
+    const right = map.get('1-1') ?? 0;
+
+    // Must be symmetric around root center.
+    expect(left + right).toBeCloseTo(2 * mid, 5);
+    // And must be separated (not collapsing into the same X).
+    expect(right - left).toBeGreaterThan(mid * 0.1);
   });
 });

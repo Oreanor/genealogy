@@ -1,8 +1,13 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState, useEffect, type PointerEvent as ReactPointerEvent } from 'react';
 import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
-import { buildDescendantsMatrix, buildTreeMatrix } from '@/lib/utils/tree';
+import {
+  buildDescendantsMatrix,
+  buildTreeMatrix,
+  computeAncestorLayoutX,
+  computeDescendantLayoutX,
+} from '@/lib/utils/tree';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
@@ -17,13 +22,19 @@ export interface FamilyTreeProps {
   treeMode?: 'ancestors' | 'descendants';
 }
 
+/** Stable defaults — avoid new [] / {} each render (useLayoutEffect deps). */
+const DEFAULT_KINSHIP_SELECTED_IDS: string[] = [];
+const DEFAULT_KINSHIP_HINT_BY_ID: Record<string, string | null | undefined> = {};
+
 const VIEW_WIDTH = 120;
 const VIEW_HEIGHT = 98;
 /** On mobile: flatter aspect so tree fits without vertical scroll */
 const VIEW_HEIGHT_MOBILE = 80;
-const TREE_TOP_OFFSET_ANCESTORS = 22;
-const TREE_TOP_OFFSET_DESCENDANTS = -4;
 const BASE_SCALE = 0.75;
+const PAN_LIMIT_X_PX = 520;
+const PAN_LIMIT_Y_DOWN_PX = 80;
+const PAN_LIMIT_Y_UP_PX = -140;
+const PAN_INITIAL_Y_PX = -56;
 
 /** On mobile: grandparents +40%, parents +60%, me +80% of base scale (each tier +20% vs previous) */
 function getScaleForLevel(level: number, isMobile: boolean): number {
@@ -32,41 +43,43 @@ function getScaleForLevel(level: number, isMobile: boolean): number {
   return BASE_SCALE * multiplier;
 }
 
-const OFFSET_PX_BY_LEVEL: number[] = [-10, 30, 20, -10, 0];
-/** On mobile: shift root (0) up so it doesn't get cut when viewport height shrinks */
-const MOBILE_ROOT_UP_PX = 28;
-/** On mobile: shift parents (1) and grandparents (2) up by 40px */
-const MOBILE_LEVEL_UP_PX = 40;
-/** On mobile: shift grandparents (2) and all levels below up by extra 20px */
-const MOBILE_DEDY_UP_PX = 20;
-
-function getLevelOffsetPx(level: number, isMobile: boolean): number {
-  const base = OFFSET_PX_BY_LEVEL[level] ?? level * 10;
-  if (!isMobile) return base;
-  if (level === 0) return base - MOBILE_ROOT_UP_PX;
-  if (level === 1) return base - MOBILE_LEVEL_UP_PX;
-  if (level >= 2) return (level === 2 ? base - MOBILE_LEVEL_UP_PX : base) - MOBILE_DEDY_UP_PX;
-  return base;
-}
-
 function getNodePosition(
   level: number,
   index: number,
   visibleLevelCount: number,
   isMobile: boolean,
   treeMode: 'ancestors' | 'descendants',
-  rowCount: number
+  rowCount: number,
+  nodeXByKey: Map<string, number> | null
 ) {
   const count = treeMode === 'descendants' ? Math.max(1, rowCount) : Math.pow(2, level);
-  const x = ((2 * index + 1) / (2 * count)) * VIEW_WIDTH;
-  const rowHeight = VIEW_HEIGHT / (visibleLevelCount + 0.35);
+  const xPx =
+    nodeXByKey
+      ? (nodeXByKey.get(`${level}-${index}`) ??
+          ((2 * index + 1) / (2 * count)) * VIEW_WIDTH)
+      : ((2 * index + 1) / (2 * count)) * VIEW_WIDTH;
+  const x = (xPx / VIEW_WIDTH) * 100;
+  const heightPx = isMobile ? VIEW_HEIGHT_MOBILE : VIEW_HEIGHT;
   const y =
     treeMode === 'descendants'
-      ? (level + 0.7) * rowHeight + TREE_TOP_OFFSET_DESCENDANTS
-      : VIEW_HEIGHT - (level + 0.7) * rowHeight - TREE_TOP_OFFSET_ANCESTORS;
+      ? (() => {
+          // Uniform grid from near top. Deeper levels may go below viewport (pan handles it).
+          const topPad = 10;
+          const rowStep = heightPx * 0.24;
+          const yPx = topPad + level * rowStep;
+          return (yPx / heightPx) * 100;
+        })()
+      : (() => {
+          // Root sits near bottom edge; ancestors go up with a fixed step.
+          const bottomPad = 10;
+          const rowStep = heightPx * 0.24;
+          const rootY = heightPx - bottomPad;
+          const yPx = rootY - level * rowStep;
+          return (yPx / heightPx) * 100;
+        })();
   return {
-    x: (x / VIEW_WIDTH) * 100,
-    y: (y / VIEW_HEIGHT) * 100,
+    x,
+    y,
     scale: getScaleForLevel(level, isMobile),
   };
 }
@@ -82,9 +95,9 @@ function getVisibleLevelCount(matrix: (Person | null)[][]): number {
 export function FamilyTree({
   onPersonClick,
   kinshipMode = false,
-  kinshipSelectedIds = [],
+  kinshipSelectedIds = DEFAULT_KINSHIP_SELECTED_IDS,
   onKinshipSelect,
-  kinshipHintById = {},
+  kinshipHintById = DEFAULT_KINSHIP_HINT_BY_ID,
   treeMode = 'ancestors',
 }: FamilyTreeProps) {
   const rootPersonId = useRootPersonId();
@@ -98,8 +111,24 @@ export function FamilyTree({
   }, [rootPersonId, treeMode]);
 
   const visibleLevelCount = useMemo(() => getVisibleLevelCount(matrix), [matrix]);
+  const nodeXByKey = useMemo(
+    () =>
+      treeMode === 'ancestors'
+        ? computeAncestorLayoutX(matrix, visibleLevelCount, VIEW_WIDTH)
+        : computeDescendantLayoutX(matrix, parentKeyByChildKey, visibleLevelCount, VIEW_WIDTH),
+    [matrix, parentKeyByChildKey, visibleLevelCount, treeMode]
+  );
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [pan, setPan] = useState({ x: 0, y: PAN_INITIAL_Y_PX });
+  const dragRef = useRef<{
+    active: boolean;
+    pointerId: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
   const [segments, setSegments] = useState<
     Array<{
       key: string;
@@ -113,6 +142,43 @@ export function FamilyTree({
     }>
   >([]);
 
+  useEffect(() => {
+    setPan({ x: 0, y: PAN_INITIAL_Y_PX });
+  }, [rootPersonId, treeMode]);
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement | null;
+    if (target?.closest('button')) return;
+    dragRef.current = {
+      active: true,
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: pan.x,
+      originY: pan.y,
+    };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const st = dragRef.current;
+    if (!st || !st.active || st.pointerId !== e.pointerId) return;
+    const dx = e.clientX - st.startX;
+    const dy = e.clientY - st.startY;
+    const nextX = Math.max(-PAN_LIMIT_X_PX, Math.min(PAN_LIMIT_X_PX, st.originX + dx));
+    const nextY = Math.max(PAN_LIMIT_Y_UP_PX, Math.min(PAN_LIMIT_Y_DOWN_PX, st.originY + dy));
+    setPan({ x: nextX, y: nextY });
+  };
+
+  const onPointerUp = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const st = dragRef.current;
+    if (!st || st.pointerId !== e.pointerId) return;
+    dragRef.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
   useLayoutEffect(() => {
     const recompute = () => {
     const container = containerRef.current;
@@ -120,18 +186,20 @@ export function FamilyTree({
 
     const containerRect = container.getBoundingClientRect();
     const roundSnap = (n: number) => Math.round(n * 2) / 2;
-    const getCenter = (el: HTMLDivElement) => {
+    const getAnchor = (el: HTMLDivElement) => {
       const r = el.getBoundingClientRect();
       return {
         x: roundSnap(r.left - containerRect.left + r.width / 2),
         y: roundSnap(r.top - containerRect.top + r.height / 2),
+        top: roundSnap(r.top - containerRect.top),
+        bottom: roundSnap(r.bottom - containerRect.top),
       };
     };
 
-    const currentCenters = new Map<string, { x: number; y: number }>();
+    const currentCenters = new Map<string, { x: number; y: number; top: number; bottom: number }>();
     for (const [key, el] of avatarRefs.current.entries()) {
       if (!el) continue;
-      currentCenters.set(key, getCenter(el));
+      currentCenters.set(key, getAnchor(el));
     }
 
     const nextSegments: Array<{
@@ -230,9 +298,11 @@ export function FamilyTree({
       kinshipMode &&
       kinshipSelectedIds.length === 2 &&
       (spouseDirectOnly || activeEdgeKeys.size > 0 || spouseEdgePairs.length > 0);
-    const addV = (x: number, y1: number, y2: number, key: string) => {
+    const MIN_SEGMENT_PX = 6;
+    const addV = (x: number, y1: number, y2: number, key: string, forceActive = false) => {
       const top = Math.min(y1, y2);
       const height = Math.max(0, Math.abs(y2 - y1));
+      if (height < MIN_SEGMENT_PX) return;
       const left = x - thickness / 2;
       const segKey = `${key}:v:${left}:${top}:${height}`;
       if (segKeys.has(segKey)) return;
@@ -244,12 +314,13 @@ export function FamilyTree({
         top,
         width: thickness,
         height,
-        active: spouseDirectOnly ? false : shouldFade ? activeEdgeKeys.has(key) : true,
+        active: spouseDirectOnly ? false : shouldFade ? forceActive || activeEdgeKeys.has(key) : true,
       });
     };
-    const addH = (y: number, x1: number, x2: number, key: string) => {
+    const addH = (y: number, x1: number, x2: number, key: string, forceActive = false) => {
       const left = Math.min(x1, x2);
       const width = Math.max(0, Math.abs(x2 - x1));
+      if (width < MIN_SEGMENT_PX) return;
       const top = y - thickness / 2;
       const segKey = `${key}:h:${left}:${top}:${width}`;
       if (segKeys.has(segKey)) return;
@@ -261,12 +332,53 @@ export function FamilyTree({
         top,
         width,
         height: thickness,
-        active: spouseDirectOnly ? false : shouldFade ? activeEdgeKeys.has(key) : true,
+        active: spouseDirectOnly ? false : shouldFade ? forceActive || activeEdgeKeys.has(key) : true,
       });
     };
 
     for (let level = 1; level < Math.min(matrix.length, visibleLevelCount); level += 1) {
       const row = matrix[level];
+      if (treeMode === 'descendants') {
+        const childrenByParent = new Map<string, Array<{ key: string; x: number; y: number; top: number }>>();
+        for (let index = 0; index < row.length; index += 1) {
+          const child = row[index];
+          if (!child) continue;
+          const childKey = `${level}-${index}`;
+          const parentKey = getParentKeyForChildKey(childKey);
+          if (!parentKey) continue;
+          const childCenter = currentCenters.get(childKey);
+          if (!childCenter) continue;
+          const list = childrenByParent.get(parentKey) ?? [];
+          list.push({ key: childKey, x: childCenter.x, y: childCenter.y, top: childCenter.top });
+          childrenByParent.set(parentKey, list);
+        }
+
+        for (const [parentKey, children] of childrenByParent.entries()) {
+          const parentCenter = currentCenters.get(parentKey);
+          if (!parentCenter || children.length === 0) continue;
+          const xParent = parentCenter.x;
+          const yParentBottom = parentCenter.bottom;
+
+          if (children.length === 1) {
+            const c = children[0]!;
+            addV(xParent, yParentBottom, c.top, `${parentKey}->${c.key}`);
+            continue;
+          }
+
+          const minX = Math.min(...children.map((c) => c.x));
+          const maxX = Math.max(...children.map((c) => c.x));
+          const minChildTop = Math.min(...children.map((c) => c.top));
+          const joinY = yParentBottom + Math.max(8, (minChildTop - yParentBottom) * 0.42);
+          const fanHasActiveChild = children.some((c) => activeEdgeKeys.has(`${parentKey}->${c.key}`));
+          addV(xParent, yParentBottom, joinY, `${parentKey}->fan`, fanHasActiveChild);
+          addH(joinY, minX, maxX, `${parentKey}->fan`, fanHasActiveChild);
+          for (const c of children) {
+            addV(c.x, joinY, c.top, `${parentKey}->${c.key}`);
+          }
+        }
+        continue;
+      }
+
       for (let index = 0; index < row.length; index += 1) {
         const child = row[index];
         if (!child) continue;
@@ -280,9 +392,9 @@ export function FamilyTree({
         if (!parentCenter || !childCenter) continue;
 
         const xParent = parentCenter.x;
-        const yParent = parentCenter.y;
+        const yParent = parentCenter.bottom;
         const xChild = childCenter.x;
-        const yChild = childCenter.y;
+        const yChild = childCenter.top;
 
         addV(xParent, yParent, yChild, `${parentKey}->${childKey}`);
         addH(yChild, xParent, xChild, `${parentKey}->${childKey}`);
@@ -318,14 +430,32 @@ export function FamilyTree({
     recompute();
     window.addEventListener('resize', recompute);
     return () => window.removeEventListener('resize', recompute);
-  }, [matrix, visibleLevelCount, isMobile, kinshipMode, kinshipSelectedIds, treeMode, parentKeyByChildKey]);
+  }, [
+    matrix,
+    visibleLevelCount,
+    isMobile,
+    kinshipMode,
+    kinshipSelectedIds,
+    treeMode,
+    parentKeyByChildKey,
+    nodeXByKey,
+  ]);
 
   return (
-    <div className="flex min-h-0 flex-1 justify-center overflow-hidden md:overflow-visible">
+    <div
+      className="flex min-h-0 flex-1 justify-center overflow-hidden md:overflow-visible touch-none cursor-grab active:cursor-grabbing"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
       <div
         ref={containerRef}
-        className="relative w-full max-h-full max-w-full origin-top md:min-h-0"
-        style={{ aspectRatio: `${VIEW_WIDTH} / ${isMobile ? VIEW_HEIGHT_MOBILE : VIEW_HEIGHT}` }}
+        className="relative w-full max-h-full max-w-full origin-top p-5 md:min-h-0 md:p-6"
+        style={{
+          aspectRatio: `${VIEW_WIDTH} / ${isMobile ? VIEW_HEIGHT_MOBILE : VIEW_HEIGHT}`,
+          transform: `translate(${pan.x}px, ${pan.y}px)`,
+        }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
           {segments.map((seg) => (
@@ -359,16 +489,16 @@ export function FamilyTree({
 
         {matrix.slice(0, visibleLevelCount).map((row, level) =>
           row.map((person, index) => {
+            if (!person) return null;
             const pos = getNodePosition(
               level,
               index,
               visibleLevelCount,
               isMobile,
               treeMode,
-              row.length
+              row.length,
+              nodeXByKey
             );
-            const offsetPx =
-              treeMode === 'descendants' ? -getLevelOffsetPx(level, isMobile) : getLevelOffsetPx(level, isMobile);
             const key = `${level}-${index}`;
 
             return (
@@ -377,9 +507,12 @@ export function FamilyTree({
                 className="absolute origin-top"
                 style={{
                   left: `${pos.x}%`,
-                  top: `calc(${pos.y}% + ${offsetPx}px)`,
+                  top: `${pos.y}%`,
                   transform: 'translate(-50%, 0)',
-                  zIndex: visibleLevelCount - 1 - level,
+                  zIndex:
+                    treeMode === 'descendants'
+                      ? level + 1
+                      : visibleLevelCount - 1 - level,
                 }}
               >
                 <TreeNode
@@ -389,12 +522,10 @@ export function FamilyTree({
                   scale={pos.scale}
                   onPersonClick={kinshipMode && onKinshipSelect ? onKinshipSelect : onPersonClick}
                   onAvatarRef={
-                    person
-                      ? (el) => {
-                          if (!el) avatarRefs.current.delete(key);
-                          else avatarRefs.current.set(key, el);
-                        }
-                      : undefined
+                    (el) => {
+                      if (!el) avatarRefs.current.delete(key);
+                      else avatarRefs.current.set(key, el);
+                    }
                   }
                   kinshipHint={
                     kinshipMode && person

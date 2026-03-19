@@ -6,6 +6,11 @@ import type { PhotoEntry } from '@/lib/types/photo';
 import type { HistoryEntry } from '@/lib/types/history';
 import { PersonDetailPanel } from './PersonDetailPanel';
 
+const { mockRootPersonId, setRootPersonIdMock } = vi.hoisted(() => ({
+  mockRootPersonId: { current: 'p0' },
+  setRootPersonIdMock: vi.fn(),
+}));
+
 let isMobileValue = false;
 
 const setImageBoundsMock = vi.fn();
@@ -81,8 +86,20 @@ vi.mock('@/lib/utils/person', () => ({
   formatPersonNameForLocale: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
 }));
 
+vi.mock('@/lib/contexts/RootPersonContext', () => ({
+  useRootPersonId: () => mockRootPersonId.current,
+  useSetRootPersonId: () => setRootPersonIdMock,
+}));
+
 vi.mock('@/lib/i18n/context', () => ({
-  useTranslations: () => (key: string) => (key === 'back' ? 'Back' : key),
+  useTranslations: () => (key: string) => {
+    const map: Record<string, string> = {
+      back: 'Back',
+      makeTreeRoot: 'Make root',
+      makeTreeRootAlready: 'Already root',
+    };
+    return map[key] ?? key;
+  },
   useLocale: () => 'ru',
 }));
 
@@ -170,9 +187,11 @@ vi.mock('@/components/ui/ImageLightbox', () => ({
 describe('PersonDetailPanel', () => {
   beforeEach(() => {
     isMobileValue = false;
+    mockRootPersonId.current = 'p0';
     photosByPersonValue = { [personA.id]: [photoWithBack] };
     historyByPersonValue = { [personA.id]: [history0] };
     setImageBoundsMock.mockClear();
+    setRootPersonIdMock.mockClear();
   });
 
   it('inline=true: shows back button and opens/closes lightbox on mobile photo click', async () => {
@@ -209,6 +228,16 @@ describe('PersonDetailPanel', () => {
       })
     );
     expect(onSelectPerson).toHaveBeenCalledWith(personB.id);
+  });
+
+  it('inline=true: disables make root when person is already tree root', () => {
+    mockRootPersonId.current = personA.id;
+
+    render(
+      <PersonDetailPanel person={personA} inline onClose={vi.fn()} onSelectPerson={vi.fn()} />
+    );
+
+    expect(screen.getByRole('button', { name: 'Make root' })).toBeDisabled();
   });
 
   it('inline=false: overlay closes on background click and caption/history selection work', () => {

@@ -197,19 +197,55 @@ export function AdminPersonsTable({
   const [avatarPickerRowIdx, setAvatarPickerRowIdx] = useState<number | null>(null);
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>(INITIAL_COLUMN_WIDTHS);
   const resizingRef = useRef<{ id: string; startX: number; startWidth: number } | null>(null);
+  const personsRef = useRef<Person[]>(persons);
+  const [sessionOrderIds, setSessionOrderIds] = useState<string[]>(() =>
+    sortPersonsDefault(JSON.parse(JSON.stringify(initialPersons))).map((p) => p.id)
+  );
+
+  useEffect(() => {
+    personsRef.current = persons;
+  }, [persons]);
 
   useEffect(() => {
     onDataChange?.(persons);
   }, [persons, onDataChange]);
 
+  useEffect(() => {
+    // Reorder only on explicit sort change (not on every cell edit).
+    setSessionOrderIds(() => {
+      const nextPersons = personsRef.current;
+      const emptyRows = nextPersons.filter(isEmptyPersonRow);
+      const filledRows = nextPersons.filter((p) => !isEmptyPersonRow(p));
+      const sortedFilled = sortConfig
+        ? sortPersonsByColumn(filledRows, sortConfig.key, sortConfig.direction)
+        : sortPersonsDefault(filledRows);
+      return [...emptyRows, ...sortedFilled].map((p) => p.id);
+    });
+  }, [sortConfig]);
+
+  useEffect(() => {
+    // Keep current visual order during edits; only reconcile add/remove rows.
+    setSessionOrderIds((prev) => {
+      const currentIds = persons.map((p) => p.id);
+      const currentSet = new Set(currentIds);
+      const kept = prev.filter((id) => currentSet.has(id));
+      const keptSet = new Set(kept);
+      const added = currentIds.filter((id) => !keptSet.has(id));
+      if (added.length === 0 && kept.length === prev.length) return prev;
+      return [...kept, ...added];
+    });
+  }, [persons]);
+
   const sortedPersons = useMemo(() => {
-    const emptyRows = persons.filter(isEmptyPersonRow);
-    const filledRows = persons.filter((p) => !isEmptyPersonRow(p));
-    const sortedFilled = sortConfig
-      ? sortPersonsByColumn(filledRows, sortConfig.key, sortConfig.direction)
-      : sortPersonsDefault(filledRows);
-    return [...emptyRows, ...sortedFilled];
-  }, [persons, sortConfig]);
+    const byId = new Map(persons.map((p) => [p.id, p] as const));
+    const ordered = sessionOrderIds
+      .map((id) => byId.get(id))
+      .filter((p): p is Person => Boolean(p));
+    if (ordered.length === persons.length) return ordered;
+    const seen = new Set(ordered.map((p) => p.id));
+    const tail = persons.filter((p) => !seen.has(p.id));
+    return [...ordered, ...tail];
+  }, [persons, sessionOrderIds]);
 
   const handleSetRootClick = useCallback(
     (personId: string) => {
@@ -274,9 +310,8 @@ export function AdminPersonsTable({
   }, [parentPicker]);
 
   const addRow = useCallback(() => {
-    setPersons((prev) => [
-      ...prev,
-      {
+    setPersons((prev) => {
+      const newPerson: Person = {
         id: nextPersonId(prev),
         firstName: '',
         birthPlace: '',
@@ -284,8 +319,11 @@ export function AdminPersonsTable({
         occupation: '',
         comment: '',
         gender: 'm',
-      },
-    ]);
+      };
+      // New empty row should appear at the top immediately.
+      setSessionOrderIds((order) => [newPerson.id, ...order.filter((id) => id !== newPerson.id)]);
+      return [newPerson, ...prev];
+    });
   }, []);
 
   const removeRow = useCallback((index: number) => {
