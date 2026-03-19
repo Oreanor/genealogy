@@ -64,9 +64,9 @@ function sortPersonsForEdit(ps: Person[], rootId: string): Person[] {
 
 /** Table columns (no id, no #); Father/Mother rendered separately. */
 const COLUMNS: (keyof Person)[] = [
+  'lastName',
   'firstName',
   'patronymic',
-  'lastName',
   'birthDate',
   'deathDate',
   'birthPlace',
