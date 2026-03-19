@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { getFullName } from '@/lib/utils/person';
+import { formatLifeDates, getFullName } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import Image from 'next/image';
@@ -31,6 +31,7 @@ export const TreeNode = memo(function TreeNode({
   const surname = hasPerson && person?.lastName?.trim() ? truncate(person.lastName.trim(), MAX_NAME_LEN) : '';
   const firstName = hasPerson && person?.firstName?.trim() ? truncate(person.firstName.trim(), MAX_NAME_LEN) : '';
   const patronymic = hasPerson && person?.patronymic?.trim() ? truncate(person.patronymic.trim(), MAX_NAME_LEN) : '';
+  const lifeDates = hasPerson ? formatLifeDates(person?.birthDate, person?.deathDate) : '';
 
   const strokeClass = hasPerson ? 'outline-(--tree-stroke) border-(--tree-stroke)' : 'outline-gray-300 border-gray-300';
   const plaqueStrokeClass = hasPerson ? 'border-(--tree-plaque-stroke)' : 'border-gray-300';
@@ -72,11 +73,12 @@ export const TreeNode = memo(function TreeNode({
 
       {/* Plaque below portrait */}
       <div className={`mt-[-0.15rem] md:mt-[-0.2rem] w-full min-w-0 rounded-md border-2 px-1.5 py-1 md:px-2 md:py-2 text-center ${plaqueStrokeClass} ${plaqueFillClass}`}>
-        {hasPerson && (surname || firstName || patronymic) && (
+        {hasPerson && (surname || firstName || patronymic || lifeDates) && (
           <div className="leading-tight text-(--ink)">
             {surname && <div className="truncate text-xs font-semibold md:text-base">{surname}</div>}
             {firstName && <div className="truncate text-[10px] font-semibold md:text-sm">{firstName}</div>}
             {patronymic && <div className="truncate text-[10px] font-semibold md:text-sm">{patronymic}</div>}
+            {lifeDates && <div className="truncate pt-0.5 text-[9px] font-normal opacity-80 md:text-xs">{lifeDates}</div>}
           </div>
         )}
       </div>

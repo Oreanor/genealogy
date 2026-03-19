@@ -31,6 +31,7 @@ describe('TreeNode', () => {
     expect(screen.getByRole('button', { name: 'Иван Петрович' })).toBeInTheDocument();
     expect(screen.getByText('Иван')).toBeInTheDocument();
     expect(screen.getByText('Петрович')).toBeInTheDocument();
+    expect(screen.getByText('1925 – 1998')).toBeInTheDocument();
   });
 
   it('renders empty node (muted stroke/fill, no unknown text) when person is null', () => {

@@ -4,8 +4,8 @@
     {
       "id": "p001",
       "firstName": "Сергей",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Брянск",
+      "occupation": "программист",
       "fatherId": "p002",
       "motherId": "p003",
       "gender": "m",
@@ -17,8 +17,8 @@
     {
       "id": "p002",
       "firstName": "Владимир",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Буйнакск",
+      "occupation": "электрик 6 разряда",
       "fatherId": "p004",
       "motherId": "p005",
       "gender": "m",
@@ -26,13 +26,14 @@
       "lastName": "Никонец",
       "birthDate": "05.08.1947",
       "deathDate": "13.09.2021",
-      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg"
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "residenceCity": "Воркута"
     },
     {
       "id": "p003",
       "firstName": "Вера",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Брянск",
+      "occupation": "инженер-конструктор",
       "fatherId": "p006",
       "motherId": "p007",
       "gender": "f",
@@ -40,55 +41,68 @@
       "lastName": "Андреева",
       "birthDate": "15.11.1949",
       "deathDate": "26.12.2020",
-      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg"
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
+      "residenceCity": "Воркута"
     },
     {
       "id": "p004",
       "firstName": "Павел",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Сумы",
+      "occupation": "снабженец на консервном заводе",
       "fatherId": "p008",
       "motherId": "p009",
       "gender": "m",
       "patronymic": "Андреевич",
       "lastName": "Никонец",
-      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg"
+      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
+      "birthDate": "19.11.1905",
+      "deathDate": "21.03.1995",
+      "residenceCity": "Буйнакск"
     },
     {
       "id": "p005",
       "firstName": "Вера",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "банковский служащий",
       "fatherId": "p010",
       "motherId": "p011",
       "gender": "f",
       "patronymic": "Ивановна",
       "lastName": "Дудник",
-      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg"
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "birthDate": "1917",
+      "deathDate": "1953",
+      "residenceCity": "Буйнакск"
     },
     {
       "id": "p006",
       "firstName": "Николай",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Ливны",
+      "occupation": "главный бухгалтер",
       "fatherId": "p012",
       "motherId": "p013",
       "gender": "m",
       "patronymic": "Григорьевич",
       "lastName": "Андреев",
-      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg"
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "birthDate": "24.03.1910",
+      "deathDate": "16.02.1992",
+      "residenceCity": "Брянск"
     },
     {
       "id": "p007",
       "firstName": "Елена",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "счетовод, бухгалтер",
       "fatherId": "p014",
       "motherId": "p015",
       "gender": "f",
       "patronymic": "Алексеевна",
       "lastName": "Беляева",
-      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg"
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
+      "birthDate": "22.04.1918",
+      "deathDate": "10.10.1980",
+      "residenceCity": "Брянск"
     },
     {
       "id": "p008",
@@ -98,7 +112,8 @@
       "gender": "m",
       "patronymic": "Павлович",
       "lastName": "Никонец",
-      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg"
+      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
+      "residenceCity": "Сумы"
     },
     {
       "id": "p009",
@@ -108,7 +123,8 @@
       "gender": "f",
       "patronymic": "Никитична",
       "lastName": "Канивец",
-      "avatarPhotoSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG"
+      "avatarPhotoSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
+      "residenceCity": "Сумы"
     },
     {
       "id": "p010",
@@ -118,27 +134,31 @@
       "gender": "m",
       "patronymic": "Павлович",
       "lastName": "Дудник",
-      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG"
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "residenceCity": "Буйнакск"
     },
     {
       "id": "p011",
       "firstName": "Александра",
-      "birthPlace": "",
+      "birthPlace": "ст.Брюховецкая",
       "occupation": "",
       "gender": "f",
       "patronymic": "Егоровна",
       "lastName": "Дудник",
-      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG"
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "residenceCity": "Буйнакск"
     },
     {
       "id": "p012",
       "firstName": "Григорий",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "купец",
       "gender": "m",
       "patronymic": "Прохорович",
       "lastName": "Андреев",
-      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg"
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "residenceCity": "Елец",
+      "comment": "умер в 54 года"
     },
     {
       "id": "p013",
@@ -147,126 +167,67 @@
       "occupation": "",
       "gender": "f",
       "patronymic": "Васильевна",
-      "lastName": "Стёпина"
+      "lastName": "Стёпина",
+      "deathDate": "1943",
+      "residenceCity": "Елец",
+      "avatarPhotoSrc": "/photos/personal/styopina_anna_vasilevna/Image66.jpg"
     },
     {
       "id": "p014",
       "firstName": "Алексей",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "столяр, плотник",
       "gender": "m",
       "patronymic": "Иванович",
       "lastName": "Беляев",
-      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg"
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
+      "birthDate": "25.06.1889",
+      "deathDate": "14.05.1955"
     },
     {
       "id": "p015",
       "firstName": "Татьяна",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "белошвейка",
       "gender": "f",
       "patronymic": "Филимоновна",
-      "lastName": "Беляева"
+      "lastName": "Беляева",
+      "birthDate": "15.05.1891",
+      "deathDate": "14.12.1957",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg"
     },
     {
       "id": "p017",
       "firstName": "Надежда",
       "birthPlace": "",
-      "occupation": "",
+      "occupation": "конструктор",
       "gender": "f",
       "patronymic": "Николаевна",
       "lastName": "Аксененко",
       "fatherId": "p006",
-      "motherId": "p007"
+      "motherId": "p007",
+      "deathDate": "2020",
+      "birthDate": "03.08.1945",
+      "residenceCity": "Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     },
     {
       "id": "p018",
       "firstName": "Ирина",
-      "birthPlace": "",
-      "occupation": "",
+      "birthPlace": "Аткарск",
+      "occupation": "учитель, директор",
       "gender": "f",
       "patronymic": "Николаевна",
       "lastName": "Андреева",
       "fatherId": "p006",
-      "motherId": "p007"
+      "motherId": "p007",
+      "birthDate": "23.12.1942",
+      "deathDate": "2019",
+      "residenceCity": "Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     }
   ],
   "photos": [
-    {
-      "id": "others-!by-Image45",
-      "src": "/photos/others/!by/Image45.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/others/!by/Image45_back.jpg"
-    },
-    {
-      "id": "others-!by-Image45_back",
-      "src": "/photos/others/!by/Image45_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "others-!by-Image47",
-      "src": "/photos/others/!by/Image47.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/others/!by/Image47_back.jpg"
-    },
-    {
-      "id": "others-!by-Image47_back",
-      "src": "/photos/others/!by/Image47_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "others-!by-Image51",
-      "src": "/photos/others/!by/Image51.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/others/!by/Image51_back.jpg"
-    },
-    {
-      "id": "others-!by-Image51_back",
-      "src": "/photos/others/!by/Image51_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "others-!by-Image64",
-      "src": "/photos/others/!by/Image64.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/others/!by/Image64_back.jpg"
-    },
-    {
-      "id": "others-!by-Image64_back",
-      "src": "/photos/others/!by/Image64_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
-    {
-      "id": "others-!by-Image81",
-      "src": "/photos/others/!by/Image81.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [],
-      "backSrc": "/photos/others/!by/Image81_back.jpg"
-    },
-    {
-      "id": "others-!by-Image81_back",
-      "src": "/photos/others/!by/Image81_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
-    },
     {
       "id": "others-armonika-IMG_7614",
       "src": "/photos/others/armonika/IMG_7614.jpg",
@@ -325,6 +286,1308 @@
         }
       ],
       "series": "Книга Островского"
+    },
+    {
+      "id": "others-bryansk-1",
+      "src": "/photos/others/bryansk/bryansk_1.jpg",
+      "caption": "Московская улица-3",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-10",
+      "src": "/photos/others/bryansk/bryansk_10.jpg",
+      "caption": "Бежица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-11",
+      "src": "/photos/others/bryansk/bryansk_11.jpg",
+      "caption": "Бежица. Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-12",
+      "src": "/photos/others/bryansk/bryansk_12.jpg",
+      "caption": "Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-13",
+      "src": "/photos/others/bryansk/bryansk_13.jpg",
+      "caption": "Петровская гора зимой",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-14",
+      "src": "/photos/others/bryansk/bryansk_14.jpg",
+      "caption": "Остановка автобуса на Брянск 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-15",
+      "src": "/photos/others/bryansk/bryansk_15.jpg",
+      "caption": "Почтово-телеграфное здание",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-16",
+      "src": "/photos/others/bryansk/bryansk_16.jpg",
+      "caption": "Соборная площадь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-17",
+      "src": "/photos/others/bryansk/bryansk_17.jpg",
+      "caption": "Московская улица зимой",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-18",
+      "src": "/photos/others/bryansk/bryansk_18.jpg",
+      "caption": "Московская улица-1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-19",
+      "src": "/photos/others/bryansk/bryansk_19.jpg",
+      "caption": "Московская улица-2",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-2",
+      "src": "/photos/others/bryansk/bryansk_2.jpg",
+      "caption": "Общественное собрание",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-20",
+      "src": "/photos/others/bryansk/bryansk_20.jpg",
+      "caption": "Московская улица-4",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-21",
+      "src": "/photos/others/bryansk/bryansk_21.jpg",
+      "caption": "Московская улица-5",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-22",
+      "src": "/photos/others/bryansk/bryansk_22.jpg",
+      "caption": "Комаровская гора-1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-23",
+      "src": "/photos/others/bryansk/bryansk_23.jpg",
+      "caption": "Комаровская гора-2",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-24",
+      "src": "/photos/others/bryansk/bryansk_24.jpg",
+      "caption": "Чёрный мост",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-25",
+      "src": "/photos/others/bryansk/bryansk_25.jpg",
+      "caption": "Колодец Падарь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-26",
+      "src": "/photos/others/bryansk/bryansk_26.jpg",
+      "caption": "Свенский монастырь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-27",
+      "src": "/photos/others/bryansk/bryansk_27.jpg",
+      "caption": "БИТМ",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-28",
+      "src": "/photos/others/bryansk/bryansk_28.jpg",
+      "caption": "Собор",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-29",
+      "src": "/photos/others/bryansk/bryansk_29.jpg",
+      "caption": "Домик Петра Великого",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-3",
+      "src": "/photos/others/bryansk/bryansk_3.jpg",
+      "caption": "Разлитая дамба (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-30",
+      "src": "/photos/others/bryansk/bryansk_30.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-31",
+      "src": "/photos/others/bryansk/bryansk_31.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-32",
+      "src": "/photos/others/bryansk/bryansk_32.jpg",
+      "caption": "Вид с Авиловской горы",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-33",
+      "src": "/photos/others/bryansk/bryansk_33.jpg",
+      "caption": "Родильный приют",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-34",
+      "src": "/photos/others/bryansk/bryansk_34.jpg",
+      "caption": "Авиловская гора",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-35",
+      "src": "/photos/others/bryansk/bryansk_35.jpg",
+      "caption": "Рождественская гора",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-36",
+      "src": "/photos/others/bryansk/bryansk_36.jpg",
+      "caption": "Брянск N1. Общий вид города 1917г",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-4",
+      "src": "/photos/others/bryansk/bryansk_4.jpg",
+      "caption": "Наводнение-1 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-5",
+      "src": "/photos/others/bryansk/bryansk_5.jpg",
+      "caption": "Наводнение-2 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-6",
+      "src": "/photos/others/bryansk/bryansk_6.jpg",
+      "caption": "Наводнение-3 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-7",
+      "src": "/photos/others/bryansk/bryansk_7.jpg",
+      "caption": "Наводнение-4 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-8",
+      "src": "/photos/others/bryansk/bryansk_8.jpg",
+      "caption": "Наводнение-5 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-9",
+      "src": "/photos/others/bryansk/bryansk_9.jpg",
+      "caption": "Бежица Каменное училище",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk2-1",
+      "src": "/photos/others/bryansk2/bryansk2_1.jpg",
+      "caption": "Брянск, 1960 (2)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-10",
+      "src": "/photos/others/bryansk2/bryansk2_10.jpg",
+      "caption": "Почтамт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-11",
+      "src": "/photos/others/bryansk2/bryansk2_11.jpg",
+      "caption": "ул. Калинина, д. 50",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-12",
+      "src": "/photos/others/bryansk2/bryansk2_12.jpg",
+      "caption": "ул. Литейная",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-13",
+      "src": "/photos/others/bryansk2/bryansk2_13.jpg",
+      "caption": "Улица Фокина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-14",
+      "src": "/photos/others/bryansk2/bryansk2_14.jpg",
+      "caption": "ЦУМ",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-2",
+      "src": "/photos/others/bryansk2/bryansk2_2.jpg",
+      "caption": "Брянск, 1960",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-3",
+      "src": "/photos/others/bryansk2/bryansk2_3.jpg",
+      "caption": "Дом книги",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-4",
+      "src": "/photos/others/bryansk2/bryansk2_4.jpg",
+      "caption": "Дом Советов",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-5",
+      "src": "/photos/others/bryansk2/bryansk2_5.jpg",
+      "caption": "Дома железнодорожников",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-6",
+      "src": "/photos/others/bryansk2/bryansk2_6.jpg",
+      "caption": "Новый вокзал ст. Брянск I",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-7",
+      "src": "/photos/others/bryansk2/bryansk2_7.jpg",
+      "caption": "Областной драматический театр",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-8",
+      "src": "/photos/others/bryansk2/bryansk2_8.jpg",
+      "caption": "Памятник В. И. Ленину",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-9",
+      "src": "/photos/others/bryansk2/bryansk2_9.jpg",
+      "caption": "Перекресток улиц Ленина и Фокина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-buynaksk-1",
+      "src": "/photos/others/buynaksk/buynaksk_1.jpg",
+      "caption": "Андреевский военный собор.Буйнакск.Дагестан.1895",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-10",
+      "src": "/photos/others/buynaksk/buynaksk_10.jpg",
+      "caption": "Шура №32 (Общий вид) Изд. Шерер, Набгольц и Ко 1902 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-2",
+      "src": "/photos/others/buynaksk/buynaksk_2.jpg",
+      "caption": "Военный парад",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-3",
+      "src": "/photos/others/buynaksk/buynaksk_3.jpg",
+      "caption": "Городская управа",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-4",
+      "src": "/photos/others/buynaksk/buynaksk_4.jpg",
+      "caption": "Демонстрация 7 ноября. Женское пед училище 1957",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-5",
+      "src": "/photos/others/buynaksk/buynaksk_5.jpg",
+      "caption": "Здание бывшей 14 женской гимназии.Буйнакск.Дагестан.1970",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-6",
+      "src": "/photos/others/buynaksk/buynaksk_6.jpg",
+      "caption": "Парад 1 мая",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-7",
+      "src": "/photos/others/buynaksk/buynaksk_7.jpg",
+      "caption": "Пожарная команда города Буйнакск.Дагестан.Конец 19 века",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-8",
+      "src": "/photos/others/buynaksk/buynaksk_8.jpg",
+      "caption": "Посетители чайханы в Буйнакске.1920",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-9",
+      "src": "/photos/others/buynaksk/buynaksk_9.jpg",
+      "caption": "Темир-Хан Шура на рубеже XX века. Виден главный храм города — Андреевский военный собор (1861)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-krasnodar-1",
+      "src": "/photos/others/krasnodar/krasnodar_1.jpg",
+      "caption": "Больница г.Екатеринодара",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-10",
+      "src": "/photos/others/krasnodar/krasnodar_10.jpg",
+      "caption": "Мариинский женский институт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-11",
+      "src": "/photos/others/krasnodar/krasnodar_11.jpg",
+      "caption": "Отделение Городского Банка на улице Красной",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-12",
+      "src": "/photos/others/krasnodar/krasnodar_12.jpg",
+      "caption": "Торжественный молебен в честь окончания Кавказской войны 1864",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-13",
+      "src": "/photos/others/krasnodar/krasnodar_13.jpg",
+      "caption": "Триумфальная Арка",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-2",
+      "src": "/photos/others/krasnodar/krasnodar_2.jpg",
+      "caption": "Вид нового города",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-3",
+      "src": "/photos/others/krasnodar/krasnodar_3.jpg",
+      "caption": "Военно-морское Училище",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-4",
+      "src": "/photos/others/krasnodar/krasnodar_4.jpg",
+      "caption": "Дворец начальника области",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-5",
+      "src": "/photos/others/krasnodar/krasnodar_5.jpg",
+      "caption": "Дом Багарсукова",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-6",
+      "src": "/photos/others/krasnodar/krasnodar_6.jpg",
+      "caption": "Екатеринодар, ул.Красная",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-7",
+      "src": "/photos/others/krasnodar/krasnodar_7.jpg",
+      "caption": "Женская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-8",
+      "src": "/photos/others/krasnodar/krasnodar_8.jpg",
+      "caption": "Жители Пашковской . Екатеринодар",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-9",
+      "src": "/photos/others/krasnodar/krasnodar_9.jpg",
+      "caption": "Кубанская община сестер милосердия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-mama-scan_1",
+      "src": "/photos/others/mama/scan_1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p007"
+        },
+        {
+          "personId": "p014"
+        },
+        {
+          "personId": "p015"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p004"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_2",
+      "src": "/photos/others/mama/scan_2.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p015"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_3",
+      "src": "/photos/others/mama/scan_3.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_4",
+      "src": "/photos/others/mama/scan_4.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_5",
+      "src": "/photos/others/mama/scan_5.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        },
+        {
+          "personId": "p013"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_6",
+      "src": "/photos/others/mama/scan_6.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p017"
+        },
+        {
+          "personId": "p018"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
     },
     {
       "id": "others-map_elets-elets_map_old_1899_01",
@@ -1549,6 +2812,186 @@
       "series": "Дореволюционные Сумы"
     },
     {
+      "id": "others-vorkuta_1972-1",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_1.jpg",
+      "caption": "Река Воркута и пос. Рудник",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-10",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_10.jpg",
+      "caption": "Монумент в честь освоения Воркуты",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-11",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_11.jpg",
+      "caption": "Дворец пионеров и школьников имени 50-летия Октября",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-2",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_2.jpg",
+      "caption": "Тундра",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-4",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_4.jpg",
+      "caption": "Улица Ленина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-5",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_5.jpg",
+      "caption": "Памятник С.М. Кирову",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-6",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_6.jpg",
+      "caption": "Аэропорт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-7",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_7.jpg",
+      "caption": "Шахта «Северная»",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-8",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_8.jpg",
+      "caption": "Дворец культуры шахтёров",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-9",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_9.jpg",
+      "caption": "Горный техникум",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
       "id": "personal-andreeva_irina_nikolaevna-Image29",
       "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
       "caption": "",
@@ -2154,16 +3597,13 @@
       "id": "personal-belyaeva_elena_alekseevna-Image54",
       "src": "/photos/personal/belyaeva_elena_alekseevna/Image54.jpg",
       "caption": "",
-      "category": "related",
-      "people": [],
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007"
+        }
+      ],
       "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg"
-    },
-    {
-      "id": "personal-belyaeva_elena_alekseevna-Image54_back",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg",
-      "caption": "",
-      "category": "related",
-      "people": []
     },
     {
       "id": "personal-belyaeva_elena_alekseevna-Image58",
@@ -2180,11 +3620,12 @@
             72.96725985645463
           ]
         }
-      ]
+      ],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image58_back.jpg"
     },
     {
-      "id": "personal-belyaeva_elena_alekseevna-Image59",
-      "src": "/photos/personal/belyaeva_elena_alekseevna/Image59.jpg",
+      "id": "personal-belyaeva_elena_alekseevna-Image58_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -2306,7 +3747,8 @@
             30.232470894243875
           ]
         }
-      ]
+      ],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image69_back.jpg"
     },
     {
       "id": "personal-belyaev_aleksey_ivanovich-Image69a",
@@ -2335,8 +3777,8 @@
       ]
     },
     {
-      "id": "personal-belyaev_aleksey_ivanovich-Image70",
-      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image70.jpg",
+      "id": "personal-belyaev_aleksey_ivanovich-Image69_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69_back.jpg",
       "caption": "",
       "category": "related",
       "people": []
@@ -2757,1336 +4199,6 @@
       "caption": "",
       "category": "related",
       "people": []
-    },
-    {
-      "id": "others-bryansk-1",
-      "src": "/photos/others/bryansk/bryansk_1.jpg",
-      "caption": "Московская улица-3",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-2",
-      "src": "/photos/others/bryansk/bryansk_2.jpg",
-      "caption": "Общественное собрание",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-3",
-      "src": "/photos/others/bryansk/bryansk_3.jpg",
-      "caption": "Разлитая дамба (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-4",
-      "src": "/photos/others/bryansk/bryansk_4.jpg",
-      "caption": "Наводнение-1 (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-5",
-      "src": "/photos/others/bryansk/bryansk_5.jpg",
-      "caption": "Наводнение-2 (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-6",
-      "src": "/photos/others/bryansk/bryansk_6.jpg",
-      "caption": "Наводнение-3 (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-7",
-      "src": "/photos/others/bryansk/bryansk_7.jpg",
-      "caption": "Наводнение-4 (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-8",
-      "src": "/photos/others/bryansk/bryansk_8.jpg",
-      "caption": "Наводнение-5 (1908)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-9",
-      "src": "/photos/others/bryansk/bryansk_9.jpg",
-      "caption": "Бежица Каменное училище",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-10",
-      "src": "/photos/others/bryansk/bryansk_10.jpg",
-      "caption": "Бежица",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-11",
-      "src": "/photos/others/bryansk/bryansk_11.jpg",
-      "caption": "Бежица. Мужская гимназия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-12",
-      "src": "/photos/others/bryansk/bryansk_12.jpg",
-      "caption": "Мужская гимназия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-13",
-      "src": "/photos/others/bryansk/bryansk_13.jpg",
-      "caption": "Петровская гора зимой",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-14",
-      "src": "/photos/others/bryansk/bryansk_14.jpg",
-      "caption": "Остановка автобуса на Брянск 1",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-15",
-      "src": "/photos/others/bryansk/bryansk_15.jpg",
-      "caption": "Почтово-телеграфное здание",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-16",
-      "src": "/photos/others/bryansk/bryansk_16.jpg",
-      "caption": "Соборная площадь",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-17",
-      "src": "/photos/others/bryansk/bryansk_17.jpg",
-      "caption": "Московская улица зимой",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-18",
-      "src": "/photos/others/bryansk/bryansk_18.jpg",
-      "caption": "Московская улица-1",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-19",
-      "src": "/photos/others/bryansk/bryansk_19.jpg",
-      "caption": "Московская улица-2",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-20",
-      "src": "/photos/others/bryansk/bryansk_20.jpg",
-      "caption": "Московская улица-4",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-21",
-      "src": "/photos/others/bryansk/bryansk_21.jpg",
-      "caption": "Московская улица-5",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-22",
-      "src": "/photos/others/bryansk/bryansk_22.jpg",
-      "caption": "Комаровская гора-1",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-23",
-      "src": "/photos/others/bryansk/bryansk_23.jpg",
-      "caption": "Комаровская гора-2",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-24",
-      "src": "/photos/others/bryansk/bryansk_24.jpg",
-      "caption": "Чёрный мост",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-25",
-      "src": "/photos/others/bryansk/bryansk_25.jpg",
-      "caption": "Колодец Падарь",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-26",
-      "src": "/photos/others/bryansk/bryansk_26.jpg",
-      "caption": "Свенский монастырь",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-27",
-      "src": "/photos/others/bryansk/bryansk_27.jpg",
-      "caption": "БИТМ",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-28",
-      "src": "/photos/others/bryansk/bryansk_28.jpg",
-      "caption": "Собор",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-29",
-      "src": "/photos/others/bryansk/bryansk_29.jpg",
-      "caption": "Домик Петра Великого",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-30",
-      "src": "/photos/others/bryansk/bryansk_30.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-31",
-      "src": "/photos/others/bryansk/bryansk_31.jpg",
-      "caption": "",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-32",
-      "src": "/photos/others/bryansk/bryansk_32.jpg",
-      "caption": "Вид с Авиловской горы",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-33",
-      "src": "/photos/others/bryansk/bryansk_33.jpg",
-      "caption": "Родильный приют",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-34",
-      "src": "/photos/others/bryansk/bryansk_34.jpg",
-      "caption": "Авиловская гора",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-35",
-      "src": "/photos/others/bryansk/bryansk_35.jpg",
-      "caption": "Рождественская гора",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-bryansk-36",
-      "src": "/photos/others/bryansk/bryansk_36.jpg",
-      "caption": "Брянск N1. Общий вид города 1917г",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p012"
-        }
-      ],
-      "series": "Дореволюционный Брянск"
-    },
-    {
-      "id": "others-buynaksk-1",
-      "src": "/photos/others/buynaksk/buynaksk_1.jpg",
-      "caption": "Андреевский военный собор.Буйнакск.Дагестан.1895",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-2",
-      "src": "/photos/others/buynaksk/buynaksk_2.jpg",
-      "caption": "Военный парад",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-3",
-      "src": "/photos/others/buynaksk/buynaksk_3.jpg",
-      "caption": "Городская управа",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-4",
-      "src": "/photos/others/buynaksk/buynaksk_4.jpg",
-      "caption": "Демонстрация 7 ноября. Женское пед училище 1957",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-5",
-      "src": "/photos/others/buynaksk/buynaksk_5.jpg",
-      "caption": "Здание бывшей 14 женской гимназии.Буйнакск.Дагестан.1970",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-6",
-      "src": "/photos/others/buynaksk/buynaksk_6.jpg",
-      "caption": "Парад 1 мая",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-7",
-      "src": "/photos/others/buynaksk/buynaksk_7.jpg",
-      "caption": "Пожарная команда города Буйнакск.Дагестан.Конец 19 века",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-8",
-      "src": "/photos/others/buynaksk/buynaksk_8.jpg",
-      "caption": "Посетители чайханы в Буйнакске.1920",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-9",
-      "src": "/photos/others/buynaksk/buynaksk_9.jpg",
-      "caption": "Темир-Хан Шура на рубеже XX века. Виден главный храм города — Андреевский военный собор (1861)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-buynaksk-10",
-      "src": "/photos/others/buynaksk/buynaksk_10.jpg",
-      "caption": "Шура №32 (Общий вид) Изд. Шерер, Набгольц и Ко 1902 г.",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p004"
-        },
-        {
-          "personId": "p002"
-        }
-      ],
-      "series": "Буйнакск"
-    },
-    {
-      "id": "others-vorkuta_1972-1",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_1.jpg",
-      "caption": "Река Воркута и пос. Рудник",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-2",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_2.jpg",
-      "caption": "Тундра",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-4",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_4.jpg",
-      "caption": "Улица Ленина",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-5",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_5.jpg",
-      "caption": "Памятник С.М. Кирову",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-6",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_6.jpg",
-      "caption": "Аэропорт",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-7",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_7.jpg",
-      "caption": "Шахта «Северная»",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-8",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_8.jpg",
-      "caption": "Дворец культуры шахтёров",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-9",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_9.jpg",
-      "caption": "Горный техникум",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-10",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_10.jpg",
-      "caption": "Монумент в честь освоения Воркуты",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-vorkuta_1972-11",
-      "src": "/photos/others/vorkuta_1972/vorkuta_1972_11.jpg",
-      "caption": "Дворец пионеров и школьников имени 50-летия Октября",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p002"
-        },
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p001"
-        }
-      ],
-      "series": "Воркута 1972"
-    },
-    {
-      "id": "others-bryansk2-1",
-      "src": "/photos/others/bryansk2/bryansk2_1.jpg",
-      "caption": "Брянск, 1960 (2)",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-2",
-      "src": "/photos/others/bryansk2/bryansk2_2.jpg",
-      "caption": "Брянск, 1960",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-3",
-      "src": "/photos/others/bryansk2/bryansk2_3.jpg",
-      "caption": "Дом книги",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-4",
-      "src": "/photos/others/bryansk2/bryansk2_4.jpg",
-      "caption": "Дом Советов",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-5",
-      "src": "/photos/others/bryansk2/bryansk2_5.jpg",
-      "caption": "Дома железнодорожников",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-6",
-      "src": "/photos/others/bryansk2/bryansk2_6.jpg",
-      "caption": "Новый вокзал ст. Брянск I",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-7",
-      "src": "/photos/others/bryansk2/bryansk2_7.jpg",
-      "caption": "Областной драматический театр",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-8",
-      "src": "/photos/others/bryansk2/bryansk2_8.jpg",
-      "caption": "Памятник В. И. Ленину",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-9",
-      "src": "/photos/others/bryansk2/bryansk2_9.jpg",
-      "caption": "Перекресток улиц Ленина и Фокина",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-10",
-      "src": "/photos/others/bryansk2/bryansk2_10.jpg",
-      "caption": "Почтамт",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-11",
-      "src": "/photos/others/bryansk2/bryansk2_11.jpg",
-      "caption": "ул. Калинина, д. 50",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-12",
-      "src": "/photos/others/bryansk2/bryansk2_12.jpg",
-      "caption": "ул. Литейная",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-13",
-      "src": "/photos/others/bryansk2/bryansk2_13.jpg",
-      "caption": "Улица Фокина",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-bryansk2-14",
-      "src": "/photos/others/bryansk2/bryansk2_14.jpg",
-      "caption": "ЦУМ",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p003"
-        },
-        {
-          "personId": "p006"
-        },
-        {
-          "personId": "p007"
-        }
-      ],
-      "series": "Брянск 50-60х"
-    },
-    {
-      "id": "others-krasnodar-1",
-      "src": "/photos/others/krasnodar/krasnodar_1.jpg",
-      "caption": "Больница г.Екатеринодара",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-2",
-      "src": "/photos/others/krasnodar/krasnodar_2.jpg",
-      "caption": "Вид нового города",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-3",
-      "src": "/photos/others/krasnodar/krasnodar_3.jpg",
-      "caption": "Военно-морское Училище",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-4",
-      "src": "/photos/others/krasnodar/krasnodar_4.jpg",
-      "caption": "Дворец начальника области",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-5",
-      "src": "/photos/others/krasnodar/krasnodar_5.jpg",
-      "caption": "Дом Багарсукова",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-6",
-      "src": "/photos/others/krasnodar/krasnodar_6.jpg",
-      "caption": "Екатеринодар, ул.Красная",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-7",
-      "src": "/photos/others/krasnodar/krasnodar_7.jpg",
-      "caption": "Женская гимназия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-8",
-      "src": "/photos/others/krasnodar/krasnodar_8.jpg",
-      "caption": "Жители Пашковской . Екатеринодар",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-9",
-      "src": "/photos/others/krasnodar/krasnodar_9.jpg",
-      "caption": "Кубанская община сестер милосердия",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-10",
-      "src": "/photos/others/krasnodar/krasnodar_10.jpg",
-      "caption": "Мариинский женский институт",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-11",
-      "src": "/photos/others/krasnodar/krasnodar_11.jpg",
-      "caption": "Отделение Городского Банка на улице Красной",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-12",
-      "src": "/photos/others/krasnodar/krasnodar_12.jpg",
-      "caption": "Торжественный молебен в честь окончания Кавказской войны 1864",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
-    },
-    {
-      "id": "others-krasnodar-13",
-      "src": "/photos/others/krasnodar/krasnodar_13.jpg",
-      "caption": "Триумфальная Арка",
-      "category": "related",
-      "people": [
-        {
-          "personId": "p005"
-        },        {
-          "personId": "p010"
-        },        {
-          "personId": "p011"
-        }
-      ],
-      "series": "Краснодар"
     }
   ],
   "history": [
@@ -4101,7 +4213,7 @@
     },
     {
       "title": "Воспоминания Марины Курсановой",
-      "richText": "<p>Никонцы родом из-под Сум, жили на хуторе. Были зажиточными людьми. Куда они все делись после революции - непонятно. Мама говорит, что дед Павел ни с кем из родни по своей линии не общался. Скорее всего, их всех репрессировали. Он поехал в Дагестан заниматься мелиорацией - хотел разбить сады по всему Дагестану, вот такая у него была мечта. Романтик. Заехал по дороге на Кубань и там познакомился с бабушкой Верой, красавицей и певуньей, одной из трех сестер - еще были Лена и Шура. Фамилия Дудник. Это уже из Воронежской губернии, тоже были образованные и зажиточные люди, из Кубанского казачества. Я тетушек хорошо помню. Забрал всех трех с собой (уговорил поехать) в Дагестан, а на Вере женился. Бабушка Вера рано умерла - в 36 лет, от сепсиса, как мне рассказывала мама. Осталась мама - 12 летняя девочка и братья-близнецы - Сергей и Володя. Мама их, по сути, вырастила, заменила мать. Тетки, конечно, помогали, но дед Павел был строг и не любил чужих женщин в доме. Так и прожил почти до ста лет бобылем. Но это было уже после войны. А до войны он еще усыновил сироту - Сережу Горячева и вырастил его. В первые дни войны дед Павел пошел воевать. И прошел всю войну. А Сережа - как только ему исполнилось 18 - пошел добровольцем на фронт. Его почти сразу убили. Дед, вернувшись, не мог теткам простить, что они отпустили мальчика на верную погибель. Он о войне никогда ничего не рассказывал. Так говорила мама, и я так помню. А еще наш прапрадед был запорожским казаком и привел из какого-то похода жену-турчанку. Так что у нас есть и турецкая кровь))))</p><p></p><p>Я поищу фотографии - у мамы много было.</p><p></p><p>Дед очень любил Шевченко - даже незадолго до смерти простил маму прислать ему томик стихов - хоть на русском, хоть на украинском. Был неразговорчив, молчалив, но с золотым сердцем и очень щедрый.</p><p></p>",
+      "richText": "<p>Никонцы родом из-под Сум, жили на хуторе. Были зажиточными людьми. Куда они все делись после революции - непонятно. Мама говорит, что дед Павел ни с кем из родни по своей линии не общался. Скорее всего, их всех репрессировали. Он поехал в Дагестан заниматься мелиорацией - хотел разбить сады по всему Дагестану, вот такая у него была мечта. Романтик. Заехал по дороге на Кубань и там познакомился с бабушкой Верой, красавицей и певуньей, одной из трех сестер - еще были Лена и Шура. Фамилия Дудник. Это уже из Воронежской губернии, тоже были образованные и зажиточные люди, из Кубанского казачества. Я тетушек хорошо помню. Забрал всех трех с собой (уговорил поехать) в Дагестан, а на Вере женился. Бабушка Вера рано умерла - в 36 лет, от сепсиса, как мне рассказывала мама. Осталась мама - 12 летняя девочка и братья-близнецы - Сергей и Володя. Мама их, по сути, вырастила, заменила мать. Тетки, конечно, помогали, но дед Павел был строг и не любил чужих женщин в доме. Так и прожил почти до ста лет бобылем. Но это было уже после войны. А до войны он еще усыновил сироту - Сережу Горячева и вырастил его. В первые дни войны дед Павел пошел воевать. И прошел всю войну. А Сережа - как только ему исполнилось 18 - пошел добровольцем на фронт. Его почти сразу убили. Дед, вернувшись, не мог теткам простить, что они отпустили мальчика на верную погибель. Он о войне никогда ничего не рассказывал. Так говорила мама, и я так помню. А еще наш прапрадед был запорожским казаком и привел из какого-то похода жену-турчанку. Так что у нас есть и турецкая кровь))))</p><p></p><p>Дед очень любил Шевченко - даже незадолго до смерти простил маму прислать ему томик стихов - хоть на русском, хоть на украинском. Был неразговорчив, молчалив, но с золотым сердцем и очень щедрый.</p><p></p>",
       "personIds": [
         "p004",
         "p005",
@@ -4167,11 +4279,6 @@
         "p004",
         "p008"
       ]
-    },
-    {
-      "title": "Воспоминания мамы",
-      "richText": "<p></p>",
-      "personIds": []
     }
   ]
 }
