@@ -1,53 +1,20 @@
 'use client';
 
+import { Fragment } from 'react';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { getPhotosByPerson, getLightboxFacesFromPhoto, splitPersonPhotosForCarousels } from '@/lib/data/photos';
-import { formatLifeDates, getFullName } from '@/lib/utils/person';
+import { buildPersonSummary } from '@/lib/utils/personSummary';
+import { formatLifeDates, formatNameByLocale, formatPersonNameForLocale, getFullName } from '@/lib/utils/person';
 import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import { getKinship } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
-import { useTranslations } from '@/lib/i18n/context';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import Image from 'next/image';
 import { List, ListX } from 'lucide-react';
 import { PhotoThumbnails } from './PhotoThumbnails';
-
-function RelativesGroup({
-  label,
-  relatives,
-  originId,
-  renderPersonLink,
-  t,
-}: {
-  label: string;
-  relatives: Person[];
-  originId: string;
-  renderPersonLink: (person: Person) => React.ReactNode;
-  t: (key: string) => string;
-}) {
-  if (relatives.length === 0) return null;
-  return (
-    <div>
-      <span className="font-medium">{label}</span>
-      <ul className="mt-0.5 space-y-0.5 pl-3">
-        {relatives.map((r) => {
-          const kin = getKinship(originId, r.id);
-          const kinLabel = kin ? t(kin.key) : '';
-          return (
-            <li key={r.id} className="flex items-baseline gap-1.5">
-              {renderPersonLink(r)}
-              {kinLabel && (
-                <span className="text-xs text-(--ink-muted)">({kinLabel})</span>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
 
 export interface PersonSpreadLeftContentProps {
   person: Person;
@@ -57,7 +24,7 @@ export interface PersonSpreadLeftContentProps {
   onPhotoClick: (photo: PhotoEntry, toggleBack?: boolean) => void;
   onHistoryClick: (index: number) => void;
   /** Render link/button for a relative (Link in persons section, button in tree). */
-  renderPersonLink: (person: Person) => React.ReactNode;
+  renderPersonLink: (person: Person, displayName?: string) => React.ReactNode;
 }
 
 export function PersonSpreadLeftContent({
@@ -69,6 +36,7 @@ export function PersonSpreadLeftContent({
   renderPersonLink,
 }: PersonSpreadLeftContentProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const children = getChildren(person.id);
   const siblings = getSiblings(person.id);
   const cousins = getCousins(person.id);
@@ -79,93 +47,112 @@ export function PersonSpreadLeftContent({
     .map((id) => getPersonById(id as string))
     .filter((p): p is Person => p != null);
   const spouse = getSpouse(person.id);
+  const displayPersonName = formatPersonNameForLocale(person, locale);
+  const formatRelativeName = (p: Person) => formatPersonNameForLocale(p, locale);
+  const summaryLines = buildPersonSummary(person, t).map((line) => formatNameByLocale(line, locale));
+  const isDeceased = Boolean(person.deathDate?.trim());
+  const pickVariant = (seed: string, count: number) => {
+    let hash = 0;
+    for (let i = 0; i < seed.length; i += 1) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    return hash % count;
+  };
+  const renderTemplateWithNode = (template: string, token: string, node: React.ReactNode) => {
+    const [before, ...rest] = template.split(token);
+    return (
+      <>
+        {before}
+        {node}
+        {rest.join(token)}
+      </>
+    );
+  };
+  const renderLinkedNames = (items: Person[]) =>
+    items.map((p, i) => (
+      <Fragment key={p.id}>
+        {i > 0 && ', '}
+        {renderPersonLink(p, formatRelativeName(p))}
+      </Fragment>
+    ));
+  const spouseSentence = (() => {
+    if (spouse) {
+      const spouseLink = renderPersonLink(spouse, formatRelativeName(spouse));
+      const idx = pickVariant(`${person.id}:spouse`, 3) + 1;
+      const key = `personBioSpouse${person.gender === 'f' ? 'Female' : 'Male'}${isDeceased ? 'Deceased' : 'Alive'}_${idx}`;
+      return renderTemplateWithNode(t(key), '{{spouse}}', spouseLink);
+    }
+    return isDeceased
+      ? t('personBioSpouseUnknownDeceased')
+      : t('personBioSpouseUnknownAlive');
+  })();
+  const relativesSentences: React.ReactNode[] = [];
+  if (parents.length > 0) {
+    const idx = pickVariant(`${person.id}:parents`, 3) + 1;
+    relativesSentences.push(
+      renderTemplateWithNode(
+        t(`personBioParents_${idx}`, { pronoun: person.gender === 'f' ? t('personBioPronounHer') : t('personBioPronounHis') }),
+        '{{relatives}}',
+        renderLinkedNames(parents)
+      )
+    );
+  }
+  if (children.length > 0) {
+    const idx = pickVariant(`${person.id}:children`, 3) + 1;
+    relativesSentences.push(
+      renderTemplateWithNode(t(`personBioChildren_${idx}`), '{{relatives}}', renderLinkedNames(children))
+    );
+  }
+  if (siblings.length > 0) {
+    relativesSentences.push(
+      renderTemplateWithNode(t('personBioSiblings'), '{{relatives}}', renderLinkedNames(siblings))
+    );
+  }
+  if (cousins.length > 0) {
+    relativesSentences.push(
+      renderTemplateWithNode(t('personBioCousins'), '{{relatives}}', renderLinkedNames(cousins))
+    );
+  }
+  if (secondCousins.length > 0) {
+    relativesSentences.push(
+      renderTemplateWithNode(t('personBioSecondCousins'), '{{relatives}}', renderLinkedNames(secondCousins))
+    );
+  }
+  const summaryParagraphCount =
+    summaryLines.length >= 6 ? 2 : summaryLines.length > 0 ? 1 : 0;
+  const summaryPerParagraph = summaryParagraphCount > 0 ? Math.ceil(summaryLines.length / summaryParagraphCount) : 0;
+  const summaryParagraphs =
+    summaryParagraphCount > 0
+      ? Array.from({ length: summaryParagraphCount }, (_, i) =>
+          summaryLines.slice(i * summaryPerParagraph, (i + 1) * summaryPerParagraph)
+        ).filter((paragraph) => paragraph.length > 0)
+      : [];
+  const relationLines: React.ReactNode[] = [];
+  if (spouseSentence) relationLines.push(spouseSentence);
+  relationLines.push(...relativesSentences);
 
   return (
     <div className="flex flex-col gap-5 overflow-y-auto">
-      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{getFullName(person)}</h2>
-      {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || secondCousins.length > 0 || spouse) && (
-        <div className="space-y-3 text-(--ink)">
-          {spouse && (
-            <p>
-              <span className="font-medium">
-                {spouse.gender === 'f' ? t('spouseF') : t('spouseM')}
-              </span>{' '}
-              {renderPersonLink(spouse)}
-            </p>
-          )}
-          {parents.length > 0 && (
-            <p>
-              <span className="font-medium">{t('parents')}</span>{' '}
-              {parents.map((p, i) => (
-                <span key={p.id}>
-                  {i > 0 && ', '}
-                  {renderPersonLink(p)}
-                </span>
+      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{displayPersonName}</h2>
+      {summaryParagraphs.length > 0 && (
+        <div className="space-y-2.5 book-serif text-sm leading-relaxed text-(--ink)">
+          {summaryParagraphs.map((paragraph, paragraphIdx) => (
+            <p key={`${person.id}-bio-${paragraphIdx}`}>
+              {paragraph.map((sentence, sentenceIdx) => (
+                <Fragment key={`${person.id}-bio-${paragraphIdx}-${sentenceIdx}`}>
+                  {sentence}
+                  {sentenceIdx < paragraph.length - 1 ? ' ' : ''}
+                </Fragment>
               ))}
             </p>
-          )}
-          {children.length > 0 && (
-            <p>
-              <span className="font-medium">{t('children')}</span>{' '}
-              {children.map((c, i) => (
-                <span key={c.id}>
-                  {i > 0 && ', '}
-                  {renderPersonLink(c)}
-                </span>
-              ))}
-            </p>
-          )}
-          <RelativesGroup
-            label={t('siblings')}
-            relatives={siblings}
-            originId={person.id}
-            renderPersonLink={renderPersonLink}
-            t={t}
-          />
-          <RelativesGroup
-            label={t('cousins')}
-            relatives={cousins}
-            originId={person.id}
-            renderPersonLink={renderPersonLink}
-            t={t}
-          />
-          <RelativesGroup
-            label={t('secondCousins')}
-            relatives={secondCousins}
-            originId={person.id}
-            renderPersonLink={renderPersonLink}
-            t={t}
-          />
+          ))}
         </div>
       )}
-      <div className="space-y-2.5 text-(--ink)">
-        {(person.birthDate || person.deathDate) && (
-          <p>
-            <span className="font-medium">{t('years')}</span>{' '}
-            {formatLifeDates(person.birthDate, person.deathDate)}
-          </p>
-        )}
-        {person.birthPlace && (
-          <p>
-            <span className="font-medium">{t('birthPlace')}</span> {person.birthPlace}
-          </p>
-        )}
-        {person.occupation && (
-          <p>
-            <span className="font-medium">{t('occupation')}</span> {person.occupation}
-          </p>
-        )}
-        {person.residenceCity && (
-          <p>
-            <span className="font-medium">{t('residenceCity')}</span> {person.residenceCity}
-          </p>
-        )}
-        {person.comment && (
-          <p>
-            <span className="font-medium">{t('comment')}</span> {person.comment}
-          </p>
-        )}
-      </div>
+      {relationLines.length > 0 && (
+        <div className="space-y-1.5 book-serif text-sm leading-relaxed text-(--ink)">
+          {relationLines.map((line, idx) => (
+            <p key={`${person.id}-rel-line-${idx}`}>{line}</p>
+          ))}
+        </div>
+      )}
       <div className="space-y-3 pt-2">
         <h3 className="book-serif text-base font-semibold text-(--ink)">{t('personPhotos')}</h3>
         {personPhotos.length > 0 ? (
@@ -247,6 +234,7 @@ export function PersonSpreadRightContent({
   caption,
 }: PersonSpreadRightContentProps) {
   const t = useTranslations();
+  const locale = useLocale();
 
   if (historyEntry) {
     return (
@@ -325,12 +313,12 @@ export function PersonSpreadRightContent({
                   >
                     {face.lastName != null || face.firstName != null || face.patronymic != null ? (
                       <>
-                        {face.lastName && <span className="block">{face.lastName}</span>}
-                        {face.firstName && <span className="block">{face.firstName}</span>}
-                        {face.patronymic && <span className="block">{face.patronymic}</span>}
+                        {face.lastName && <span className="block">{formatNameByLocale(face.lastName, locale)}</span>}
+                        {face.firstName && <span className="block">{formatNameByLocale(face.firstName, locale)}</span>}
+                        {face.patronymic && <span className="block">{formatNameByLocale(face.patronymic, locale)}</span>}
                       </>
                     ) : (
-                      face.displayName
+                      face.displayName ? formatNameByLocale(face.displayName, locale) : face.displayName
                     )}
                   </div>
                 </div>

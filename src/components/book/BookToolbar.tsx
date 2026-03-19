@@ -2,13 +2,13 @@
 
 import { useCallback, useRef, useState } from 'react';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { BookOpen, Clipboard, Save, Upload, MoreHorizontal } from 'lucide-react';
+import { BookOpen, Clipboard, Save, Upload, MoreHorizontal, HelpCircle } from 'lucide-react';
 import { AdminButton } from '@/components/ui/AdminButton';
 import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
 import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { Button } from '@/components/ui/atoms/Button';
+import { SquareIconLink } from '@/components/ui/SquareIconButton';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
 import { PdfPreviewDialog } from '@/components/pdf/PdfPreviewDialog';
@@ -20,18 +20,19 @@ function BookLinkButton({ title }: { title?: string }) {
   const { routes, t } = useLocaleRoutes();
   const label = title ?? t('navTree');
   return (
-    <Link
+    <SquareIconLink
       href={routes.home}
-      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
-      aria-label={label}
+      label={label}
     >
       <BookOpen className="size-[18px]" aria-hidden />
-    </Link>
+    </SquareIconLink>
   );
 }
 
 /** Toolbar: desktop — vertical left; mobile — bottom bar under content. */
 export function BookToolbar() {
+  const helpSection = SECTIONS.find(({ id }) => id === 'help');
+
   const pathname = usePathname() ?? '';
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -86,17 +87,6 @@ export function BookToolbar() {
       {/* Mobile: нижняя панель на серой полосе во всю ширину */}
       <div className="pointer-events-none fixed inset-x-0 bottom-5 z-30 flex justify-center bg-(--book-bg) pb-[max(env(safe-area-inset-bottom),0px)] pt-1.5 md:hidden">
         <div className="pointer-events-auto flex w-full max-w-[640px] items-center gap-2 px-2">
-          {/* Слева: редактор/книга */}
-          <Tooltip label={isAdmin ? t('tooltipToBook') : t('adminTitle')} side="top">
-            <div>
-              {isAdmin ? (
-                <BookLinkButton title={t('tooltipToBook')} />
-              ) : (
-                <AdminButton />
-              )}
-            </div>
-          </Tooltip>
-
           {/* Выпадающий список разделов: книга или админ-вкладки */}
           {isAdmin ? (
             <select
@@ -124,7 +114,7 @@ export function BookToolbar() {
               className="flex-1 rounded-md border border-(--border) bg-(--paper) px-2 py-1 text-xs text-(--ink) shadow-sm"
               aria-label={t('navAria')}
             >
-              {SECTIONS.map(({ id, i18nKey }) => (
+              {SECTIONS.filter(({ id }) => id !== 'help').map(({ id, i18nKey }) => (
                 <option key={id} value={id}>
                   {t(i18nKey)}
                 </option>
@@ -146,7 +136,30 @@ export function BookToolbar() {
             </div>
           </Tooltip>
 
-          {/* PDF или три точки в админке */}
+          {!isAdmin && helpSection && (
+            <Tooltip label={t(helpSection.i18nKey)} side="top">
+              <SquareIconLink
+                href={`${pathname}?section=help`}
+                label={t(helpSection.i18nKey)}
+                ariaCurrent={currentSection === 'help' ? 'page' : undefined}
+              >
+                <HelpCircle className="size-[18px]" aria-hidden />
+              </SquareIconLink>
+            </Tooltip>
+          )}
+
+          {/* Кнопка книга/админка справа */}
+          <Tooltip label={isAdmin ? t('tooltipToBook') : t('adminTitle')} side="top">
+            <div className="shrink-0">
+              {isAdmin ? (
+                <BookLinkButton title={t('tooltipToBook')} />
+              ) : (
+                <AdminButton />
+              )}
+            </div>
+          </Tooltip>
+
+          {/* Три точки в админке */}
           {isAdmin && actions ? (
             <div className="relative shrink-0">
               <Tooltip label={t('adminMoreActions') ?? 'Ещё'} side="top">
@@ -199,9 +212,7 @@ export function BookToolbar() {
                 </div>
               )}
             </div>
-          ) : (
-            <div />
-          )}
+          ) : null}
         </div>
       </div>
 

@@ -15,7 +15,7 @@ const variants = {
   danger:
     'text-(--ink-muted) hover:bg-red-500/20 hover:text-red-600',
   icon:
-    'h-9 w-9 shrink-0 border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md hover:shadow-lg md:h-11 md:w-11',
+    'h-8 w-8 shrink-0 border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md hover:shadow-lg md:h-9 md:w-9',
 } as const;
 
 const sizes = {

@@ -1,8 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 import {
+  formatNameByLocale,
   formatLifeDates,
+  formatPersonNameForLocale,
   getFullName,
+  isLatinScriptLocale,
   sortPersonsBySurname,
+  transliterateCyrillicToLatin,
   personMatchesSearch,
 } from './person';
 import {
@@ -43,6 +47,28 @@ describe('person utils', () => {
     });
     it('returns empty for null', () => {
       expect(getFullName(null)).toBe('');
+    });
+  });
+
+  describe('transliteration and locale formatting', () => {
+    it('transliterates cyrillic to latin', () => {
+      expect(transliterateCyrillicToLatin('Никонец Иван')).toBe('Nikonets Ivan');
+    });
+
+    it('detects latin-script locales', () => {
+      expect(isLatinScriptLocale('en')).toBe(true);
+      expect(isLatinScriptLocale('ru')).toBe(false);
+    });
+
+    it('formats full person name by locale', () => {
+      const p = PERSONS_FIXTURE.find((x) => x.id === 'p001')!;
+      expect(formatPersonNameForLocale(p, 'ru')).toBe('Никонец Иван Петрович');
+      expect(formatPersonNameForLocale(p, 'en')).toBe('Nikonets Ivan Petrovich');
+    });
+
+    it('formats plain text by locale', () => {
+      expect(formatNameByLocale('Брянск', 'en')).toBe('Bryansk');
+      expect(formatNameByLocale('Брянск', 'ru')).toBe('Брянск');
     });
   });
 

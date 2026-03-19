@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useCallback, useRef, useState, type ReactNode } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { ADMIN_TAB_IDS, type AdminTabId } from '@/lib/constants/storage';
@@ -18,16 +17,18 @@ import { Button } from '@/components/ui/atoms/Button';
 import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
 import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
+import { SquareIconButton, SquareIconLink } from '@/components/ui/SquareIconButton';
 
 export type { AdminTabId };
 
 interface AdminTabsProps {
   active: AdminTabId;
   onSelect: (id: AdminTabId) => void;
+  onAddPersonRow?: (() => void) | null;
   children: ReactNode;
 }
 
-export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
+export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }: AdminTabsProps) {
   const { t, routes } = useLocaleRoutes();
   const [helpOpen, setHelpOpen] = useState(false);
   const { actions } = useAdminToolbar();
@@ -62,17 +63,8 @@ export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
   return (
     <div>
       {/* Верхние вкладки скрыты на мобиле, показываем только на md+ */}
-      <nav className="hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:flex">
+      <nav className="relative z-40 hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:-mt-3 md:flex">
         <div className="flex flex-wrap items-end gap-1">
-          <Tooltip label={t('tooltipToBook')} side="right">
-            <Link
-              href={routes.home}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
-              aria-label={t('tooltipToBook')}
-            >
-              <BookOpen className="size-[18px]" aria-hidden />
-            </Link>
-          </Tooltip>
           {ADMIN_TAB_IDS.map((id) => (
             <button
               key={id}
@@ -89,16 +81,35 @@ export function AdminTabs({ active, onSelect, children }: AdminTabsProps) {
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-end justify-end gap-1">
-          <button
-            type="button"
-            onClick={() => setHelpOpen(true)}
-            className="flex items-center gap-1.5 rounded-t-md bg-(--nav-btn) px-3 py-1.5 text-sm font-medium text-(--nav-btn-ink) shadow-md transition-colors hover:bg-(--nav-btn-hover) md:px-4 md:py-2"
-            aria-label={t('adminHelp')}
-          >
-            <HelpCircle className="size-4" aria-hidden />
-            {t('adminHelp')}
-          </button>
+        <div className="relative z-40 flex flex-wrap items-end justify-end gap-1">
+          {active === 'persons' && onAddPersonRow && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onAddPersonRow}
+              className="mr-4 mb-0.5"
+            >
+              {t('adminAddRow')}
+            </Button>
+          )}
+          <Tooltip label={t('tooltipToBook')} side="bottom">
+            <SquareIconLink
+              href={routes.home}
+              label={t('tooltipToBook')}
+              tone="inverse"
+            >
+              <BookOpen className="size-[18px]" aria-hidden />
+            </SquareIconLink>
+          </Tooltip>
+
+          <Tooltip label={t('adminHelp')} side="bottom">
+            <SquareIconButton
+              onClick={() => setHelpOpen(true)}
+              label={t('adminHelp')}
+            >
+              <HelpCircle className="size-[18px]" aria-hidden />
+            </SquareIconButton>
+          </Tooltip>
 
           <Tooltip label={t('tooltipPageColor')} side="bottom">
             <PageColorPicker />

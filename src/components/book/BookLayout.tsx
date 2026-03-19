@@ -40,7 +40,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
         <div
           className={
             isAdmin
-              ? 'ml-0 md:ml-16 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 max-w-none'
+              ? 'ml-0 md:ml-0 flex min-h-0 flex-1 flex-col overflow-y-auto pb-5 max-w-none'
               : 'mx-auto flex min-h-0 w-full max-w-[100%] flex-1 flex-col items-center gap-0 pl-0 md:pl-16'
           }
         >
@@ -61,7 +61,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
             <div
               className={
                 !isAdmin
-                  ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 pb-20 md:pt-0 md:pb-0'
+                  ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 pb-20 md:pt-1 md:pb-0'
                   : ''
               }
             >

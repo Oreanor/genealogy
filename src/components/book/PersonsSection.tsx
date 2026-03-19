@@ -3,14 +3,14 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import { useLocaleRoutes } from '@/lib/i18n/context';
+import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
 import { BookSpread } from './BookSpread';
 import { BookPage } from './BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
 import { getPersons } from '@/lib/data/persons';
-import { sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/utils/person';
-import { getPhotosByPerson, getLightboxFacesFromPhoto } from '@/lib/data/photos';
+import { formatPersonNameForLocale, sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/utils/person';
+import { getPhotosByPerson, getLightboxFacesFromPhoto, getPreferredPanelPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
@@ -24,6 +24,7 @@ export function PersonsSection() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { t, routes } = useLocaleRoutes();
+  const locale = useLocale();
   const [personsSearch, setPersonsSearch] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
 
@@ -52,7 +53,7 @@ export function PersonsSection() {
 
   const personPhotos = selectedPerson ? getPhotosByPerson(selectedPerson.id) : [];
   const historyMentions = selectedPerson ? getHistoryEntriesByPerson(selectedPerson.id) : [];
-  const firstPhoto = personPhotos[0] ?? null;
+  const firstPhoto = selectedPerson ? getPreferredPanelPhoto(selectedPerson.id) : null;
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
   const [showFaces, setShowFaces] = useState(false);
@@ -64,7 +65,7 @@ export function PersonsSection() {
 
   useEffect(() => {
     const first = selectedPersonId
-      ? (getPhotosByPerson(selectedPersonId)[0] ?? null)
+      ? getPreferredPanelPhoto(selectedPersonId)
       : null;
     setSelectedPhoto(first);
     setSelectedHistoryIndex(null);
@@ -102,7 +103,7 @@ export function PersonsSection() {
                 }
               }}
               filteredPersons={filteredSortedPersons}
-              getDisplayName={(p) => getFullName(p) || p.id}
+              getDisplayName={(p) => formatPersonNameForLocale(p, locale) || p.id}
               placeholder={t('personsSearchPlaceholder')}
               ariaLabel={t('personsSearchPlaceholder')}
               searchFocused={searchFocused}
@@ -133,9 +134,9 @@ export function PersonsSection() {
                   setTextLightboxOpen(true);
                 }
               }}
-                renderPersonLink={(p) => (
+                renderPersonLink={(p, displayName) => (
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
-                    {getFullName(p)}
+                    {displayName ?? formatPersonNameForLocale(p, locale)}
                   </Link>
                 )}
               />

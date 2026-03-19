@@ -28,7 +28,7 @@ describe('PersonSpreadContent', () => {
           selectedPhoto={null}
           onPhotoClick={vi.fn()}
           onHistoryClick={vi.fn()}
-          renderPersonLink={(p) => <span>{p.id}</span>}
+          renderPersonLink={(p, displayName) => <span>{displayName ?? p.id}</span>}
         />
       )
     );

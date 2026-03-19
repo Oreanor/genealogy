@@ -209,6 +209,7 @@ function AdminPageClientInner({
     merge: MergeResult;
     imported: AdminDataSections;
   } | null>(null);
+  const [addPersonRowAction, setAddPersonRowAction] = useState<(() => void) | null>(null);
 
   const dataRef = useRef<AdminDataSections>(initialData);
 
@@ -308,12 +309,17 @@ function AdminPageClientInner({
 
   return (
     <div className="space-y-4">
-      <AdminTabs active={initialTab} onSelect={handleSelectTab}>
+      <AdminTabs
+        active={initialTab}
+        onSelect={handleSelectTab}
+        onAddPersonRow={initialTab === 'persons' ? addPersonRowAction : null}
+      >
         <div className={initialTab === 'persons' ? '' : 'hidden'}>
           <AdminPersonsTable
             rootPersonId={rootPersonId}
             initialPersons={initialData.persons}
             photos={photos}
+            onAddRowActionChange={(action) => setAddPersonRowAction(() => action)}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, persons: p };
               persist();

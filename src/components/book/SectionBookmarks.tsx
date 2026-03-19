@@ -10,14 +10,14 @@ import { Tooltip } from '@/components/ui/Tooltip';
 import { AdminButton } from '@/components/ui/AdminButton';
 import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
 import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
+import { SquareIconLink } from '@/components/ui/SquareIconButton';
 
 const BOOKMARK_BASE =
   'rounded-t-md px-3 py-1.5 text-xs font-medium shadow-md transition-colors md:min-h-[36px] md:px-4 md:py-2 md:text-sm';
 const BOOKMARK_ACTIVE = 'bg-(--ink) text-(--paper) hover:bg-(--ink)';
 const BOOKMARK_INACTIVE =
   'bg-(--nav-btn) text-(--nav-btn-ink) hover:bg-(--nav-btn-hover)';
-
-/** Mobile: dropdown for section (tree, persons, history, photos, kinship, help). Desktop: tab links. */
+/** Mobile: dropdown for section. Desktop: tab links + square action buttons. */
 export function SectionBookmarks() {
   const { t } = useLocaleRoutes();
   const pathname = usePathname();
@@ -32,20 +32,17 @@ export function SectionBookmarks() {
     router.push(url);
   };
 
-  const RIGHT_IDS = new Set<string>(['kinship', 'help']);
+  const RIGHT_IDS = new Set<string>(['help']);
   const mainSections = SECTIONS.filter((s) => !RIGHT_IDS.has(s.id));
-  const rightSections = SECTIONS.filter((s) => RIGHT_IDS.has(s.id));
+  const helpSection = SECTIONS.find((s) => s.id === 'help');
 
   return (
     <nav
-      className="z-30 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-6 md:ml-4 md:pl-0 md:pr-8"
+      className="z-30 mt-1 -mb-0.5 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-6 md:-mt-2 md:-mb-1 md:ml-4 md:pl-0 md:pr-8"
       aria-label={t('navAria')}
     >
       {/* Desktop: tab links (mobile moved to bottom toolbar) */}
       <div className="flex-row flex-wrap gap-1 max-md:hidden">
-        <Tooltip label={t('adminTitle')} side="bottom">
-          <AdminButton />
-        </Tooltip>
         {mainSections.map(({ id, i18nKey }) => {
           const isActive = current === id;
           const href = id === 'tree' ? pathname : `${pathname}?section=${id}`;
@@ -61,16 +58,20 @@ export function SectionBookmarks() {
         })}
       </div>
       <div className="hidden shrink-0 flex-row items-center gap-1 md:flex">
-        {rightSections.map(({ id, i18nKey }) => (
-          <Link
-            key={id}
-            href={`${pathname}?section=${id}`}
-            className={`${BOOKMARK_BASE} ${current === id ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE} ${id === 'help' ? 'flex items-center gap-1.5' : ''}`}
-          >
-            {id === 'help' && <HelpCircle className="size-4" aria-hidden />}
-            {t(i18nKey)}
-          </Link>
-        ))}
+        <Tooltip label={t('adminTitle')} side="bottom">
+          <AdminButton />
+        </Tooltip>
+        {helpSection && (
+          <Tooltip label={t(helpSection.i18nKey)} side="bottom">
+            <SquareIconLink
+              href={`${pathname}?section=help`}
+              label={t(helpSection.i18nKey)}
+              ariaCurrent={current === 'help' ? 'page' : undefined}
+            >
+              <HelpCircle className="size-[18px]" aria-hidden />
+            </SquareIconLink>
+          </Tooltip>
+        )}
         <Tooltip label={t('tooltipPageColor')} side="bottom">
           <PageColorPicker />
         </Tooltip>

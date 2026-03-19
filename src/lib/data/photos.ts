@@ -127,6 +127,15 @@ export function getPhotosByPerson(personId: string): PhotoEntry[] {
   );
 }
 
+/** Preferred panel photo: personal first, then group (with this person marked), else null. */
+export function getPreferredPanelPhoto(personId: string): PhotoEntry | null {
+  const personPhotos = getPhotosByPerson(personId);
+  const personal = personPhotos.find((p) => p.category === 'personal');
+  if (personal) return personal;
+  const group = personPhotos.find((p) => p.category === 'group');
+  return group ?? null;
+}
+
 /** Split person photos for panel carousels: no-series (personal → group → related) and by series. */
 export function splitPersonPhotosForCarousels(photos: PhotoEntry[]): {
   noSeries: PhotoEntry[];

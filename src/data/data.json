@@ -2,32 +2,46 @@
   "rootPersonId": "p001",
   "persons": [
     {
-      "id": "p001",
-      "firstName": "Сергей",
-      "birthPlace": "Брянск",
-      "occupation": "программист",
-      "fatherId": "p002",
-      "motherId": "p003",
-      "gender": "m",
-      "patronymic": "Владимирович",
-      "lastName": "Никонец",
-      "birthDate": "25.07.1980",
-      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg"
+      "id": "p017",
+      "firstName": "Надежда",
+      "birthPlace": "",
+      "occupation": "конструктор",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Аксененко",
+      "fatherId": "p006",
+      "motherId": "p007",
+      "deathDate": "2020",
+      "birthDate": "03.08.1945",
+      "residenceCity": "Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     },
     {
-      "id": "p002",
-      "firstName": "Владимир",
-      "birthPlace": "Буйнакск",
-      "occupation": "электрик 6 разряда",
-      "fatherId": "p004",
-      "motherId": "p005",
+      "id": "p012",
+      "firstName": "Григорий",
+      "birthPlace": "",
+      "occupation": "купец",
       "gender": "m",
-      "patronymic": "Павлович",
-      "lastName": "Никонец",
-      "birthDate": "05.08.1947",
-      "deathDate": "13.09.2021",
-      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
-      "residenceCity": "Воркута"
+      "patronymic": "Прохорович",
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "residenceCity": "Елец",
+      "comment": "умер в 54 года"
+    },
+    {
+      "id": "p006",
+      "firstName": "Николай",
+      "birthPlace": "Ливны",
+      "occupation": "главный бухгалтер",
+      "fatherId": "p012",
+      "motherId": "p013",
+      "gender": "m",
+      "patronymic": "Григорьевич",
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "birthDate": "24.03.1910",
+      "deathDate": "16.02.1992",
+      "residenceCity": "Брянск"
     },
     {
       "id": "p003",
@@ -45,18 +59,68 @@
       "residenceCity": "Воркута"
     },
     {
-      "id": "p004",
-      "firstName": "Павел",
-      "birthPlace": "Сумы",
-      "occupation": "снабженец на консервном заводе",
-      "fatherId": "p008",
-      "motherId": "p009",
+      "id": "p018",
+      "firstName": "Ирина",
+      "birthPlace": "Аткарск",
+      "occupation": "учитель, директор",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Андреева",
+      "fatherId": "p006",
+      "motherId": "p007",
+      "birthDate": "23.12.1942",
+      "deathDate": "2019",
+      "residenceCity": "Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
+    },
+    {
+      "id": "p014",
+      "firstName": "Алексей",
+      "birthPlace": "",
+      "occupation": "столяр, плотник",
       "gender": "m",
-      "patronymic": "Андреевич",
-      "lastName": "Никонец",
-      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
-      "birthDate": "19.11.1905",
-      "deathDate": "21.03.1995",
+      "patronymic": "Иванович",
+      "lastName": "Беляев",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
+      "birthDate": "25.06.1889",
+      "deathDate": "14.05.1955"
+    },
+    {
+      "id": "p007",
+      "firstName": "Елена",
+      "birthPlace": "",
+      "occupation": "счетовод, бухгалтер",
+      "fatherId": "p014",
+      "motherId": "p015",
+      "gender": "f",
+      "patronymic": "Алексеевна",
+      "lastName": "Беляева",
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
+      "birthDate": "22.04.1918",
+      "deathDate": "10.10.1980",
+      "residenceCity": "Брянск"
+    },
+    {
+      "id": "p015",
+      "firstName": "Татьяна",
+      "birthPlace": "",
+      "occupation": "белошвейка",
+      "gender": "f",
+      "patronymic": "Филимоновна",
+      "lastName": "Беляева",
+      "birthDate": "15.05.1891",
+      "deathDate": "14.12.1957",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg"
+    },
+    {
+      "id": "p011",
+      "firstName": "Александра",
+      "birthPlace": "ст.Брюховецкая",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Егоровна",
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
       "residenceCity": "Буйнакск"
     },
     {
@@ -75,45 +139,15 @@
       "residenceCity": "Буйнакск"
     },
     {
-      "id": "p006",
-      "firstName": "Николай",
-      "birthPlace": "Ливны",
-      "occupation": "главный бухгалтер",
-      "fatherId": "p012",
-      "motherId": "p013",
-      "gender": "m",
-      "patronymic": "Григорьевич",
-      "lastName": "Андреев",
-      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
-      "birthDate": "24.03.1910",
-      "deathDate": "16.02.1992",
-      "residenceCity": "Брянск"
-    },
-    {
-      "id": "p007",
-      "firstName": "Елена",
-      "birthPlace": "",
-      "occupation": "счетовод, бухгалтер",
-      "fatherId": "p014",
-      "motherId": "p015",
-      "gender": "f",
-      "patronymic": "Алексеевна",
-      "lastName": "Беляева",
-      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
-      "birthDate": "22.04.1918",
-      "deathDate": "10.10.1980",
-      "residenceCity": "Брянск"
-    },
-    {
-      "id": "p008",
-      "firstName": "Андрей",
+      "id": "p010",
+      "firstName": "Иван",
       "birthPlace": "",
       "occupation": "",
       "gender": "m",
       "patronymic": "Павлович",
-      "lastName": "Никонец",
-      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
-      "residenceCity": "Сумы"
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "residenceCity": "Буйнакск"
     },
     {
       "id": "p009",
@@ -127,38 +161,58 @@
       "residenceCity": "Сумы"
     },
     {
-      "id": "p010",
-      "firstName": "Иван",
+      "id": "p008",
+      "firstName": "Андрей",
       "birthPlace": "",
       "occupation": "",
       "gender": "m",
       "patronymic": "Павлович",
-      "lastName": "Дудник",
-      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
-      "residenceCity": "Буйнакск"
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
+      "residenceCity": "Сумы"
     },
     {
-      "id": "p011",
-      "firstName": "Александра",
-      "birthPlace": "ст.Брюховецкая",
-      "occupation": "",
-      "gender": "f",
-      "patronymic": "Егоровна",
-      "lastName": "Дудник",
-      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
-      "residenceCity": "Буйнакск"
-    },
-    {
-      "id": "p012",
-      "firstName": "Григорий",
-      "birthPlace": "",
-      "occupation": "купец",
+      "id": "p002",
+      "firstName": "Владимир",
+      "birthPlace": "Буйнакск",
+      "occupation": "электрик 6 разряда",
+      "fatherId": "p004",
+      "motherId": "p005",
       "gender": "m",
-      "patronymic": "Прохорович",
-      "lastName": "Андреев",
-      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
-      "residenceCity": "Елец",
-      "comment": "умер в 54 года"
+      "patronymic": "Павлович",
+      "lastName": "Никонец",
+      "birthDate": "05.08.1947",
+      "deathDate": "13.09.2021",
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "residenceCity": "Воркута"
+    },
+    {
+      "id": "p004",
+      "firstName": "Павел",
+      "birthPlace": "Сумы",
+      "occupation": "снабженец на консервном заводе",
+      "fatherId": "p008",
+      "motherId": "p009",
+      "gender": "m",
+      "patronymic": "Андреевич",
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
+      "birthDate": "19.11.1905",
+      "deathDate": "21.03.1995",
+      "residenceCity": "Буйнакск"
+    },
+    {
+      "id": "p001",
+      "firstName": "Сергей",
+      "birthPlace": "Брянск",
+      "occupation": "программист",
+      "fatherId": "p002",
+      "motherId": "p003",
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "25.07.1980",
+      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg"
     },
     {
       "id": "p013",
@@ -171,60 +225,6 @@
       "deathDate": "1943",
       "residenceCity": "Елец",
       "avatarPhotoSrc": "/photos/personal/styopina_anna_vasilevna/Image66.jpg"
-    },
-    {
-      "id": "p014",
-      "firstName": "Алексей",
-      "birthPlace": "",
-      "occupation": "столяр, плотник",
-      "gender": "m",
-      "patronymic": "Иванович",
-      "lastName": "Беляев",
-      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
-      "birthDate": "25.06.1889",
-      "deathDate": "14.05.1955"
-    },
-    {
-      "id": "p015",
-      "firstName": "Татьяна",
-      "birthPlace": "",
-      "occupation": "белошвейка",
-      "gender": "f",
-      "patronymic": "Филимоновна",
-      "lastName": "Беляева",
-      "birthDate": "15.05.1891",
-      "deathDate": "14.12.1957",
-      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg"
-    },
-    {
-      "id": "p017",
-      "firstName": "Надежда",
-      "birthPlace": "",
-      "occupation": "конструктор",
-      "gender": "f",
-      "patronymic": "Николаевна",
-      "lastName": "Аксененко",
-      "fatherId": "p006",
-      "motherId": "p007",
-      "deathDate": "2020",
-      "birthDate": "03.08.1945",
-      "residenceCity": "Брянск",
-      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
-    },
-    {
-      "id": "p018",
-      "firstName": "Ирина",
-      "birthPlace": "Аткарск",
-      "occupation": "учитель, директор",
-      "gender": "f",
-      "patronymic": "Николаевна",
-      "lastName": "Андреева",
-      "fatherId": "p006",
-      "motherId": "p007",
-      "birthDate": "23.12.1942",
-      "deathDate": "2019",
-      "residenceCity": "Брянск",
-      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     }
   ],
   "photos": [
@@ -1090,6 +1090,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p011"
         }
       ],
       "series": "Буйнакск"
@@ -1105,6 +1111,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1120,6 +1132,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1135,6 +1153,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1150,6 +1174,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1165,6 +1195,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1180,6 +1216,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1195,6 +1237,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1210,6 +1258,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1225,6 +1279,12 @@
         },
         {
           "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
         }
       ],
       "series": "Буйнакск"
@@ -1483,6 +1543,9 @@
         },
         {
           "personId": "p004"
+        },
+        {
+          "personId": "p003"
         }
       ],
       "series": "Мамины записи"
@@ -1495,6 +1558,9 @@
       "people": [
         {
           "personId": "p015"
+        },
+        {
+          "personId": "p003"
         }
       ],
       "series": "Мамины записи"
@@ -1543,6 +1609,9 @@
         },
         {
           "personId": "p007"
+        },
+        {
+          "personId": "p003"
         }
       ],
       "series": "Мамины записи"
@@ -1561,6 +1630,9 @@
         },
         {
           "personId": "p013"
+        },
+        {
+          "personId": "p003"
         }
       ],
       "series": "Мамины записи"

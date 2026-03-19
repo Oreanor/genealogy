@@ -64,6 +64,7 @@ vi.mock('@/lib/i18n/context', () => ({
       person: (id: string) => `/person/${id}`,
     },
   }),
+  useLocale: () => 'ru',
 }));
 
 vi.mock('@/lib/data/persons', () => ({
@@ -72,6 +73,7 @@ vi.mock('@/lib/data/persons', () => ({
 
 vi.mock('@/lib/data/photos', () => ({
   getPhotosByPerson: () => [photoWithBack, photoWithoutBack],
+  getPreferredPanelPhoto: () => photoWithBack,
   getLightboxFacesFromPhoto: () => [],
 }));
 
@@ -83,6 +85,7 @@ vi.mock('@/lib/utils/person', () => ({
   sortPersonsBySurname: (ps: Person[]) => ps,
   personMatchesSearch: () => true,
   getFullName: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
+  formatPersonNameForLocale: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
 }));
 
 vi.mock('next/link', () => ({
@@ -121,7 +124,7 @@ vi.mock('@/components/content/PersonSpreadContent', () => {
     selectedPhoto: PhotoEntry | null;
     onPhotoClick: (photo: PhotoEntry, toggleBack?: boolean) => void;
     onHistoryClick: (index: number) => void;
-    renderPersonLink: (p: Person) => React.ReactNode;
+    renderPersonLink: (p: Person, displayName?: string) => React.ReactNode;
   }) {
     return (
       <div>
@@ -139,7 +142,7 @@ vi.mock('@/components/content/PersonSpreadContent', () => {
         <button type="button" onClick={() => props.onHistoryClick(0)}>
           history-0
         </button>
-        {props.renderPersonLink(props.person)}
+        {props.renderPersonLink(props.person, `${props.person.firstName} ${props.person.lastName ?? ''}`.trim())}
       </div>
     );
   }

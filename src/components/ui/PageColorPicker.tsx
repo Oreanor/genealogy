@@ -169,7 +169,7 @@ export function PageColorPicker() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-(--border) bg-(--surface) shadow-md transition-shadow hover:shadow-lg md:h-11 md:w-11"
+        className="flex h-8 w-8 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-(--border) bg-(--surface) shadow-md transition-shadow hover:shadow-lg md:h-9 md:w-9"
         aria-label={t('tooltipPageColor')}
         aria-expanded={open}
       >
