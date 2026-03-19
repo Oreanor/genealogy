@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const HOVER_DELAY_MS = 400;
+const VIEWPORT_PAD_PX = 8;
 
 interface TooltipProps {
   label: string;
@@ -15,6 +16,8 @@ export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
   const [visible, setVisible] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wrapperRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLSpanElement>(null);
+  const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
 
   const clearTimer = () => {
     if (timeoutRef.current) {
@@ -51,14 +54,48 @@ export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
     };
   }, []);
 
-  const positionClass =
-    side === 'left'
-      ? 'right-full top-1/2 -translate-y-1/2 mr-2'
-      : side === 'right'
-        ? 'left-full top-1/2 -translate-y-1/2 ml-2'
-        : side === 'top'
-          ? 'bottom-full left-1/2 -translate-x-1/2 mb-2'
-          : 'top-full left-1/2 -translate-x-1/2 mt-2';
+  useLayoutEffect(() => {
+    if (!visible) {
+      setPos(null);
+      return;
+    }
+    const anchor = wrapperRef.current;
+    const tip = tooltipRef.current;
+    if (!anchor || !tip) return;
+
+    const anchorRect = anchor.getBoundingClientRect();
+    const tipRect = tip.getBoundingClientRect();
+
+    const gap = 8;
+    let left = 0;
+    let top = 0;
+
+    if (side === 'top') {
+      left = anchorRect.left + anchorRect.width / 2 - tipRect.width / 2;
+      top = anchorRect.top - tipRect.height - gap;
+    } else if (side === 'bottom') {
+      left = anchorRect.left + anchorRect.width / 2 - tipRect.width / 2;
+      top = anchorRect.bottom + gap;
+    } else if (side === 'right') {
+      left = anchorRect.right + gap;
+      top = anchorRect.top + anchorRect.height / 2 - tipRect.height / 2;
+    } else {
+      left = anchorRect.left - tipRect.width - gap;
+      top = anchorRect.top + anchorRect.height / 2 - tipRect.height / 2;
+    }
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const minLeft = VIEWPORT_PAD_PX;
+    const maxLeft = Math.max(minLeft, vw - VIEWPORT_PAD_PX - tipRect.width);
+    const minTop = VIEWPORT_PAD_PX;
+    const maxTop = Math.max(minTop, vh - VIEWPORT_PAD_PX - tipRect.height);
+
+    left = Math.min(Math.max(left, minLeft), maxLeft);
+    top = Math.min(Math.max(top, minTop), maxTop);
+
+    setPos({ left, top });
+  }, [visible, side, label]);
 
   return (
     <span
@@ -70,8 +107,10 @@ export function Tooltip({ label, children, side = 'left' }: TooltipProps) {
       {children}
       {visible && (
         <span
-          className={`absolute z-50 whitespace-nowrap rounded px-2 py-1 text-xs font-medium text-white bg-neutral-800 shadow-lg ${positionClass}`}
+          ref={tooltipRef}
+          className="fixed z-50 max-w-[calc(100vw-16px)] whitespace-nowrap rounded bg-neutral-800 px-2 py-1 text-xs font-medium text-white shadow-lg"
           role="tooltip"
+          style={pos ?? undefined}
         >
           {label}
         </span>

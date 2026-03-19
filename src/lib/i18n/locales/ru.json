@@ -88,6 +88,7 @@
   "adminDownloadJson": "Скачать JSON",
   "adminDownloadAllJson": "Скачать все 3 JSON",
   "adminImportJson": "Импорт JSON",
+  "adminMoreActions": "Ещё",
   "adminImportNew": "новых",
   "adminImportConflicts": "конфликтов",
   "adminImportApply": "Применить",
