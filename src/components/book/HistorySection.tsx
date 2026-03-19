@@ -10,7 +10,6 @@ import { getHistoryEntries } from '@/lib/data/history';
 import Link from 'next/link';
 import { SearchField } from '@/components/ui/molecules/SearchField';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-import { useIsMobile } from '@/hooks/useIsMobile';
 import { Button } from '@/components/ui/atoms/Button';
 
 export function HistorySection() {
@@ -19,8 +18,6 @@ export function HistorySection() {
   const router = useRouter();
   const { t } = useLocaleRoutes();
   const [historySearch, setHistorySearch] = useState('');
-  const isMobile = useIsMobile();
-  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
 
   const entries = getHistoryEntries();
   const entryParam = searchParams.get('entry');
@@ -72,7 +69,6 @@ export function HistorySection() {
                     onClick={() => {
                       const url = `${pathname}?section=history&entry=${originalIndex}`;
                       router.push(url);
-                      setTextLightboxOpen(true);
                     }}
                   >
                     {entry.title || `${t('chapters_history')} ${originalIndex + 1}`}
@@ -140,8 +136,8 @@ export function HistorySection() {
           }
         />
       </div>
-      {isMobile && textLightboxOpen && selectedEntry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4">
+      {selectedEntry && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4 md:hidden">
           <div className="flex max-h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
             <div
               ref={textScrollRef}
@@ -155,7 +151,6 @@ export function HistorySection() {
                 variant="secondary"
                 className="px-4"
                 onClick={() => {
-                  setTextLightboxOpen(false);
                   const url = `${pathname}?section=history`;
                   router.push(url);
                 }}

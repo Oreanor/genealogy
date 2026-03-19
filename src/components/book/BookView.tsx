@@ -99,47 +99,54 @@ export function BookView() {
                       : 'treePageHeadingDescendants'
                   )}
                 </h1>
-                <FamilyTree
-                  onPersonClick={setSelectedTreePersonId}
-                  kinshipMode={kinshipPickMode}
-                  kinshipSelectedIds={kinshipSelectedIds}
-                  onKinshipSelect={onKinshipNodeClick}
-                  kinshipHintById={kinshipHintById}
-                  treeMode={treeMode}
-                />
-                <div className="absolute bottom-3 right-3 z-20 flex items-center gap-3">
-                  {kinshipPickMode && (
-                    <>
-                      <div className="text-[12px] font-semibold leading-tight text-(--ink)">
-                        {t('kinshipSelectTwoHint')}
-                      </div>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={resetKinshipSelection}
-                        disabled={kinshipSelectedIds.length === 0}
-                        className="disabled:opacity-80"
-                      >
-                        {t('kinshipReset')}
-                      </Button>
-                    </>
-                  )}
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={toggleKinshipPickMode}
-                  >
-                    {kinshipPickMode ? t('back') : t('chapters_kinship')}
-                  </Button>
-                </div>
-                <div className="absolute bottom-3 left-3 z-20">
+                <div className="relative z-30 mb-2 flex items-start justify-between gap-3">
                   <Button
                     variant="secondary"
                     size="sm"
                     onClick={() => setTreeMode((m) => (m === 'ancestors' ? 'descendants' : 'ancestors'))}
+                    className={
+                      treeMode === 'descendants'
+                        ? '!border-zinc-900 !bg-zinc-900 !text-white hover:!bg-zinc-800'
+                        : ''
+                    }
                   >
                     {treeMode === 'ancestors' ? t('treeModeDescendants') : t('treeModeAncestors')}
                   </Button>
+                  <div className="flex items-center gap-3">
+                    {kinshipPickMode && (
+                      <>
+                        <div className="text-[12px] font-semibold leading-tight text-(--ink)">
+                          {t('kinshipSelectTwoHint')}
+                        </div>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={resetKinshipSelection}
+                          disabled={kinshipSelectedIds.length === 0}
+                          className="disabled:opacity-80"
+                        >
+                          {t('kinshipReset')}
+                        </Button>
+                      </>
+                    )}
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={toggleKinshipPickMode}
+                    >
+                      {kinshipPickMode ? t('back') : t('chapters_kinship')}
+                    </Button>
+                  </div>
+                </div>
+                <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25 px-2 pb-2 md:px-3 md:pb-3">
+                  <FamilyTree
+                    onPersonClick={setSelectedTreePersonId}
+                    kinshipMode={kinshipPickMode}
+                    kinshipSelectedIds={kinshipSelectedIds}
+                    onKinshipSelect={onKinshipNodeClick}
+                    kinshipHintById={kinshipHintById}
+                    treeMode={treeMode}
+                  />
                 </div>
               </BookPage>
             </div>

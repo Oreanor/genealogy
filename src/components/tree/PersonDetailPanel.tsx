@@ -12,6 +12,7 @@ import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { BookSpread } from '@/components/book/BookSpread';
 import { BookPage } from '@/components/book/BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
+import { HistoryContentRenderer } from '@/components/content/HistoryContentRenderer';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { Button } from '@/components/ui/atoms/Button';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
@@ -40,6 +41,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
   const isAlreadyTreeRoot = rootPersonId === person.id;
   const historyMentions = getHistoryEntriesByPerson(person.id);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
+  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
 
@@ -59,6 +61,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               selectedPhoto={selectedPhoto}
               onPhotoClick={(photo, toggleBack) => {
                 setSelectedHistoryIndex(null);
+                setTextLightboxOpen(false);
                 if (toggleBack) {
                   setShowPhotoBack((v) => !v);
                   if (isMobile) setLightboxOpen(true);
@@ -72,6 +75,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               onHistoryClick={(index) => {
                 setSelectedHistoryIndex(index);
                 setSelectedPhoto(null);
+                if (isMobile) setTextLightboxOpen(true);
               }}
               renderPersonLink={(p, displayName) => (
                 <button
@@ -149,12 +153,35 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
         onClose={() => setLightboxOpen(false)}
       />
     );
+  const textLightbox =
+    isMobile &&
+    textLightboxOpen &&
+    selectedHistoryEntry && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4">
+        <div className="flex max-h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
+          <div className="flex-1 overflow-y-auto px-5 pb-5">
+            <div className="h-4" />
+            <HistoryContentRenderer entries={[selectedHistoryEntry]} />
+          </div>
+          <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">
+            <Button
+              variant="secondary"
+              className="px-4"
+              onClick={() => setTextLightboxOpen(false)}
+            >
+              {t('back')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
 
   if (inline) {
     return (
       <>
         {spreadContent}
         {lightbox}
+        {textLightbox}
       </>
     );
   }
@@ -162,6 +189,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
   return (
     <>
       {lightbox}
+      {textLightbox}
       <div
         className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4"
         onClick={onClose}
