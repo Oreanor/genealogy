@@ -6,6 +6,10 @@ import type { SectionId } from '@/lib/constants/sections';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { HelpCircle } from 'lucide-react';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { AdminButton } from '@/components/ui/AdminButton';
+import { PageColorPicker } from '@/components/ui/PageColorPickerClient';
+import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 
 const BOOKMARK_BASE =
   'rounded-t-md px-3 py-1.5 text-xs font-medium shadow-md transition-colors md:min-h-[36px] md:px-4 md:py-2 md:text-sm';
@@ -39,6 +43,9 @@ export function SectionBookmarks() {
     >
       {/* Desktop: tab links (mobile moved to bottom toolbar) */}
       <div className="flex-row flex-wrap gap-1 max-md:hidden">
+        <Tooltip label={t('adminTitle')} side="bottom">
+          <AdminButton />
+        </Tooltip>
         {mainSections.map(({ id, i18nKey }) => {
           const isActive = current === id;
           const href = id === 'tree' ? pathname : `${pathname}?section=${id}`;
@@ -53,7 +60,7 @@ export function SectionBookmarks() {
           );
         })}
       </div>
-      <div className="hidden shrink-0 flex-row gap-1 md:flex">
+      <div className="hidden shrink-0 flex-row items-center gap-1 md:flex">
         {rightSections.map(({ id, i18nKey }) => (
           <Link
             key={id}
@@ -64,6 +71,12 @@ export function SectionBookmarks() {
             {t(i18nKey)}
           </Link>
         ))}
+        <Tooltip label={t('tooltipPageColor')} side="bottom">
+          <PageColorPicker />
+        </Tooltip>
+        <Tooltip label={t('tooltipLanguage')} side="bottom">
+          <LocaleSwitcher />
+        </Tooltip>
       </div>
     </nav>
   );

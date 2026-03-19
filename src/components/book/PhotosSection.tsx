@@ -48,12 +48,7 @@ export function PhotosSection() {
 
   useEffect(() => {
     setSelectedPersonId(personId ?? null);
-    if (personId) {
-      const p = persons.find((x) => x.id === personId);
-      if (p) setPersonsSearch(getFullName(p) || p.id);
-    } else {
-      setPersonsSearch('');
-    }
+    setPersonsSearch('');
   }, [personId, persons]);
 
   const selectedPerson = selectedPersonId
@@ -68,8 +63,7 @@ export function PhotosSection() {
     ? splitPersonPhotosForCarousels(personPhotos)
     : null;
 
-  const firstPhoto = personPhotos[0] ?? null;
-  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(null);
   const [showFaces, setShowFaces] = useState(false);
   const [showPhotoBack, setShowPhotoBack] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -77,11 +71,7 @@ export function PhotosSection() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const list = selectedPersonId
-      ? getPhotosByPerson(selectedPersonId)
-      : getPhotos();
-    const first = list[0] ?? null;
-    setSelectedPhoto(first);
+    setSelectedPhoto(null);
     setShowPhotoBack(false);
     setImageBounds(null);
   }, [selectedPersonId, setImageBounds]);
@@ -117,7 +107,7 @@ export function PhotosSection() {
                 onBlur={() => setSearchFocused(false)}
                 onSelectPerson={(p) => {
                   setSelectedPersonId(p.id);
-                  setPersonsSearch(getFullName(p) || p.id);
+                  setPersonsSearch('');
                   setSearchFocused(false);
                   router.push(`${pathname}?section=photos&id=${p.id}`);
                 }}
@@ -128,6 +118,13 @@ export function PhotosSection() {
                 searchFocused={searchFocused}
               />
             </div>
+
+            {selectedPerson && (
+              <h2 className="mt-2 book-serif text-2xl font-semibold text-(--ink)">
+                {getFullName(selectedPerson) || selectedPerson.id}
+              </h2>
+            )}
+
             <div className="mt-4 flex-1 min-h-0 overflow-y-auto space-y-4">
               {selectedPerson ? (
                 <>

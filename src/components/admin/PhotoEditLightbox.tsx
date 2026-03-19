@@ -46,13 +46,13 @@ function SeriesControl({
 
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-(--ink)">
+      <label className="mb-1 block text-sm font-medium text-black md:text-(--ink)">
         {t('adminPhotoSeries')}
       </label>
       <Select
         value={isCustom ? SERIES_NEW_VALUE : value}
         onChange={(e) => handleSelect(e.target.value)}
-        className="bg-(--paper) px-3 py-2"
+        className="bg-(--paper) px-3 py-2 text-black md:text-(--ink)"
       >
         <option value="">&mdash;</option>
         {existingSeries.map((s) => (
@@ -69,7 +69,7 @@ function SeriesControl({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={t('adminPhotoSeriesPlaceholder')}
-          className="mt-2 bg-(--paper) px-3 py-2"
+          className="mt-2 bg-(--paper) px-3 py-2 text-black md:text-(--ink)"
         />
       )}
     </div>
@@ -223,7 +223,7 @@ export function PhotoEditLightbox({
       onClick={onClose}
     >
       <div
-        className="relative flex max-h-[95vh] w-full max-w-5xl flex-row gap-4 overflow-hidden rounded-xl border border-(--border) bg-(--paper) p-4 shadow-xl"
+        className="relative flex max-h-[95vh] w-full max-w-5xl flex-col gap-4 overflow-hidden rounded-xl border border-(--border) bg-(--paper) p-4 text-black md:text-(--ink) shadow-xl md:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
         <Button
@@ -236,11 +236,11 @@ export function PhotoEditLightbox({
           ×
         </Button>
 
-        <div className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center rounded-lg bg-(--paper-light) p-2">
+        <div className="relative flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden rounded-lg bg-(--paper-light) p-2">
           <button
             type="button"
             onClick={() => onUpdate('hidden', !photo.hidden)}
-            className={`absolute bottom-3 right-3 z-10 flex h-7 w-7 items-center justify-center rounded-full shadow ${photo.hidden ? 'bg-(--ink-muted) text-white' : 'bg-white/80 text-(--ink)'}`}
+            className={`absolute bottom-3 right-3 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-(--border-subtle) shadow ${photo.hidden ? 'bg-(--ink-muted) text-white' : 'bg-(--paper-light) text-(--ink)'}`}
             title={photo.hidden ? t('adminShow') : t('adminHide')}
             aria-label={photo.hidden ? t('adminShow') : t('adminHide')}
           >
@@ -248,7 +248,7 @@ export function PhotoEditLightbox({
           </button>
           <div
             ref={leftPanelRef}
-            className={`relative inline-block max-h-[85vh] max-w-full ${faceEditMode ? 'cursor-crosshair' : ''}`}
+            className={`relative flex h-full w-full min-h-0 items-center justify-center overflow-hidden ${faceEditMode ? 'cursor-crosshair' : ''}`}
             onMouseDown={faceEditMode ? handleLeftMouseDown : undefined}
             onMouseMove={faceEditMode ? handleLeftMouseMove : undefined}
             onMouseUp={faceEditMode ? handleLeftMouseUp : undefined}
@@ -258,7 +258,7 @@ export function PhotoEditLightbox({
             <img
               src={photo.src}
               alt=""
-              className="block max-h-[85vh] max-w-full select-none object-contain pointer-events-none"
+              className="block h-full w-full select-none object-contain pointer-events-none"
               draggable={false}
             />
             {(photo.people ?? [])
@@ -299,9 +299,9 @@ export function PhotoEditLightbox({
           </div>
         </div>
 
-        <div className="flex w-80 shrink-0 flex-col gap-4 overflow-y-auto pt-12">
+        <div className="flex w-full shrink-0 flex-col gap-4 overflow-y-auto pt-4 md:w-80 md:pt-12">
           <div>
-            <label className="mb-1 block text-sm font-medium text-(--ink)">
+            <label className="mb-1 block text-sm font-medium text-black md:text-(--ink)">
               {t('adminCaption')}
             </label>
             <Input
@@ -309,18 +309,18 @@ export function PhotoEditLightbox({
               value={photo.caption ?? ''}
               onChange={(e) => onUpdate('caption', e.target.value)}
               placeholder={t('adminCaptionPlaceholder')}
-              className="bg-(--paper) px-3 py-2"
+              className="bg-(--paper) px-3 py-2 text-black md:text-(--ink)"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-(--ink)">
+            <label className="mb-1 block text-sm font-medium text-black md:text-(--ink)">
               {t('adminPhotoCategory')}
             </label>
             <Select
               value={photo.category ?? 'related'}
               onChange={(e) => onUpdate('category', e.target.value as PhotoCategory)}
-              className="bg-(--paper) px-3 py-2"
+              className="bg-(--paper) px-3 py-2 text-black md:text-(--ink)"
             >
               <option value="personal">{t('adminPhotoPersonal')}</option>
               <option value="group">{t('adminPhotoGroup')}</option>
@@ -336,7 +336,7 @@ export function PhotoEditLightbox({
 
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-(--ink)">
+              <span className="text-sm font-medium text-black md:text-(--ink)">
                 {t('adminPeopleOnPhoto')}
               </span>
               {!faceEditMode && (
@@ -347,15 +347,15 @@ export function PhotoEditLightbox({
             </div>
             {faceEditMode ? (
               <div className="space-y-3 rounded border border-(--border-subtle) bg-(--paper-light) p-3">
-                <p className="text-xs text-(--ink-muted)">{t('adminPhotoFaceRectHint')}</p>
+                <p className="text-xs text-black/70 md:text-(--ink-muted)">{t('adminPhotoFaceRectHint')}</p>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-(--ink)">
+                  <label className="mb-1 block text-sm font-medium text-black md:text-(--ink)">
                     {t('adminPhotoPersonId')}
                   </label>
                   <Select
                     value={editingPersonId}
                     onChange={(e) => onEditingPersonIdChange?.(e.target.value)}
-                    className="bg-(--paper) px-3 py-2 w-full"
+                    className="bg-(--paper) px-3 py-2 w-full text-black md:text-(--ink)"
                   >
                     {(() => {
                       const sorted = [...persons].sort((a, b) =>
@@ -386,7 +386,7 @@ export function PhotoEditLightbox({
                 </div>
                 {editingPersonId === CUSTOM_PERSON_VALUE && (
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-(--ink)">
+                    <label className="mb-1 block text-sm font-medium text-black md:text-(--ink)">
                       {t('adminPhotoCustomNameLabel')}
                     </label>
                     <Input
@@ -394,7 +394,7 @@ export function PhotoEditLightbox({
                       value={editingLabel}
                       onChange={(e) => onEditingLabelChange?.(e.target.value)}
                       placeholder={t('adminPhotoCustomNamePlaceholder')}
-                      className="bg-(--paper) px-3 py-2 w-full"
+                      className="bg-(--paper) px-3 py-2 w-full text-black md:text-(--ink)"
                     />
                   </div>
                 )}
@@ -420,7 +420,7 @@ export function PhotoEditLightbox({
                       key={personIdx}
                       className="flex flex-wrap items-center gap-2 rounded border border-(--border-subtle) px-2 py-1.5 text-sm"
                     >
-                      <span className="text-(--ink)">
+                      <span className="text-black md:text-(--ink)">
                         {displayName}
                       </span>
                       <Button variant="ghost" size="sm" onClick={() => onOpenEditPerson(personIdx)} className="text-(--accent) hover:underline">

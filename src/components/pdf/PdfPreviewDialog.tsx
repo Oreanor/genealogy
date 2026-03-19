@@ -2,8 +2,7 @@
 
 import { useEffect, useCallback, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { BlobProvider } from '@react-pdf/renderer';
-import { Download, X, Loader2 } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n/context';
 import { getFamilySurname } from '@/lib/data/owner';
 import { PdfDocument } from './PdfDocument';
@@ -51,17 +50,6 @@ function usePdfLabels(): PdfLabels {
   };
 }
 
-function saveBlob(blob: Blob, filename: string) {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
 interface PdfPreviewDialogProps {
   open: boolean;
   onClose: () => void;
@@ -91,8 +79,6 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
 
   if (!open || !isClient) return null;
 
-  const filename = `${labels.bookTitle.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_')}.pdf`;
-
   return (
     <div
       className="fixed inset-0 z-[200] flex flex-col bg-black/80"
@@ -104,23 +90,6 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
       <div className="flex items-center justify-between bg-(--surface) px-4 py-2 shadow">
         <span className="text-sm font-medium text-(--ink)">{t('pdfPreview')}</span>
         <div className="flex items-center gap-2">
-          <BlobProvider document={<PdfDocument labels={labels} />}>
-            {({ blob, loading }) => (
-              <button
-                type="button"
-                disabled={loading || !blob}
-                onClick={() => blob && saveBlob(blob, filename)}
-                className="flex items-center gap-1.5 rounded-lg bg-(--accent) px-3 py-1.5 text-sm font-medium text-white shadow transition-opacity hover:opacity-90 disabled:opacity-50"
-              >
-                {loading ? (
-                  <Loader2 className="size-4 animate-spin" />
-                ) : (
-                  <Download className="size-4" />
-                )}
-                {t('pdfDownload')}
-              </button>
-            )}
-          </BlobProvider>
           <button
             type="button"
             onClick={onClose}

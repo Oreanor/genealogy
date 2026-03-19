@@ -43,12 +43,6 @@ export function PersonsSection() {
   );
 
   useEffect(() => {
-    // Debug: отслеживаем изменения id в урле и выбранной персоны
-    // eslint-disable-next-line no-console
-    console.log('[PersonsSection] effect personId -> selectedPersonId', {
-      personId,
-      prevSelectedPersonId: selectedPersonId,
-    });
     setSelectedPersonId(personId ?? null);
   }, [personId]);
 
@@ -98,15 +92,9 @@ export function PersonsSection() {
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setSearchFocused(false)}
               onSelectPerson={(p) => {
-                // Debug: клик по элементу в дропдауне
-                // eslint-disable-next-line no-console
-                console.log('[PersonsSection] onSelectPerson', {
-                  id: p.id,
-                  fullName: getFullName(p),
-                });
                 setSelectedPersonId(p.id);
                 router.push(routes.person(p.id));
-                setPersonsSearch(getFullName(p) || p.id);
+                setPersonsSearch('');
                 setSearchFocused(false);
                 // Принудительно снимаем фокус, чтобы повторный клик по полю снова открывал список
                 if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {

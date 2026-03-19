@@ -42,9 +42,10 @@ export function ImageLightbox({
 
   useEffect(() => {
     if (!open) return;
+    setShowFaces(faces.length > 0);
     setShowBack(false);
     setIsLoading(true);
-  }, [open]);
+  }, [open, faces.length]);
 
   useEffect(() => {
     if (!open) return;
