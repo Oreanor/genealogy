@@ -223,6 +223,7 @@ export function ImportMergeDialog({
       photos: merge.photos.conflicts.map(() => value),
       history: merge.history.conflicts.map(() => value),
       rootPersonId: value,
+      placeFallbacks: value,
     });
   };
 
@@ -235,7 +236,8 @@ export function ImportMergeDialog({
     merge.persons.conflicts.length +
     merge.photos.conflicts.length +
     merge.history.conflicts.length +
-    (merge.rootConflict ? 1 : 0);
+    (merge.rootConflict ? 1 : 0) +
+    (merge.placeFallbacksConflict ? 1 : 0);
 
   return (
     <div
@@ -366,6 +368,28 @@ export function ImportMergeDialog({
                         ...prev,
                         rootPersonId:
                           prev.rootPersonId === 'keep' ? 'take' : 'keep',
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+            </>
+          )}
+          {merge.placeFallbacksConflict && (
+            <>
+              <SectionHeader label={t('chapters_map')} count={1} />
+              <div className="rounded-lg border border-(--border) px-3 py-2">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs text-(--ink-muted)">
+                    placeFallbacks
+                  </span>
+                  <ToggleButton
+                    value={resolutions.placeFallbacks}
+                    onToggle={() =>
+                      setResolutions((prev) => ({
+                        ...prev,
+                        placeFallbacks:
+                          prev.placeFallbacks === 'keep' ? 'take' : 'keep',
                       }))
                     }
                   />

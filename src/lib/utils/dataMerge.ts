@@ -1,12 +1,14 @@
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import type { HistoryEntry } from '@/lib/types/history';
+import type { GeocodedPoint } from '@/lib/constants/map';
 
 export interface AdminDataSections {
   rootPersonId: string;
   persons: Person[];
   photos: PhotoEntry[];
   history: HistoryEntry[];
+  placeFallbacks: Record<string, GeocodedPoint>;
 }
 
 export interface MergeConflict<T> {
@@ -25,6 +27,8 @@ export interface MergeResult {
   history: SectionMerge<HistoryEntry>;
   rootConflict: boolean;
   incomingRootPersonId: string;
+  placeFallbacksConflict: boolean;
+  incomingPlaceFallbacks: Record<string, GeocodedPoint>;
 }
 
 export type ConflictResolution = 'keep' | 'take';
@@ -35,6 +39,7 @@ export interface MergeResolutions {
   photos: ConflictResolution[];
   history: ConflictResolution[];
   rootPersonId: ConflictResolution;
+  placeFallbacks: ConflictResolution;
 }
 
 function eq(a: unknown, b: unknown): boolean {
@@ -89,6 +94,8 @@ export function computeMerge(
     history: diffByTitle(current.history, incoming.history),
     rootConflict: current.rootPersonId !== incoming.rootPersonId,
     incomingRootPersonId: incoming.rootPersonId,
+    placeFallbacksConflict: !eq(current.placeFallbacks, incoming.placeFallbacks),
+    incomingPlaceFallbacks: incoming.placeFallbacks,
   };
 }
 
@@ -100,7 +107,8 @@ export function mergeHasChanges(m: MergeResult): boolean {
     m.photos.conflicts.length > 0 ||
     m.history.toAdd.length > 0 ||
     m.history.conflicts.length > 0 ||
-    m.rootConflict
+    m.rootConflict ||
+    m.placeFallbacksConflict
   );
 }
 
@@ -109,7 +117,8 @@ export function mergeHasConflicts(m: MergeResult): boolean {
     m.persons.conflicts.length > 0 ||
     m.photos.conflicts.length > 0 ||
     m.history.conflicts.length > 0 ||
-    m.rootConflict
+    m.rootConflict ||
+    m.placeFallbacksConflict
   );
 }
 
@@ -119,6 +128,7 @@ export function buildDefaultResolutions(m: MergeResult): MergeResolutions {
     photos: m.photos.conflicts.map(() => 'keep' as ConflictResolution),
     history: m.history.conflicts.map(() => 'keep' as ConflictResolution),
     rootPersonId: 'keep',
+    placeFallbacks: 'keep',
   };
 }
 
@@ -164,6 +174,10 @@ export function applyMerge(
       resolutions.rootPersonId === 'take' && merge.rootConflict
         ? merge.incomingRootPersonId
         : current.rootPersonId,
+    placeFallbacks:
+      resolutions.placeFallbacks === 'take' && merge.placeFallbacksConflict
+        ? merge.incomingPlaceFallbacks
+        : current.placeFallbacks,
     persons: applySectionPerRecord(
       current.persons,
       merge.persons,
@@ -200,6 +214,7 @@ const REQUIRED_KEYS: (keyof AdminDataSections)[] = [
   'persons',
   'photos',
   'history',
+  'placeFallbacks',
 ];
 
 export function validateImportData(

@@ -6,7 +6,12 @@ import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons, getPersonById } from '@/lib/data/persons';
 import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
-import { formatLifeDates, formatPersonNameForLocale, sortPersonsBySurname } from '@/lib/utils/person';
+import {
+  formatLifeDates,
+  formatNamePartsByLocale,
+  formatPersonNameForLocale,
+  sortPersonsBySurname,
+} from '@/lib/utils/person';
 import { getSiblings } from '@/lib/data/familyRelations';
 import { getKinship, type EdgeKind, type KinshipResult } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
@@ -157,7 +162,9 @@ function ChainNode({
   highlight: boolean;
   t?: (k: string) => string;
 }>) {
+  const locale = useLocale();
   if (!person) return null;
+  const localized = formatNamePartsByLocale(person, locale);
   const avatar = getAvatarForPerson(person.id, person.avatarPhotoSrc);
   return (
     <div className="flex flex-col items-center gap-1">
@@ -189,9 +196,9 @@ function ChainNode({
       <div className={`flex max-w-20 flex-col items-center text-center text-xs leading-tight ${
         highlight ? 'font-bold text-(--ink)' : 'text-(--ink)'
       }`}>
-        {person.lastName && <span className="truncate">{person.lastName}</span>}
-        {person.firstName && <span className="truncate">{person.firstName}</span>}
-        {person.patronymic && <span className="truncate">{person.patronymic}</span>}
+        {localized.lastName && <span className="truncate">{localized.lastName}</span>}
+        {localized.firstName && <span className="truncate">{localized.firstName}</span>}
+        {localized.patronymic && <span className="truncate">{localized.patronymic}</span>}
       </div>
       {highlight && t && (
         <span className="text-[10px] text-(--ink-muted)">— {t('kinshipCommonAncestor').replace(/:$/, '')}</span>

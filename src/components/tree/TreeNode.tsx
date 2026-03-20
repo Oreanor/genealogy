@@ -3,7 +3,7 @@
 import { memo, useMemo } from 'react';
 import { useLocale } from '@/lib/i18n/context';
 import type { Locale } from '@/lib/i18n/config';
-import { formatLifeDates, formatPersonNameForLocale } from '@/lib/utils/person';
+import { formatLifeDates, formatNamePartsByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import { getSiblings } from '@/lib/data/familyRelations';
@@ -31,9 +31,10 @@ function truncate(text: string, maxLen: number): string {
 }
 
 function siblingShortLabel(person: Person, locale: Locale): string {
-  const last = (person.lastName ?? '').trim();
-  const firstInitial = (person.firstName ?? '').trim().charAt(0);
-  const patronymicInitial = (person.patronymic ?? '').trim().charAt(0);
+  const localized = formatNamePartsByLocale(person, locale);
+  const last = localized.lastName.trim();
+  const firstInitial = localized.firstName.trim().charAt(0);
+  const patronymicInitial = localized.patronymic.trim().charAt(0);
   const initials = `${firstInitial ? `${firstInitial}.` : ''}${patronymicInitial ? `${patronymicInitial}.` : ''}`;
   const lastPart = last ? truncate(last, 10) : '';
   const label = [lastPart, initials].filter(Boolean).join(' ');
@@ -55,9 +56,10 @@ function TreeNodeBase({
     () => (person && showSiblings ? getSiblings(person.id) : []),
     [person, showSiblings]
   );
-  const surname = hasPerson && person?.lastName?.trim() ? truncate(person.lastName.trim(), MAX_NAME_LEN) : '';
-  const firstName = hasPerson && person?.firstName?.trim() ? truncate(person.firstName.trim(), MAX_NAME_LEN) : '';
-  const patronymic = hasPerson && person?.patronymic?.trim() ? truncate(person.patronymic.trim(), MAX_NAME_LEN) : '';
+  const localized = hasPerson ? formatNamePartsByLocale(person, locale) : null;
+  const surname = localized?.lastName.trim() ? truncate(localized.lastName.trim(), MAX_NAME_LEN) : '';
+  const firstName = localized?.firstName.trim() ? truncate(localized.firstName.trim(), MAX_NAME_LEN) : '';
+  const patronymic = localized?.patronymic.trim() ? truncate(localized.patronymic.trim(), MAX_NAME_LEN) : '';
   const lifeDates = hasPerson ? formatLifeDates(person?.birthDate, person?.deathDate) : '';
   const hasRawNameParts = Boolean(surname || firstName || patronymic);
   const templateDisplayName =

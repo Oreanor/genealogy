@@ -6,7 +6,7 @@ import { getPersonById, getPersons } from '@/lib/data/persons';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { getLightboxFacesFromPhoto, splitPersonPhotosForCarousels } from '@/lib/data/photos';
 import { buildPersonSummary } from '@/lib/utils/personSummary';
-import { formatNameByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
+import { formatNameByLocale, formatNamePartsByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
 import { normalizePlace } from '@/lib/utils/mapPlace';
 import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import type { Person } from '@/lib/types/person';
@@ -378,6 +378,7 @@ export function PersonSpreadRightContent({
                 const [l, t_, r, b] = face.coords;
                 const w = r - l;
                 const h = b - t_;
+                const localizedFaceName = formatNamePartsByLocale(face, locale);
                 return (
                   <div key={`${i}-${face.displayName}`} className="absolute inset-0">
                     <div
@@ -399,9 +400,9 @@ export function PersonSpreadRightContent({
                     >
                       {face.lastName != null || face.firstName != null || face.patronymic != null ? (
                         <>
-                          {face.lastName && <span className="block">{formatNameByLocale(face.lastName, locale)}</span>}
-                          {face.firstName && <span className="block">{formatNameByLocale(face.firstName, locale)}</span>}
-                          {face.patronymic && <span className="block">{formatNameByLocale(face.patronymic, locale)}</span>}
+                          {localizedFaceName.lastName && <span className="block">{localizedFaceName.lastName}</span>}
+                          {localizedFaceName.firstName && <span className="block">{localizedFaceName.firstName}</span>}
+                          {localizedFaceName.patronymic && <span className="block">{localizedFaceName.patronymic}</span>}
                         </>
                       ) : (
                         face.displayName ? formatNameByLocale(face.displayName, locale) : face.displayName

@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { List, ListX } from 'lucide-react';
-import { useTranslations } from '@/lib/i18n/context';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import type { LightboxFace } from '@/lib/data/photos';
 import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
+import { formatNameByLocale, formatNamePartsByLocale } from '@/lib/utils/person';
 
 interface ImageLightboxProps {
   src: string;
@@ -32,6 +33,7 @@ export function ImageLightbox({
   open,
   onClose,
 }: ImageLightboxProps) {
+  const locale = useLocale();
   const t = useTranslations();
   const [showFaces, setShowFaces] = useState(() => faces.length > 0);
   const [showBack, setShowBack] = useState(false);
@@ -112,13 +114,18 @@ export function ImageLightbox({
                     }}
                   >
                     {face.lastName != null || face.firstName != null || face.patronymic != null ? (
-                      <>
-                        {face.lastName && <span className="block">{face.lastName}</span>}
-                        {face.firstName && <span className="block">{face.firstName}</span>}
-                        {face.patronymic && <span className="block">{face.patronymic}</span>}
-                      </>
+                      (() => {
+                        const localized = formatNamePartsByLocale(face, locale);
+                        return (
+                          <>
+                            {localized.lastName && <span className="block">{localized.lastName}</span>}
+                            {localized.firstName && <span className="block">{localized.firstName}</span>}
+                            {localized.patronymic && <span className="block">{localized.patronymic}</span>}
+                          </>
+                        );
+                      })()
                     ) : (
-                      face.displayName
+                      face.displayName ? formatNameByLocale(face.displayName, locale) : face.displayName
                     )}
                   </div>
                 </div>

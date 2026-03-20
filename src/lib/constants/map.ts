@@ -35,20 +35,3 @@ export const AVATAR_MARKER = {
   popupAnchorX: 0,
   popupAnchorY: -44,
 } as const;
-
-export const PLACE_FALLBACKS: Record<string, GeocodedPoint> = {
-  bryansk: { lat: 53.2423258, lon: 34.3668288 },
-  elets: { lat: 52.6247023, lon: 38.5016984 },
-  livny: { lat: 52.4253443, lon: 37.6097277 },
-  vorkuta: { lat: 67.49741, lon: 64.06101 },
-  atkarsk: { lat: 51.8728579, lon: 45.0011046 },
-  bryukhovetskaya: { lat: 45.8063024, lon: 38.9957933 },
-  buynaksk: { lat: 42.820182, lon: 47.1163672 },
-  sumy: { lat: 50.9077005, lon: 34.7980972 },
-  kaluga: { lat: 54.5135904, lon: 36.2612152 },
-  lvov: { lat: 49.841952, lon: 24.0315921 },
-  krasnodar: { lat: 45.0448, lon: 38.976 },
-  buharest: { lat: 44.4268, lon: 26.1025 },
-  budapest: { lat: 47.4979, lon: 19.0402 },
-  prague: { lat: 50.0755, lon: 14.4378 },
-};

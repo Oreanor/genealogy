@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
@@ -10,7 +10,12 @@ import { BookPage } from './BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
 import { getPersons } from '@/lib/data/persons';
 import { formatPersonNameForLocale, sortPersonsBySurname, personMatchesSearch } from '@/lib/utils/person';
-import { getPhotosByPerson, getLightboxFacesFromPhoto, getPreferredPanelPhoto } from '@/lib/data/photos';
+import {
+  getPhotoById,
+  getPhotosByPerson,
+  getLightboxFacesFromPhoto,
+  getPreferredPanelPhoto,
+} from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
@@ -18,8 +23,10 @@ import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDrop
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
 import { Button } from '@/components/ui/atoms/Button';
+import { buildUrlWithUpdatedSearchParams } from '@/lib/utils/urlParams';
 
 export function PersonsSection() {
+  const pathname = usePathname() ?? '';
   const searchParams = useSearchParams();
   const router = useRouter();
   const { t, routes } = useLocaleRoutes();
@@ -29,6 +36,8 @@ export function PersonsSection() {
 
   const persons = getPersons();
   const personId = searchParams.get('id');
+  const photoParam = searchParams.get('photo');
+  const entryParam = searchParams.get('entry');
   const filteredSortedPersons = useMemo(
     () =>
       sortPersonsBySurname(persons).filter((p) =>
@@ -50,10 +59,15 @@ export function PersonsSection() {
     ? persons.find((p) => p.id === selectedPersonId) ?? null
     : null;
 
-  const personPhotos = selectedPerson ? getPhotosByPerson(selectedPerson.id) : [];
-  const historyMentions = selectedPerson ? getHistoryEntriesByPerson(selectedPerson.id) : [];
-  const firstPhoto = selectedPerson ? getPreferredPanelPhoto(selectedPerson.id) : null;
-  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
+  const personPhotos = useMemo(
+    () => (selectedPerson ? getPhotosByPerson(selectedPerson.id) : []),
+    [selectedPerson]
+  );
+  const historyMentions = useMemo(
+    () => (selectedPerson ? getHistoryEntriesByPerson(selectedPerson.id) : []),
+    [selectedPerson]
+  );
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(null);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
   const [selectedMapCity, setSelectedMapCity] = useState<string | null>(null);
   const [showFaces, setShowFaces] = useState(false);
@@ -66,14 +80,43 @@ export function PersonsSection() {
 
   useEffect(() => {
     queueMicrotask(() => {
-      const first = selectedPersonId ? getPreferredPanelPhoto(selectedPersonId) : null;
-      setSelectedPhoto(first);
+      if (!selectedPerson) {
+        setSelectedPhoto(null);
+        setSelectedHistoryIndex(null);
+        setSelectedMapCity(null);
+        setShowPhotoBack(false);
+        setImageBounds(null);
+        return;
+      }
+
+      const parsedEntry = entryParam != null ? Number.parseInt(entryParam, 10) : NaN;
+      const hasValidEntry =
+        Number.isInteger(parsedEntry) &&
+        historyMentions.some((mention) => mention.index === parsedEntry);
+
+      if (hasValidEntry) {
+        setSelectedHistoryIndex(parsedEntry);
+        setSelectedPhoto(null);
+        setSelectedMapCity(null);
+        setShowPhotoBack(false);
+        setImageBounds(null);
+        return;
+      }
+
+      const fromUrlPhoto = photoParam ? getPhotoById(photoParam) : null;
+      const hasValidPhoto =
+        fromUrlPhoto != null && personPhotos.some((photo) => photo.id === fromUrlPhoto.id);
+      const nextPhoto = hasValidPhoto
+        ? fromUrlPhoto
+        : getPreferredPanelPhoto(selectedPerson.id);
+
       setSelectedHistoryIndex(null);
+      setSelectedPhoto(nextPhoto);
       setSelectedMapCity(null);
       setShowPhotoBack(false);
       setImageBounds(null);
     });
-  }, [selectedPersonId, setImageBounds]);
+  }, [entryParam, historyMentions, personPhotos, photoParam, selectedPerson, setImageBounds]);
 
   const selectedHistoryEntry =
     selectedHistoryIndex !== null
@@ -124,27 +167,51 @@ export function PersonsSection() {
                     setShowPhotoBack((v) => !v);
                     if (isMobile) setLightboxOpen(true);
                   } else {
+                    router.replace(
+                      buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                        section: 'persons',
+                        id: selectedPerson.id,
+                        photo: photo.id,
+                        entry: null,
+                      })
+                    );
                     setSelectedPhoto(photo);
                     setShowPhotoBack(false);
                     setImageBounds(null);
                     if (isMobile) setLightboxOpen(true);
                   }
                 }}
-              onHistoryClick={(index) => {
-                setSelectedHistoryIndex(index);
-                setSelectedPhoto(null);
-                setSelectedMapCity(null);
-                if (isMobile) {
-                  setTextLightboxOpen(true);
-                }
-              }}
-              onCityClick={(city) => {
-                setSelectedMapCity(city);
-                setSelectedPhoto(null);
-                setSelectedHistoryIndex(null);
-                setTextLightboxOpen(false);
-                if (isMobile) setMapLightboxOpen(true);
-              }}
+                onHistoryClick={(index) => {
+                  router.replace(
+                    buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                      section: 'persons',
+                      id: selectedPerson.id,
+                      entry: String(index),
+                      photo: null,
+                    })
+                  );
+                  setSelectedHistoryIndex(index);
+                  setSelectedPhoto(null);
+                  setSelectedMapCity(null);
+                  if (isMobile) {
+                    setTextLightboxOpen(true);
+                  }
+                }}
+                onCityClick={(city) => {
+                  setSelectedMapCity(city);
+                  setSelectedPhoto(null);
+                  setSelectedHistoryIndex(null);
+                  setTextLightboxOpen(false);
+                  router.replace(
+                    buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                      section: 'persons',
+                      id: selectedPerson.id,
+                      entry: null,
+                      photo: null,
+                    })
+                  );
+                  if (isMobile) setMapLightboxOpen(true);
+                }}
                 renderPersonLink={(p, displayName) => (
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
                     {displayName ?? formatPersonNameForLocale(p, locale)}
@@ -215,6 +282,13 @@ export function PersonsSection() {
               onClick={() => {
                 setTextLightboxOpen(false);
                 setSelectedHistoryIndex(null);
+                router.replace(
+                  buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                    section: 'persons',
+                    id: selectedPerson?.id ?? null,
+                    entry: null,
+                  })
+                );
               }}
             >
               {t('back')}

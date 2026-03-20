@@ -11,6 +11,7 @@ import { PhotoThumbnails } from '@/components/content/PhotoThumbnails';
 import { getPersons } from '@/lib/data/persons';
 import {
   getPhotos,
+  getPhotoById,
   getPhotosByPerson,
   getLightboxFacesFromPhoto,
   splitPersonPhotosForCarousels,
@@ -21,6 +22,7 @@ import type { PhotoEntry } from '@/lib/types/photo';
 import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDropdown';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
+import { buildUrlWithUpdatedSearchParams } from '@/lib/utils/urlParams';
 
 export function PhotosSection() {
   const pathname = usePathname() ?? '';
@@ -32,6 +34,7 @@ export function PhotosSection() {
 
   const persons = getPersons();
   const personId = searchParams.get('id');
+  const photoParam = searchParams.get('photo');
   const filteredSortedPersons = useMemo(
     () =>
       sortPersonsBySurname(persons).filter((p) =>
@@ -57,12 +60,16 @@ export function PhotosSection() {
     : null;
 
   const allPhotos = useMemo(() => getPhotos(), []);
-  const personPhotos = selectedPerson ? getPhotosByPerson(selectedPerson.id) : allPhotos;
+  const personPhotos = useMemo(
+    () => (selectedPerson ? getPhotosByPerson(selectedPerson.id) : allPhotos),
+    [allPhotos, selectedPerson]
+  );
 
   const allSplit = useMemo(() => splitAllPhotosForCarousels(allPhotos), [allPhotos]);
-  const personSplit = selectedPerson
-    ? splitPersonPhotosForCarousels(personPhotos)
-    : null;
+  const personSplit = useMemo(
+    () => (selectedPerson ? splitPersonPhotosForCarousels(personPhotos) : null),
+    [personPhotos, selectedPerson]
+  );
 
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(null);
   const [showFaces, setShowFaces] = useState(false);
@@ -73,11 +80,15 @@ export function PhotosSection() {
 
   useEffect(() => {
     queueMicrotask(() => {
-      setSelectedPhoto(null);
+      const fromUrl = photoParam ? getPhotoById(photoParam) : null;
+      const isAllowed =
+        fromUrl != null &&
+        (selectedPersonId == null || personPhotos.some((p) => p.id === fromUrl.id));
+      setSelectedPhoto(isAllowed ? fromUrl : null);
       setShowPhotoBack(false);
       setImageBounds(null);
     });
-  }, [selectedPersonId, setImageBounds]);
+  }, [photoParam, personPhotos, selectedPersonId, setImageBounds]);
 
   const handlePhotoSelect = useCallback(
     (photo: PhotoEntry, toggleBack?: boolean) => {
@@ -86,12 +97,16 @@ export function PhotosSection() {
         if (isMobile) setLightboxOpen(true);
       } else {
         setSelectedPhoto(photo);
+        const url = buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+          photo: photo.id,
+        });
+        router.replace(url);
         setShowPhotoBack(false);
         setImageBounds(null);
         if (isMobile) setLightboxOpen(true);
       }
     },
-    [setImageBounds, isMobile, setLightboxOpen]
+    [isMobile, pathname, router, searchParams, setImageBounds, setLightboxOpen]
   );
 
   return (
@@ -112,7 +127,13 @@ export function PhotosSection() {
                   setSelectedPersonId(p.id);
                   setPersonsSearch('');
                   setSearchFocused(false);
-                  router.push(`${pathname}?section=photos&id=${p.id}`);
+                  router.push(
+                    buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                      section: 'photos',
+                      id: p.id,
+                      photo: null,
+                    })
+                  );
                 }}
                 filteredPersons={filteredSortedPersons}
                 getDisplayName={(p) => formatPersonNameForLocale(p, locale) || p.id}

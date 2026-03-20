@@ -25,6 +25,7 @@ const LOCALE_LABELS: Record<string, string> = {
 function saveLocaleToStorage(locale: string) {
   try {
     localStorage.setItem(STORAGE_KEYS.locale, locale);
+    sessionStorage.setItem(STORAGE_KEYS.localeExplicitNav, '1');
   } catch {
     // ignore
   }

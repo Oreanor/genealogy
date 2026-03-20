@@ -2,6 +2,8 @@
 export const STORAGE_KEYS = {
   paperColor: 'genealogy-paper-color',
   locale: 'genealogy-locale',
+  /** One-shot flag to prevent auto-redirect overriding explicit language choice. */
+  localeExplicitNav: 'genealogy-locale-explicit-nav',
   adminTab: 'genealogy-admin-tab',
   adminData: 'genealogy-admin-data',
   /** Person ids whose first/last/patronymic were edited in admin — do not auto-replace with locale template. */

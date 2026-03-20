@@ -19,6 +19,11 @@ export function LocalePreferenceRedirect() {
     if (pathname !== `/${DEFAULT_LOCALE}`) return;
 
     try {
+      const explicitNav = sessionStorage.getItem(STORAGE_KEYS.localeExplicitNav);
+      if (explicitNav) {
+        sessionStorage.removeItem(STORAGE_KEYS.localeExplicitNav);
+        return;
+      }
       const saved = localStorage.getItem(STORAGE_KEYS.locale);
       if (saved && isLocale(saved) && saved !== DEFAULT_LOCALE) {
         didRedirect.current = true;

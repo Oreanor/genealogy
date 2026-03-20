@@ -2,26 +2,30 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import {
-  FALLBACK_COUNTRY_SUFFIX,
-  GEOCODE_REQUEST_DELAY_MS,
   MAP_DEFAULT_CENTER,
   MAP_DEFAULT_ZOOM,
   MAP_LINE_STYLE,
   MARKER_GROUPING,
-  PLACE_FALLBACKS,
   type GeocodedPoint,
 } from '@/lib/constants/map';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons } from '@/lib/data/persons';
-import { formatPersonNameForLocale } from '@/lib/utils/person';
-import { escapeHtml, normalizePlace, toPlaceFallbackKey } from '@/lib/utils/mapPlace';
+import { formatNameByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
+import {
+  escapeHtml,
+  normalizePlace,
+  splitPlaceList,
+  toPlaceFallbackKey,
+} from '@/lib/utils/mapPlace';
 import { destroyLeafletMap, initLeafletMap } from '@/lib/utils/leafletMap';
 import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
+import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
 
 export function MapSection() {
   const { t, locale } = useLocaleRoutes();
+  const placeFallbacks = getPlaceFallbacks();
   const mapRef = useRef<HTMLDivElement | null>(null);
   const leafletRef = useRef<typeof import('leaflet') | null>(null);
   const mapInstanceRef = useRef<import('leaflet').Map | null>(null);
@@ -51,13 +55,6 @@ export function MapSection() {
     return map;
   }
 
-  function splitCommaPlaces(raw: string): string[] {
-    return raw
-      .split(',')
-      .map((s) => normalizePlace(s))
-      .filter(Boolean);
-  }
-
   // Dots animation is handled by LoadingOverlay (shared component).
 
   useEffect(() => {
@@ -68,22 +65,6 @@ export function MapSection() {
     setPersonsOnMap([]);
     setIsFilterOpen(false);
     layersByPersonRef.current = new Map();
-
-    const geocodePlace = async (place: string): Promise<GeocodedPoint | null> => {
-      const url = `/api/map/geocode?q=${encodeURIComponent(place)}`;
-      try {
-        const res = await fetch(url, { headers: { Accept: 'application/json' } });
-        if (!res.ok) return null;
-        const data = (await res.json()) as { point: GeocodedPoint | null };
-        if (!data.point) return null;
-        const lat = Number(data.point.lat);
-        const lon = Number(data.point.lon);
-        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-        return { lat, lon };
-      } catch {
-        return null;
-      }
-    };
 
     const init = async () => {
       try {
@@ -106,36 +87,14 @@ export function MapSection() {
       for (const p of persons) {
         const birth = normalizePlace(p.birthPlace ?? '');
         if (birth) placeQueue.add(birth);
-        for (const r of splitCommaPlaces(p.residenceCity ?? '')) placeQueue.add(r);
+        for (const r of splitPlaceList(p.residenceCity)) placeQueue.add(r);
       }
 
-      const places = [...placeQueue];
-      const concurrency = 4;
-      let idx = 0;
-
-      const worker = async () => {
-        while (idx < places.length) {
-          const place = places[idx++]!;
-          const normalized = normalizePlace(place);
-          let point = await geocodePlace(place);
-          if (!point && normalized !== place) {
-            point = await geocodePlace(normalized);
-          }
-          // Only append country suffix for Cyrillic names — Latin city names
-          // (e.g. Budapest, Prague) are international and the suffix breaks lookup.
-          const hasCyrillic = /[а-яёА-ЯЁ]/.test(normalized);
-          if (!point && hasCyrillic) {
-            point = await geocodePlace(`${normalized}${FALLBACK_COUNTRY_SUFFIX}`);
-          }
-          if (!point) {
-            point = PLACE_FALLBACKS[toPlaceFallbackKey(normalized)] ?? null;
-          }
-          placeCache.set(place, point);
-          await new Promise((r) => setTimeout(r, GEOCODE_REQUEST_DELAY_MS));
-        }
-      };
-
-      await Promise.all(Array.from({ length: concurrency }, () => worker()));
+      for (const place of placeQueue) {
+        const normalized = normalizePlace(place);
+        const point = placeFallbacks[toPlaceFallbackKey(normalized)] ?? null;
+        placeCache.set(place, point);
+      }
 
       console.log('[MAP] Geocoding results:');
       for (const [place, point] of placeCache.entries()) {
@@ -175,7 +134,7 @@ export function MapSection() {
         const color = personColorMap.get(p.id) ?? 'hsl(0 70% 40%)';
 
         const birth = normalizePlace(p.birthPlace ?? '');
-        const residences = splitCommaPlaces(p.residenceCity ?? '').filter(
+        const residences = splitPlaceList(p.residenceCity).filter(
           (r) => r !== birth
         );
 
@@ -214,7 +173,15 @@ export function MapSection() {
           personPlaceOffset.set(`${p.id}|${place}`, offsetPoint);
 
           const kindLabel = place === birth ? t('birthPlace') : t('residenceCity');
-          markerEntries.push({ personId: p.id, personName, kindLabel, place, offsetPoint, color });
+          const displayPlace = formatNameByLocale(place, locale);
+          markerEntries.push({
+            personId: p.id,
+            personName,
+            kindLabel,
+            place: displayPlace,
+            offsetPoint,
+            color,
+          });
         }
 
         // Lines: connect chain cities in order, using offset positions.
@@ -272,7 +239,7 @@ export function MapSection() {
              </div>`
           )
           .bindTooltip(
-            `${escapeHtml(item.personName)}<br><span style="opacity:.75;font-size:11px">г. ${escapeHtml(item.place)} (${escapeHtml(item.kindLabel)})</span>`,
+            `${escapeHtml(item.personName)}<br><span style="opacity:.75;font-size:11px">${escapeHtml(item.place)} (${escapeHtml(item.kindLabel)})</span>`,
             { sticky: true, direction: 'top' }
           );
       }

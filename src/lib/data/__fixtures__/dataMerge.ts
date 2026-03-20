@@ -88,6 +88,7 @@ export function makeData(
     persons: [],
     photos: [],
     history: [],
+    placeFallbacks: {},
     ...overrides,
   };
 }

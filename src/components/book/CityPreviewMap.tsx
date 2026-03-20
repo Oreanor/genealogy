@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from 'react';
 import {
-  FALLBACK_COUNTRY_SUFFIX,
   MAP_DEFAULT_CENTER,
   MAP_LINE_STYLE,
-  PLACE_FALLBACKS,
   type GeocodedPoint,
 } from '@/lib/constants/map';
-import { normalizePlace, toPlaceFallbackKey } from '@/lib/utils/mapPlace';
+import { normalizePlace, splitPlaceList, toPlaceFallbackKey } from '@/lib/utils/mapPlace';
 import { initLeafletMap, destroyLeafletMap } from '@/lib/utils/leafletMap';
 import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import type { Person } from '@/lib/types/person';
+import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
+import { formatNameByLocale } from '@/lib/utils/person';
 
 interface CityPreviewMapProps {
   person: Person;
@@ -20,7 +20,8 @@ interface CityPreviewMapProps {
 }
 
 export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
-  const { t } = useLocaleRoutes();
+  const { t, locale } = useLocaleRoutes();
+  const placeFallbacks = getPlaceFallbacks();
   const mapRef = useRef<HTMLDivElement | null>(null);
   const leafletRef = useRef<typeof import('leaflet') | null>(null);
   const mapInstanceRef = useRef<import('leaflet').Map | null>(null);
@@ -31,35 +32,12 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
   const [notFound, setNotFound] = useState(false);
   const [mapDataRevision, setMapDataRevision] = useState(0);
 
-  const splitCities = (raw?: string): string[] =>
-    (raw ?? '')
-      .split(',')
-      .map((s) => normalizePlace(s))
-      .filter(Boolean);
-
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
     setNotFound(false);
     setMapDataRevision(0);
     geocodedByCityRef.current = new Map();
-
-    const geocodePlace = async (place: string): Promise<GeocodedPoint | null> => {
-      try {
-        const res = await fetch(`/api/map/geocode?q=${encodeURIComponent(place)}`, {
-          headers: { Accept: 'application/json' },
-        });
-        if (!res.ok) return null;
-        const data = (await res.json()) as { point: GeocodedPoint | null };
-        if (!data.point) return null;
-        const lat = Number(data.point.lat);
-        const lon = Number(data.point.lon);
-        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-        return { lat, lon };
-      } catch {
-        return null;
-      }
-    };
 
     const run = async () => {
       try {
@@ -71,7 +49,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
         mapInstanceRef.current = map;
 
         const birth = normalizePlace(person.birthPlace ?? '');
-        const residences = splitCities(person.residenceCity).filter((r) => r !== birth);
+        const residences = splitPlaceList(person.residenceCity).filter((r) => r !== birth);
         const rawChain = birth ? [birth, ...residences] : [...residences];
         const chain: string[] = [];
         for (const city of rawChain) {
@@ -88,12 +66,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
 
         for (const city of uniqCities) {
           const normalized = normalizePlace(city);
-          const hasCyrillic = /[а-яёА-ЯЁ]/.test(normalized);
-
-          let point = await geocodePlace(city);
-          if (!point && normalized !== city) point = await geocodePlace(normalized);
-          if (!point && hasCyrillic) point = await geocodePlace(`${normalized}${FALLBACK_COUNTRY_SUFFIX}`);
-          if (!point) point = PLACE_FALLBACKS[toPlaceFallbackKey(normalized)] ?? null;
+          const point = placeFallbacks[toPlaceFallbackKey(normalized)] ?? null;
           if (point) cache.set(city, point);
         }
 
@@ -127,7 +100,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
             fillOpacity: 0.95,
           })
             .addTo(group)
-            .bindTooltip(p.city, { sticky: true });
+            .bindTooltip(formatNameByLocale(p.city, locale), { sticky: true });
         }
 
         group.addTo(map);
@@ -182,8 +155,8 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
 
     selectedMarkerRef.current = L.marker([point.lat, point.lon])
       .addTo(map)
-      .bindTooltip(selectedCity, { permanent: true, direction: 'top' });
-  }, [selectedCity, mapDataRevision]);
+      .bindTooltip(formatNameByLocale(selectedCity, locale), { permanent: true, direction: 'top' });
+  }, [locale, selectedCity, mapDataRevision]);
 
   return (
     <div className="relative h-full min-h-0 w-full overflow-hidden rounded bg-(--paper-light)">

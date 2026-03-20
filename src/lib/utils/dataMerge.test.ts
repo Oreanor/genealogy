@@ -259,6 +259,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -278,6 +279,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -303,6 +305,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -319,6 +322,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'take',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -334,6 +338,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -348,6 +353,7 @@ describe('applyMerge', () => {
       photos: [],
       history: [],
       rootPersonId: 'take',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(data, m, res);
 
@@ -375,6 +381,7 @@ describe('applyMerge', () => {
       photos: [],
       history: ['take', 'keep'],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -407,6 +414,7 @@ describe('applyMerge', () => {
       photos: ['take'],
       history: [],
       rootPersonId: 'keep',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -472,6 +480,7 @@ describe('applyMerge', () => {
       photos: ['keep'],
       history: ['take'],
       rootPersonId: 'take',
+      placeFallbacks: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -568,6 +577,7 @@ describe('validateImportData', () => {
         persons: [],
         photos: [],
         history: [],
+        placeFallbacks: {},
       })
     ).toBe(true);
   });
@@ -579,6 +589,7 @@ describe('validateImportData', () => {
         persons: [],
         photos: [],
         history: [],
+        placeFallbacks: {},
         customField: 'hello',
       })
     ).toBe(true);

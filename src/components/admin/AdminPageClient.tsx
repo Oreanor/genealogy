@@ -30,6 +30,8 @@ import {
   type MergeResolutions,
 } from '@/lib/utils/dataMerge';
 import { setAdminWorkingPersons } from '@/lib/data/persons';
+import type { GeocodedPoint } from '@/lib/constants/map';
+import { setAdminWorkingPlaceFallbacks } from '@/lib/data/mapFallbacks';
 
 export type { AdminDataSections } from '@/lib/utils/dataMerge';
 type AdminDataSections = import('@/lib/utils/dataMerge').AdminDataSections;
@@ -49,6 +51,7 @@ interface AdminPageClientProps {
   readonly persons: Person[];
   readonly photos: PhotoEntry[];
   readonly history: HistoryEntry[];
+  readonly placeFallbacks: Record<string, GeocodedPoint>;
   readonly initialTab: AdminTabId;
 }
 
@@ -92,6 +95,7 @@ export function AdminPageClient({
   persons: serverPersons,
   photos: serverPhotos,
   history: serverHistory,
+  placeFallbacks: serverPlaceFallbacks,
   initialTab,
 }: AdminPageClientProps) {
   const serverData = useMemo<AdminDataSections>(
@@ -100,8 +104,9 @@ export function AdminPageClient({
       persons: serverPersons,
       photos: serverPhotos,
       history: serverHistory,
+      placeFallbacks: serverPlaceFallbacks,
     }),
-    [serverRoot, serverPersons, serverPhotos, serverHistory]
+    [serverRoot, serverPersons, serverPhotos, serverHistory, serverPlaceFallbacks]
   );
 
   const serverHash = useMemo(() => hashData(serverData), [serverData]);
@@ -144,6 +149,7 @@ export function AdminPageClient({
 
   const handleReload = useCallback((data: AdminDataSections) => {
     setAdminWorkingPersons(null);
+    setAdminWorkingPlaceFallbacks(null);
     setInitialData(data);
     setDataVersion((v) => v + 1);
   }, []);
@@ -218,6 +224,7 @@ function AdminPageClientInner({
 
   const [rootPersonId, setRootPersonId] = useState(initialData.rootPersonId);
   const [photos, setPhotos] = useState(initialData.photos);
+  const [placeFallbacks, setPlaceFallbacks] = useState(initialData.placeFallbacks);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [importState, setImportState] = useState<{
     merge: MergeResult;
@@ -378,6 +385,21 @@ function AdminPageClientInner({
     [persist]
   );
 
+  const handlePlaceFallbacksChange = useCallback(
+    (next: Record<string, GeocodedPoint>) => {
+      setPlaceFallbacks(next);
+      setAdminWorkingPlaceFallbacks(next);
+      dataRef.current = { ...dataRef.current, placeFallbacks: next };
+      persist();
+    },
+    [persist]
+  );
+
+  useEffect(() => {
+    setAdminWorkingPlaceFallbacks(placeFallbacks);
+    return () => setAdminWorkingPlaceFallbacks(null);
+  }, [placeFallbacks]);
+
   const { setActions } = useAdminToolbar();
   useEffect(() => {
     setActions({
@@ -407,11 +429,13 @@ function AdminPageClientInner({
             rootPersonId={rootPersonId}
             initialPersons={initialData.persons}
             photos={photos}
+            placeFallbacks={placeFallbacks}
             onAddRowActionChange={handleAddRowActionChange}
             onDeleteSelectedRowsActionChange={handleDeleteSelectedRowsActionChange}
             onSelectedRowsCountChange={setSelectedRowsCount}
             onDataChange={handlePersonsDataChange}
             onRootChange={handleRootChange}
+            onPlaceFallbacksChange={handlePlaceFallbacksChange}
           />
         </div>
         <div className={initialTab === 'texts' ? '' : 'hidden'}>

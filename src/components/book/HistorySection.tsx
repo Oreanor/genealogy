@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { SearchField } from '@/components/ui/molecules/SearchField';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { Button } from '@/components/ui/atoms/Button';
+import { buildUrlWithUpdatedSearchParams } from '@/lib/utils/urlParams';
 
 export function HistorySection() {
   const searchParams = useSearchParams();
@@ -67,7 +68,10 @@ export function HistorySection() {
                       isSelected ? 'bg-(--paper-light) font-medium' : ''
                     }`}
                     onClick={() => {
-                      const url = `${pathname}?section=history&entry=${originalIndex}`;
+                      const url = buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                        section: 'history',
+                        entry: String(originalIndex),
+                      });
                       router.push(url);
                     }}
                   >
@@ -151,7 +155,10 @@ export function HistorySection() {
                 variant="secondary"
                 className="px-4"
                 onClick={() => {
-                  const url = `${pathname}?section=history`;
+                  const url = buildUrlWithUpdatedSearchParams(pathname, searchParams, {
+                    section: 'history',
+                    entry: null,
+                  });
                   router.push(url);
                 }}
               >
