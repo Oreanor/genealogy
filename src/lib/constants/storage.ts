@@ -10,7 +10,7 @@ export const STORAGE_KEYS = {
   personNameLocks: 'genealogy-person-name-locks',
 } as const;
 
-/** Cookie for redirect to last admin tab (read by middleware) */
+/** Cookie for redirect to last admin tab (read by proxy) */
 export const ADMIN_TAB_COOKIE = 'genealogy-admin-tab';
 
 export const ADMIN_TAB_IDS = ['persons', 'texts', 'photos'] as const;

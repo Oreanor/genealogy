@@ -34,6 +34,13 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) — the main page opens in the selected locale (by default redirects to `/en`). Switch language with the button in the top-right corner (next to the page color picker).
 
+## Navigation and State
+
+- All public routes are locale-prefixed; `src/proxy.ts` redirects `/`, `/admin`, and legacy chapter paths to `/{locale}/...`.
+- Reader state is deep-linkable through query params: section, selected person, selected photo, selected history entry, and selected tree person stay in the URL.
+- The admin screen remembers the last active tab and opens it by default on the next visit.
+- The map chapter supports filtering by a selected person from the top-right dropdown, with a one-click reset back to all markers.
+
 ## Scripts
 
 | Command | Description |
@@ -43,7 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) — the main page opens in t
 | `npm run start` | Run production build |
 | `npm run test` | Run tests |
 | `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Code coverage (thresholds 90% / branches 79%) |
+| `npm run test:coverage` | Code coverage (thresholds 90% / branches 74%) |
 | `npm run type-check` | TypeScript type checking |
 | `npm run lint` | ESLint check |
 
@@ -74,7 +81,7 @@ src/
 ├── hooks/
 │   ├── useSpreadState.ts
 │   └── useClickOutside.ts
-└── middleware.ts               # Redirect / and /chapter/* to /{locale}/...
+└── proxy.ts                    # Redirect / and /chapter/* to /{locale}/...
 ```
 
 ## Data

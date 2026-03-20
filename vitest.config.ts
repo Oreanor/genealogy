@@ -32,7 +32,7 @@ export default defineConfig({
         '**/index.ts',
         'src/app/**',
         'src/lib/types/**',
-        'src/middleware.ts',
+        'src/proxy.ts',
         'src/components/SetDocumentLang.tsx',
         'src/components/LocalePreferenceRedirect.tsx',
         'src/components/ui/PageColorPickerClient.tsx',

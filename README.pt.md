@@ -34,6 +34,13 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000) — a página inicial abrirá na localidade selecionada (por padrão redireciona para `/en`). O idioma é alterado pelo botão no canto superior direito (ao lado da escolha da cor das páginas).
 
+## Navegação e estado
+
+- Todas as rotas públicas usam prefixo de localidade; `src/proxy.ts` redireciona `/`, `/admin` e os caminhos legados de capítulos para `/{locale}/...`.
+- O estado de leitura pode ser aberto por deep-link: secção atual, pessoa selecionada, foto, texto e pessoa selecionada na árvore ficam nos query params da URL.
+- O painel admin memoriza a última aba ativa e volta a abri-la na próxima visita.
+- O capítulo do mapa permite filtrar por uma pessoa no seletor no canto superior direito e voltar rapidamente a todos os marcadores.
+
 ## Scripts
 
 | Comando | Descrição |
@@ -43,7 +50,7 @@ Acesse [http://localhost:3000](http://localhost:3000) — a página inicial abri
 | `npm run start` | Execução do build de produção |
 | `npm run test` | Execução dos testes |
 | `npm run test:watch` | Testes em modo watch |
-| `npm run test:coverage` | Cobertura de código (limites 90% / branches 79%) |
+| `npm run test:coverage` | Cobertura de código (limites 90% / branches 74%) |
 | `npm run type-check` | Verificação de tipos TypeScript |
 | `npm run lint` | Verificação ESLint |
 
@@ -74,7 +81,7 @@ src/
 ├── hooks/
 │   ├── useSpreadState.ts
 │   └── useClickOutside.ts
-└── middleware.ts                # Redireciona / e /chapter/* para /{locale}/...
+└── proxy.ts                     # Redireciona / e /chapter/* para /{locale}/...
 ```
 
 ## Dados

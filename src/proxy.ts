@@ -4,7 +4,7 @@ import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n/config';
 import { getPathSegments } from '@/lib/utils/path';
 import { ADMIN_TAB_COOKIE, ADMIN_TAB_IDS } from '@/lib/constants/storage';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   const segments = getPathSegments(pathname);
 
