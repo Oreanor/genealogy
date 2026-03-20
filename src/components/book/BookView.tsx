@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
@@ -17,19 +17,18 @@ import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { Button } from '@/components/ui/atoms/Button';
 import { getKinship } from '@/lib/utils/kinship';
+import { getRootPersonId } from '@/lib/data/root';
+import { useRootPersonId, useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 
 export function BookView() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const { t } = useLocaleRoutes();
-  const treePersonFromUrl = searchParams.get('treePerson');
-  const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(
-    treePersonFromUrl ?? null
-  );
-  useEffect(() => {
-    setSelectedTreePersonId(treePersonFromUrl ?? null);
-  }, [treePersonFromUrl]);
+  const currentRootPersonId = useRootPersonId();
+  const setRootPersonId = useSetRootPersonId();
+  const defaultRootPersonId = getRootPersonId();
+  const selectedTreePersonId = searchParams.get('treePerson');
   const updateTreePersonInUrl = useCallback(
     (personId: string | null) => {
       if (!pathname) return;
@@ -43,13 +42,11 @@ export function BookView() {
   );
   const handleTreePersonSelect = useCallback(
     (personId: string) => {
-      setSelectedTreePersonId(personId);
       updateTreePersonInUrl(personId);
     },
     [updateTreePersonInUrl]
   );
   const closePersonPanel = useCallback(() => {
-    setSelectedTreePersonId(null);
     updateTreePersonInUrl(null);
   }, [updateTreePersonInUrl]);
   const [kinshipPickMode, setKinshipPickMode] = useState(false);
@@ -58,6 +55,9 @@ export function BookView() {
   const sectionParam = searchParams.get('section') ?? '';
   const section: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
   const helpForParam = searchParams.get('for') ?? '';
+  const resetRootLabel = t('treeResetRoot');
+  const resetRootDisabledTitle = t('treeResetRootAlready');
+  const isDefaultTreeRoot = currentRootPersonId === defaultRootPersonId;
 
   if (section === 'help') {
     return <HelpSpread section={helpForParam} />;
@@ -68,22 +68,20 @@ export function BookView() {
       selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
 
     const toggleKinshipPickMode = () => {
-      setKinshipPickMode((v) => {
-        const next = !v;
-        if (next) {
-          // When entering kinship pick mode, lock the panel and selection state.
-                    setSelectedTreePersonId(null);
-                    updateTreePersonInUrl(null);
-          setKinshipSelectedIds([]);
-        } else {
-          setKinshipSelectedIds([]);
-        }
-        return next;
-      });
+      const next = !kinshipPickMode;
+      setKinshipPickMode(next);
+      setKinshipSelectedIds([]);
+      if (next) {
+        // When entering kinship pick mode, close the person panel and clear URL selection.
+        updateTreePersonInUrl(null);
+      }
     };
 
     const resetKinshipSelection = () => {
       setKinshipSelectedIds([]);
+    };
+    const resetTreeRoot = () => {
+      setRootPersonId(defaultRootPersonId);
     };
 
     const onKinshipNodeClick = (personId: string) => {
@@ -145,11 +143,18 @@ export function BookView() {
                     {treeMode === 'ancestors' ? t('treeModeDescendants') : t('treeModeAncestors')}
                   </Button>
                   <div className="flex items-center gap-3">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={resetTreeRoot}
+                      disabled={isDefaultTreeRoot}
+                      title={isDefaultTreeRoot ? resetRootDisabledTitle : undefined}
+                      className="disabled:opacity-80"
+                    >
+                      {resetRootLabel}
+                    </Button>
                     {kinshipPickMode && (
                       <>
-                        <div className="text-[12px] font-semibold leading-tight text-(--ink)">
-                          {t('kinshipSelectTwoHint')}
-                        </div>
                         <Button
                           variant="secondary"
                           size="sm"
@@ -157,7 +162,7 @@ export function BookView() {
                           disabled={kinshipSelectedIds.length === 0}
                           className="disabled:opacity-80"
                         >
-                          {t('kinshipReset')}
+                          {t('kinshipClearSelection')}
                         </Button>
                       </>
                     )}
@@ -166,7 +171,7 @@ export function BookView() {
                       size="sm"
                       onClick={toggleKinshipPickMode}
                     >
-                      {kinshipPickMode ? t('back') : t('chapters_kinship')}
+                      {kinshipPickMode ? t('kinshipBackToView') : t('chapters_kinship')}
                     </Button>
                   </div>
                 </div>

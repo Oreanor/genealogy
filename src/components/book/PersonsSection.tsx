@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
 import Link from 'next/link';
@@ -46,18 +46,7 @@ export function PersonsSection() {
     [persons, personsSearch]
   );
 
-  const personFromUrl = personId ? persons.find((p) => p.id === personId) : null;
-  const [selectedPersonId, setSelectedPersonId] = useState<string | null>(
-    personFromUrl?.id ?? null
-  );
-
-  useEffect(() => {
-    queueMicrotask(() => setSelectedPersonId(personId ?? null));
-  }, [personId]);
-
-  const selectedPerson = selectedPersonId
-    ? persons.find((p) => p.id === selectedPersonId) ?? null
-    : null;
+  const selectedPerson = personId ? persons.find((p) => p.id === personId) ?? null : null;
 
   const personPhotos = useMemo(
     () => (selectedPerson ? getPhotosByPerson(selectedPerson.id) : []),
@@ -67,61 +56,58 @@ export function PersonsSection() {
     () => (selectedPerson ? getHistoryEntriesByPerson(selectedPerson.id) : []),
     [selectedPerson]
   );
-  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(null);
-  const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
-  const [selectedMapCity, setSelectedMapCity] = useState<string | null>(null);
-  const [showFaces, setShowFaces] = useState(false);
-  const [showPhotoBack, setShowPhotoBack] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
-  const [mapLightboxOpen, setMapLightboxOpen] = useState(false);
-  const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      if (!selectedPerson) {
-        setSelectedPhoto(null);
-        setSelectedHistoryIndex(null);
-        setSelectedMapCity(null);
-        setShowPhotoBack(false);
-        setImageBounds(null);
-        return;
-      }
-
-      const parsedEntry = entryParam != null ? Number.parseInt(entryParam, 10) : NaN;
-      const hasValidEntry =
-        Number.isInteger(parsedEntry) &&
-        historyMentions.some((mention) => mention.index === parsedEntry);
-
-      if (hasValidEntry) {
-        setSelectedHistoryIndex(parsedEntry);
-        setSelectedPhoto(null);
-        setSelectedMapCity(null);
-        setShowPhotoBack(false);
-        setImageBounds(null);
-        return;
-      }
-
-      const fromUrlPhoto = photoParam ? getPhotoById(photoParam) : null;
-      const hasValidPhoto =
-        fromUrlPhoto != null && personPhotos.some((photo) => photo.id === fromUrlPhoto.id);
-      const nextPhoto = hasValidPhoto
-        ? fromUrlPhoto
-        : getPreferredPanelPhoto(selectedPerson.id);
-
-      setSelectedHistoryIndex(null);
-      setSelectedPhoto(nextPhoto);
-      setSelectedMapCity(null);
-      setShowPhotoBack(false);
-      setImageBounds(null);
-    });
-  }, [entryParam, historyMentions, personPhotos, photoParam, selectedPerson, setImageBounds]);
-
+  const selectedHistoryIndex = useMemo(() => {
+    if (!selectedPerson || entryParam == null) return null;
+    const parsedEntry = Number.parseInt(entryParam, 10);
+    return Number.isInteger(parsedEntry) &&
+      historyMentions.some((mention) => mention.index === parsedEntry)
+      ? parsedEntry
+      : null;
+  }, [entryParam, historyMentions, selectedPerson]);
   const selectedHistoryEntry =
     selectedHistoryIndex !== null
       ? historyMentions.find((m) => m.index === selectedHistoryIndex)?.entry ?? null
       : null;
+  const selectedPhoto = useMemo<PhotoEntry | null>(() => {
+    if (!selectedPerson || selectedHistoryEntry) {
+      return null;
+    }
+
+    const fromUrlPhoto = photoParam ? getPhotoById(photoParam) : null;
+    const hasValidPhoto =
+      fromUrlPhoto != null && personPhotos.some((photo) => photo.id === fromUrlPhoto.id);
+
+    return hasValidPhoto ? fromUrlPhoto : getPreferredPanelPhoto(selectedPerson.id);
+  }, [personPhotos, photoParam, selectedHistoryEntry, selectedPerson]);
+  const [selectedMapState, setSelectedMapState] = useState<{
+    personId: string;
+    city: string;
+  } | null>(null);
+  const [showFaces, setShowFaces] = useState(false);
+  const [showPhotoBackState, setShowPhotoBackState] = useState<{
+    photoId: string | null;
+    value: boolean;
+  }>({
+    photoId: null,
+    value: false,
+  });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [textLightboxOpen, setTextLightboxOpen] = useState(false);
+  const [mapLightboxOpen, setMapLightboxOpen] = useState(false);
+  const selectedMapCity =
+    selectedPerson &&
+    selectedMapState?.personId === selectedPerson.id &&
+    photoParam == null &&
+    entryParam == null
+      ? selectedMapState.city
+      : null;
+  const showPhotoBack =
+    selectedPhoto != null &&
+    showPhotoBackState.photoId === selectedPhoto.id &&
+    showPhotoBackState.value;
+  const mediaResetKey = `${selectedPerson?.id ?? 'none'}:${selectedPhoto?.id ?? 'none'}:${selectedHistoryIndex ?? 'none'}:${selectedMapCity ?? 'none'}`;
+  const { photoContainerRef, imageBounds, onPhotoImageLoad } = usePhotoImageBounds(mediaResetKey);
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -138,7 +124,8 @@ export function PersonsSection() {
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setSearchFocused(false)}
               onSelectPerson={(p) => {
-                setSelectedPersonId(p.id);
+                setSelectedMapState(null);
+                setShowPhotoBackState({ photoId: null, value: false });
                 router.push(routes.person(p.id));
                 setPersonsSearch('');
                 setSearchFocused(false);
@@ -161,10 +148,12 @@ export function PersonsSection() {
                 personPhotos={personPhotos}
                 selectedPhoto={selectedPhoto}
                 onPhotoClick={(photo, toggleBack) => {
-                  setSelectedHistoryIndex(null);
-                  setSelectedMapCity(null);
+                  setSelectedMapState(null);
                   if (toggleBack) {
-                    setShowPhotoBack((v) => !v);
+                    setShowPhotoBackState((current) => ({
+                      photoId: photo.id,
+                      value: current.photoId === photo.id ? !current.value : true,
+                    }));
                     if (isMobile) setLightboxOpen(true);
                   } else {
                     router.replace(
@@ -175,13 +164,13 @@ export function PersonsSection() {
                         entry: null,
                       })
                     );
-                    setSelectedPhoto(photo);
-                    setShowPhotoBack(false);
-                    setImageBounds(null);
+                    setShowPhotoBackState({ photoId: null, value: false });
                     if (isMobile) setLightboxOpen(true);
                   }
                 }}
                 onHistoryClick={(index) => {
+                  setSelectedMapState(null);
+                  setShowPhotoBackState({ photoId: null, value: false });
                   router.replace(
                     buildUrlWithUpdatedSearchParams(pathname, searchParams, {
                       section: 'persons',
@@ -190,17 +179,14 @@ export function PersonsSection() {
                       photo: null,
                     })
                   );
-                  setSelectedHistoryIndex(index);
-                  setSelectedPhoto(null);
-                  setSelectedMapCity(null);
                   if (isMobile) {
                     setTextLightboxOpen(true);
                   }
                 }}
                 onCityClick={(city) => {
-                  setSelectedMapCity(city);
-                  setSelectedPhoto(null);
-                  setSelectedHistoryIndex(null);
+                  if (!selectedPerson) return;
+                  setSelectedMapState({ personId: selectedPerson.id, city });
+                  setShowPhotoBackState({ photoId: null, value: false });
                   setTextLightboxOpen(false);
                   router.replace(
                     buildUrlWithUpdatedSearchParams(pathname, searchParams, {
@@ -281,7 +267,6 @@ export function PersonsSection() {
               className="px-4"
               onClick={() => {
                 setTextLightboxOpen(false);
-                setSelectedHistoryIndex(null);
                 router.replace(
                   buildUrlWithUpdatedSearchParams(pathname, searchParams, {
                     section: 'persons',

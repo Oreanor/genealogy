@@ -218,6 +218,7 @@ function renderNode(node: HtmlNode, baseSize: number): React.ReactNode {
       const src = node.attrs.src;
       if (!src) return null;
       return (
+        // eslint-disable-next-line jsx-a11y/alt-text
         <Image key={key} src={src} style={{ maxWidth: '100%', maxHeight: 300, marginVertical: 6, objectFit: 'contain' }} />
       );
     }

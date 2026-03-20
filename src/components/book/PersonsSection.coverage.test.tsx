@@ -34,14 +34,20 @@ const history0 = {
 
 let isMobileValue = false;
 let searchParamsValue = new URLSearchParams(`id=${person.id}`);
+let pathnameValue = '/book';
 const routerPush = vi.fn();
+const routerReplace = vi.fn((url: string) => {
+  const [, query = ''] = url.split('?');
+  searchParamsValue = new URLSearchParams(query);
+});
 
 const setImageBoundsMock = vi.fn();
 const onPhotoImageLoadMock = vi.fn();
 
 vi.mock('next/navigation', () => ({
   useSearchParams: () => searchParamsValue,
-  useRouter: () => ({ push: routerPush }),
+  usePathname: () => pathnameValue,
+  useRouter: () => ({ push: routerPush, replace: routerReplace }),
 }));
 
 vi.mock('@/hooks/useIsMobile', () => ({
@@ -72,6 +78,8 @@ vi.mock('@/lib/data/persons', () => ({
 }));
 
 vi.mock('@/lib/data/photos', () => ({
+  getPhotoById: (id: string) =>
+    [photoWithBack, photoWithoutBack].find((photo) => photo.id === id) ?? null,
   getPhotosByPerson: () => [photoWithBack, photoWithoutBack],
   getPreferredPanelPhoto: () => photoWithBack,
   getLightboxFacesFromPhoto: () => [],
@@ -170,12 +178,14 @@ describe('PersonsSection coverage', () => {
   beforeEach(() => {
     isMobileValue = false;
     searchParamsValue = new URLSearchParams(`id=${person.id}`);
+    pathnameValue = '/book';
     routerPush.mockClear();
+    routerReplace.mockClear();
   });
 
   it('desktop: switches caption (front/back + fallback) and renders history', async () => {
     const { PersonsSection } = await import('./PersonsSection');
-    render(<PersonsSection />);
+    const { rerender } = render(<PersonsSection />);
 
     // initial selected photo is first (photoWithBack)
     expect(screen.getByTestId('caption')).toHaveTextContent(photoWithBack.caption ?? '');
@@ -188,6 +198,7 @@ describe('PersonsSection coverage', () => {
 
     // switch to photoWithoutBack while showPhotoBack=false
     fireEvent.click(screen.getByText(`select-front-${photoWithoutBack.id}`));
+    rerender(<PersonsSection />);
     await waitFor(() => {
       expect(screen.getByTestId('caption')).toHaveTextContent(photoWithoutBack.caption ?? '');
     });
@@ -200,6 +211,7 @@ describe('PersonsSection coverage', () => {
 
     // history click: clears photo selection and shows historyEntry on desktop
     fireEvent.click(screen.getByText('history-0'));
+    rerender(<PersonsSection />);
     await waitFor(() => {
       expect(screen.getByTestId('caption')).toHaveTextContent('');
       expect(screen.getByTestId('history-title')).toHaveTextContent(history0.entry.title);
@@ -209,10 +221,11 @@ describe('PersonsSection coverage', () => {
   it('mobile: opens image lightbox on photo click and shows text lightbox on history click', async () => {
     isMobileValue = true;
     const { PersonsSection } = await import('./PersonsSection');
-    render(<PersonsSection />);
+    const { rerender } = render(<PersonsSection />);
 
     // clicking front selects photo and opens ImageLightbox (lightboxOpen && selectedPhoto)
     fireEvent.click(screen.getByText(`select-front-${photoWithBack.id}`));
+    rerender(<PersonsSection />);
     await waitFor(() => {
       expect(screen.getByTestId('lightbox')).toBeInTheDocument();
     });
@@ -224,6 +237,7 @@ describe('PersonsSection coverage', () => {
 
     // history click on mobile opens the text overlay and (on mobile) right-panel historyEntry stays null
     fireEvent.click(screen.getByText('history-0'));
+    rerender(<PersonsSection />);
     await waitFor(() => {
       expect(screen.getByText(history0.entry.title)).toBeInTheDocument();
       expect(screen.getByTestId('history-title')).toHaveTextContent('');
@@ -234,6 +248,22 @@ describe('PersonsSection coverage', () => {
     await waitFor(() => {
       expect(screen.queryByText(history0.entry.title)).not.toBeInTheDocument();
     });
+  });
+
+  it('derives selection from URL updates without queued sync', async () => {
+    const { PersonsSection } = await import('./PersonsSection');
+    const { rerender } = render(<PersonsSection />);
+
+    expect(screen.getByTestId('left-selected-photo')).toHaveTextContent(photoWithBack.id);
+
+    searchParamsValue = new URLSearchParams(`id=${person.id}&photo=${photoWithoutBack.id}`);
+    rerender(<PersonsSection />);
+    expect(screen.getByTestId('left-selected-photo')).toHaveTextContent(photoWithoutBack.id);
+
+    searchParamsValue = new URLSearchParams(`id=${person.id}&entry=0`);
+    rerender(<PersonsSection />);
+    expect(screen.getByTestId('left-selected-photo')).toHaveTextContent('none');
+    expect(screen.getByTestId('history-title')).toHaveTextContent(history0.entry.title);
   });
 });
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { BookSpread } from './BookSpread';
@@ -43,21 +43,7 @@ export function PhotosSection() {
     [persons, personsSearch]
   );
 
-  const personFromUrl = personId ? persons.find((p) => p.id === personId) : null;
-  const [selectedPersonId, setSelectedPersonId] = useState<string | null>(
-    personFromUrl?.id ?? null
-  );
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      setSelectedPersonId(personId ?? null);
-      setPersonsSearch('');
-    });
-  }, [personId, persons]);
-
-  const selectedPerson = selectedPersonId
-    ? persons.find((p) => p.id === selectedPersonId) ?? null
-    : null;
+  const selectedPerson = personId ? persons.find((p) => p.id === personId) ?? null : null;
 
   const allPhotos = useMemo(() => getPhotos(), []);
   const personPhotos = useMemo(
@@ -71,42 +57,49 @@ export function PhotosSection() {
     [personPhotos, selectedPerson]
   );
 
-  const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(null);
-  const [showFaces, setShowFaces] = useState(false);
-  const [showPhotoBack, setShowPhotoBack] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
-  const isMobile = useIsMobile();
+  const selectedPhoto = useMemo<PhotoEntry | null>(() => {
+    const fromUrl = photoParam ? getPhotoById(photoParam) : null;
+    const isAllowed =
+      fromUrl != null &&
+      (selectedPerson == null || personPhotos.some((photo) => photo.id === fromUrl.id));
 
-  useEffect(() => {
-    queueMicrotask(() => {
-      const fromUrl = photoParam ? getPhotoById(photoParam) : null;
-      const isAllowed =
-        fromUrl != null &&
-        (selectedPersonId == null || personPhotos.some((p) => p.id === fromUrl.id));
-      setSelectedPhoto(isAllowed ? fromUrl : null);
-      setShowPhotoBack(false);
-      setImageBounds(null);
-    });
-  }, [photoParam, personPhotos, selectedPersonId, setImageBounds]);
+    return isAllowed ? fromUrl : null;
+  }, [personPhotos, photoParam, selectedPerson]);
+  const [showFaces, setShowFaces] = useState(false);
+  const [showPhotoBackState, setShowPhotoBackState] = useState<{
+    photoId: string | null;
+    value: boolean;
+  }>({
+    photoId: null,
+    value: false,
+  });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const showPhotoBack =
+    selectedPhoto != null &&
+    showPhotoBackState.photoId === selectedPhoto.id &&
+    showPhotoBackState.value;
+  const mediaResetKey = `${selectedPerson?.id ?? 'all'}:${selectedPhoto?.id ?? 'none'}`;
+  const { photoContainerRef, imageBounds, onPhotoImageLoad } = usePhotoImageBounds(mediaResetKey);
+  const isMobile = useIsMobile();
 
   const handlePhotoSelect = useCallback(
     (photo: PhotoEntry, toggleBack?: boolean) => {
       if (toggleBack) {
-        setShowPhotoBack((v) => !v);
+        setShowPhotoBackState((current) => ({
+          photoId: photo.id,
+          value: current.photoId === photo.id ? !current.value : true,
+        }));
         if (isMobile) setLightboxOpen(true);
       } else {
-        setSelectedPhoto(photo);
         const url = buildUrlWithUpdatedSearchParams(pathname, searchParams, {
           photo: photo.id,
         });
         router.replace(url);
-        setShowPhotoBack(false);
-        setImageBounds(null);
+        setShowPhotoBackState({ photoId: null, value: false });
         if (isMobile) setLightboxOpen(true);
       }
     },
-    [isMobile, pathname, router, searchParams, setImageBounds, setLightboxOpen]
+    [isMobile, pathname, router, searchParams]
   );
 
   return (
@@ -124,9 +117,9 @@ export function PhotosSection() {
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
                 onSelectPerson={(p) => {
-                  setSelectedPersonId(p.id);
                   setPersonsSearch('');
                   setSearchFocused(false);
+                  setShowPhotoBackState({ photoId: null, value: false });
                   router.push(
                     buildUrlWithUpdatedSearchParams(pathname, searchParams, {
                       section: 'photos',

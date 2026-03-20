@@ -27,7 +27,6 @@ export function LoadingOverlay({
 
   useEffect(() => {
     if (variant !== 'dots') return;
-    setDotsCount(0);
     const id = window.setInterval(() => {
       setDotsCount((v) => (v + 1) % 4);
     }, 500);
@@ -56,15 +55,9 @@ export function LoadingOverlay({
         <div className="h-4 w-4 animate-spin rounded-full border-2 border-(--paper) border-t-transparent" />
         <div className="text-sm font-medium text-(--ink)">
           {safeText}
-          <span
-            style={{
-              display: 'inline-block',
-              width: '1.8ch', // 3 dots * 0.6ch slot
-              textAlign: 'left',
-            }}
-          >
+          <span className="inline-block w-[1.8ch] text-left">
             {Array.from({ length: 3 }, (_, i) => (
-              <span key={i} style={{ opacity: i < dotsCount ? 1 : 0 }}>
+              <span key={i} className={i < dotsCount ? 'opacity-100' : 'opacity-0'}>
                 .
               </span>
             ))}

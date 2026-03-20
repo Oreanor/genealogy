@@ -227,7 +227,7 @@ export function KinshipSpread() {
   const sorted = useMemo(() => {
     void personsOverlayRev;
     return sortPersonsBySurname(getPersons());
-  }, [locale, personsOverlayRev]);
+  }, [personsOverlayRev]);
 
   const [idA, setIdA] = useState('');
   const [idB, setIdB] = useState('');

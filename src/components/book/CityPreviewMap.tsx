@@ -34,6 +34,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
 
   useEffect(() => {
     let isMounted = true;
+    const mapHost = mapRef.current;
     setIsLoading(true);
     setNotFound(false);
     setMapDataRevision(0);
@@ -41,9 +42,9 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
 
     const run = async () => {
       try {
-        if (!isMounted || !mapRef.current) return;
+        if (!isMounted || !mapHost) return;
 
-        const leaflet = await initLeafletMap(mapRef.current, MAP_DEFAULT_CENTER, 4);
+        const leaflet = await initLeafletMap(mapHost, MAP_DEFAULT_CENTER, 4);
         const { L, map } = leaflet;
         leafletRef.current = L;
         mapInstanceRef.current = map;
@@ -125,9 +126,9 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
       selectedMarkerRef.current = null;
       mapInstanceRef.current = null;
       leafletRef.current = null;
-      destroyLeafletMap(mapRef.current);
+      destroyLeafletMap(mapHost);
     };
-  }, [person.id, person.birthPlace, person.residenceCity]);
+  }, [locale, person.id, person.birthPlace, person.residenceCity, placeFallbacks]);
 
   useEffect(() => {
     const L = leafletRef.current;

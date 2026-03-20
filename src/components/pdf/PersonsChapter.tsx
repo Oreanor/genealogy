@@ -152,6 +152,7 @@ function PersonPhotoPage({ person }: { person: Person }) {
 
   return (
     <Page size="A5" style={[s.pageA5, { justifyContent: 'center', alignItems: 'center' }]}>
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         src={avatar.src}
         style={{ maxWidth: '100%', maxHeight: '85%', objectFit: 'contain' }}

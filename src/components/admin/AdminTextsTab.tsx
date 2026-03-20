@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
 import { Eye, EyeOff } from 'lucide-react';
-import { Button, Input } from '@/components/ui/atoms';
+import { Input } from '@/components/ui/atoms';
 import { Dialog } from '@/components/ui/molecules/Dialog';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { Person } from '@/lib/types/person';
@@ -118,7 +118,7 @@ export function AdminTextsTab({
   const selectedEntry = selectedIdx !== null ? entries[selectedIdx] ?? null : null;
 
   return (
-    <div className="flex flex-col" style={{ height: 'calc(100vh - 140px)' }}>
+    <div className="flex h-[calc(100vh-140px)] flex-col">
       <div className="flex min-h-0 flex-1 gap-4">
       {/* Left: list of titles */}
       <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-(--border-subtle) pr-4">

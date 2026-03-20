@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef, useState, useEffect, type PointerEvent as ReactPointerEvent } from 'react';
+import { useMemo, useRef } from 'react';
 import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
 import {
   buildDescendantsMatrix,
@@ -10,7 +10,8 @@ import {
 } from '@/lib/utils/tree';
 import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
-import { getKinship } from '@/lib/utils/kinship';
+import { useTreePan } from './useTreePan';
+import { useTreeSegments } from './useTreeSegments';
 
 export interface FamilyTreeProps {
   onPersonClick: (personId: string) => void;
@@ -24,27 +25,6 @@ export interface FamilyTreeProps {
 /** Stable defaults — avoid new [] / {} each render (useLayoutEffect deps). */
 const DEFAULT_KINSHIP_SELECTED_IDS: string[] = [];
 const DEFAULT_KINSHIP_HINT_BY_ID: Record<string, string | null | undefined> = {};
-type PanState = { x: number; y: number };
-type DragState = {
-  active: boolean;
-  moved: boolean;
-  pointerId: number;
-  startX: number;
-  startY: number;
-  originX: number;
-  originY: number;
-};
-type NodeAnchor = { x: number; y: number; top: number; bottom: number };
-type TreeSegment = {
-  key: string;
-  edgeKey: string;
-  left: number;
-  top: number;
-  width: number;
-  height: number;
-  active: boolean;
-  rotateDeg?: number;
-};
 
 const TREE_LAYOUT = {
   view: {
@@ -198,292 +178,30 @@ export function FamilyTree({
   );
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const [pan, setPan] = useState<PanState>({ x: 0, y: TREE_LAYOUT.pan.initialY });
-  const dragRef = useRef<DragState | null>(null);
-  const suppressNextClickRef = useRef(false);
-  const [segments, setSegments] = useState<TreeSegment[]>([]);
-
-  useEffect(() => {
-    setPan({ x: 0, y: TREE_LAYOUT.pan.initialY });
-  }, [rootPersonId, treeMode]);
-
-  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    dragRef.current = {
-      active: true,
-      moved: false,
-      pointerId: e.pointerId,
-      startX: e.clientX,
-      startY: e.clientY,
-      originX: pan.x,
-      originY: pan.y,
-    };
-  };
-
-  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    const st = dragRef.current;
-    if (!st || !st.active || st.pointerId !== e.pointerId) return;
-    const dx = e.clientX - st.startX;
-    const dy = e.clientY - st.startY;
-    if (!st.moved && Math.hypot(dx, dy) < TREE_LAYOUT.pan.dragStartThresholdPx) return;
-    if (!st.moved) {
-      st.moved = true;
-      e.currentTarget.setPointerCapture(e.pointerId);
-    }
-    const nextX = Math.max(-TREE_LAYOUT.pan.limitX, Math.min(TREE_LAYOUT.pan.limitX, st.originX + dx));
-    const nextY = Math.max(TREE_LAYOUT.pan.limitYUp, Math.min(TREE_LAYOUT.pan.limitYDown, st.originY + dy));
-    setPan({ x: nextX, y: nextY });
-  };
-
-  const onPointerUp = (e: ReactPointerEvent<HTMLDivElement>) => {
-    const st = dragRef.current;
-    if (!st || st.pointerId !== e.pointerId) return;
-    if (st.moved) suppressNextClickRef.current = true;
-    dragRef.current = null;
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
-  };
-  const onClickCapture = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!suppressNextClickRef.current) return;
-    suppressNextClickRef.current = false;
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  useLayoutEffect(() => {
-    const recompute = () => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const roundSnap = (n: number) => Math.round(n * 2) / 2;
-    const getAnchor = (el: HTMLDivElement) => {
-      const r = el.getBoundingClientRect();
-      return {
-        x: roundSnap(r.left - containerRect.left + r.width / 2),
-        y: roundSnap(r.top - containerRect.top + r.height / 2),
-        top: roundSnap(r.top - containerRect.top),
-        bottom: roundSnap(r.bottom - containerRect.top),
-      };
-    };
-
-    const currentCenters = new Map<string, NodeAnchor>();
-    for (const [key, el] of avatarRefs.current.entries()) {
-      if (!el) continue;
-      currentCenters.set(key, getAnchor(el));
-    }
-
-    const nextSegments: TreeSegment[] = [];
-    const segKeys = new Set<string>();
-
-    const thickness = 1.5;
-
-    const activeEdgeKeys = new Set<string>();
-    let spouseDirectOnly = false;
-    const spouseEdgePairs: Array<{ pairKey: string; aKey: string; bKey: string }> = [];
-    const spouseEdgePairSet = new Set<string>();
-
-    const getParentKeyForChildKey = (childKey: string): string | null => {
-      if (treeMode === 'descendants') return parentKeyByChildKey[childKey] ?? null;
-      const [levelStr, indexStr] = childKey.split('-');
-      const level = parseInt(levelStr, 10);
-      const index = parseInt(indexStr, 10);
-      if (!Number.isFinite(level) || !Number.isFinite(index) || level <= 0) return null;
-      return `${level - 1}-${index >> 1}`;
-    };
-
-    if (kinshipMode && kinshipSelectedIds.length === 2) {
-      const [a, b] = kinshipSelectedIds;
-      const res = getKinship(a, b);
-      if (res) {
-        spouseDirectOnly = res.edgeKinds.length === 1 && res.edgeKinds[0] === 'spouse';
-        const idToKey = new Map<string, string>();
-        matrix.slice(0, visibleLevelCount).forEach((row, level) => {
-          row.forEach((p, index) => {
-            if (p) idToKey.set(p.id, `${level}-${index}`);
-          });
-        });
-        for (let i = 0; i < res.path.length - 1; i += 1) {
-          const kind = res.edgeKinds[i]!;
-          const u = res.path[i]!;
-          const v = res.path[i + 1]!;
-          const uKey = idToKey.get(u);
-          const vKey = idToKey.get(v);
-          if (!uKey || !vKey) continue;
-          if (kind === 'parent' || kind === 'child') {
-            const vParentKey = getParentKeyForChildKey(vKey);
-            if (vParentKey === uKey) {
-              activeEdgeKeys.add(`${uKey}->${vKey}`);
-              continue;
-            }
-            const uParentKey = getParentKeyForChildKey(uKey);
-            if (uParentKey === vKey) activeEdgeKeys.add(`${vKey}->${uKey}`);
-            continue;
-          }
-          if (kind === 'spouse') {
-            const aKey = uKey < vKey ? uKey : vKey;
-            const bKey = uKey < vKey ? vKey : uKey;
-            const pairKey = `${aKey}<->${bKey}`;
-            if (spouseEdgePairSet.has(pairKey)) continue;
-            spouseEdgePairSet.add(pairKey);
-            spouseEdgePairs.push({ pairKey, aKey, bKey });
-          }
-        }
-      }
-    }
-
-    const shouldFade =
-      kinshipMode &&
-      kinshipSelectedIds.length === 2 &&
-      (spouseDirectOnly || activeEdgeKeys.size > 0 || spouseEdgePairs.length > 0);
-    const MIN_SEGMENT_PX = 6;
-    const addV = (x: number, y1: number, y2: number, key: string, forceActive = false) => {
-      const top = Math.min(y1, y2);
-      const height = Math.max(0, Math.abs(y2 - y1));
-      if (height < MIN_SEGMENT_PX) return;
-      const left = x - thickness / 2;
-      const segKey = `${key}:v:${left}:${top}:${height}`;
-      if (segKeys.has(segKey)) return;
-      segKeys.add(segKey);
-      nextSegments.push({
-        key: segKey,
-        edgeKey: key,
-        left,
-        top,
-        width: thickness,
-        height,
-        active: spouseDirectOnly ? false : shouldFade ? forceActive || activeEdgeKeys.has(key) : true,
-      });
-    };
-    const addH = (y: number, x1: number, x2: number, key: string, forceActive = false) => {
-      const left = Math.min(x1, x2);
-      const width = Math.max(0, Math.abs(x2 - x1));
-      if (width < MIN_SEGMENT_PX) return;
-      const top = y - thickness / 2;
-      const segKey = `${key}:h:${left}:${top}:${width}`;
-      if (segKeys.has(segKey)) return;
-      segKeys.add(segKey);
-      nextSegments.push({
-        key: segKey,
-        edgeKey: key,
-        left,
-        top,
-        width,
-        height: thickness,
-        active: spouseDirectOnly ? false : shouldFade ? forceActive || activeEdgeKeys.has(key) : true,
-      });
-    };
-
-    for (let level = 1; level < Math.min(matrix.length, visibleLevelCount); level += 1) {
-      const row = matrix[level];
-      if (treeMode === 'descendants') {
-        const childrenByParent = new Map<string, Array<{ key: string; x: number; y: number }>>();
-        for (let index = 0; index < row.length; index += 1) {
-          const child = row[index];
-          if (!child) continue;
-          const childKey = `${level}-${index}`;
-          const parentKey = getParentKeyForChildKey(childKey);
-          if (!parentKey) continue;
-          const childCenter = currentCenters.get(childKey);
-          if (!childCenter) continue;
-          const list = childrenByParent.get(parentKey) ?? [];
-          list.push({ key: childKey, x: childCenter.x, y: childCenter.y });
-          childrenByParent.set(parentKey, list);
-        }
-
-        for (const [parentKey, children] of childrenByParent.entries()) {
-          const parentCenter = currentCenters.get(parentKey);
-          if (!parentCenter || children.length === 0) continue;
-          const xParent = parentCenter.x;
-          const yParentBottom = parentCenter.bottom;
-
-          if (children.length === 1) {
-            const c = children[0]!;
-            addV(xParent, yParentBottom, c.y, `${parentKey}->${c.key}`);
-            continue;
-          }
-
-          const minChildY = Math.min(...children.map((c) => c.y));
-          const joinY = yParentBottom + Math.max(8, (minChildY - yParentBottom) * 0.42);
-          const fanHasActiveChild = children.some((c) => activeEdgeKeys.has(`${parentKey}->${c.key}`));
-          addV(xParent, yParentBottom, joinY, `${parentKey}->fan`, fanHasActiveChild);
-          for (const c of children) {
-            addH(joinY, xParent, c.x, `${parentKey}->${c.key}`);
-            addV(c.x, joinY, c.y, `${parentKey}->${c.key}`);
-          }
-        }
-        continue;
-      }
-
-      for (let index = 0; index < row.length; index += 1) {
-        const child = row[index];
-        if (!child) continue;
-
-        const childKey = `${level}-${index}`;
-        const parentKey = getParentKeyForChildKey(childKey);
-        if (!parentKey) continue;
-
-        const parentCenter = currentCenters.get(parentKey);
-        const childCenter = currentCenters.get(childKey);
-        if (!parentCenter || !childCenter) continue;
-
-        const xParent = parentCenter.x;
-        const yParent = parentCenter.bottom;
-        const xChild = childCenter.x;
-        const yChild = childCenter.y;
-
-        addV(xParent, yParent, yChild, `${parentKey}->${childKey}`);
-        addH(yChild, xParent, xChild, `${parentKey}->${childKey}`);
-      }
-    }
-
-    for (const { pairKey, aKey, bKey } of spouseEdgePairs) {
-      const aCenter = currentCenters.get(aKey);
-      const bCenter = currentCenters.get(bKey);
-      if (!aCenter || !bCenter) continue;
-
-      const dx = bCenter.x - aCenter.x;
-      const dy = bCenter.y - aCenter.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const rotateDeg = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-      // Draw direct "spouse" connection segments for the kinship path.
-      nextSegments.push({
-        key: `spouse-direct:${pairKey}`,
-        edgeKey: `spouse-direct:${pairKey}`,
-        left: aCenter.x,
-        top: aCenter.y - thickness / 2,
-        width: dist,
-        height: thickness,
-        active: true,
-        rotateDeg,
-      });
-    }
-
-    setSegments(nextSegments);
-    };
-
-    recompute();
-    window.addEventListener('resize', recompute);
-    return () => window.removeEventListener('resize', recompute);
-  }, [
+  const { pan, panHandlers } = useTreePan({
+    initialY: TREE_LAYOUT.pan.initialY,
+    limitX: TREE_LAYOUT.pan.limitX,
+    limitYDown: TREE_LAYOUT.pan.limitYDown,
+    limitYUp: TREE_LAYOUT.pan.limitYUp,
+    dragStartThresholdPx: TREE_LAYOUT.pan.dragStartThresholdPx,
+    resetKey: `${rootPersonId}:${treeMode}`,
+  });
+  const segments = useTreeSegments({
+    containerRef,
+    avatarRefs,
     matrix,
     visibleLevelCount,
     kinshipMode,
     kinshipSelectedIds,
     treeMode,
     parentKeyByChildKey,
-    nodeXByKey,
-  ]);
+    layoutVersion: nodeXByKey,
+  });
 
   return (
     <div
       className="flex h-full w-full min-h-0 justify-center overflow-hidden touch-none cursor-grab active:cursor-grabbing"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
-      onClickCapture={onClickCapture}
+      {...panHandlers}
     >
       <div
         ref={containerRef}

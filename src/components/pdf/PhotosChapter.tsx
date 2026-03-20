@@ -97,6 +97,7 @@ export function PhotosChapter({ labels }: { labels: PhotosLabels }) {
               {seriesHeader}
             </Text>
           )}
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image
             src={photo.src}
             style={{ maxWidth: '100%', maxHeight: seriesHeader ? '78%' : '85%', objectFit: 'contain' }}

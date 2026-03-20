@@ -7,9 +7,25 @@ export type ImageBounds = {
   height: number;
 };
 
-export function usePhotoImageBounds() {
+type BoundsState = {
+  resetKey: string;
+  bounds: ImageBounds | null;
+};
+
+export function usePhotoImageBounds(resetKey = 'default') {
   const photoContainerRef = useRef<HTMLDivElement>(null);
-  const [imageBounds, setImageBounds] = useState<ImageBounds | null>(null);
+  const [boundsState, setBoundsState] = useState<BoundsState>({
+    resetKey,
+    bounds: null,
+  });
+  const imageBounds = boundsState.resetKey === resetKey ? boundsState.bounds : null;
+
+  const setImageBounds = useCallback(
+    (bounds: ImageBounds | null) => {
+      setBoundsState({ resetKey, bounds });
+    },
+    [resetKey]
+  );
 
   const onPhotoImageLoad = useCallback(
     (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -26,16 +42,19 @@ export function usePhotoImageBounds() {
         const scale = Math.min(cw / nw, ch / nh);
         const displayW = nw * scale;
         const displayH = nh * scale;
-        setImageBounds({
-          left: ((cw - displayW) / 2 / cw) * 100,
-          top: ((ch - displayH) / 2 / ch) * 100,
-          width: (displayW / cw) * 100,
-          height: (displayH / ch) * 100,
+        setBoundsState({
+          resetKey,
+          bounds: {
+            left: ((cw - displayW) / 2 / cw) * 100,
+            top: ((ch - displayH) / 2 / ch) * 100,
+            width: (displayW / cw) * 100,
+            height: (displayH / ch) * 100,
+          },
         });
       };
       requestAnimationFrame(measure);
     },
-    []
+    [resetKey]
   );
 
   return { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad };

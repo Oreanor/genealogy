@@ -1,39 +1,41 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import {
-  MAP_DEFAULT_CENTER,
-  MAP_DEFAULT_ZOOM,
-  MAP_LINE_STYLE,
-  MARKER_GROUPING,
-  type GeocodedPoint,
-} from '@/lib/constants/map';
+import { useMemo, useRef, useState, useCallback } from 'react';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons } from '@/lib/data/persons';
-import { formatNameByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
-import {
-  escapeHtml,
-  normalizePlace,
-  splitPlaceList,
-  toPlaceFallbackKey,
-} from '@/lib/utils/mapPlace';
-import { destroyLeafletMap, initLeafletMap } from '@/lib/utils/leafletMap';
 import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
+import type { Locale } from '@/lib/i18n/config';
+import { buildMapEntries } from './mapSectionUtils';
+import { useLeafletPersonMap } from './useLeafletPersonMap';
 
 export function MapSection() {
   const { t, locale } = useLocaleRoutes();
   const placeFallbacks = getPlaceFallbacks();
+  const persons = getPersons();
+
+  return (
+    <MapSectionContent
+      key={locale}
+      locale={locale}
+      t={t}
+      placeFallbacks={placeFallbacks}
+      persons={persons}
+    />
+  );
+}
+
+type MapSectionContentProps = {
+  locale: Locale;
+  t: ReturnType<typeof useLocaleRoutes>['t'];
+  placeFallbacks: ReturnType<typeof getPlaceFallbacks>;
+  persons: ReturnType<typeof getPersons>;
+};
+
+function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionContentProps) {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const leafletRef = useRef<typeof import('leaflet') | null>(null);
-  const mapInstanceRef = useRef<import('leaflet').Map | null>(null);
-  const layersByPersonRef = useRef<Map<string, import('leaflet').LayerGroup>>(new Map());
-  const [isLoading, setIsLoading] = useState(true);
-  const [personsOnMap, setPersonsOnMap] = useState<
-    Array<{ id: string; name: string; color: string }>
-  >([]);
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -42,265 +44,27 @@ export function MapSection() {
     setIsFilterOpen(false);
   }, []);
 
-  const selectedPerson = personsOnMap.find((p) => p.id === selectedPersonId) ?? null;
- 
-  function buildPersonColorMap(personIds: string[]): Map<string, string> {
-    // Golden-ratio hue distribution: consecutive persons get maximally-distant hues.
-    const GOLDEN_ANGLE = 137.508;
-    const map = new Map<string, string>();
-    personIds.forEach((id, i) => {
-      const hue = Math.round((i * GOLDEN_ANGLE) % 360);
-      map.set(id, `hsl(${hue} 72% 40%)`);
-    });
-    return map;
-  }
-
-  // Dots animation is handled by LoadingOverlay (shared component).
-
-  useEffect(() => {
-    let isMounted = true;
-    let map: import('leaflet').Map | null = null;
-    setIsLoading(true);
-    setSelectedPersonId(null);
-    setPersonsOnMap([]);
-    setIsFilterOpen(false);
-    layersByPersonRef.current = new Map();
-
-    const init = async () => {
-      try {
-        if (!isMounted || !mapRef.current) return;
-
-        const leaflet = await initLeafletMap(
-          mapRef.current,
-          MAP_DEFAULT_CENTER,
-          MAP_DEFAULT_ZOOM
-        );
-        const L = leaflet.L;
-        leafletRef.current = L;
-        map = leaflet.map;
-
-      const persons = getPersons();
-      const personColorMap = buildPersonColorMap(persons.map((p) => p.id));
-      const placeCache = new Map<string, GeocodedPoint | null>();
-      const placeQueue = new Set<string>();
-
-      for (const p of persons) {
-        const birth = normalizePlace(p.birthPlace ?? '');
-        if (birth) placeQueue.add(birth);
-        for (const r of splitPlaceList(p.residenceCity)) placeQueue.add(r);
-      }
-
-      for (const place of placeQueue) {
-        const normalized = normalizePlace(place);
-        const point = placeFallbacks[toPlaceFallbackKey(normalized)] ?? null;
-        placeCache.set(place, point);
-      }
-
-      console.log('[MAP] Geocoding results:');
-      for (const [place, point] of placeCache.entries()) {
-        if (point) {
-          console.log(`  ✓ ${place} → ${point.lat.toFixed(4)}, ${point.lon.toFixed(4)}`);
-        } else {
-          console.warn(`  ✗ ${place} — не найден`);
-        }
-      }
-
-      type MarkerEntry = {
-        personId: string;
-        personName: string;
-        kindLabel: string;
-        place: string;
-        offsetPoint: { lat: number; lon: number };
-        color: string;
-      };
-      type LineEntry = {
-        personId: string;
-        personName: string;
-        from: { lat: number; lon: number };
-        to: { lat: number; lon: number };
-        color: string;
-      };
-
-      const markerEntries: MarkerEntry[] = [];
-      const lineEntries: LineEntry[] = [];
-
-      // coordKey → how many markers placed at that spot (for staggering)
-      const byCoord = new Map<string, number>();
-      // personId|place → offset position (so lines snap to the same shifted point)
-      const personPlaceOffset = new Map<string, { lat: number; lon: number }>();
-
-      for (const p of persons) {
-        const personName = formatPersonNameForLocale(p, locale) || p.id;
-        const color = personColorMap.get(p.id) ?? 'hsl(0 70% 40%)';
-
-        const birth = normalizePlace(p.birthPlace ?? '');
-        const residences = splitPlaceList(p.residenceCity).filter(
-          (r) => r !== birth
-        );
-
-        // Chain: birth city first (if any), then unique residence cities in order.
-        // Adjacent duplicates are removed to avoid zero-length lines.
-        const rawChain = birth ? [birth, ...residences] : [...residences];
-        const chain: string[] = [];
-        for (const city of rawChain) {
-          if (chain.length === 0 || chain[chain.length - 1] !== city) chain.push(city);
-        }
-
-        if (chain.length > 0) {
-          console.log(
-            `[MAP] ${personName} (${p.id})  color=${color}\n` +
-            `      birth="${birth || '—'}"  residences=[${residences.join(', ') || '—'}]\n` +
-            `      chain: ${chain.join(' → ')}`
-          );
-        }
-
-        // One marker per city in the chain for this person.
-        const seenForPerson = new Set<string>();
-        for (const place of chain) {
-          if (seenForPerson.has(place)) continue;
-          seenForPerson.add(place);
-
-          const point = placeCache.get(place);
-          if (!point) continue;
-
-          const coordKey = `${point.lat.toFixed(MARKER_GROUPING.coordPrecision)},${point.lon.toFixed(MARKER_GROUPING.coordPrecision)}`;
-          const offsetIdx = byCoord.get(coordKey) ?? 0;
-          byCoord.set(coordKey, offsetIdx + 1);
-          const dx = (offsetIdx % MARKER_GROUPING.columnsPerRow) * MARKER_GROUPING.lonStep;
-          const dy = Math.floor(offsetIdx / MARKER_GROUPING.columnsPerRow) * MARKER_GROUPING.latStep;
-          const offsetPoint = { lat: point.lat + dy, lon: point.lon + dx };
-
-          personPlaceOffset.set(`${p.id}|${place}`, offsetPoint);
-
-          const kindLabel = place === birth ? t('birthPlace') : t('residenceCity');
-          const displayPlace = formatNameByLocale(place, locale);
-          markerEntries.push({
-            personId: p.id,
-            personName,
-            kindLabel,
-            place: displayPlace,
-            offsetPoint,
-            color,
-          });
-        }
-
-        // Lines: connect chain cities in order, using offset positions.
-        for (let i = 0; i < chain.length - 1; i++) {
-          const fromPlace = chain[i]!;
-          const toPlace = chain[i + 1]!;
-          if (fromPlace === toPlace) continue;
-          const fromPoint = personPlaceOffset.get(`${p.id}|${fromPlace}`);
-          const toPoint = personPlaceOffset.get(`${p.id}|${toPlace}`);
-          if (!fromPoint || !toPoint) continue;
-          lineEntries.push({ personId: p.id, personName, from: fromPoint, to: toPoint, color });
-        }
-      }
-
-      const personGroupMap = new Map<string, import('leaflet').LayerGroup>();
-      const getPersonGroup = (personId: string) => {
-        const existing = personGroupMap.get(personId);
-        if (existing) return existing;
-        const group = L.layerGroup();
-        personGroupMap.set(personId, group);
-        return group;
-      };
-
-      for (const line of lineEntries) {
-        const polyline = L.polyline(
-          [
-            [line.from.lat, line.from.lon],
-            [line.to.lat, line.to.lon],
-          ],
-          { ...MAP_LINE_STYLE, color: line.color }
-        )
-          .addTo(getPersonGroup(line.personId))
-          .bindTooltip(escapeHtml(line.personName), { sticky: true });
-      }
-
-      const CIRCLE_SIZE = 18;
-      const CIRCLE_BORDER = 2;
-      for (const item of markerEntries) {
-        const html = `<div style="width:${CIRCLE_SIZE}px;height:${CIRCLE_SIZE}px;border-radius:50%;background:${item.color};border:${CIRCLE_BORDER}px solid rgba(255,255,255,.95);box-shadow:0 2px 6px rgba(0,0,0,.25);"></div>`;
-
-        const icon = L.divIcon({
-          className: 'person-place-color',
-          html,
-          iconSize: [CIRCLE_SIZE, CIRCLE_SIZE],
-          iconAnchor: [CIRCLE_SIZE / 2, CIRCLE_SIZE / 2],
-          popupAnchor: [0, -CIRCLE_SIZE / 2],
-        });
-
-        L.marker([item.offsetPoint.lat, item.offsetPoint.lon], { icon })
-          .addTo(getPersonGroup(item.personId))
-          .bindPopup(
-            `<div style="min-width:180px">
-               <div style="font-weight:600;margin-bottom:4px">${escapeHtml(item.personName)}</div>
-               <div style="font-size:12px;opacity:.9">${escapeHtml(item.kindLabel)}: ${escapeHtml(item.place)}</div>
-             </div>`
-          )
-          .bindTooltip(
-            `${escapeHtml(item.personName)}<br><span style="opacity:.75;font-size:11px">${escapeHtml(item.place)} (${escapeHtml(item.kindLabel)})</span>`,
-            { sticky: true, direction: 'top' }
-          );
-      }
-
-      for (const group of personGroupMap.values()) {
-        group.addTo(map);
-      }
-
-      layersByPersonRef.current = personGroupMap;
-      mapInstanceRef.current = map;
-
-      if (isMounted) {
-        setPersonsOnMap(
-          persons
-            .filter((p) => personGroupMap.has(p.id))
-            .map((p) => ({
-              id: p.id,
-              name: formatPersonNameForLocale(p, locale) || p.id,
-              color: personColorMap.get(p.id) ?? 'hsl(0 70% 40%)',
-            }))
-        );
-      }
-      } finally {
-        if (isMounted) setIsLoading(false);
-      }
-    };
-
-    void init();
-
-    return () => {
-      isMounted = false;
-      destroyLeafletMap(mapRef.current);
-    };
-  }, [locale]);
-
-  // Show/hide layers whenever the person filter changes.
-  useEffect(() => {
-    const map = mapInstanceRef.current;
-    const L = leafletRef.current;
-    if (!map || !L) return;
-    const groups = layersByPersonRef.current;
-
-    // Hard reset: remove all overlays (markers/lines/groups), keep only base tile layer.
-    map.eachLayer((layer) => {
-      if (!(layer instanceof L.TileLayer)) {
-        map.removeLayer(layer);
-      }
-    });
-
-    if (!selectedPersonId) {
-      for (const group of groups.values()) {
-        group.addTo(map);
-      }
-      return;
-    }
-
-    const selectedGroup = groups.get(selectedPersonId);
-    if (selectedGroup) {
-      selectedGroup.addTo(map);
-    }
-  }, [selectedPersonId]);
+  const { markerEntries, lineEntries, personsOnMap } = useMemo(
+    () =>
+      buildMapEntries({
+        persons,
+        locale,
+        t,
+        placeFallbacks,
+      }),
+    [locale, persons, placeFallbacks, t]
+  );
+  const visibleSelectedPersonId =
+    selectedPersonId && personsOnMap.some((person) => person.id === selectedPersonId)
+      ? selectedPersonId
+      : null;
+  const { isLoading } = useLeafletPersonMap({
+    mapRef,
+    markerEntries,
+    lineEntries,
+    selectedPersonId: visibleSelectedPersonId,
+  });
+  const selectedPerson = personsOnMap.find((p) => p.id === visibleSelectedPersonId) ?? null;
 
   return (
     <div className="flex min-w-0 flex-1 flex-col overflow-hidden min-h-[calc(100vh-10rem)] md:min-h-0 md:flex-none">
@@ -315,13 +79,11 @@ export function MapSection() {
             <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25">
               <div
                 ref={mapRef}
-                className="h-full w-full transition-opacity duration-300"
+                className={`h-full w-full transition-opacity duration-300 ${
+                  isLoading ? 'pointer-events-none opacity-50' : 'pointer-events-auto opacity-100'
+                }`}
                 aria-busy={isLoading}
                 aria-label={t('chapters_map')}
-                style={{
-                  opacity: isLoading ? 0.5 : 1,
-                  pointerEvents: isLoading ? 'none' : 'auto',
-                }}
               />
               {!isLoading && personsOnMap.length > 0 && (
                 <div className="absolute top-2 right-2 z-20 flex items-start gap-1">
@@ -373,7 +135,7 @@ export function MapSection() {
                       </div>
                     )}
                   </div>
-                  {selectedPersonId && (
+                  {visibleSelectedPersonId && (
                     <button
                       onClick={() => handleFilterChange(null)}
                       title={t('mapFilterReset') || 'Показать всех'}

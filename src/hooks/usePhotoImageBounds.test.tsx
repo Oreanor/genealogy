@@ -57,4 +57,31 @@ describe('usePhotoImageBounds', () => {
     expect(result.current.imageBounds!.left).toBe(0);
     expect(result.current.imageBounds!.top).toBe(0);
   });
+
+  it('returns null bounds immediately when resetKey changes', () => {
+    const { result, rerender } = renderHook(
+      ({ resetKey }) => usePhotoImageBounds(resetKey),
+      {
+        initialProps: { resetKey: 'a' },
+      }
+    );
+
+    act(() => {
+      result.current.setImageBounds({
+        left: 1,
+        top: 2,
+        width: 3,
+        height: 4,
+      });
+    });
+    expect(result.current.imageBounds).toEqual({
+      left: 1,
+      top: 2,
+      width: 3,
+      height: 4,
+    });
+
+    rerender({ resetKey: 'b' });
+    expect(result.current.imageBounds).toBeNull();
+  });
 });

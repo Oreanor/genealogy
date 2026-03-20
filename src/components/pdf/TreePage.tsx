@@ -111,6 +111,7 @@ export function TreePage({ labels }: { labels: TreeLabels }) {
                 }}
               >
                 {avatar && (
+                  // eslint-disable-next-line jsx-a11y/alt-text
                   <Image
                     src={avatar.src}
                     style={{ width: OVAL_W, height: OVAL_H, objectFit: 'cover' }}

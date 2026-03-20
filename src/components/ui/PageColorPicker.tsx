@@ -206,6 +206,9 @@ export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProp
             onMouseDown={startDrag('sl')}
             onTouchStart={startDrag('sl')}
             role="slider"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(((hsl.s + hsl.l) / 2) * 100)}
             aria-valuetext={paper}
             tabIndex={0}
           >
@@ -227,6 +230,9 @@ export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProp
             onMouseDown={startDrag('h')}
             onTouchStart={startDrag('h')}
             role="slider"
+            aria-valuemin={0}
+            aria-valuemax={360}
+            aria-valuenow={Math.round(hsl.h)}
             aria-valuetext={`Hue ${Math.round(hsl.h)}°`}
             tabIndex={0}
           >

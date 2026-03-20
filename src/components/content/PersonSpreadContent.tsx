@@ -306,10 +306,12 @@ export function PersonSpreadRightContent({
   const [persistentMapCity, setPersistentMapCity] = useState<string | null>(mapCity);
   const [persistentMapPerson, setPersistentMapPerson] = useState<Person | null>(person);
   useEffect(() => {
-    if (mapCity) {
+    if (!mapCity) return;
+    const timeoutId = window.setTimeout(() => {
       setPersistentMapCity(mapCity);
       if (person) setPersistentMapPerson(person);
-    }
+    }, 0);
+    return () => window.clearTimeout(timeoutId);
   }, [mapCity, person]);
   const showMap = Boolean(mapCity);
 
