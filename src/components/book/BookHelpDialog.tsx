@@ -40,7 +40,7 @@ export function BookHelpDialog({ open, section, onClose }: BookHelpDialogProps) 
     persons: ['bookHelpPersons1', 'bookHelpPersons2', 'bookHelpPersons3'],
     history: ['bookHelpHistory1', 'bookHelpHistory2', 'bookHelpHistory3'],
     photos: ['bookHelpPhotos1', 'bookHelpPhotos2', 'bookHelpPhotos3', 'bookHelpPhotos4'],
-    map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3'],
+    map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3', 'bookHelpMap4', 'bookHelpMap5'],
     kinship: [],
     help: [],
   };

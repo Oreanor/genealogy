@@ -10,7 +10,13 @@ interface AdminHelpDialogProps {
 }
 
 const HELP_KEYS_BY_TAB: Partial<Record<AdminTabId, string[]>> = {
-  persons: ['helpPersonsAdd', 'helpPersonsRoot', 'helpPersonsDelete', 'adminSaveReminder'],
+  persons: [
+    'helpPersonsAdd',
+    'helpPersonsRoot',
+    'helpPersonsDelete',
+    'helpPersonsCitiesCoords',
+    'adminSaveReminder',
+  ],
   texts: ['adminHistoryHowItWorks', 'adminSaveReminder'],
   photos: ['adminPhotosHowItWorks', 'helpPhotosFolders', 'helpPhotosNewBadge', 'helpPhotosSteps', 'adminSaveReminder'],
 };
