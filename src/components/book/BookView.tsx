@@ -10,6 +10,7 @@ import { HelpSpread } from './HelpSpread';
 import { HistorySection } from './HistorySection';
 import { PhotosSection } from './PhotosSection';
 import { PersonsSection } from './PersonsSection';
+import { MapSection } from './MapSection';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
 import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
@@ -172,6 +173,10 @@ export function BookView() {
 
   if (section === 'photos') {
     return <PhotosSection />;
+  }
+
+  if (section === 'map') {
+    return <MapSection />;
   }
 
   if (section === 'persons') {

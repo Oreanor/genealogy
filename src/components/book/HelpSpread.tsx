@@ -9,7 +9,7 @@ const STEP_KEYS = [
   'treeHelpStep5', 'treeHelpStep6', 'treeHelpStep7', 'treeHelpStep8',
 ];
 
-const HELP_TARGETS: SectionId[] = ['tree', 'persons', 'history', 'photos'];
+const HELP_TARGETS: SectionId[] = ['tree', 'persons', 'history', 'photos', 'map'];
 
 function isHelpTarget(value: string): value is SectionId {
   return HELP_TARGETS.includes(value as SectionId);
@@ -33,13 +33,16 @@ export function HelpSpread({ section }: HelpSpreadProps) {
         ? 'chapters_persons'
         : targetSection === 'history'
           ? 'chapters_history'
-          : 'chapters_photos';
+          : targetSection === 'photos'
+            ? 'chapters_photos'
+            : 'chapters_map';
 
   const contextualHelpKeys: Record<SectionId, string[]> = {
     tree: STEP_KEYS,
     persons: ['personsSearchPlaceholder', 'personsSelectHint', 'goToPerson'],
     history: ['historySearchPlaceholder', 'historySelectHint', 'personMentionedInStories'],
     photos: ['noPhotosYet', 'openFullscreen', 'photoToggleBack', 'lightboxShowLabels', 'lightboxHideLabels'],
+    map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3'],
     kinship: [],
     help: [],
   };
