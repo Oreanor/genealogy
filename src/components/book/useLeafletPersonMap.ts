@@ -27,6 +27,7 @@ export function useLeafletPersonMap({
   useEffect(() => {
     let isMounted = true;
     const mapHost = mapRef.current;
+    let resizeObserver: ResizeObserver | null = null;
     setIsLoading(true);
     layersByPersonRef.current = new Map();
 
@@ -92,6 +93,19 @@ export function useLeafletPersonMap({
           group.addTo(map);
         }
 
+        // The map chapter lives in a flex layout; on production builds the
+        // container can finish sizing after Leaflet init, leaving base tiles blank
+        // until the first manual interaction. Keep tiles in sync with host size.
+        resizeObserver = new ResizeObserver(() => {
+          map.invalidateSize(false);
+        });
+        resizeObserver.observe(mapHost);
+        requestAnimationFrame(() => {
+          if (isMounted) {
+            map.invalidateSize(false);
+          }
+        });
+
         layersByPersonRef.current = personGroupMap;
       } finally {
         if (isMounted) setIsLoading(false);
@@ -102,6 +116,7 @@ export function useLeafletPersonMap({
 
     return () => {
       isMounted = false;
+      resizeObserver?.disconnect();
       destroyLeafletMap(mapHost);
     };
   }, [lineEntries, mapRef, markerEntries]);
