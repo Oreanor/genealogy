@@ -39,7 +39,11 @@ function subscribeToStorage(onStoreChange: () => void) {
   };
 }
 
-export function PageColorPicker() {
+interface PageColorPickerProps {
+  popupDirection?: 'up' | 'down';
+}
+
+export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProps) {
   const t = useTranslations();
   const paper = useSyncExternalStore(
     subscribeToStorage,
@@ -187,7 +191,9 @@ export function PageColorPicker() {
       </button>
       {open && (
         <div
-          className="absolute right-0 top-full z-[100] mt-2 flex w-[220px] max-w-[calc(100vw-1rem)] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl"
+          className={`absolute right-0 z-[100] flex w-[220px] max-w-[calc(100vw-1rem)] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl ${
+            popupDirection === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'
+          }`}
           data-picker-area
         >
           <div

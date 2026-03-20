@@ -67,20 +67,20 @@ function AdminPhotoGroup({
     <div className="space-y-2">
       <button
         type="button"
-        className="group flex w-full items-center justify-between gap-2 rounded px-1 py-0.5 text-left"
+        className="group inline-flex items-center gap-2 rounded px-1 py-0.5 text-left"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
       >
-        <span className="text-sm font-medium text-(--ink-muted) group-hover:text-(--ink)">
+        <span className="inline-flex items-center gap-0.5 text-sm font-medium text-(--ink-muted) group-hover:text-(--ink)">
           {title}
-          <span className="ml-2 text-xs text-(--ink-muted)/80">({countLabel})</span>
+          <span className="ml-1 text-xs text-(--ink-muted)/80">({countLabel})</span>
+          <ChevronDown
+            className={`size-4 text-(--ink-muted) transition-transform ${
+              expanded ? 'rotate-0' : '-rotate-90'
+            }`}
+            aria-hidden
+          />
         </span>
-        <ChevronDown
-          className={`size-4 text-(--ink-muted) transition-transform ${
-            expanded ? 'rotate-0' : '-rotate-90'
-          }`}
-          aria-hidden
-        />
       </button>
 
       {expanded && (
@@ -113,8 +113,8 @@ function AdminPhotoGroup({
                         onSelectPhotoIdx(backIdx);
                       }}
                       className="absolute bottom-0.5 right-0.5 flex cursor-pointer items-center justify-center rounded bg-black/50 p-0.5"
-                      aria-label="Edit back"
-                      title="Оборот"
+                      aria-label={t('adminEditBack')}
+                      title={t('adminEditBack')}
                     >
                       <RotateCw className="size-3.5 text-white" aria-hidden />
                     </span>
@@ -173,11 +173,22 @@ function AdminPhotoGroup({
 interface AdminPhotosTabProps {
   initialPhotos: PhotoEntry[];
   onDataChange?: (photos: PhotoEntry[]) => void;
+  onRefreshActionChange?: (action: (() => void) | null) => void;
+  onToggleVisibilityActionChange?: (action: (() => void) | null) => void;
+  onDeleteAllActionChange?: (action: (() => void) | null) => void;
+  onHasHiddenChange?: (hasHidden: boolean) => void;
 }
 
 type PeopleEditorState = { photoIdx: number; personIdx: number | null };
 
-export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabProps) {
+export function AdminPhotosTab({
+  initialPhotos,
+  onDataChange,
+  onRefreshActionChange,
+  onToggleVisibilityActionChange,
+  onDeleteAllActionChange,
+  onHasHiddenChange,
+}: AdminPhotosTabProps) {
   const t = useTranslations();
   const [loading, setLoading] = useState(true);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
@@ -327,6 +338,31 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
   }, [photos, onDataChange]);
 
   useEffect(() => {
+    onHasHiddenChange?.(photos.some((p) => p.hidden));
+  }, [photos, onHasHiddenChange]);
+
+  const refreshPhotos = useCallback(() => window.location.reload(), []);
+  const toggleAllVisibility = useCallback(() => {
+    setBulkAction(photos.some((p) => p.hidden) ? 'showAll' : 'hideAll');
+  }, [photos]);
+  const deleteAllPhotos = useCallback(() => setBulkAction('deleteAll'), []);
+
+  useEffect(() => {
+    onRefreshActionChange?.(refreshPhotos);
+    return () => onRefreshActionChange?.(null);
+  }, [onRefreshActionChange, refreshPhotos]);
+
+  useEffect(() => {
+    onToggleVisibilityActionChange?.(toggleAllVisibility);
+    return () => onToggleVisibilityActionChange?.(null);
+  }, [onToggleVisibilityActionChange, toggleAllVisibility]);
+
+  useEffect(() => {
+    onDeleteAllActionChange?.(deleteAllPhotos);
+    return () => onDeleteAllActionChange?.(null);
+  }, [onDeleteAllActionChange, deleteAllPhotos]);
+
+  useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (peopleEditor) setPeopleEditor(null);
@@ -349,7 +385,7 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
     return (
       <div className="space-y-4">
         <p className="text-(--ink-muted)">{t('adminPhotosNoPhotos')}</p>
-        <Button variant="secondary" onClick={() => window.location.reload()}>
+        <Button variant="secondary" onClick={refreshPhotos}>
           {t('adminRefreshList')}
         </Button>
       </div>
@@ -357,25 +393,7 @@ export function AdminPhotosTab({ initialPhotos, onDataChange }: AdminPhotosTabPr
   }
 
   return (
-    <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
-      <div className="flex shrink-0 flex-wrap gap-2 pb-3">
-        <Button variant="secondary" onClick={() => window.location.reload()}>
-          {t('adminRefreshList')}
-        </Button>
-        {photos.some((p) => p.hidden) ? (
-          <Button variant="secondary" onClick={() => setBulkAction('showAll')} className="gap-1.5">
-            <Eye className="size-4" /> {t('adminShowAll')}
-          </Button>
-        ) : (
-          <Button variant="secondary" onClick={() => setBulkAction('hideAll')} className="gap-1.5">
-            <EyeOff className="size-4" /> {t('adminHideAll')}
-          </Button>
-        )}
-        <Button variant="danger" onClick={() => setBulkAction('deleteAll')} size="md">
-          {t('adminDeleteAll')}
-        </Button>
-      </div>
-
+    <div className="flex flex-col" style={{ height: 'calc(100vh - 140px)' }}>
       <div className="min-h-0 flex-1 overflow-y-auto pb-1">
         <div className="space-y-4">
           {(() => {

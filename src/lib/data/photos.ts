@@ -260,8 +260,11 @@ export function getAvatarForPerson(personId: string, preferredPhotoSrc?: string)
       return { src: preferredPhotoSrc, faceRect: getPersonFaceRect(photo, personId) };
     }
   }
-  const eligible = getPhotosEligibleForAvatar(personId);
-  const first = eligible[0];
+  const personPhotos = getPhotosByPerson(personId);
+  const first =
+    personPhotos.find((p) => p.category === 'personal') ??
+    personPhotos.find((p) => p.category === 'group') ??
+    personPhotos[0];
   if (!first) return null;
   return {
     src: first.src,

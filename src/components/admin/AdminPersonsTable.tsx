@@ -173,6 +173,8 @@ interface AdminPersonsTableProps {
   onDataChange?: (persons: Person[]) => void;
   onRootChange?: (personId: string) => void;
   onAddRowActionChange?: (action: (() => void) | null) => void;
+  onDeleteSelectedRowsActionChange?: (action: (() => void) | null) => void;
+  onSelectedRowsCountChange?: (count: number) => void;
 }
 
 export function AdminPersonsTable({
@@ -182,6 +184,8 @@ export function AdminPersonsTable({
   onDataChange,
   onRootChange,
   onAddRowActionChange,
+  onDeleteSelectedRowsActionChange,
+  onSelectedRowsCountChange,
 }: AdminPersonsTableProps) {
   const t = useTranslations();
   const [persons, setPersons] = useState<Person[]>(
@@ -190,7 +194,8 @@ export function AdminPersonsTable({
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>(null);
   const [confirmRootOpen, setConfirmRootOpen] = useState(false);
   const [pendingRootId, setPendingRootId] = useState<string | null>(null);
-  const [confirmDeleteIdx, setConfirmDeleteIdx] = useState<number | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
+  const [confirmBulkDeleteOpen, setConfirmBulkDeleteOpen] = useState(false);
   const [parentPicker, setParentPicker] = useState<{ rowIdx: number; type: 'father' | 'mother' } | null>(null);
   const [parentPickerQuery, setParentPickerQuery] = useState('');
   const parentPickerRef = useRef<HTMLDivElement>(null);
@@ -236,6 +241,17 @@ export function AdminPersonsTable({
     });
   }, [persons]);
 
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      const ids = new Set(persons.map((p) => p.id));
+      const next = new Set<string>();
+      prev.forEach((id) => {
+        if (ids.has(id)) next.add(id);
+      });
+      return next;
+    });
+  }, [persons]);
+
   const sortedPersons = useMemo(() => {
     const byId = new Map(persons.map((p) => [p.id, p] as const));
     const ordered = sessionOrderIds
@@ -246,6 +262,11 @@ export function AdminPersonsTable({
     const tail = persons.filter((p) => !seen.has(p.id));
     return [...ordered, ...tail];
   }, [persons, sessionOrderIds]);
+
+  const personIndexById = useMemo(
+    () => new Map(persons.map((p, idx) => [p.id, idx] as const)),
+    [persons]
+  );
 
   const handleSetRootClick = useCallback(
     (personId: string) => {
@@ -326,9 +347,16 @@ export function AdminPersonsTable({
     });
   }, []);
 
-  const removeRow = useCallback((index: number) => {
-    setPersons((prev) => prev.filter((_, i) => i !== index));
-  }, []);
+  const removeSelectedRows = useCallback(() => {
+    setPersons((prev) => prev.filter((p) => !selectedIds.has(p.id)));
+    setSelectedIds(new Set());
+    setConfirmBulkDeleteOpen(false);
+  }, [selectedIds]);
+
+  const requestDeleteSelectedRows = useCallback(() => {
+    if (selectedIds.size === 0) return;
+    setConfirmBulkDeleteOpen(true);
+  }, [selectedIds]);
 
   const cycleSort = useCallback((key: SortKey) => {
     setSortConfig((prev) => {
@@ -342,6 +370,15 @@ export function AdminPersonsTable({
     onAddRowActionChange?.(addRow);
     return () => onAddRowActionChange?.(null);
   }, [addRow, onAddRowActionChange]);
+
+  useEffect(() => {
+    onDeleteSelectedRowsActionChange?.(requestDeleteSelectedRows);
+    return () => onDeleteSelectedRowsActionChange?.(null);
+  }, [requestDeleteSelectedRows, onDeleteSelectedRowsActionChange]);
+
+  useEffect(() => {
+    onSelectedRowsCountChange?.(selectedIds.size);
+  }, [selectedIds, onSelectedRowsCountChange]);
 
   const startResize = useCallback((id: string, clientX: number) => {
     const startWidth = columnWidths[id] ?? INITIAL_COLUMN_WIDTHS[id] ?? minWidthForColumn(id);
@@ -387,17 +424,29 @@ export function AdminPersonsTable({
 
   return (
     <div className="space-y-2">
-      <div className="md:hidden">
-        <Button variant="secondary" onClick={addRow}>
-          {t('adminAddRow')}
-        </Button>
-      </div>
-      <div className="overflow-auto border border-(--border) bg-(--paper) max-h-[calc(100vh-170px)]">
+      <div className="overflow-auto border border-(--border) bg-(--paper) max-h-[calc(100vh-142px)] md:max-h-[calc(100vh-126px)]">
         <table className="w-full min-w-[800px] border-collapse text-sm">
           <thead className="sticky top-0 z-10 bg-(--surface) shadow-[0_1px_0_0_var(--border-subtle)]">
             <tr className="border-b border-(--border)">
-              <th className="w-14 p-2" title={t('adminRemove')} />
-              <th className="w-12 border-l border-(--border-subtle) p-2 text-center font-medium text-(--ink)" title={t('adminRootColumn')}>
+              <th className="w-14 p-2 text-center" title={t('adminRemove')}>
+                <input
+                  type="checkbox"
+                  checked={persons.length > 0 && selectedIds.size === persons.length}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedIds(new Set(persons.map((p) => p.id)));
+                    } else {
+                      setSelectedIds(new Set());
+                    }
+                  }}
+                  aria-label={t('adminSelectAllRows')}
+                />
+              </th>
+              <th
+                style={{ width: 56, minWidth: 56, maxWidth: 56 }}
+                className="border-l border-(--border-subtle) p-2 text-center font-medium text-(--ink) whitespace-nowrap"
+                title={t('adminRootColumn')}
+              >
                 {t('adminRootColumn')}
               </th>
               {COLUMNS.map((col) => (
@@ -444,26 +493,33 @@ export function AdminPersonsTable({
           </thead>
           <tbody>
             {sortedPersons.map((person, displayIdx) => {
-              const actualIdx = persons.findIndex((p) => p.id === person.id);
+              const actualIdx = personIndexById.get(person.id) ?? -1;
+              if (actualIdx < 0) return null;
               const isRoot = person.id === rootPersonId;
               return (
               <tr
                 key={person.id + displayIdx}
                 className="border-b border-(--border-subtle) hover:bg-(--paper-light)/50"
               >
-                <td className="p-1">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => setConfirmDeleteIdx(actualIdx)}
-                    className="rounded p-1.5"
-                    aria-label={t('adminRemove')}
-                    title={t('adminRemove')}
-                  >
-                    ✕
-                  </Button>
+                <td className="p-1 text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedIds.has(person.id)}
+                    onChange={(e) => {
+                      setSelectedIds((prev) => {
+                        const next = new Set(prev);
+                        if (e.target.checked) next.add(person.id);
+                        else next.delete(person.id);
+                        return next;
+                      });
+                    }}
+                    aria-label={t('adminSelectRowAria', { name: getFullName(person) || person.id })}
+                  />
                 </td>
-                <td className="border-l border-(--border-subtle) p-1 text-center">
+                <td
+                  style={{ width: 56, minWidth: 56, maxWidth: 56 }}
+                  className="border-l border-(--border-subtle) p-1 text-center"
+                >
                   {isRoot ? (
                     <span className="text-(--accent)" title={t('adminRootColumn')}>★</span>
                   ) : (
@@ -471,7 +527,7 @@ export function AdminPersonsTable({
                       variant="ghost"
                       size="sm"
                       onClick={() => handleSetRootClick(person.id)}
-                      className="w-full rounded py-1"
+                      className="mx-auto block w-8 rounded py-1"
                       title={t('adminRootColumn')}
                       aria-label={t('adminRootChangeConfirm')}
                     >
@@ -627,20 +683,15 @@ export function AdminPersonsTable({
       </Dialog>
 
       <Dialog
-        open={confirmDeleteIdx !== null}
-        onClose={() => setConfirmDeleteIdx(null)}
-        title={t('adminRemove')}
+        open={confirmBulkDeleteOpen}
+        onClose={() => setConfirmBulkDeleteOpen(false)}
+        title={t('adminDeleteRows')}
         variant="confirm"
         confirmLabel={t('dialogConfirm')}
         cancelLabel={t('adminCancel')}
-        onConfirm={() => {
-          if (confirmDeleteIdx !== null) {
-            removeRow(confirmDeleteIdx);
-            setConfirmDeleteIdx(null);
-          }
-        }}
+        onConfirm={removeSelectedRows}
       >
-        {t('adminDeletePersonConfirm')}
+        {t('adminDeleteRowsConfirm', { count: selectedIds.size })}
       </Dialog>
 
       {avatarPickerRowIdx !== null && (() => {

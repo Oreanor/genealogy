@@ -88,7 +88,7 @@ describe('photos', () => {
     expect(getPersonFaceRect({ ...photo, people: [{ personId: 'p1' }] }, 'p1')).toBeNull();
   });
 
-  it('getAvatarForPerson returns first eligible photo; preferredPhotoSrc used when valid', () => {
+  it('getAvatarForPerson prefers personal, then group; preferredPhotoSrc used when valid', () => {
     expect(getAvatarForPerson('non-existent')).toBeNull();
     const all = getPhotos();
     const withPhoto = all.find((p) => (p.people ?? []).some((pp) => pp.personId));
@@ -101,6 +101,25 @@ describe('photos', () => {
       expect(all.some((p) => p.src === avatar!.src && (p.people ?? []).some((pp) => pp.personId === pid))).toBe(true);
       const withPreferred = getAvatarForPerson(pid, withPhoto.src);
       expect(withPreferred?.src).toBe(withPhoto.src);
+    }
+  });
+
+  it('getAvatarForPerson falls back to group when personal is missing', () => {
+    const all = getPhotos();
+    const groupedOnly = all.find((p) =>
+      p.category === 'group' &&
+      (p.people ?? []).some((pp) => pp.personId) &&
+      !(all.some((x) =>
+        x.category === 'personal' &&
+        (x.people ?? []).some((xp) =>
+          xp.personId === (p.people ?? []).find((pp) => pp.personId)?.personId
+        )
+      ))
+    );
+    const pid = groupedOnly?.people?.find((pp) => pp.personId)?.personId;
+    if (groupedOnly && pid) {
+      const avatar = getAvatarForPerson(pid);
+      expect(avatar?.src).toBe(groupedOnly.src);
     }
   });
 

@@ -212,6 +212,13 @@ function AdminPageClientInner({
     imported: AdminDataSections;
   } | null>(null);
   const [addPersonRowAction, setAddPersonRowAction] = useState<(() => void) | null>(null);
+  const [deleteSelectedRowsAction, setDeleteSelectedRowsAction] = useState<(() => void) | null>(null);
+  const [selectedRowsCount, setSelectedRowsCount] = useState(0);
+  const [addTextEntryAction, setAddTextEntryAction] = useState<(() => void) | null>(null);
+  const [refreshPhotosAction, setRefreshPhotosAction] = useState<(() => void) | null>(null);
+  const [togglePhotosVisibilityAction, setTogglePhotosVisibilityAction] = useState<(() => void) | null>(null);
+  const [deleteAllPhotosAction, setDeleteAllPhotosAction] = useState<(() => void) | null>(null);
+  const [photosHaveHidden, setPhotosHaveHidden] = useState(false);
 
   const dataRef = useRef<AdminDataSections>(initialData);
 
@@ -315,6 +322,13 @@ function AdminPageClientInner({
         active={initialTab}
         onSelect={handleSelectTab}
         onAddPersonRow={initialTab === 'persons' ? addPersonRowAction : null}
+        onDeleteSelectedRows={initialTab === 'persons' ? deleteSelectedRowsAction : null}
+        deleteSelectedDisabled={selectedRowsCount === 0}
+        onAddTextEntry={initialTab === 'texts' ? addTextEntryAction : null}
+        onRefreshPhotos={initialTab === 'photos' ? refreshPhotosAction : null}
+        onTogglePhotosVisibility={initialTab === 'photos' ? togglePhotosVisibilityAction : null}
+        onDeleteAllPhotos={initialTab === 'photos' ? deleteAllPhotosAction : null}
+        photosToggleLabel={photosHaveHidden ? t('adminShowAll') : t('adminHideAll')}
       >
         <div className={initialTab === 'persons' ? '' : 'hidden'}>
           <AdminPersonsTable
@@ -322,6 +336,8 @@ function AdminPageClientInner({
             initialPersons={initialData.persons}
             photos={photos}
             onAddRowActionChange={(action) => setAddPersonRowAction(() => action)}
+            onDeleteSelectedRowsActionChange={(action) => setDeleteSelectedRowsAction(() => action)}
+            onSelectedRowsCountChange={setSelectedRowsCount}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, persons: p };
               persist();
@@ -338,6 +354,7 @@ function AdminPageClientInner({
           <AdminTextsTab
             initialHistory={initialData.history}
             persons={initialData.persons}
+            onAddEntryActionChange={(action) => setAddTextEntryAction(() => action)}
             onHistoryChange={(h) => {
               dataRef.current = { ...dataRef.current, history: h };
               persist();
@@ -347,6 +364,10 @@ function AdminPageClientInner({
         <div className={initialTab === 'photos' ? '' : 'hidden'}>
           <AdminPhotosTab
             initialPhotos={initialData.photos}
+            onRefreshActionChange={(action) => setRefreshPhotosAction(() => action)}
+            onToggleVisibilityActionChange={(action) => setTogglePhotosVisibilityAction(() => action)}
+            onDeleteAllActionChange={(action) => setDeleteAllPhotosAction(() => action)}
+            onHasHiddenChange={setPhotosHaveHidden}
             onDataChange={(p) => {
               dataRef.current = { ...dataRef.current, photos: p };
               setPhotos(p);

@@ -25,10 +25,29 @@ interface AdminTabsProps {
   active: AdminTabId;
   onSelect: (id: AdminTabId) => void;
   onAddPersonRow?: (() => void) | null;
+  onDeleteSelectedRows?: (() => void) | null;
+  deleteSelectedDisabled?: boolean;
+  onAddTextEntry?: (() => void) | null;
+  onRefreshPhotos?: (() => void) | null;
+  onTogglePhotosVisibility?: (() => void) | null;
+  onDeleteAllPhotos?: (() => void) | null;
+  photosToggleLabel?: string;
   children: ReactNode;
 }
 
-export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }: AdminTabsProps) {
+export function AdminTabs({
+  active,
+  onSelect,
+  onAddPersonRow = null,
+  onDeleteSelectedRows = null,
+  deleteSelectedDisabled = true,
+  onAddTextEntry = null,
+  onRefreshPhotos = null,
+  onTogglePhotosVisibility = null,
+  onDeleteAllPhotos = null,
+  photosToggleLabel = '',
+  children,
+}: AdminTabsProps) {
   const { t, routes } = useLocaleRoutes();
   const [helpOpen, setHelpOpen] = useState(false);
   const { actions } = useAdminToolbar();
@@ -63,7 +82,7 @@ export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }:
   return (
     <div>
       {/* Верхние вкладки скрыты на мобиле, показываем только на md+ */}
-      <nav className="relative z-40 hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:-mt-3 md:flex">
+      <nav className="relative z-50 hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:-mt-3 md:flex">
         <div className="flex flex-wrap items-end gap-1">
           {ADMIN_TAB_IDS.map((id) => (
             <button
@@ -81,17 +100,126 @@ export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }:
             </button>
           ))}
         </div>
-        <div className="relative z-40 flex flex-wrap items-end justify-end gap-1">
-          {active === 'persons' && onAddPersonRow && (
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={onAddPersonRow}
-              className="mr-4 mb-0.5"
-            >
-              {t('adminAddRow')}
-            </Button>
-          )}
+        <div className="relative z-50 flex flex-wrap items-end justify-end gap-1">
+          <div className="mr-4 flex items-end gap-1">
+            {active === 'persons' && onAddPersonRow && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onAddPersonRow}
+                className="mb-0.5"
+              >
+                {t('adminAddRow')}
+              </Button>
+            )}
+            {active === 'persons' && onDeleteSelectedRows && (
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={onDeleteSelectedRows}
+                disabled={deleteSelectedDisabled}
+                className="mb-0.5"
+              >
+                {t('adminDeleteRows')}
+              </Button>
+            )}
+            {active === 'texts' && onAddTextEntry && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onAddTextEntry}
+                className="mb-0.5"
+              >
+                + {t('adminAddEntry')}
+              </Button>
+            )}
+            {active === 'photos' && onRefreshPhotos && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onRefreshPhotos}
+                className="mb-0.5"
+              >
+                {t('adminRefreshList')}
+              </Button>
+            )}
+            {active === 'photos' && onTogglePhotosVisibility && photosToggleLabel && (
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={onTogglePhotosVisibility}
+                className="mb-0.5"
+              >
+                {photosToggleLabel}
+              </Button>
+            )}
+            {active === 'photos' && onDeleteAllPhotos && (
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={onDeleteAllPhotos}
+                className="mb-0.5"
+              >
+                {t('adminDeleteAll')}
+              </Button>
+            )}
+            {actions && (
+              <div className="relative shrink-0">
+                <Tooltip label={t('adminMoreActions') ?? 'JSON'} side="bottom">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    aria-label={t('adminMoreActions') ?? 'JSON'}
+                    onClick={() => setAdminMoreOpen((v) => !v)}
+                    className="mb-0.5 inline-flex items-center gap-1.5"
+                  >
+                    <MoreHorizontal className="size-4" aria-hidden />
+                    <span>JSON</span>
+                  </Button>
+                </Tooltip>
+                {adminMoreOpen && (
+                  <div className="absolute right-0 top-full z-30 mt-2 min-w-[180px] rounded-lg border border-(--border) bg-(--paper) p-2 shadow-xl">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      className="justify-start text-xs"
+                      onClick={() => {
+                        fileInputRef.current?.click();
+                        setAdminMoreOpen(false);
+                      }}
+                    >
+                      <Upload className="mr-1.5 size-3.5" aria-hidden />
+                      {t('adminImportJson')}
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      className="mt-1 justify-start text-xs"
+                      onClick={() => {
+                        actions.onCopy();
+                        setAdminMoreOpen(false);
+                      }}
+                    >
+                      <Clipboard className="mr-1.5 size-3.5" aria-hidden />
+                      {t('adminCopyJson')}
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      className="mt-1 justify-start text-xs"
+                      onClick={() => {
+                        actions.onDownload();
+                        setAdminMoreOpen(false);
+                      }}
+                    >
+                      <Save className="mr-1.5 size-3.5" aria-hidden />
+                      {t('adminDownloadJson')}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
           <Tooltip label={t('tooltipToBook')} side="bottom">
             <SquareIconLink
               href={routes.home}
@@ -100,6 +228,14 @@ export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }:
             >
               <BookOpen className="size-[18px]" aria-hidden />
             </SquareIconLink>
+          </Tooltip>
+
+          <Tooltip label={t('tooltipPageColor')} side="bottom">
+            <PageColorPicker />
+          </Tooltip>
+
+          <Tooltip label={t('tooltipLanguage')} side="bottom">
+            <LocaleSwitcher />
           </Tooltip>
 
           <Tooltip label={t('adminHelp')} side="bottom">
@@ -111,67 +247,6 @@ export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }:
             </SquareIconButton>
           </Tooltip>
 
-          <Tooltip label={t('tooltipPageColor')} side="bottom">
-            <PageColorPicker />
-          </Tooltip>
-
-          <Tooltip label={t('tooltipLanguage')} side="bottom">
-            <LocaleSwitcher />
-          </Tooltip>
-
-          {actions && (
-            <div className="relative shrink-0">
-              <Tooltip label={t('adminMoreActions') ?? 'Ещё'} side="bottom">
-                <Button
-                  variant="icon"
-                  aria-label={t('adminMoreActions') ?? 'Ещё'}
-                  onClick={() => setAdminMoreOpen((v) => !v)}
-                >
-                  <MoreHorizontal className="size-5" aria-hidden />
-                </Button>
-              </Tooltip>
-              {adminMoreOpen && (
-                <div className="absolute right-0 top-full z-30 mt-2 min-w-[180px] rounded-lg border border-(--border) bg-(--paper) p-2 shadow-xl">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    className="justify-start text-xs"
-                    onClick={() => {
-                      fileInputRef.current?.click();
-                      setAdminMoreOpen(false);
-                    }}
-                  >
-                    <Upload className="mr-1.5 size-3.5" aria-hidden />
-                    {t('adminImportJson')}
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    className="mt-1 justify-start text-xs"
-                    onClick={() => {
-                      actions.onCopy();
-                      setAdminMoreOpen(false);
-                    }}
-                  >
-                    <Clipboard className="mr-1.5 size-3.5" aria-hidden />
-                    {t('adminCopyJson')}
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    className="mt-1 justify-start text-xs"
-                    onClick={() => {
-                      actions.onDownload();
-                      setAdminMoreOpen(false);
-                    }}
-                  >
-                    <Save className="mr-1.5 size-3.5" aria-hidden />
-                    {t('adminDownloadJson')}
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </nav>
       {actions && (
@@ -183,8 +258,99 @@ export function AdminTabs({ active, onSelect, onAddPersonRow = null, children }:
           onChange={handleFileChange}
         />
       )}
-      <div className="pt-4">
+      <div className="pt-2 pb-24 md:pb-0">
         {children}
+      </div>
+      <div className="fixed inset-x-2 bottom-[calc(env(safe-area-inset-bottom)+52px)] z-40 flex flex-wrap items-center gap-1 rounded-lg border border-(--border) bg-(--book-bg) p-1.5 shadow-lg md:hidden">
+        {active === 'persons' && onAddPersonRow && (
+          <Button variant="secondary" size="sm" onClick={onAddPersonRow}>
+            {t('adminAddRow')}
+          </Button>
+        )}
+        {active === 'persons' && onDeleteSelectedRows && (
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={onDeleteSelectedRows}
+            disabled={deleteSelectedDisabled}
+          >
+            {t('adminDeleteRows')}
+          </Button>
+        )}
+        {active === 'texts' && onAddTextEntry && (
+          <Button variant="secondary" size="sm" onClick={onAddTextEntry}>
+            + {t('adminAddEntry')}
+          </Button>
+        )}
+        {active === 'photos' && onRefreshPhotos && (
+          <Button variant="secondary" size="sm" onClick={onRefreshPhotos}>
+            {t('adminRefreshList')}
+          </Button>
+        )}
+        {active === 'photos' && onTogglePhotosVisibility && photosToggleLabel && (
+          <Button variant="secondary" size="sm" onClick={onTogglePhotosVisibility}>
+            {photosToggleLabel}
+          </Button>
+        )}
+        {active === 'photos' && onDeleteAllPhotos && (
+          <Button variant="danger" size="sm" onClick={onDeleteAllPhotos}>
+            {t('adminDeleteAll')}
+          </Button>
+        )}
+        {actions && (
+          <div className="relative ml-auto shrink-0">
+            <Button
+              variant="secondary"
+              size="sm"
+              aria-label={t('adminMoreActions') ?? 'JSON'}
+              onClick={() => setAdminMoreOpen((v) => !v)}
+              className="inline-flex items-center gap-1.5"
+            >
+              <MoreHorizontal className="size-4" aria-hidden />
+              <span>JSON</span>
+            </Button>
+            {adminMoreOpen && (
+              <div className="absolute right-0 top-full z-30 mt-2 min-w-[180px] rounded-lg border border-(--border) bg-(--paper) p-2 shadow-xl">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="justify-start text-xs"
+                  onClick={() => {
+                    fileInputRef.current?.click();
+                    setAdminMoreOpen(false);
+                  }}
+                >
+                  <Upload className="mr-1.5 size-3.5" aria-hidden />
+                  {t('adminImportJson')}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="mt-1 justify-start text-xs"
+                  onClick={() => {
+                    actions.onCopy();
+                    setAdminMoreOpen(false);
+                  }}
+                >
+                  <Clipboard className="mr-1.5 size-3.5" aria-hidden />
+                  {t('adminCopyJson')}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="mt-1 justify-start text-xs"
+                  onClick={() => {
+                    actions.onDownload();
+                    setAdminMoreOpen(false);
+                  }}
+                >
+                  <Save className="mr-1.5 size-3.5" aria-hidden />
+                  {t('adminDownloadJson')}
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {helpOpen && (
         <AdminHelpDialog activeTab={active} onClose={() => setHelpOpen(false)} />

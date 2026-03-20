@@ -1,20 +1,6 @@
 {
-  "rootPersonId": "p008",
+  "rootPersonId": "p001",
   "persons": [
-    {
-      "id": "p023",
-      "firstName": "Олег",
-      "birthPlace": "Воркута",
-      "residenceCity": "",
-      "occupation": "",
-      "comment": "",
-      "gender": "m",
-      "lastName": "Никонец",
-      "patronymic": "Владимирович",
-      "birthDate": "26.11.1974",
-      "fatherId": "p002",
-      "motherId": "p003"
-    },
     {
       "id": "p017",
       "firstName": "Надежда",
@@ -27,7 +13,7 @@
       "motherId": "p007",
       "deathDate": "2020",
       "birthDate": "03.08.1945",
-      "residenceCity": "Брянск",
+      "residenceCity": "г.Брянск",
       "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     },
     {
@@ -39,13 +25,13 @@
       "patronymic": "Прохорович",
       "lastName": "Андреев",
       "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
-      "residenceCity": "Елец",
+      "residenceCity": "г.Елец",
       "comment": "умер в 54 года"
     },
     {
       "id": "p006",
       "firstName": "Николай",
-      "birthPlace": "Ливны",
+      "birthPlace": "г.Ливны",
       "occupation": "главный бухгалтер",
       "fatherId": "p012",
       "motherId": "p013",
@@ -55,12 +41,12 @@
       "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
       "birthDate": "24.03.1910",
       "deathDate": "16.02.1992",
-      "residenceCity": "Брянск"
+      "residenceCity": "г.Брянск"
     },
     {
       "id": "p003",
       "firstName": "Вера",
-      "birthPlace": "Брянск",
+      "birthPlace": "г.Брянск",
       "occupation": "инженер-конструктор",
       "fatherId": "p006",
       "motherId": "p007",
@@ -75,7 +61,7 @@
     {
       "id": "p018",
       "firstName": "Ирина",
-      "birthPlace": "Аткарск",
+      "birthPlace": "г.Аткарск",
       "occupation": "учитель, директор",
       "gender": "f",
       "patronymic": "Николаевна",
@@ -84,7 +70,7 @@
       "motherId": "p007",
       "birthDate": "23.12.1942",
       "deathDate": "2019",
-      "residenceCity": "Брянск",
+      "residenceCity": "г.Брянск",
       "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
     },
     {
@@ -112,7 +98,7 @@
       "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
       "birthDate": "22.04.1918",
       "deathDate": "10.10.1980",
-      "residenceCity": "Брянск"
+      "residenceCity": "г.Брянск"
     },
     {
       "id": "p015",
@@ -135,7 +121,7 @@
       "patronymic": "Егоровна",
       "lastName": "Дудник",
       "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
-      "residenceCity": "Буйнакск"
+      "residenceCity": "г.Буйнакск"
     },
     {
       "id": "p005",
@@ -150,7 +136,7 @@
       "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
       "birthDate": "1917",
       "deathDate": "1953",
-      "residenceCity": "Буйнакск"
+      "residenceCity": "г.Буйнакск"
     },
     {
       "id": "p010",
@@ -161,7 +147,7 @@
       "patronymic": "Павлович",
       "lastName": "Дудник",
       "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
-      "residenceCity": "Буйнакск"
+      "residenceCity": "г.Буйнакск"
     },
     {
       "id": "p009",
@@ -172,7 +158,7 @@
       "patronymic": "Никитична",
       "lastName": "Канивец",
       "avatarPhotoSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
-      "residenceCity": "Сумы"
+      "residenceCity": "г.Сумы"
     },
     {
       "id": "p021",
@@ -194,12 +180,12 @@
       "patronymic": "Павлович",
       "lastName": "Никонец",
       "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
-      "residenceCity": "Сумы"
+      "residenceCity": "г.Сумы"
     },
     {
       "id": "p002",
       "firstName": "Владимир",
-      "birthPlace": "Буйнакск",
+      "birthPlace": "г.Буйнакск",
       "occupation": "электрик 6 разряда",
       "fatherId": "p004",
       "motherId": "p005",
@@ -209,13 +195,13 @@
       "birthDate": "05.08.1947",
       "deathDate": "13.09.2021",
       "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
-      "residenceCity": "Воркута"
+      "residenceCity": "г.Воркута"
     },
     {
       "id": "p022",
       "firstName": "Оксана",
       "birthPlace": "",
-      "residenceCity": "Калуга",
+      "residenceCity": "г.Калуга",
       "occupation": "",
       "comment": "",
       "gender": "f",
@@ -224,9 +210,23 @@
       "fatherId": "p019"
     },
     {
+      "id": "p023",
+      "firstName": "Олег",
+      "birthPlace": "г.Воркута",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "m",
+      "lastName": "Никонец",
+      "patronymic": "Владимирович",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
+    },
+    {
       "id": "p004",
       "firstName": "Павел",
-      "birthPlace": "Сумы",
+      "birthPlace": "г.Сумы",
       "occupation": "снабженец на консервном заводе",
       "fatherId": "p008",
       "motherId": "p009",
@@ -236,12 +236,12 @@
       "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
       "birthDate": "19.11.1905",
       "deathDate": "21.03.1995",
-      "residenceCity": "Буйнакск"
+      "residenceCity": "г.Буйнакск"
     },
     {
       "id": "p001",
       "firstName": "Сергей",
-      "birthPlace": "Брянск",
+      "birthPlace": "г.Брянск",
       "occupation": "программист",
       "fatherId": "p002",
       "motherId": "p003",
@@ -249,13 +249,14 @@
       "patronymic": "Владимирович",
       "lastName": "Никонец",
       "birthDate": "25.07.1980",
-      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg"
+      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg",
+      "residenceCity": ""
     },
     {
       "id": "p019",
       "firstName": "Сергей",
-      "birthPlace": "Буйнакск",
-      "residenceCity": "Буйнакск",
+      "birthPlace": "г.Буйнакск",
+      "residenceCity": "г.Буйнакск",
       "occupation": "",
       "comment": "",
       "gender": "m",
@@ -269,7 +270,7 @@
       "id": "p020",
       "firstName": "Тамара",
       "birthPlace": "",
-      "residenceCity": "",
+      "residenceCity": "г.Львов",
       "occupation": "",
       "comment": "",
       "gender": "f",
@@ -287,7 +288,7 @@
       "patronymic": "Васильевна",
       "lastName": "Стёпина",
       "deathDate": "1943",
-      "residenceCity": "Елец",
+      "residenceCity": "г.Елец",
       "avatarPhotoSrc": "/photos/personal/styopina_anna_vasilevna/Image66.jpg"
     }
   ],

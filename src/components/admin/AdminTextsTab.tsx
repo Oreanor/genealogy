@@ -14,6 +14,7 @@ interface AdminTextsTabProps {
   initialHistory: HistoryEntry[];
   persons: Person[];
   onHistoryChange?: (entries: HistoryEntry[]) => void;
+  onAddEntryActionChange?: (action: (() => void) | null) => void;
 }
 
 const emptyEntry: HistoryEntry = {
@@ -26,6 +27,7 @@ export function AdminTextsTab({
   initialHistory,
   persons,
   onHistoryChange,
+  onAddEntryActionChange,
 }: AdminTextsTabProps) {
   const t = useTranslations();
   const [entries, setEntries] = useState<HistoryEntry[]>(() =>
@@ -62,6 +64,11 @@ export function AdminTextsTab({
     setEntries((prev) => [...prev, { ...emptyEntry }]);
     setSelectedIdx(entries.length);
   }, [entries.length]);
+
+  useEffect(() => {
+    onAddEntryActionChange?.(addEntry);
+    return () => onAddEntryActionChange?.(null);
+  }, [addEntry, onAddEntryActionChange]);
 
   const removeEntry = useCallback((idx: number) => {
     setEntries((prev) => prev.filter((_, i) => i !== idx));
@@ -111,13 +118,10 @@ export function AdminTextsTab({
   const selectedEntry = selectedIdx !== null ? entries[selectedIdx] ?? null : null;
 
   return (
-    <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
+    <div className="flex flex-col" style={{ height: 'calc(100vh - 140px)' }}>
       <div className="flex min-h-0 flex-1 gap-4">
-      {/* Left: list of titles + add button */}
+      {/* Left: list of titles */}
       <div className="flex w-[20%] min-w-[180px] flex-col gap-2 border-r border-(--border-subtle) pr-4">
-        <Button variant="secondary" onClick={addEntry} className="shrink-0 whitespace-nowrap">
-          + {t('adminAddEntry')}
-        </Button>
         <ul className="min-h-0 flex-1 overflow-y-auto">
           {entries.map((entry, idx) => (
             <li

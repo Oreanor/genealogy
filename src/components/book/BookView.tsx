@@ -27,9 +27,10 @@ export function BookView() {
   const [treeMode, setTreeMode] = useState<'ancestors' | 'descendants'>('ancestors');
   const sectionParam = searchParams.get('section') ?? '';
   const section: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
+  const helpForParam = searchParams.get('for') ?? '';
 
   if (section === 'help') {
-    return <HelpSpread />;
+    return <HelpSpread section={helpForParam} />;
   }
 
   if (section === 'tree') {

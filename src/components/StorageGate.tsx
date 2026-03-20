@@ -17,7 +17,7 @@ function useLoadingText(): string {
   const pathname = usePathname() ?? '';
   const segment = pathname.split('/').filter(Boolean)[0];
   const locale = segment && isLocale(segment) ? segment : 'ru';
-  return getMessages(locale).loading ?? 'Загрузка';
+  return getMessages(locale).loading ?? 'Loading';
 }
 
 export function StorageGate({ children }: StorageGateProps) {
