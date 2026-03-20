@@ -16,7 +16,7 @@ import {
   splitPersonPhotosForCarousels,
   splitAllPhotosForCarousels,
 } from '@/lib/data/photos';
-import { sortPersonsBySurname, personMatchesSearch, getFullName } from '@/lib/utils/person';
+import { sortPersonsBySurname, personMatchesSearch, formatPersonNameForLocale } from '@/lib/utils/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDropdown';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
@@ -26,7 +26,7 @@ export function PhotosSection() {
   const pathname = usePathname() ?? '';
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { t } = useLocaleRoutes();
+  const { t, locale } = useLocaleRoutes();
   const [personsSearch, setPersonsSearch] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
 
@@ -115,7 +115,7 @@ export function PhotosSection() {
                   router.push(`${pathname}?section=photos&id=${p.id}`);
                 }}
                 filteredPersons={filteredSortedPersons}
-                getDisplayName={(p) => getFullName(p) || p.id}
+                getDisplayName={(p) => formatPersonNameForLocale(p, locale) || p.id}
                 placeholder={t('personsSearchPlaceholder')}
                 ariaLabel={t('personsSearchPlaceholder')}
                 searchFocused={searchFocused}
@@ -124,7 +124,7 @@ export function PhotosSection() {
 
             {selectedPerson && (
               <h2 className="mt-1.5 book-serif text-xl font-semibold text-(--ink) md:text-2xl">
-                {getFullName(selectedPerson) || selectedPerson.id}
+                {formatPersonNameForLocale(selectedPerson, locale) || selectedPerson.id}
               </h2>
             )}
 

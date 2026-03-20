@@ -6,7 +6,7 @@ import {
 } from './owner';
 
 describe('owner', () => {
-  it('getFamilySurname returns root person lastName from data', () => {
+  it('getFamilySurname returns root person lastName from data or template placeholder', () => {
     expect(getFamilySurname()).toBe('Никонец');
   });
 

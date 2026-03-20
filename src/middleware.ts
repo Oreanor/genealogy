@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // /, /admin, /chapter/... — redirect to /ru or /ru/...
+  // /, /admin, /chapter/... — redirect to /{DEFAULT_LOCALE}/...
   const locale = DEFAULT_LOCALE;
   const newPath = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
   const url = new URL(request.url);

@@ -13,7 +13,7 @@ An interactive album-book about **your family's** genealogy built with Next.js. 
 - **Title spread** — family name, cover, chapter table of contents
 - **Family tree** — up to 6 levels (from "me" to great-great-great-grandparents)
 - **Persons** — one spread per person, navigation between them
-- **History, Photos, Other materials** — chapters with hypertext and spreads
+- **History, Photos, Map, Other materials** — chapters with hypertext, spreads, and geodata
 - **Interactive photos** — clickable areas (rect/polygon) → navigate to a person
 - **Multilingual** — Russian, English, German, French, Spanish, Italian, Portuguese, Dutch, Ukrainian, Polish; language choice is persisted
 - **Settings** — page color and language in localStorage (one "settings" object for all)
@@ -32,7 +32,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — the main page opens in the selected locale (by default redirects to `/ru`). Switch language with the button in the top-right corner (next to the page color picker).
+Open [http://localhost:3000](http://localhost:3000) — the main page opens in the selected locale (by default redirects to `/en`). Switch language with the button in the top-right corner (next to the page color picker).
 
 ## Scripts
 

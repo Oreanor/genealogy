@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 /**
- * On visiting home in default locale (/ru), applies saved language from localStorage
+ * On visiting home in default locale (/en), applies saved language from localStorage
  * (same "setting" as page color).
  */
 export function LocalePreferenceRedirect() {

@@ -1,7 +1,9 @@
 'use client';
 
 import { memo, useMemo } from 'react';
-import { formatLifeDates, getFullName } from '@/lib/utils/person';
+import { useLocale } from '@/lib/i18n/context';
+import type { Locale } from '@/lib/i18n/config';
+import { formatLifeDates, formatPersonNameForLocale } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import { getSiblings } from '@/lib/data/familyRelations';
@@ -28,14 +30,14 @@ function truncate(text: string, maxLen: number): string {
   return text.length > maxLen ? `${text.slice(0, maxLen - 1)}…` : text;
 }
 
-function siblingShortLabel(person: Person): string {
+function siblingShortLabel(person: Person, locale: Locale): string {
   const last = (person.lastName ?? '').trim();
   const firstInitial = (person.firstName ?? '').trim().charAt(0);
   const patronymicInitial = (person.patronymic ?? '').trim().charAt(0);
   const initials = `${firstInitial ? `${firstInitial}.` : ''}${patronymicInitial ? `${patronymicInitial}.` : ''}`;
   const lastPart = last ? truncate(last, 10) : '';
   const label = [lastPart, initials].filter(Boolean).join(' ');
-  return label || getFullName(person);
+  return label || formatPersonNameForLocale(person, locale);
 }
 
 function TreeNodeBase({
@@ -47,6 +49,7 @@ function TreeNodeBase({
   isKinshipSelected,
   showSiblings = true,
 }: TreeNodeProps) {
+  const locale = useLocale();
   const hasPerson = !!person;
   const siblings = useMemo(
     () => (person && showSiblings ? getSiblings(person.id) : []),
@@ -56,6 +59,9 @@ function TreeNodeBase({
   const firstName = hasPerson && person?.firstName?.trim() ? truncate(person.firstName.trim(), MAX_NAME_LEN) : '';
   const patronymic = hasPerson && person?.patronymic?.trim() ? truncate(person.patronymic.trim(), MAX_NAME_LEN) : '';
   const lifeDates = hasPerson ? formatLifeDates(person?.birthDate, person?.deathDate) : '';
+  const hasRawNameParts = Boolean(surname || firstName || patronymic);
+  const templateDisplayName =
+    hasPerson && !hasRawNameParts ? formatPersonNameForLocale(person!, locale) : '';
 
   const strokeClass = hasPerson
     ? isKinshipSelected
@@ -118,7 +124,7 @@ function TreeNodeBase({
             <button
               type="button"
               className="block border-0 bg-transparent p-0"
-              aria-label={getFullName(person!)}
+              aria-label={formatPersonNameForLocale(person!, locale)}
               onClick={() => onPersonClick(person!.id)}
             >
               <div
@@ -139,8 +145,8 @@ function TreeNodeBase({
                     onClick={() => onPersonClick(sibling.id)}
                     className="relative flex flex-col items-center border-0 bg-transparent p-0 transition-transform duration-200 ease-out will-change-transform hover:scale-[1.15]"
                     style={{ zIndex: 11 + sibIndex }}
-                    aria-label={getFullName(sibling)}
-                    title={getFullName(sibling)}
+                    aria-label={formatPersonNameForLocale(sibling, locale)}
+                    title={formatPersonNameForLocale(sibling, locale)}
                   >
                     <div className="rounded-[50%] border border-(--tree-stroke) bg-(--tree-plaque-fill) p-[1px] shadow-sm">
                       <div className="relative h-[3.2rem] w-[2.5rem] overflow-hidden rounded-[50%] border border-(--tree-stroke) md:h-[5.2rem] md:w-[4.1rem]">
@@ -148,7 +154,7 @@ function TreeNodeBase({
                       </div>
                     </div>
                     <span className="-mt-2.5 z-10 max-w-[4.8rem] truncate whitespace-nowrap rounded border border-(--tree-plaque-stroke) bg-(--tree-plaque-fill) px-1 py-0.5 text-center text-[8px] leading-none text-(--ink) md:-mt-3 md:max-w-[7.2rem] md:text-[10px]">
-                      {siblingShortLabel(sibling)}
+                      {siblingShortLabel(sibling, locale)}
                     </span>
                   </button>
                 ))}
@@ -170,14 +176,21 @@ function TreeNodeBase({
         <button
           type="button"
           className={`relative z-20 mt-[-0.15rem] block w-full min-w-[3.8rem] max-w-[7.4rem] cursor-pointer rounded-md border-2 px-1.5 py-1 text-center font-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--ink)/25 md:mt-[-0.2rem] md:min-w-[6rem] md:max-w-[11rem] md:px-2 md:py-2 ${plaqueStrokeClass} ${plaqueFillClass}`}
-          aria-label={getFullName(person!)}
+          aria-label={formatPersonNameForLocale(person!, locale)}
           onClick={() => onPersonClick(person!.id)}
         >
-          {(surname || firstName || patronymic || lifeDates) && (
+          {(hasRawNameParts || lifeDates || templateDisplayName) && (
             <div className={`leading-tight text-(--ink) ${isKinshipSelected ? 'font-semibold' : ''}`}>
-              {surname && <div className="break-words text-xs font-semibold md:text-base">{surname}</div>}
-              {firstName && <div className="break-words text-[10px] font-semibold md:text-sm">{firstName}</div>}
-              {patronymic && <div className="break-words text-[10px] font-semibold md:text-sm">{patronymic}</div>}
+              {hasRawNameParts && (
+                <>
+                  {surname && <div className="break-words text-xs font-semibold md:text-base">{surname}</div>}
+                  {firstName && <div className="break-words text-[10px] font-semibold md:text-sm">{firstName}</div>}
+                  {patronymic && <div className="break-words text-[10px] font-semibold md:text-sm">{patronymic}</div>}
+                </>
+              )}
+              {!hasRawNameParts && templateDisplayName && (
+                <div className="break-words text-xs font-semibold md:text-base">{templateDisplayName}</div>
+              )}
               {lifeDates && <div className="break-words pt-0.5 text-[9px] font-normal opacity-80 md:text-xs">{lifeDates}</div>}
             </div>
           )}

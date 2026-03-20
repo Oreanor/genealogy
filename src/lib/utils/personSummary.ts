@@ -1,5 +1,6 @@
 import type { Person } from '@/lib/types/person';
 import { formatLifeDates } from '@/lib/utils/person';
+import { normalizePlace } from '@/lib/utils/mapPlace';
 
 type TFunction = (key: string, params?: Record<string, string | number>) => string;
 
@@ -19,7 +20,16 @@ function variant(
   params?: Record<string, string | number>
 ): string {
   const n = pickVariantIndex(seed);
-  return t(`${baseKey}_${n}`, params);
+  const preferredKey = `${baseKey}_${n}`;
+  const preferred = t(preferredKey, params);
+  if (preferred !== preferredKey) return preferred;
+
+  // Fallback guard: never expose raw i18n keys in UI.
+  const fallbackKey = `${baseKey}_1`;
+  const fallback = t(fallbackKey, params);
+  if (fallback !== fallbackKey) return fallback;
+
+  return preferred;
 }
 
 function genderedVerbs(person: Person): {
@@ -27,6 +37,8 @@ function genderedVerbs(person: Person): {
   diedVerb: string;
   workedVerb: string;
   livedVerb: string;
+  subjectPronoun: string;
+  livedVisitedVerb: string;
 } {
   if (person.gender === 'f') {
     return {
@@ -34,6 +46,8 @@ function genderedVerbs(person: Person): {
       diedVerb: 'ушла из жизни',
       workedVerb: 'Работала',
       livedVerb: 'жила',
+      subjectPronoun: 'она',
+      livedVisitedVerb: 'жила или бывала',
     };
   }
   return {
@@ -41,7 +55,23 @@ function genderedVerbs(person: Person): {
     diedVerb: 'ушёл из жизни',
     workedVerb: 'Работал',
     livedVerb: 'жил',
+    subjectPronoun: 'он',
+    livedVisitedVerb: 'жил или бывал',
   };
+}
+
+function splitResidenceCities(raw?: string): string[] {
+  if (!raw) return [];
+  const result: string[] = [];
+  const seen = new Set<string>();
+  for (const part of raw.split(',')) {
+    const city = part.trim().replace(/\s+/g, ' ');
+    const key = normalizePlace(city).toLowerCase();
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    result.push(city);
+  }
+  return result;
 }
 
 function isYearOnlyDate(value?: string): boolean {
@@ -53,6 +83,9 @@ export function buildPersonSummary(person: Person, t: TFunction): string[] {
   const lines: string[] = [];
   const lifeDates = formatLifeDates(person.birthDate, person.deathDate);
   const verbs = genderedVerbs(person);
+  const residenceCities = splitResidenceCities(person.residenceCity);
+  const residenceCityOne = residenceCities[0] ?? '';
+  const residenceCitiesText = residenceCities.join(', ');
   const hasBirth = Boolean(person.birthDate?.trim());
   const hasDeath = Boolean(person.deathDate?.trim());
   const birthYearOnly = isYearOnlyDate(person.birthDate);
@@ -110,11 +143,20 @@ export function buildPersonSummary(person: Person, t: TFunction): string[] {
     );
   }
 
-  if (person.occupation?.trim() && person.residenceCity?.trim()) {
+  if (person.occupation?.trim() && residenceCities.length > 1) {
+    lines.push(
+      variant(t, 'personSummary_workAndCities', `${person.id}:workAndCities`, {
+        occupation: person.occupation.trim(),
+        cities: residenceCitiesText,
+        subjectPronoun: verbs.subjectPronoun,
+        livedVisitedVerb: verbs.livedVisitedVerb,
+      })
+    );
+  } else if (person.occupation?.trim() && residenceCityOne) {
     lines.push(
       variant(t, 'personSummary_workAndCity', `${person.id}:workAndCity`, {
         occupation: person.occupation.trim(),
-        city: person.residenceCity.trim(),
+        city: residenceCityOne,
         workedVerb: verbs.workedVerb,
         livedVerb: verbs.livedVerb,
       })
@@ -125,10 +167,18 @@ export function buildPersonSummary(person: Person, t: TFunction): string[] {
         occupation: person.occupation.trim(),
       })
     );
-  } else if (person.residenceCity?.trim()) {
+  } else if (residenceCities.length > 1) {
+    lines.push(
+      variant(t, 'personSummary_cityOnlyMany', `${person.id}:cityOnlyMany`, {
+        cities: residenceCitiesText,
+        subjectPronoun: verbs.subjectPronoun,
+        livedVisitedVerb: verbs.livedVisitedVerb,
+      })
+    );
+  } else if (residenceCityOne) {
     lines.push(
       variant(t, 'personSummary_cityOnly', `${person.id}:cityOnly`, {
-        city: person.residenceCity.trim(),
+        city: residenceCityOne,
         livedVerb: verbs.livedVerb,
       })
     );

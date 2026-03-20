@@ -1,7 +1,7 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
@@ -20,9 +20,38 @@ import { getKinship } from '@/lib/utils/kinship';
 
 export function BookView() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLocaleRoutes();
-  const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(null);
-  const closePersonPanel = useCallback(() => setSelectedTreePersonId(null), []);
+  const treePersonFromUrl = searchParams.get('treePerson');
+  const [selectedTreePersonId, setSelectedTreePersonId] = useState<string | null>(
+    treePersonFromUrl ?? null
+  );
+  useEffect(() => {
+    setSelectedTreePersonId(treePersonFromUrl ?? null);
+  }, [treePersonFromUrl]);
+  const updateTreePersonInUrl = useCallback(
+    (personId: string | null) => {
+      if (!pathname) return;
+      const params = new URLSearchParams(searchParams.toString());
+      if (personId) params.set('treePerson', personId);
+      else params.delete('treePerson');
+      const next = params.toString();
+      router.replace(`${pathname}${next ? `?${next}` : ''}`);
+    },
+    [pathname, router, searchParams]
+  );
+  const handleTreePersonSelect = useCallback(
+    (personId: string) => {
+      setSelectedTreePersonId(personId);
+      updateTreePersonInUrl(personId);
+    },
+    [updateTreePersonInUrl]
+  );
+  const closePersonPanel = useCallback(() => {
+    setSelectedTreePersonId(null);
+    updateTreePersonInUrl(null);
+  }, [updateTreePersonInUrl]);
   const [kinshipPickMode, setKinshipPickMode] = useState(false);
   const [kinshipSelectedIds, setKinshipSelectedIds] = useState<string[]>([]);
   const [treeMode, setTreeMode] = useState<'ancestors' | 'descendants'>('ancestors');
@@ -43,7 +72,8 @@ export function BookView() {
         const next = !v;
         if (next) {
           // When entering kinship pick mode, lock the panel and selection state.
-          setSelectedTreePersonId(null);
+                    setSelectedTreePersonId(null);
+                    updateTreePersonInUrl(null);
           setKinshipSelectedIds([]);
         } else {
           setKinshipSelectedIds([]);
@@ -142,7 +172,7 @@ export function BookView() {
                 </div>
                 <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25 px-2 pb-2 md:px-3 md:pb-3">
                   <FamilyTree
-                    onPersonClick={setSelectedTreePersonId}
+                    onPersonClick={handleTreePersonSelect}
                     kinshipMode={kinshipPickMode}
                     kinshipSelectedIds={kinshipSelectedIds}
                     onKinshipSelect={onKinshipNodeClick}
@@ -156,10 +186,9 @@ export function BookView() {
         </div>
         {selectedTreePerson && (
           <PersonDetailPanel
-            key={selectedTreePerson.id}
             person={selectedTreePerson}
             onClose={closePersonPanel}
-            onSelectPerson={setSelectedTreePersonId}
+            onSelectPerson={handleTreePersonSelect}
             inline
           />
         )}
@@ -167,21 +196,16 @@ export function BookView() {
     );
   }
 
-  if (section === 'history') {
-    return <HistorySection />;
+  switch (section) {
+    case 'history':
+      return <HistorySection />;
+    case 'photos':
+      return <PhotosSection />;
+    case 'map':
+      return <MapSection />;
+    case 'persons':
+      return <PersonsSection />;
+    default:
+      return null;
   }
-
-  if (section === 'photos') {
-    return <PhotosSection />;
-  }
-
-  if (section === 'map') {
-    return <MapSection />;
-  }
-
-  if (section === 'persons') {
-    return <PersonsSection />;
-  }
-
-  return null;
 }

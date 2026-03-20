@@ -1,0 +1,23 @@
+{
+  "rootPersonId": "p001",
+  "persons": [
+    {
+      "id": "p001",
+      "firstName": "",
+      "patronymic": "",
+      "lastName": "",
+      "birthDate": "",
+      "deathDate": "",
+      "birthPlace": "",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "avatarPhotoSrc": "",
+      "fatherId": "",
+      "motherId": "",
+      "gender": "m"
+    }
+  ],
+  "photos": [],
+  "history": []
+}

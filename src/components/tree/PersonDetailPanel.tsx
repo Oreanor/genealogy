@@ -5,7 +5,7 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersons } from '@/lib/data/persons';
 import { getPhotosByPerson, getLightboxFacesFromPhoto, getPreferredPanelPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
-import { formatPersonNameForLocale, getFullName } from '@/lib/utils/person';
+import { formatPersonNameForLocale } from '@/lib/utils/person';
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
@@ -42,6 +42,8 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
   const historyMentions = getHistoryEntriesByPerson(person.id);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
   const [textLightboxOpen, setTextLightboxOpen] = useState(false);
+  const [mapLightboxOpen, setMapLightboxOpen] = useState(false);
+  const [selectedMapCity, setSelectedMapCity] = useState<string | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
 
@@ -62,6 +64,8 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               onPhotoClick={(photo, toggleBack) => {
                 setSelectedHistoryIndex(null);
                 setTextLightboxOpen(false);
+                setSelectedMapCity(null);
+                setMapLightboxOpen(false);
                 if (toggleBack) {
                   setShowPhotoBack((v) => !v);
                   if (isMobile) setLightboxOpen(true);
@@ -75,7 +79,15 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               onHistoryClick={(index) => {
                 setSelectedHistoryIndex(index);
                 setSelectedPhoto(null);
+                setSelectedMapCity(null);
                 if (isMobile) setTextLightboxOpen(true);
+              }}
+              onCityClick={(city) => {
+                setSelectedMapCity(city);
+                setSelectedPhoto(null);
+                setSelectedHistoryIndex(null);
+                setTextLightboxOpen(false);
+                if (isMobile) setMapLightboxOpen(true);
               }}
               renderPersonLink={(p, displayName) => (
                 <button
@@ -117,10 +129,12 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
       right={
         <BookPage className="flex flex-col overflow-hidden">
           <PersonSpreadRightContent
+            person={person}
             photo={selectedPhoto}
             showFaces={showFaces}
             showBack={showPhotoBack}
             historyEntry={selectedHistoryEntry}
+            mapCity={isMobile ? null : selectedMapCity}
             onBigPhotoClick={selectedPhoto ? () => setLightboxOpen(true) : undefined}
             onToggleFaces={() => setShowFaces((v) => !v)}
             photoContainerRef={photoContainerRef}
@@ -175,6 +189,40 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
         </div>
       </div>
     );
+  const mapLightbox =
+    isMobile &&
+    selectedMapCity && (
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center px-3 py-4 transition-opacity duration-200 ${
+          mapLightboxOpen
+            ? 'pointer-events-auto visible opacity-100 bg-black/80'
+            : 'pointer-events-none invisible opacity-0 bg-black/0'
+        }`}
+      >
+        <div className="flex h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
+          <div className="min-h-0 flex-1 p-4">
+            <PersonSpreadRightContent
+              person={person}
+              photo={null}
+              showFaces={false}
+              showBack={false}
+              historyEntry={null}
+              mapCity={selectedMapCity}
+              onToggleFaces={() => {}}
+            />
+          </div>
+          <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">
+            <Button
+              variant="secondary"
+              className="px-4"
+              onClick={() => setMapLightboxOpen(false)}
+            >
+              {t('back')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
 
   if (inline) {
     return (
@@ -182,6 +230,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
         {spreadContent}
         {lightbox}
         {textLightbox}
+        {mapLightbox}
       </>
     );
   }
@@ -190,6 +239,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
     <>
       {lightbox}
       {textLightbox}
+      {mapLightbox}
       <div
         className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4"
         onClick={onClose}
@@ -200,7 +250,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
           onClick={(e) => e.stopPropagation()}
           role="dialog"
           aria-modal
-          aria-label={getFullName(person)}
+          aria-label={formatPersonNameForLocale(person, locale)}
         >
           <div className="overflow-hidden rounded-lg shadow-xl">
             {spreadContent}

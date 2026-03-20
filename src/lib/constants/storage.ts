@@ -4,6 +4,8 @@ export const STORAGE_KEYS = {
   locale: 'genealogy-locale',
   adminTab: 'genealogy-admin-tab',
   adminData: 'genealogy-admin-data',
+  /** Person ids whose first/last/patronymic were edited in admin — do not auto-replace with locale template. */
+  personNameLocks: 'genealogy-person-name-locks',
 } as const;
 
 /** Cookie for redirect to last admin tab (read by middleware) */

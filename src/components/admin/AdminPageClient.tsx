@@ -2,7 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useTranslations } from '@/lib/i18n/context';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
+import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
+import { getPersons } from '@/lib/data/persons';
 import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
 import { useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 import type { AdminTabId } from './AdminTabs';
@@ -27,6 +29,7 @@ import {
   type MergeResult,
   type MergeResolutions,
 } from '@/lib/utils/dataMerge';
+import { setAdminWorkingPersons } from '@/lib/data/persons';
 
 export type { AdminDataSections } from '@/lib/utils/dataMerge';
 type AdminDataSections = import('@/lib/utils/dataMerge').AdminDataSections;
@@ -140,6 +143,7 @@ export function AdminPageClient({
   }, []);
 
   const handleReload = useCallback((data: AdminDataSections) => {
+    setAdminWorkingPersons(null);
     setInitialData(data);
     setDataVersion((v) => v + 1);
   }, []);
@@ -201,7 +205,15 @@ function AdminPageClientInner({
 }: InnerProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
+  const personsOverlayRev = usePersonsOverlayRevision();
   const t = useTranslations();
+
+  const personsForUi = useMemo(() => {
+    void locale;
+    void personsOverlayRev;
+    return getPersons();
+  }, [locale, personsOverlayRev]);
   const setGlobalRoot = useSetRootPersonId();
 
   const [rootPersonId, setRootPersonId] = useState(initialData.rootPersonId);
@@ -306,6 +318,66 @@ function AdminPageClientInner({
     [router, pathname]
   );
 
+  const handleAddRowActionChange = useCallback((action: (() => void) | null) => {
+    setAddPersonRowAction(() => action);
+  }, []);
+
+  const handleDeleteSelectedRowsActionChange = useCallback((action: (() => void) | null) => {
+    setDeleteSelectedRowsAction(() => action);
+  }, []);
+
+  const handlePersonsDataChange = useCallback(
+    (p: Person[]) => {
+      dataRef.current = { ...dataRef.current, persons: p };
+      setAdminWorkingPersons(p);
+      persist();
+    },
+    [persist]
+  );
+
+  const handleRootChange = useCallback(
+    (id: string) => {
+      setRootPersonId(id);
+      setGlobalRoot(id);
+      dataRef.current = { ...dataRef.current, rootPersonId: id };
+      persist();
+    },
+    [persist, setGlobalRoot]
+  );
+
+  const handleAddTextEntryActionChange = useCallback((action: (() => void) | null) => {
+    setAddTextEntryAction(() => action);
+  }, []);
+
+  const handleHistoryChange = useCallback(
+    (h: HistoryEntry[]) => {
+      dataRef.current = { ...dataRef.current, history: h };
+      persist();
+    },
+    [persist]
+  );
+
+  const handleRefreshPhotosActionChange = useCallback((action: (() => void) | null) => {
+    setRefreshPhotosAction(() => action);
+  }, []);
+
+  const handleTogglePhotosVisibilityActionChange = useCallback((action: (() => void) | null) => {
+    setTogglePhotosVisibilityAction(() => action);
+  }, []);
+
+  const handleDeleteAllPhotosActionChange = useCallback((action: (() => void) | null) => {
+    setDeleteAllPhotosAction(() => action);
+  }, []);
+
+  const handlePhotosDataChange = useCallback(
+    (p: PhotoEntry[]) => {
+      dataRef.current = { ...dataRef.current, photos: p };
+      setPhotos(p);
+      persist();
+    },
+    [persist]
+  );
+
   const { setActions } = useAdminToolbar();
   useEffect(() => {
     setActions({
@@ -335,44 +407,29 @@ function AdminPageClientInner({
             rootPersonId={rootPersonId}
             initialPersons={initialData.persons}
             photos={photos}
-            onAddRowActionChange={(action) => setAddPersonRowAction(() => action)}
-            onDeleteSelectedRowsActionChange={(action) => setDeleteSelectedRowsAction(() => action)}
+            onAddRowActionChange={handleAddRowActionChange}
+            onDeleteSelectedRowsActionChange={handleDeleteSelectedRowsActionChange}
             onSelectedRowsCountChange={setSelectedRowsCount}
-            onDataChange={(p) => {
-              dataRef.current = { ...dataRef.current, persons: p };
-              persist();
-            }}
-            onRootChange={(id) => {
-              setRootPersonId(id);
-              setGlobalRoot(id);
-              dataRef.current = { ...dataRef.current, rootPersonId: id };
-              persist();
-            }}
+            onDataChange={handlePersonsDataChange}
+            onRootChange={handleRootChange}
           />
         </div>
         <div className={initialTab === 'texts' ? '' : 'hidden'}>
           <AdminTextsTab
             initialHistory={initialData.history}
-            persons={initialData.persons}
-            onAddEntryActionChange={(action) => setAddTextEntryAction(() => action)}
-            onHistoryChange={(h) => {
-              dataRef.current = { ...dataRef.current, history: h };
-              persist();
-            }}
+            persons={personsForUi}
+            onAddEntryActionChange={handleAddTextEntryActionChange}
+            onHistoryChange={handleHistoryChange}
           />
         </div>
         <div className={initialTab === 'photos' ? '' : 'hidden'}>
           <AdminPhotosTab
             initialPhotos={initialData.photos}
-            onRefreshActionChange={(action) => setRefreshPhotosAction(() => action)}
-            onToggleVisibilityActionChange={(action) => setTogglePhotosVisibilityAction(() => action)}
-            onDeleteAllActionChange={(action) => setDeleteAllPhotosAction(() => action)}
+            onRefreshActionChange={handleRefreshPhotosActionChange}
+            onToggleVisibilityActionChange={handleTogglePhotosVisibilityActionChange}
+            onDeleteAllActionChange={handleDeleteAllPhotosActionChange}
             onHasHiddenChange={setPhotosHaveHidden}
-            onDataChange={(p) => {
-              dataRef.current = { ...dataRef.current, photos: p };
-              setPhotos(p);
-              persist();
-            }}
+            onDataChange={handlePhotosDataChange}
           />
         </div>
       </AdminTabs>

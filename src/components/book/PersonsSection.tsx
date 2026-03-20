@@ -55,10 +55,12 @@ export function PersonsSection() {
   const firstPhoto = selectedPerson ? getPreferredPanelPhoto(selectedPerson.id) : null;
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoEntry | null>(firstPhoto);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState<number | null>(null);
+  const [selectedMapCity, setSelectedMapCity] = useState<string | null>(null);
   const [showFaces, setShowFaces] = useState(false);
   const [showPhotoBack, setShowPhotoBack] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [textLightboxOpen, setTextLightboxOpen] = useState(false);
+  const [mapLightboxOpen, setMapLightboxOpen] = useState(false);
   const { photoContainerRef, imageBounds, setImageBounds, onPhotoImageLoad } = usePhotoImageBounds();
   const isMobile = useIsMobile();
 
@@ -67,6 +69,7 @@ export function PersonsSection() {
       const first = selectedPersonId ? getPreferredPanelPhoto(selectedPersonId) : null;
       setSelectedPhoto(first);
       setSelectedHistoryIndex(null);
+      setSelectedMapCity(null);
       setShowPhotoBack(false);
       setImageBounds(null);
     });
@@ -116,6 +119,7 @@ export function PersonsSection() {
                 selectedPhoto={selectedPhoto}
                 onPhotoClick={(photo, toggleBack) => {
                   setSelectedHistoryIndex(null);
+                  setSelectedMapCity(null);
                   if (toggleBack) {
                     setShowPhotoBack((v) => !v);
                     if (isMobile) setLightboxOpen(true);
@@ -129,9 +133,17 @@ export function PersonsSection() {
               onHistoryClick={(index) => {
                 setSelectedHistoryIndex(index);
                 setSelectedPhoto(null);
+                setSelectedMapCity(null);
                 if (isMobile) {
                   setTextLightboxOpen(true);
                 }
+              }}
+              onCityClick={(city) => {
+                setSelectedMapCity(city);
+                setSelectedPhoto(null);
+                setSelectedHistoryIndex(null);
+                setTextLightboxOpen(false);
+                if (isMobile) setMapLightboxOpen(true);
               }}
                 renderPersonLink={(p, displayName) => (
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
@@ -150,10 +162,12 @@ export function PersonsSection() {
       right={
         <BookPage className="flex flex-col overflow-hidden">
           <PersonSpreadRightContent
+            person={selectedPerson}
             photo={selectedPerson ? selectedPhoto : null}
             showFaces={showFaces}
             showBack={showPhotoBack}
             historyEntry={isMobile ? null : selectedHistoryEntry}
+            mapCity={isMobile ? null : selectedMapCity}
             onBigPhotoClick={selectedPhoto ? () => setLightboxOpen(true) : undefined}
             onToggleFaces={() => setShowFaces((v) => !v)}
             photoContainerRef={photoContainerRef}
@@ -202,6 +216,38 @@ export function PersonsSection() {
                 setTextLightboxOpen(false);
                 setSelectedHistoryIndex(null);
               }}
+            >
+              {t('back')}
+            </Button>
+          </div>
+        </div>
+      </div>
+    )}
+    {isMobile && selectedMapCity && (
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center px-3 py-4 transition-opacity duration-200 ${
+          mapLightboxOpen
+            ? 'pointer-events-auto visible opacity-100 bg-black/80'
+            : 'pointer-events-none invisible opacity-0 bg-black/0'
+        }`}
+      >
+        <div className="flex h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
+          <div className="min-h-0 flex-1 p-4">
+            <PersonSpreadRightContent
+              person={selectedPerson}
+              photo={null}
+              showFaces={false}
+              showBack={false}
+              historyEntry={null}
+              mapCity={selectedMapCity}
+              onToggleFaces={() => {}}
+            />
+          </div>
+          <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">
+            <Button
+              variant="secondary"
+              className="px-4"
+              onClick={() => setMapLightboxOpen(false)}
             >
               {t('back')}
             </Button>

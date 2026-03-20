@@ -45,4 +45,18 @@ describe('buildPersonSummary', () => {
     expect(lines[0]).toContain('personSummary_birthYearFragment');
     expect(lines[0]).toContain('personSummary_deathExactFragment');
   });
+
+  it('uses multi-city template and normalizes city list', () => {
+    const person: Person = {
+      id: 'p4',
+      firstName: 'Анна',
+      gender: 'f',
+      residenceCity: 'г. Сумы, Краснодар, с. Сумы, Budapest, budapest',
+    };
+    const lines = buildPersonSummary(person, t);
+    expect(lines.some((line) => line.includes('personSummary_cityOnlyMany_'))).toBe(true);
+    const cityLine = lines.find((line) => line.includes('personSummary_cityOnlyMany_')) ?? '';
+    expect(cityLine).toContain('г. Сумы, Краснодар, Budapest');
+    expect(cityLine).toContain('"subjectPronoun":"она"');
+  });
 });

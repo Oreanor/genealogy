@@ -5,7 +5,7 @@ import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import { getPhotosByPerson, getLightboxFacesFromPhoto } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
-import { formatLifeDates, getFullName } from '@/lib/utils/person';
+import { formatLifeDates, formatPersonNameForLocale } from '@/lib/utils/person';
 import { getChildren, getCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import type { Person } from '@/lib/types/person';
 import { useLocaleRoutes } from '@/lib/i18n/context';
@@ -24,7 +24,8 @@ interface PersonCardProps {
 }
 
 export function PersonCard({ person, showPhotos = true, renderAfterContent, onHistoryClick }: PersonCardProps) {
-  const { t, routes } = useLocaleRoutes();
+  const { t, routes, locale } = useLocaleRoutes();
+  const displayName = (p: Person) => formatPersonNameForLocale(p, locale);
   const pathname = usePathname() ?? '';
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const children = getChildren(person.id);
@@ -40,7 +41,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{getFullName(person)}</h2>
+      <h2 className="book-serif text-2xl font-semibold text-(--ink)">{displayName(person)}</h2>
       {(parents.length > 0 || children.length > 0 || siblings.length > 0 || cousins.length > 0 || spouse) && (
         <div className="space-y-3 text-(--ink)">
           {spouse && (
@@ -49,7 +50,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
                 {spouse.gender === 'f' ? t('spouseF') : t('spouseM')}
               </span>{' '}
               <Link href={routes.person(spouse.id)} className={CONTENT_LINK_CLASS}>
-                {getFullName(spouse)}
+                {displayName(spouse)}
               </Link>
             </p>
           )}
@@ -60,7 +61,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
                 <span key={p.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(p.id)} className={CONTENT_LINK_CLASS}>
-                    {getFullName(p)}
+                    {displayName(p)}
                   </Link>
                 </span>
               ))}
@@ -73,7 +74,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
                 <span key={c.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
-                    {getFullName(c)}
+                    {displayName(c)}
                   </Link>
                 </span>
               ))}
@@ -86,7 +87,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
                 <span key={s.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(s.id)} className={CONTENT_LINK_CLASS}>
-                    {getFullName(s)}
+                    {displayName(s)}
                   </Link>
                 </span>
               ))}
@@ -99,7 +100,7 @@ export function PersonCard({ person, showPhotos = true, renderAfterContent, onHi
                 <span key={c.id}>
                   {i > 0 && ', '}
                   <Link href={routes.person(c.id)} className={CONTENT_LINK_CLASS}>
-                    {getFullName(c)}
+                    {displayName(c)}
                   </Link>
                 </span>
               ))}

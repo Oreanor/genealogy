@@ -1,11 +1,15 @@
 import { getRootPersonId } from '@/lib/data/root';
-import { getPersonById } from '@/lib/data/persons';
+import { getBundledPersons } from '@/lib/data/persons';
+import { getMessages } from '@/lib/i18n/messages';
+import { DEFAULT_LOCALE } from '@/lib/i18n/config';
 
 /** Family surname for book title: root person's lastName, or fallback */
 export function getFamilySurname(): string {
-  const root = getPersonById(getRootPersonId());
+  const root = getBundledPersons().find((p) => p.id === getRootPersonId()) ?? null;
   const name = root?.lastName?.trim();
-  return name ?? 'Семья';
+  if (name) return name;
+  const templateLast = getMessages(DEFAULT_LOCALE).templateRootLastName?.trim();
+  return templateLast || 'Family';
 }
 
 /** Default book title (Russian) for metadata and SSR */

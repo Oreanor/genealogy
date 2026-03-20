@@ -1,5 +1,5 @@
 import { BookLayout } from '@/components/book';
-import { getPersons } from '@/lib/data/persons';
+import { getBundledPersons } from '@/lib/data/persons';
 import { getPhotos } from '@/lib/data/photos';
 import { getHistoryEntries } from '@/lib/data/history';
 import { getRootPersonId } from '@/lib/data/root';
@@ -22,7 +22,7 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   const { tab } = await searchParams;
   const initialTab = parseTab(tab);
   const [persons, photos, history] = [
-    getPersons(),
+    getBundledPersons(),
     getPhotos({ includeHidden: true }),
     getHistoryEntries({ includeHidden: true }),
   ];

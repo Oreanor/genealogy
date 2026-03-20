@@ -36,7 +36,7 @@ export function SectionBookmarks() {
 
   return (
     <nav
-      className="relative z-50 mt-1 mb-0 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-2 md:-mt-2 md:mb-0 md:ml-4 md:pl-0 md:pr-3"
+      className="relative z-[200] mt-1 mb-0 ml-3 flex w-full flex-row flex-wrap items-center justify-between gap-1 pl-0.5 pr-2 md:-mt-2 md:mb-0 md:ml-4 md:pl-0 md:pr-3"
       aria-label={t('navAria')}
     >
       {/* Desktop: tab links (mobile moved to bottom toolbar) */}
@@ -58,7 +58,7 @@ export function SectionBookmarks() {
           );
         })}
       </div>
-      <div className="hidden shrink-0 flex-row items-center gap-1 md:mr-0.5 md:flex md:-mt-1">
+      <div className="relative z-[210] hidden shrink-0 flex-row items-center gap-1 md:mr-0.5 md:flex md:-mt-1">
         <Tooltip label={t('adminTitle')} side="bottom">
           <AdminButton />
         </Tooltip>

@@ -25,11 +25,13 @@ vi.mock('next/navigation', () => ({
 }));
 
 vi.mock('@/lib/i18n/context', () => ({
+  useLocale: () => 'en' as const,
   useLocaleRoutes: () => ({
     t: (key: string) => {
       if (key === 'kinshipCommonAncestor') return 'Common ancestor:';
       return key;
     },
+    locale: 'en' as const,
   }),
 }));
 
@@ -46,6 +48,7 @@ vi.mock('next/image', () => ({
 vi.mock('@/lib/data/persons', () => ({
   getPersons: () => [p1, p2, p3],
   getPersonById: (id: string) => getPersonById(id),
+  subscribePersonsOverlay: () => () => {},
 }));
 
 vi.mock('@/lib/data/familyRelations', () => ({
@@ -64,6 +67,7 @@ vi.mock('@/lib/data/photos', () => ({
 vi.mock('@/lib/utils/person', () => ({
   formatLifeDates: () => '1900–1901',
   getFullName: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
+  formatPersonNameForLocale: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
   sortPersonsBySurname: (ps: Person[]) => ps,
 }));
 

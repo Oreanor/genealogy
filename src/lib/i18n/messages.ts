@@ -1,5 +1,5 @@
 import type { Locale } from './config';
-import { isLocale } from './config';
+import { DEFAULT_LOCALE, isLocale } from './config';
 
 import ru from './locales/ru.json';
 import en from './locales/en.json';
@@ -26,7 +26,8 @@ const messages: Record<Locale, Record<string, string>> = {
 };
 
 export function getMessages(locale: string): Record<string, string> {
-  return messages[isLocale(locale) ? locale : 'ru'] ?? messages.ru;
+  const key = isLocale(locale) ? locale : DEFAULT_LOCALE;
+  return messages[key] ?? messages[DEFAULT_LOCALE];
 }
 
 export type MessageKey = keyof typeof ru;

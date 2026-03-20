@@ -1,6 +1,12 @@
 import React from 'react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { TextsChapter } from './TextsChapter';
+
+vi.mock('@/lib/data/history', () => ({
+  getHistoryEntries: () => [
+    { title: 'Sample entry', richText: '<p>Body</p>', personIds: [] },
+  ],
+}));
 import { PersonsChapter } from './PersonsChapter';
 import { PhotosChapter } from './PhotosChapter';
 import { PdfDocument } from './PdfDocument';

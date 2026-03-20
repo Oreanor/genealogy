@@ -10,6 +10,7 @@ vi.mock('@/lib/data/persons', () => ({
   getPersons: () => PERSONS_FIXTURE,
   getPersonById: (id: string) =>
     PERSONS_FIXTURE.find((p) => p.id === id) ?? null,
+  subscribePersonsOverlay: () => () => {},
 }));
 
 vi.mock('@/lib/data/root', () => ({
@@ -37,8 +38,8 @@ describe('FamilyTree', () => {
 
   it('calls onPersonClick when node is clicked', () => {
     renderTree(<FamilyTree onPersonClick={onPersonClick} />);
-    const btn = screen.getByRole('button', { name: /Никонец\s*Иван\s*Петрович/ });
-    fireEvent.click(btn);
+    const buttons = screen.getAllByRole('button', { name: /Никонец\s*Иван\s*Петрович/ });
+    fireEvent.click(buttons[0]!);
     expect(onPersonClick).toHaveBeenCalledWith('p001');
   });
 });

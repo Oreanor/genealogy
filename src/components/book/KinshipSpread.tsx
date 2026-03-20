@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { useLocaleRoutes } from '@/lib/i18n/context';
+import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons, getPersonById } from '@/lib/data/persons';
+import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
-import { formatLifeDates, getFullName, sortPersonsBySurname } from '@/lib/utils/person';
+import { formatLifeDates, formatPersonNameForLocale, sortPersonsBySurname } from '@/lib/utils/person';
 import { getSiblings } from '@/lib/data/familyRelations';
 import { getKinship, type EdgeKind, type KinshipResult } from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
@@ -44,6 +45,7 @@ const KIN_DESC_MAP: Record<string, string> = {
 };
 
 function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: string }>) {
+  const locale = useLocale();
   const dates = formatLifeDates(person.birthDate, person.deathDate);
   const siblings = getSiblings(person.id);
 
@@ -53,7 +55,7 @@ function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: s
         href={`${pathname}?section=persons&id=${person.id}`}
         className={`book-serif text-center text-lg font-semibold ${CONTENT_LINK_CLASS}`}
       >
-        {getFullName(person)}
+        {formatPersonNameForLocale(person, locale)}
       </Link>
       <div className="space-y-0.5 text-center text-xs text-(--ink-muted)">
         {dates && <p>{dates}</p>}
@@ -68,7 +70,7 @@ function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: s
               href={`${pathname}?section=persons&id=${s.id}`}
               className={CONTENT_LINK_CLASS}
             >
-              {getFullName(s)}
+              {formatPersonNameForLocale(s, locale)}
             </Link>
           ))}
         </div>
@@ -212,9 +214,13 @@ function ChainArrow({ label, spouse }: Readonly<{ label: string; spouse?: boolea
 }
 
 export function KinshipSpread() {
-  const { t } = useLocaleRoutes();
+  const { t, locale } = useLocaleRoutes();
   const pathname = usePathname() ?? '';
-  const sorted = useMemo(() => sortPersonsBySurname(getPersons()), []);
+  const personsOverlayRev = usePersonsOverlayRevision();
+  const sorted = useMemo(() => {
+    void personsOverlayRev;
+    return sortPersonsBySurname(getPersons());
+  }, [locale, personsOverlayRev]);
 
   const [idA, setIdA] = useState('');
   const [idB, setIdB] = useState('');
@@ -246,7 +252,7 @@ export function KinshipSpread() {
               <option value="">{t('kinshipSelectPerson')}</option>
               {sorted.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {getFullName(p)}
+                  {formatPersonNameForLocale(p, locale)}
                 </option>
               ))}
             </select>
@@ -259,7 +265,7 @@ export function KinshipSpread() {
               <option value="">{t('kinshipSelectPerson')}</option>
               {sorted.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {getFullName(p)}
+                  {formatPersonNameForLocale(p, locale)}
                 </option>
               ))}
             </select>

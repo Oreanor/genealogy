@@ -1,3 +1,30 @@
+/** Light cool gray-blue — default “paper” (overcast / cloudy). */
+export const DEFAULT_PAPER_COLOR = '#e7edf2';
+
+/**
+ * Preset paper colors accepted by the inline layout script and `theme-init`
+ * (localStorage `genealogy-paper-color` must be one of these or it resets to default).
+ */
+export const PAPER_COLOR_PALETTE = [
+  '#ffffff',
+  '#e5e7eb',
+  DEFAULT_PAPER_COLOR,
+  '#9ca3af',
+  '#374151',
+  '#fef9c3',
+  '#fbbf24',
+  '#f97316',
+  '#ef4444',
+  '#ecfdf5',
+  '#22c55e',
+  '#0ea5e9',
+  '#3b82f6',
+  '#f5f3ff',
+  '#8b5cf6',
+  '#a16207',
+  '#1f2937',
+] as const;
+
 /** Shared toolbar button (BookToolbar, AdminButton, LocaleSwitcher) */
 export const TOOLBAR_BUTTON_CLASS =
   'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border-2 border-(--border) bg-(--paper) shadow-md transition-shadow hover:shadow-lg md:h-9 md:w-9';

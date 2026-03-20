@@ -3,7 +3,8 @@
 import { useSyncExternalStore } from 'react';
 import { usePathname } from 'next/navigation';
 import { getMessages } from '@/lib/i18n/messages';
-import { isLocale } from '@/lib/i18n/config';
+import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n/config';
+import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
 
 interface StorageGateProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ const getServerSnapshot = () => false;
 function useLoadingText(): string {
   const pathname = usePathname() ?? '';
   const segment = pathname.split('/').filter(Boolean)[0];
-  const locale = segment && isLocale(segment) ? segment : 'ru';
+  const locale = segment && isLocale(segment) ? segment : DEFAULT_LOCALE;
   return getMessages(locale).loading ?? 'Loading';
 }
 
@@ -26,9 +27,7 @@ export function StorageGate({ children }: StorageGateProps) {
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen min-w-full items-center justify-center bg-(--paper) text-(--ink)">
-        {loadingText}
-      </div>
+      <LoadingOverlay text={loadingText} mode="fixed" />
     );
   }
 

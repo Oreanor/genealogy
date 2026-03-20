@@ -13,8 +13,9 @@ import {
   hslToHex,
   lightenColor,
 } from '@/lib/utils/color';
+import { DEFAULT_PAPER_COLOR } from '@/lib/constants/theme';
 
-const DEFAULT_PAPER = '#fef9c3';
+const DEFAULT_PAPER = DEFAULT_PAPER_COLOR;
 const STORAGE_UPDATE_EVENT = 'genealogy-paper-storage-update';
 const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
 

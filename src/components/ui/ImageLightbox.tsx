@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { List, ListX } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n/context';
 import type { LightboxFace } from '@/lib/data/photos';
+import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
 
 interface ImageLightboxProps {
   src: string;
@@ -83,9 +84,7 @@ export function ImageLightbox({
           unoptimized
         />
         {isLoading && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="h-10 w-10 animate-spin rounded-full border-2 border-(--paper) border-t-transparent" />
-          </div>
+          <LoadingOverlay variant="spinner" mode="absolute" />
         )}
         {hasFaces && !(hasBack && showBack) && showFaces && (
           <>

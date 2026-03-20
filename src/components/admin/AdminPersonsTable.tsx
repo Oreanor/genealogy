@@ -1,9 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslations } from '@/lib/i18n/context';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useLocale, useTranslations } from '@/lib/i18n/context';
 import type { Person } from '@/lib/types/person';
 import { getFullName } from '@/lib/utils/person';
+import { mergeOnePerson } from '@/lib/utils/personMerge';
+import { addPersonNameLock } from '@/lib/utils/personNameLocks';
 import {
   getAvatarForPerson,
   getAvatarOptionsForPersonFromList,
@@ -188,8 +190,21 @@ export function AdminPersonsTable({
   onSelectedRowsCountChange,
 }: AdminPersonsTableProps) {
   const t = useTranslations();
-  const [persons, setPersons] = useState<Person[]>(
-    () => sortPersonsDefault(JSON.parse(JSON.stringify(initialPersons)))
+  const locale = useLocale();
+  const [persons, setPersons] = useState<Person[]>(() =>
+    sortPersonsDefault(
+      JSON.parse(JSON.stringify(initialPersons)).map((w: Person) => {
+        const bDisk =
+          initialPersons.find((b) => b.id === w.id) ??
+          ({
+            ...w,
+            firstName: '',
+            lastName: '',
+            patronymic: '',
+          } as Person);
+        return mergeOnePerson(bDisk, w, locale, true);
+      })
+    )
   );
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>(null);
   const [confirmRootOpen, setConfirmRootOpen] = useState(false);
@@ -203,9 +218,23 @@ export function AdminPersonsTable({
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>(INITIAL_COLUMN_WIDTHS);
   const resizingRef = useRef<{ id: string; startX: number; startWidth: number } | null>(null);
   const personsRef = useRef<Person[]>(persons);
-  const [sessionOrderIds, setSessionOrderIds] = useState<string[]>(() =>
-    sortPersonsDefault(JSON.parse(JSON.stringify(initialPersons))).map((p) => p.id)
-  );
+  const prevLocaleRef = useRef(locale);
+  const [sessionOrderIds, setSessionOrderIds] = useState<string[]>(() => {
+    const merged = sortPersonsDefault(
+      JSON.parse(JSON.stringify(initialPersons)).map((w: Person) => {
+        const bDisk =
+          initialPersons.find((b) => b.id === w.id) ??
+          ({
+            ...w,
+            firstName: '',
+            lastName: '',
+            patronymic: '',
+          } as Person);
+        return mergeOnePerson(bDisk, w, locale, true);
+      })
+    );
+    return merged.map((p) => p.id);
+  });
 
   useEffect(() => {
     personsRef.current = persons;
@@ -214,6 +243,37 @@ export function AdminPersonsTable({
   useEffect(() => {
     onDataChange?.(persons);
   }, [persons, onDataChange]);
+
+  useEffect(() => {
+    setPersons((prev) =>
+      sortPersonsDefault(
+        prev.map((w) => {
+          const bDisk =
+            initialPersons.find((b) => b.id === w.id) ??
+            ({
+              ...w,
+              firstName: '',
+              lastName: '',
+              patronymic: '',
+            } as Person);
+          return mergeOnePerson(bDisk, w, locale, true);
+        })
+      )
+    );
+  }, [locale, initialPersons]);
+
+  useLayoutEffect(() => {
+    const localeChanged = prevLocaleRef.current !== locale;
+    prevLocaleRef.current = locale;
+    if (!localeChanged) return;
+    setSessionOrderIds(() => {
+      const nextPersons = persons;
+      const emptyRows = nextPersons.filter(isEmptyPersonRow);
+      const filledRows = nextPersons.filter((p) => !isEmptyPersonRow(p));
+      const sortedFilled = sortPersonsDefault(filledRows);
+      return [...emptyRows, ...sortedFilled].map((p) => p.id);
+    });
+  }, [persons, locale]);
 
   useEffect(() => {
     // Reorder only on explicit sort change (not on every cell edit).
@@ -286,6 +346,13 @@ export function AdminPersonsTable({
 
   const updatePerson = useCallback((index: number, field: keyof Person, value: Person[keyof Person]) => {
     setPersons((prev) => {
+      const id = prev[index]?.id;
+      if (
+        id &&
+        (field === 'firstName' || field === 'lastName' || field === 'patronymic')
+      ) {
+        addPersonNameLock(id);
+      }
       const next = [...prev];
       const p = { ...next[index]! };
       (p as Record<string, unknown>)[field] = value;

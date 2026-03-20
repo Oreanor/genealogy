@@ -1,5 +1,22 @@
 import type { Person } from '@/lib/types/person';
 import type { Locale } from '@/lib/i18n/config';
+import { getMessages } from '@/lib/i18n/messages';
+
+export function getTemplatePersonParts(
+  locale: Locale
+): Pick<Person, 'firstName' | 'lastName' | 'patronymic'> {
+  const messages = getMessages(locale);
+  return {
+    firstName: messages.templateRootFirstName?.trim() ?? '',
+    lastName: messages.templateRootLastName?.trim() ?? '',
+    patronymic: messages.templateRootPatronymic?.trim() ?? '',
+  };
+}
+
+export function getTemplateRootNameByLocale(locale: Locale): string {
+  const t = getTemplatePersonParts(locale);
+  return [t.lastName, t.firstName, t.patronymic].filter(Boolean).join(' ').trim();
+}
 
 /** Formats life dates for display (tree, person card). */
 export function formatLifeDates(birth?: string, death?: string): string {
@@ -15,7 +32,7 @@ export function getFullName(person: Person | null | undefined): string {
   const parts = [person.lastName, person.firstName, person.patronymic].filter(
     (s): s is string => Boolean(s?.trim())
   );
-  return parts.join(' ') || '';
+  return parts.join(' ');
 }
 
 /** Sort by last name, then first name (for person list). */
@@ -79,5 +96,8 @@ export function formatPersonNameForLocale(
   locale: Locale
 ): string {
   const full = getFullName(person);
+  if (!person) return '';
+  const hasPersonName = Boolean(person.firstName?.trim() || person.lastName?.trim() || person.patronymic?.trim());
+  if (!hasPersonName) return getTemplateRootNameByLocale(locale);
   return formatNameByLocale(full, locale);
 }

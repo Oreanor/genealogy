@@ -110,6 +110,8 @@ vi.mock('@/lib/utils/person', () => ({
   formatLifeDates: (birth?: string, death?: string) => `${birth ?? ''}-${death ?? ''}`.replace(/^-|-$/g, ''),
   getFullName: (p: Person) =>
     [p.firstName, p.patronymic, p.lastName].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim(),
+  formatPersonNameForLocale: (p: Person) =>
+    [p.firstName, p.patronymic, p.lastName].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim(),
 }));
 
 describe('PersonCard coverage', () => {

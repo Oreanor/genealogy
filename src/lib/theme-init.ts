@@ -4,15 +4,10 @@
  */
 import { contrastColor, darkenColor, lightenColor, hexToRgba } from '@/lib/utils/color';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
+import { DEFAULT_PAPER_COLOR, PAPER_COLOR_PALETTE } from '@/lib/constants/theme';
 
-const PALETTE = [
-  '#ffffff', '#e5e7eb', '#9ca3af', '#374151',
-  '#fef9c3', '#fbbf24', '#f97316', '#ef4444',
-  '#ecfdf5', '#22c55e', '#0ea5e9', '#3b82f6',
-  '#f5f3ff', '#8b5cf6', '#a16207', '#1f2937',
-];
-// Light, slightly grayish violet as default paper color
-const DEFAULT_PAPER = '#f5f3ff';
+const PALETTE = PAPER_COLOR_PALETTE as readonly string[];
+const DEFAULT_PAPER = DEFAULT_PAPER_COLOR;
 
 export function initThemeFromStorage() {
   if (typeof window === 'undefined') return;

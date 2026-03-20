@@ -28,7 +28,7 @@ describe('TreeNode', () => {
         />
       )
     );
-    expect(screen.getByRole('button', { name: 'Иван Петрович' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Иван Петрович' }).length).toBe(2);
     expect(screen.getByText('Иван')).toBeInTheDocument();
     expect(screen.getByText('Петрович')).toBeInTheDocument();
     expect(screen.getByText('1925 – 1998')).toBeInTheDocument();
@@ -63,8 +63,26 @@ describe('TreeNode', () => {
         />
       )
     );
-    fireEvent.click(screen.getByRole('button', { name: /Иван Петрович/ }));
+    fireEvent.click(screen.getAllByRole('button', { name: /Иван Петрович/ })[0]!);
     expect(onPersonClick).toHaveBeenCalledWith('p001');
+  });
+
+  it('shows locale template placeholder when name fields are empty', () => {
+    const empty: Person = {
+      id: 'p001',
+      firstName: '',
+      lastName: '',
+      gender: 'm',
+    };
+    render(
+      withI18n(
+        <TreeNode person={empty} level={0} index={0} scale={1} onPersonClick={() => {}} />,
+        'en'
+      )
+    );
+    const namedButtons = screen.getAllByRole('button', { name: 'Doe John' });
+    expect(namedButtons.length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Doe John')).toBeInTheDocument();
   });
 
   it('truncates long names', () => {
