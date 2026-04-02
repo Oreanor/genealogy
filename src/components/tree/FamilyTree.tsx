@@ -36,10 +36,14 @@ const TREE_LAYOUT = {
   },
   pan: {
     limitX: 1100,
-    limitYDown: 120,
-    limitYUp: -210,
+    /** Baseline vertical pan (px); `panVerticalLimits` adds headroom per tree level. */
+    limitYDownBase: 120,
+    limitYUpBase: -210,
     initialY: 0,
     dragStartThresholdPx: 6,
+    /** Extra downward pan (px) per generation beyond the first four (ancestors stack upward). */
+    extraLimitYDownPerLevel: 82,
+    extraLimitYUpPerLevel: 58,
   },
   spacing: {
     safeTopPct: 12,
@@ -176,6 +180,18 @@ export function FamilyTree({
     () => new Set(kinshipSelectedIds),
     [kinshipSelectedIds]
   );
+  const panVerticalLimits = useMemo(() => {
+    const depth = Math.max(1, visibleLevelCount);
+    const extraLevels = Math.max(0, depth - 4);
+    return {
+      limitYDown:
+        TREE_LAYOUT.pan.limitYDownBase +
+        extraLevels * TREE_LAYOUT.pan.extraLimitYDownPerLevel,
+      limitYUp:
+        TREE_LAYOUT.pan.limitYUpBase -
+        extraLevels * TREE_LAYOUT.pan.extraLimitYUpPerLevel,
+    };
+  }, [visibleLevelCount]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const avatarRefCallbacksRef = useRef<Map<string, (el: HTMLDivElement | null) => void>>(new Map());
@@ -193,8 +209,8 @@ export function FamilyTree({
   const { pan, panHandlers } = useTreePan({
     initialY: TREE_LAYOUT.pan.initialY,
     limitX: TREE_LAYOUT.pan.limitX,
-    limitYDown: TREE_LAYOUT.pan.limitYDown,
-    limitYUp: TREE_LAYOUT.pan.limitYUp,
+    limitYDown: panVerticalLimits.limitYDown,
+    limitYUp: panVerticalLimits.limitYUp,
     dragStartThresholdPx: TREE_LAYOUT.pan.dragStartThresholdPx,
     resetKey: `${rootPersonId}:${treeMode}`,
   });
