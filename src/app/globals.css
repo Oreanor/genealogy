@@ -117,19 +117,21 @@ body {
   }
 }
 
-/* Keep app-level controls above Leaflet UI (zoom/tooltips/popup panes). */
-.leaflet-container {
-  z-index: 1 !important;
+/* Tailwind preflight sets max-width: 100% on img which squishes Leaflet tiles. */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
 }
 
-.leaflet-top,
-.leaflet-bottom {
-  z-index: 2 !important;
+@keyframes map-loading-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
 }
 
-.leaflet-pane,
-.leaflet-control,
-.leaflet-tooltip,
-.leaflet-popup {
-  z-index: 2 !important;
+.map-loading-progress {
+  animation: map-loading-slide 1.2s ease-in-out infinite;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
@@ -19,6 +19,8 @@ import { Button } from '@/components/ui/atoms/Button';
 import { getKinship } from '@/lib/utils/kinship';
 import { getRootPersonId } from '@/lib/data/root';
 import { useRootPersonId, useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
+
+const EMPTY_KINSHIP_HINT_BY_ID: Record<string, string> = {};
 
 export function BookView() {
   const searchParams = useSearchParams();
@@ -52,6 +54,46 @@ export function BookView() {
   const [kinshipPickMode, setKinshipPickMode] = useState(false);
   const [kinshipSelectedIds, setKinshipSelectedIds] = useState<string[]>([]);
   const [treeMode, setTreeMode] = useState<'ancestors' | 'descendants'>('ancestors');
+
+  const toggleKinshipPickMode = useCallback(() => {
+    const next = !kinshipPickMode;
+    setKinshipPickMode(next);
+    setKinshipSelectedIds([]);
+    if (next) {
+      updateTreePersonInUrl(null);
+    }
+  }, [kinshipPickMode, updateTreePersonInUrl]);
+
+  const resetKinshipSelection = useCallback(() => {
+    setKinshipSelectedIds([]);
+  }, []);
+
+  const resetTreeRoot = useCallback(() => {
+    setRootPersonId(defaultRootPersonId);
+  }, [defaultRootPersonId, setRootPersonId]);
+
+  const onKinshipNodeClick = useCallback((personId: string) => {
+    setKinshipSelectedIds((prev) => {
+      if (prev.length === 0) return [personId];
+      if (prev.length === 1) {
+        return prev[0] === personId ? [] : [prev[0], personId];
+      }
+      if (prev[0] === personId) return [prev[1]];
+      if (prev[1] === personId) return [prev[0]];
+      return [prev[0], personId];
+    });
+  }, []);
+
+  const kinshipHintById = useMemo(() => {
+    if (kinshipSelectedIds.length !== 2) return EMPTY_KINSHIP_HINT_BY_ID;
+    const [a, b] = kinshipSelectedIds;
+    const resAB = getKinship(a, b);
+    const resBA = getKinship(b, a);
+    return {
+      [a]: resBA ? t(resBA.key) : t('kinshipNoRelation'),
+      [b]: resAB ? t(resAB.key) : t('kinshipNoRelation'),
+    } as Record<string, string>;
+  }, [kinshipSelectedIds, t]);
   const sectionParam = searchParams.get('section') ?? '';
   const section: SectionId = isSectionId(sectionParam) ? sectionParam : 'tree';
   const helpForParam = searchParams.get('for') ?? '';
@@ -66,50 +108,6 @@ export function BookView() {
   if (section === 'tree') {
     const selectedTreePerson =
       selectedTreePersonId !== null ? getPersonById(selectedTreePersonId) : null;
-
-    const toggleKinshipPickMode = () => {
-      const next = !kinshipPickMode;
-      setKinshipPickMode(next);
-      setKinshipSelectedIds([]);
-      if (next) {
-        // When entering kinship pick mode, close the person panel and clear URL selection.
-        updateTreePersonInUrl(null);
-      }
-    };
-
-    const resetKinshipSelection = () => {
-      setKinshipSelectedIds([]);
-    };
-    const resetTreeRoot = () => {
-      setRootPersonId(defaultRootPersonId);
-    };
-
-    const onKinshipNodeClick = (personId: string) => {
-      setKinshipSelectedIds((prev) => {
-        if (prev.length === 0) return [personId];
-        if (prev.length === 1) {
-          return prev[0] === personId ? [] : [prev[0], personId];
-        }
-
-        // prev.length === 2
-        if (prev[0] === personId) return [prev[1]];
-        if (prev[1] === personId) return [prev[0]];
-        // Third distinct: replace second, keep first.
-        return [prev[0], personId];
-      });
-    };
-
-    const kinshipHintById = (() => {
-      if (kinshipSelectedIds.length !== 2) return {};
-      const [a, b] = kinshipSelectedIds;
-      const resAB = getKinship(a, b);
-      const resBA = getKinship(b, a);
-      return {
-        // "наоборот": показываем, кем B является для A, и кем A является для B
-        [a]: resBA ? t(resBA.key) : t('kinshipNoRelation'),
-        [b]: resAB ? t(resAB.key) : t('kinshipNoRelation'),
-      } as Record<string, string>;
-    })();
 
     return (
       <>

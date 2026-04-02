@@ -68,6 +68,11 @@ vi.mock('@/lib/utils/person', () => ({
   formatLifeDates: () => '1900–1901',
   getFullName: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
   formatPersonNameForLocale: (p: Person) => `${p.firstName} ${p.lastName ?? ''}`.trim(),
+  formatNamePartsByLocale: (p: Person) => ({
+    firstName: p.firstName,
+    lastName: p.lastName ?? '',
+    patronymic: '',
+  }),
   sortPersonsBySurname: (ps: Person[]) => ps,
 }));
 

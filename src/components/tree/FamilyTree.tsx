@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
 import {
   buildDescendantsMatrix,
@@ -178,6 +178,18 @@ export function FamilyTree({
   );
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const avatarRefCallbacksRef = useRef<Map<string, (el: HTMLDivElement | null) => void>>(new Map());
+  const getAvatarRefForKey = useCallback((key: string) => {
+    let cb = avatarRefCallbacksRef.current.get(key);
+    if (!cb) {
+      cb = (el: HTMLDivElement | null) => {
+        if (!el) avatarRefs.current.delete(key);
+        else avatarRefs.current.set(key, el);
+      };
+      avatarRefCallbacksRef.current.set(key, cb);
+    }
+    return cb;
+  }, []);
   const { pan, panHandlers } = useTreePan({
     initialY: TREE_LAYOUT.pan.initialY,
     limitX: TREE_LAYOUT.pan.limitX,
@@ -270,12 +282,7 @@ export function FamilyTree({
                   scale={pos.scale}
                   showSiblings={treeMode !== 'descendants'}
                   onPersonClick={kinshipMode && onKinshipSelect ? onKinshipSelect : onPersonClick}
-                  onAvatarRef={
-                    (el) => {
-                      if (!el) avatarRefs.current.delete(key);
-                      else avatarRefs.current.set(key, el);
-                    }
-                  }
+                  onAvatarRef={getAvatarRefForKey(key)}
                   kinshipHint={
                     kinshipMode && person
                       ? kinshipHintById[person.id] ?? null

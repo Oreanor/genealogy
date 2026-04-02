@@ -6,7 +6,7 @@ type LoadingOverlayProps = {
   /** For "dots" variant. If omitted, dots animate after an empty label. */
   text?: string;
   /** Which UI to show. */
-  variant?: 'dots' | 'spinner';
+  variant?: 'dots' | 'spinner' | 'map';
   /**
    * Positioning context.
    * - `fixed`: relative to viewport (no jumping if parent layout shifts)
@@ -26,7 +26,7 @@ export function LoadingOverlay({
   const [dotsCount, setDotsCount] = useState(0);
 
   useEffect(() => {
-    if (variant !== 'dots') return;
+    if (variant !== 'dots' && variant !== 'map') return;
     const id = window.setInterval(() => {
       setDotsCount((v) => (v + 1) % 4);
     }, 500);
@@ -37,6 +37,29 @@ export function LoadingOverlay({
     mode === 'fixed'
       ? 'fixed inset-0 z-50 flex items-center justify-center pointer-events-none'
       : 'absolute inset-0 z-50 flex items-center justify-center pointer-events-none';
+
+  if (variant === 'map') {
+    const safeText = (text ?? '').trim();
+    return (
+      <div className={pos}>
+        <div className="pointer-events-none flex min-w-[220px] max-w-[min(92vw,320px)] flex-col items-center gap-3 rounded-xl border border-(--ink-muted)/25 bg-(--paper)/92 px-5 py-4 shadow-xl backdrop-blur-md">
+          <div className="relative size-10">
+            <div className="absolute inset-0 animate-spin rounded-full border-2 border-(--ink-muted)/20 border-t-(--accent)" />
+            <div
+              className="absolute inset-1 animate-spin rounded-full border-2 border-transparent border-b-(--accent-hover)"
+              style={{ animationDirection: 'reverse', animationDuration: '0.9s' }}
+            />
+          </div>
+          {safeText ? (
+            <p className="text-center text-sm font-medium leading-snug text-(--ink)">{safeText}</p>
+          ) : null}
+          <div className="flex h-1 w-full overflow-hidden rounded-full bg-(--ink-muted)/15">
+            <div className="map-loading-progress h-full w-1/3 rounded-full bg-(--accent)" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (variant === 'spinner') {
     return (

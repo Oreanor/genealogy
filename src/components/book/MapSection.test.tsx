@@ -25,6 +25,10 @@ vi.mock('@/lib/data/mapFallbacks', () => ({
   getPlaceFallbacks: () => ({}),
 }));
 
+vi.mock('@/hooks/usePersonsOverlayRevision', () => ({
+  usePersonsOverlayRevision: () => 0,
+}));
+
 vi.mock('./mapSectionUtils', () => ({
   buildMapEntries: () => ({
     markerEntries: [],
@@ -39,13 +43,16 @@ vi.mock('./mapSectionUtils', () => ({
   }),
 }));
 
-vi.mock('./useLeafletPersonMap', () => ({
-  useLeafletPersonMap: () => ({
-    isLoading: false,
-  }),
+vi.mock('./useLeafletBookMap', () => ({
+  useLeafletBookMap: () => ({ showPersonFilter: true }),
 }));
 
 describe('MapSection', () => {
+  it('renders map region', () => {
+    render(<MapSection />);
+    expect(screen.getByLabelText('Map')).toBeInTheDocument();
+  });
+
   it('resets the active filter when locale changes', () => {
     const { rerender } = render(<MapSection />);
 

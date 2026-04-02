@@ -1,20 +1,21 @@
 'use client';
 
-import { useMemo, useRef, useState, useCallback } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons } from '@/lib/data/persons';
-import { LoadingOverlay } from '@/components/ui/molecules/LoadingOverlay';
+import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
 import type { Locale } from '@/lib/i18n/config';
 import { buildMapEntries } from './mapSectionUtils';
-import { useLeafletPersonMap } from './useLeafletPersonMap';
+import { useLeafletBookMap } from './useLeafletBookMap';
 
 export function MapSection() {
   const { t, locale } = useLocaleRoutes();
   const placeFallbacks = getPlaceFallbacks();
-  const persons = getPersons();
+  const personsOverlayRev = usePersonsOverlayRevision();
+  const persons = useMemo(() => getPersons(), [personsOverlayRev]);
 
   return (
     <MapSectionContent
@@ -54,16 +55,20 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
       }),
     [locale, persons, placeFallbacks, t]
   );
+
   const visibleSelectedPersonId =
-    selectedPersonId && personsOnMap.some((person) => person.id === selectedPersonId)
+    selectedPersonId && personsOnMap.some((p) => p.id === selectedPersonId)
       ? selectedPersonId
       : null;
-  const { isLoading } = useLeafletPersonMap({
-    mapRef,
+
+  const { showPersonFilter } = useLeafletBookMap({
+    containerRef: mapRef,
+    locale,
     markerEntries,
     lineEntries,
     selectedPersonId: visibleSelectedPersonId,
   });
+
   const selectedPerson = personsOnMap.find((p) => p.id === visibleSelectedPersonId) ?? null;
 
   return (
@@ -77,16 +82,9 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
               {t('chapters_map')}
             </h1>
             <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25">
-              <div
-                ref={mapRef}
-                className={`h-full w-full transition-opacity duration-300 ${
-                  isLoading ? 'pointer-events-none opacity-50' : 'pointer-events-auto opacity-100'
-                }`}
-                aria-busy={isLoading}
-                aria-label={t('chapters_map')}
-              />
-              {!isLoading && personsOnMap.length > 0 && (
-                <div className="absolute top-2 right-2 z-20 flex items-start gap-1">
+              <div ref={mapRef} className="h-full w-full" aria-label={t('chapters_map')} />
+              {showPersonFilter && personsOnMap.length > 0 && (
+                <div className="absolute top-2 right-2 z-[1000] flex items-start gap-1">
                   <div className="relative">
                     <button
                       type="button"
@@ -109,7 +107,7 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                       <span className="text-[10px] opacity-70">{isFilterOpen ? '▲' : '▼'}</span>
                     </button>
                     {isFilterOpen && (
-                      <div className="absolute right-0 mt-1 max-h-64 w-[280px] overflow-auto rounded border border-(--ink-muted)/40 bg-white/95 p-1 text-xs text-(--ink) shadow-lg backdrop-blur-sm">
+                      <div className="absolute right-0 z-[1000] mt-1 max-h-64 w-[280px] overflow-auto rounded border border-(--ink-muted)/40 bg-white/95 p-1 text-xs text-(--ink) shadow-lg backdrop-blur-sm">
                         <button
                           type="button"
                           onClick={() => handleFilterChange(null)}
@@ -137,6 +135,7 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                   </div>
                   {visibleSelectedPersonId && (
                     <button
+                      type="button"
                       onClick={() => handleFilterChange(null)}
                       title={t('mapFilterReset') || 'Показать всех'}
                       className="flex h-6 w-6 items-center justify-center rounded border border-(--ink-muted)/40 bg-white/90 text-xs text-(--ink) shadow-sm backdrop-blur-sm hover:bg-white"
@@ -145,12 +144,6 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                     </button>
                   )}
                 </div>
-              )}
-              {isLoading && (
-                <LoadingOverlay
-                  text={(t('mapLoading') || t('loading')).trim()}
-                  mode="fixed"
-                />
               )}
             </div>
           </BookPage>

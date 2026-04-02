@@ -7,6 +7,7 @@ import {
 import { StorageGate } from '@/components/StorageGate';
 import { RootPersonProvider } from '@/lib/contexts/RootPersonContext';
 import { DEFAULT_PAPER_COLOR, PAPER_COLOR_PALETTE } from '@/lib/constants/theme';
+import 'leaflet/dist/leaflet.css';
 import './globals.css';
 
 const PAPER_PALETTE_JSON = JSON.stringify([...PAPER_COLOR_PALETTE]);

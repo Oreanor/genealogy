@@ -2,19 +2,6 @@ import { MAP_DEFAULT_CENTER, MAP_DEFAULT_ZOOM } from '@/lib/constants/map';
 
 const containerToMap: WeakMap<HTMLDivElement, import('leaflet').Map> = new WeakMap();
 
-function ensureLeafletCss(): void {
-  const cssId = 'leaflet-osm-styles';
-  if (document.getElementById(cssId)) return;
-
-  const link = document.createElement('link');
-  link.id = cssId;
-  link.rel = 'stylesheet';
-  link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-  link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-  link.crossOrigin = '';
-  document.head.appendChild(link);
-}
-
 export async function initLeafletMap(
   container: HTMLDivElement,
   center: readonly [number, number] = MAP_DEFAULT_CENTER,
@@ -23,8 +10,6 @@ export async function initLeafletMap(
   L: typeof import('leaflet');
   map: import('leaflet').Map;
 }> {
-  ensureLeafletCss();
-
   const L = await import('leaflet');
 
   const existing = containerToMap.get(container);
