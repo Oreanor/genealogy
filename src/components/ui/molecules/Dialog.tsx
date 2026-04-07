@@ -78,7 +78,7 @@ export function Dialog({
         aria-modal
         aria-label={ariaLabel ?? title}
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-xl border-2 border-(--border) bg-(--surface) p-5 shadow-xl focus:outline-none"
+        className="relative z-10 w-full max-w-md rounded-xl border-2 border-(--border) bg-(--book-bg) p-5 shadow-xl focus:outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         {title && (

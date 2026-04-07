@@ -7,7 +7,7 @@ import Color from '@tiptap/extension-color';
 import { TextStyle } from '@tiptap/extension-text-style';
 
 const btnClass =
-  'rounded border border-(--border) bg-(--surface) px-2 py-1 text-sm text-(--ink) hover:bg-(--paper-light)';
+  'rounded border border-(--border) bg-(--book-bg) px-2 py-1 text-sm text-(--ink) hover:bg-(--paper-light)';
 
 export interface RichTextEditorProps {
   value: string;
@@ -36,7 +36,7 @@ export function RichTextEditor({ value, onChange }: RichTextEditorProps) {
     }
   }, [editor, value]);
 
-  if (!editor) return <div className="min-h-[120px] animate-pulse rounded bg-(--surface)" />;
+  if (!editor) return <div className="min-h-[120px] animate-pulse rounded bg-(--book-bg)" />;
 
   return (
     <div className="flex h-full flex-col gap-2">

@@ -255,7 +255,7 @@ export function ImportMergeDialog({
         aria-modal
         aria-label={t(titleKey ?? 'adminImportJson')}
         tabIndex={-1}
-        className="relative z-10 flex max-h-[80vh] w-full max-w-md flex-col rounded-xl border-2 border-(--border) bg-(--surface) shadow-xl focus:outline-none"
+        className="relative z-10 flex max-h-[80vh] w-full max-w-md flex-col rounded-xl border-2 border-(--border) bg-(--book-bg) shadow-xl focus:outline-none"
       >
         {/* Header */}
         <div className="shrink-0 border-b border-(--border) px-5 pt-5 pb-3">

@@ -33,7 +33,7 @@ export function AvatarPickerDialog({
       aria-modal
       aria-label={t('adminChoosePortrait')}
     >
-      <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl border-2 border-(--border) bg-(--surface) p-4 shadow-xl">
+      <div className="flex max-h-[85vh] w-full max-w-2xl flex-col rounded-xl border-2 border-(--border) bg-(--book-bg) p-4 shadow-xl">
         <h2 className="mb-3 text-center text-lg font-semibold text-(--ink)">
           {t('adminChoosePortrait')}
         </h2>

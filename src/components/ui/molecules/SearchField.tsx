@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/atoms';
 
 const WRAPPER_CLASS =
-  'flex items-center gap-2 rounded-md border border-(--border-subtle) bg-(--paper) pl-3 pr-2 py-1.5 focus-within:outline-none';
+  'flex items-center gap-2 rounded-md border border-(--border-subtle) bg-(--book-bg) pl-3 pr-2 py-1.5 focus-within:outline-none';
 
 export interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   className?: string;

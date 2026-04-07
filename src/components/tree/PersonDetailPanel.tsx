@@ -105,10 +105,10 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
             />
           </div>
           {inline && (
-            <div className="mt-3 flex shrink-0 flex-wrap items-center gap-2 border-t border-(--ink-muted)/25 pt-3">
+            <div className="mt-3 flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-(--ink-muted)/25 pt-3">
               <Button
                 variant="secondary"
-                size="sm"
+                className="px-4"
                 type="button"
                 disabled={isAlreadyTreeRoot}
                 title={isAlreadyTreeRoot ? t('makeTreeRootAlready') : undefined}
@@ -119,7 +119,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               >
                 {t('makeTreeRoot')}
               </Button>
-              <Button variant="secondary" size="sm" type="button" onClick={onClose}>
+              <Button variant="secondary" className="px-4" type="button" onClick={onClose}>
                 ← {t('back')}
               </Button>
             </div>
@@ -183,7 +183,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               className="px-4"
               onClick={() => setTextLightboxOpen(false)}
             >
-              {t('back')}
+              ← {t('back')}
             </Button>
           </div>
         </div>
@@ -217,7 +217,7 @@ export function PersonDetailPanel({ person, onClose, onSelectPerson, inline = fa
               className="px-4"
               onClick={() => setMapLightboxOpen(false)}
             >
-              {t('back')}
+              ← {t('back')}
             </Button>
           </div>
         </div>

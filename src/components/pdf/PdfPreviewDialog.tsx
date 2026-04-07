@@ -83,7 +83,7 @@ export function PdfPreviewDialog({ open, onClose }: PdfPreviewDialogProps) {
       aria-label={t('pdfPreview')}
     >
       {/* Header */}
-      <div className="flex items-center justify-between bg-(--surface) px-4 py-2 shadow">
+      <div className="flex items-center justify-between bg-(--book-bg) px-4 py-2 shadow">
         <span className="text-sm font-medium text-(--ink)">{t('pdfPreview')}</span>
         <div className="flex items-center gap-2">
           <button

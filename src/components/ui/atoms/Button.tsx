@@ -9,13 +9,13 @@ const variants = {
   primary:
     'bg-(--accent) text-(--nav-btn-ink) hover:opacity-90 shadow-md',
   secondary:
-    'border border-(--border) bg-(--surface) text-(--ink) hover:bg-(--paper-light)',
+    'border border-(--border) bg-(--book-bg) text-(--ink) hover:bg-(--paper-light)',
   ghost:
     'text-(--ink-muted) hover:bg-(--paper-light) hover:text-(--ink)',
   danger:
     'text-(--ink-muted) hover:bg-red-500/20 hover:text-red-600',
   icon:
-    'h-8 w-8 shrink-0 border-2 border-(--border) bg-(--paper) text-(--ink) shadow-md hover:shadow-lg md:h-9 md:w-9',
+    'h-8 w-8 shrink-0 border-2 border-(--border) bg-(--book-bg) text-(--ink) shadow-md hover:shadow-lg md:h-9 md:w-9',
 } as const;
 
 const sizes = {

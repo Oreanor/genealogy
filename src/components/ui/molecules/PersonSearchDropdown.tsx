@@ -40,7 +40,7 @@ export function PersonSearchDropdown({
         aria-label={ariaLabel}
       />
       {searchFocused && filteredPersons.length > 0 && (
-        <ul className="absolute left-0 right-0 z-10 mt-1 max-h-64 overflow-y-auto rounded-md border border-(--border-subtle) bg-(--paper) shadow-lg">
+        <ul className="absolute left-0 right-0 z-10 mt-1 max-h-64 overflow-y-auto rounded-md border border-(--border-subtle) bg-(--book-bg) shadow-lg">
           {filteredPersons.map((p) => (
             <li key={p.id}>
               <button

@@ -276,7 +276,7 @@ export function PersonsSection() {
                 );
               }}
             >
-              {t('back')}
+              ← {t('back')}
             </Button>
           </div>
         </div>
@@ -308,7 +308,7 @@ export function PersonsSection() {
               className="px-4"
               onClick={() => setMapLightboxOpen(false)}
             >
-              {t('back')}
+              ← {t('back')}
             </Button>
           </div>
         </div>

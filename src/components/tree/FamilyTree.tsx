@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useRootPersonId } from '@/lib/contexts/RootPersonContext';
 import {
   buildDescendantsMatrix,
@@ -195,12 +195,14 @@ export function FamilyTree({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const avatarRefCallbacksRef = useRef<Map<string, (el: HTMLDivElement | null) => void>>(new Map());
+  const [avatarLayoutGeneration, setAvatarLayoutGeneration] = useState(0);
   const getAvatarRefForKey = useCallback((key: string) => {
     let cb = avatarRefCallbacksRef.current.get(key);
     if (!cb) {
       cb = (el: HTMLDivElement | null) => {
         if (!el) avatarRefs.current.delete(key);
         else avatarRefs.current.set(key, el);
+        setAvatarLayoutGeneration((n) => n + 1);
       };
       avatarRefCallbacksRef.current.set(key, cb);
     }
@@ -217,6 +219,7 @@ export function FamilyTree({
   const segments = useTreeSegments({
     containerRef,
     avatarRefs,
+    avatarLayoutGeneration,
     matrix,
     visibleLevelCount,
     kinshipMode,

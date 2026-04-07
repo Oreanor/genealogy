@@ -31,7 +31,7 @@ export function AdminPersonsTableHeader({
   t,
 }: Props) {
   return (
-    <thead className="sticky top-0 z-10 bg-(--surface) shadow-[0_1px_0_0_var(--border-subtle)]">
+    <thead className="sticky top-0 z-10 bg-(--book-bg) shadow-[0_1px_0_0_var(--border-subtle)]">
       <tr className="border-b border-(--border)">
         <th className="w-14 p-2 text-center" title={t('adminRemove')}>
           <input

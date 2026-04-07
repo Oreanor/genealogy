@@ -89,16 +89,16 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                     <button
                       type="button"
                       onClick={() => setIsFilterOpen((v) => !v)}
-                      className="flex min-w-[220px] items-center justify-between gap-2 rounded border border-(--ink-muted)/40 bg-white/90 px-2 py-1 text-xs text-(--ink) shadow-sm backdrop-blur-sm"
+                      className="flex min-w-[220px] items-center justify-between gap-2 rounded border border-(--ink-muted)/40 bg-(--book-bg)/95 px-2 py-1 text-xs text-(--ink) shadow-sm backdrop-blur-sm"
                     >
                       <span className="flex min-w-0 items-center gap-2">
                         {selectedPerson ? (
                           <span
-                            className="h-2.5 w-2.5 rounded-full border border-white/90 shadow-sm"
+                            className="h-2.5 w-2.5 rounded-full border border-(--border-subtle) shadow-sm"
                             style={{ background: selectedPerson.color }}
                           />
                         ) : (
-                          <span className="h-2.5 w-2.5 rounded-full border border-(--ink-muted)/40 bg-white" />
+                          <span className="h-2.5 w-2.5 rounded-full border border-(--ink-muted)/40 bg-(--ink-muted)/25" />
                         )}
                         <span className="truncate">
                           {selectedPerson?.name ?? t('mapFilterAll') ?? 'Все на карте'}
@@ -107,13 +107,13 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                       <span className="text-[10px] opacity-70">{isFilterOpen ? '▲' : '▼'}</span>
                     </button>
                     {isFilterOpen && (
-                      <div className="absolute right-0 z-[1000] mt-1 max-h-64 w-[280px] overflow-auto rounded border border-(--ink-muted)/40 bg-white/95 p-1 text-xs text-(--ink) shadow-lg backdrop-blur-sm">
+                      <div className="absolute right-0 z-[1000] mt-1 max-h-64 w-[280px] overflow-auto rounded border border-(--ink-muted)/40 bg-(--book-bg)/98 p-1 text-xs text-(--ink) shadow-lg backdrop-blur-sm">
                         <button
                           type="button"
                           onClick={() => handleFilterChange(null)}
-                          className="flex w-full items-center gap-2 rounded px-2 py-1 text-left hover:bg-(--paper)/70"
+                          className="flex w-full items-center gap-2 rounded px-2 py-1 text-left hover:bg-(--paper-light)/35"
                         >
-                          <span className="h-2.5 w-2.5 rounded-full border border-(--ink-muted)/40 bg-white" />
+                          <span className="h-2.5 w-2.5 rounded-full border border-(--ink-muted)/40 bg-(--ink-muted)/25" />
                           <span className="truncate">{t('mapFilterAll') || 'Все на карте'}</span>
                         </button>
                         {personsOnMap.map((p) => (
@@ -121,10 +121,10 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                             key={p.id}
                             type="button"
                             onClick={() => handleFilterChange(p.id)}
-                            className="flex w-full items-center gap-2 rounded px-2 py-1 text-left hover:bg-(--paper)/70"
+                            className="flex w-full items-center gap-2 rounded px-2 py-1 text-left hover:bg-(--paper-light)/35"
                           >
                             <span
-                              className="h-2.5 w-2.5 rounded-full border border-white/90 shadow-sm"
+                              className="h-2.5 w-2.5 rounded-full border border-(--border-subtle) shadow-sm"
                               style={{ background: p.color }}
                             />
                             <span className="truncate">{p.name}</span>
@@ -138,7 +138,7 @@ function MapSectionContent({ locale, t, placeFallbacks, persons }: MapSectionCon
                       type="button"
                       onClick={() => handleFilterChange(null)}
                       title={t('mapFilterReset') || 'Показать всех'}
-                      className="flex h-6 w-6 items-center justify-center rounded border border-(--ink-muted)/40 bg-white/90 text-xs text-(--ink) shadow-sm backdrop-blur-sm hover:bg-white"
+                      className="flex h-6 w-6 items-center justify-center rounded border border-(--ink-muted)/40 bg-(--book-bg)/95 text-xs text-(--ink) shadow-sm backdrop-blur-sm hover:bg-(--paper-light)/40"
                     >
                       ✕
                     </button>

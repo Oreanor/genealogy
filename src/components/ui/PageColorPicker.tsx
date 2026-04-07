@@ -85,6 +85,7 @@ export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProp
     Object.entries(theme).forEach(([key, value]) =>
       root.setProperty(`--${key}`, value)
     );
+    root.colorScheme = isDark ? 'dark' : 'light';
   }, [paper]);
 
   const paperRef = useRef(paper);
@@ -174,7 +175,7 @@ export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProp
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex h-8 w-8 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-(--border) bg-(--surface) shadow-md transition-shadow hover:shadow-lg md:h-9 md:w-9"
+        className="flex h-8 w-8 cursor-pointer shrink-0 flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-(--border) bg-(--book-bg) shadow-md transition-shadow hover:shadow-lg md:h-9 md:w-9"
         aria-label={t('tooltipPageColor')}
         aria-expanded={open}
       >
@@ -192,7 +193,7 @@ export function PageColorPicker({ popupDirection = 'down' }: PageColorPickerProp
       </button>
       {open && (
         <div
-          className={`absolute right-0 z-[100] flex w-[220px] max-w-[calc(100vw-1rem)] flex-col gap-3 rounded-xl border border-(--border) bg-(--surface) p-3 shadow-xl ${
+          className={`absolute right-0 z-[100] flex w-[220px] max-w-[calc(100vw-1rem)] flex-col gap-3 rounded-xl border border-(--border) bg-(--book-bg) p-3 shadow-xl ${
             popupDirection === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'
           }`}
           data-picker-area

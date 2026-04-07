@@ -19,6 +19,8 @@ export type TreeSegment = {
 type Params = {
   containerRef: React.RefObject<HTMLDivElement | null>;
   avatarRefs: React.RefObject<Map<string, HTMLDivElement>>;
+  /** Bumps when any avatar ref attaches/detaches so layout effect runs after the map is filled. */
+  avatarLayoutGeneration: number;
   matrix: (Person | null)[][];
   visibleLevelCount: number;
   kinshipMode: boolean;
@@ -31,6 +33,7 @@ type Params = {
 export function useTreeSegments({
   containerRef,
   avatarRefs,
+  avatarLayoutGeneration,
   matrix,
   visibleLevelCount,
   kinshipMode,
@@ -250,6 +253,7 @@ export function useTreeSegments({
     window.addEventListener('resize', recompute);
     return () => window.removeEventListener('resize', recompute);
   }, [
+    avatarLayoutGeneration,
     avatarRefs,
     containerRef,
     kinshipMode,

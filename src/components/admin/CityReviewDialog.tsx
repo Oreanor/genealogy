@@ -29,7 +29,7 @@ export function CityReviewDialog({
       aria-modal
       aria-label="City review"
     >
-      <div className="w-full max-w-lg rounded-xl border-2 border-(--border) bg-(--surface) p-4 shadow-xl">
+      <div className="w-full max-w-lg rounded-xl border-2 border-(--border) bg-(--book-bg) p-4 shadow-xl">
         <h3 className="mb-2 text-center text-lg font-semibold text-(--ink)">
           Новый город: {cityReview.city}
         </h3>

@@ -244,7 +244,7 @@ describe('PersonsSection coverage', () => {
     });
 
     // close overlay
-    fireEvent.click(screen.getByRole('button', { name: 'back' }));
+    fireEvent.click(screen.getByRole('button', { name: /^←\s*back$/i }));
     await waitFor(() => {
       expect(screen.queryByText(history0.entry.title)).not.toBeInTheDocument();
     });

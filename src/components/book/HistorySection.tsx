@@ -162,7 +162,7 @@ export function HistorySection() {
                   router.push(url);
                 }}
               >
-                {t('back')}
+                ← {t('back')}
               </Button>
             </div>
           </div>

@@ -10,7 +10,7 @@ function toneClass(tone: SquareTone): string {
     return 'border-(--ink) bg-(--ink) text-(--paper) hover:opacity-90';
   }
   if (tone === 'surface') {
-    return 'border-(--border) bg-(--surface) text-(--ink)';
+    return 'border-(--border) bg-(--book-bg) text-(--ink)';
   }
   return 'border-(--border) bg-(--paper) text-(--ink)';
 }
