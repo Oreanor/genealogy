@@ -20,11 +20,7 @@
 # production
 /build
 
-# Local output from scripts/download-images.mjs (default --out)
-public/photos/downloaded/
-
-# FamilySearch media grab (familysearch-download-media.mjs / familysearch-download-easy.mjs)
-public/photos/fs-registry/
+# Local FamilySearch browser profile (если снова понадобится автоматизация)
 playwright-fs-profile/
 
 # misc

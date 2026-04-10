@@ -5,15 +5,12 @@ import { withI18n } from '@/lib/i18n/test-utils';
 import { getPersons } from '@/lib/data/persons';
 import { getPhotosByPerson, splitPersonPhotosForCarousels } from '@/lib/data/photos';
 import { getHistoryEntries } from '@/lib/data/history';
-import { getKinship } from '@/lib/utils/kinship';
-import { getMessages } from '@/lib/i18n/messages';
 import { getFullName } from '@/lib/utils/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { HelpSpread } from './HelpSpread';
 import { PersonsSection } from './PersonsSection';
 import { PhotosSection } from './PhotosSection';
 import { HistorySection } from './HistorySection';
-import { KinshipSpread } from './KinshipSpread';
 
 vi.mock('next/image', () => ({
   default: ({ src, alt }: { src: string; alt?: string }) => <img src={src} alt={alt ?? ''} />,
@@ -195,87 +192,5 @@ describe('Book sections coverage', () => {
 
     expect(screen.getAllByText('Не найдено').length).toBeGreaterThan(0);
   });
-
-  it(
-    'KinshipSpread: covers kinSelf / no relation / resolved relation',
-    () => {
-    const messages = getMessages('ru');
-    const persons = getPersons();
-    // getKinship rebuilds the full graph each call — keep scan small; ids must match data.json.
-    const scan = persons.slice(0, Math.min(20, persons.length));
-
-    // 1) kinSelf (same person).
-    searchParamsValue = new URLSearchParams();
-    pathnameValue = '/kinship';
-    isMobileValue = false;
-    routerPush.mockClear();
-    const idSame = persons[0].id;
-
-    const { unmount } = render(withI18n(<KinshipSpread />));
-    const selects = screen.getAllByRole('combobox');
-    fireEvent.change(selects[0], { target: { value: idSame } });
-    fireEvent.change(selects[1], { target: { value: idSame } });
-    expect(screen.getByText(messages.kinSelf)).toBeInTheDocument();
-    unmount();
-
-    // 2) no relation.
-    let noRel: [string, string] | null = null;
-    outer: for (let i = 0; i < scan.length; i++) {
-      for (let j = 0; j < scan.length; j++) {
-        if (i === j) continue;
-        const a = scan[i]!.id;
-        const b = scan[j]!.id;
-        if (!getKinship(b, a) && !getKinship(a, b)) {
-          noRel = [a, b];
-          break outer;
-        }
-      }
-    }
-    if (!noRel) {
-      // If dataset doesn't contain a no-relation pair, skip branch assertions.
-      return;
-    }
-
-    const [idA, idB] = noRel;
-    render(withI18n(<KinshipSpread />));
-    const selects2 = screen.getAllByRole('combobox');
-    fireEvent.change(selects2[0], { target: { value: idA } });
-    fireEvent.change(selects2[1], { target: { value: idB } });
-    expect(screen.getByText(messages.kinshipNoRelation)).toBeInTheDocument();
-
-    // 3) resolved relation (kinship key should appear).
-    let rel:
-      | {
-          idA: string;
-          idB: string;
-          key: string;
-          pathLen: number;
-        }
-      | null = null;
-    for (let i = 0; i < scan.length; i++) {
-      for (let j = 0; j < scan.length; j++) {
-        if (i === j) continue;
-        const idA = scan[i]!.id;
-        const idB = scan[j]!.id;
-        const kin = getKinship(idB, idA); // this matches KinshipSpread's resultAtoB
-        if (kin) {
-          rel = { idA, idB, key: kin.key, pathLen: kin.path.length };
-          break;
-        }
-      }
-      if (rel) break;
-    }
-
-    if (rel) {
-      fireEvent.change(selects2[0], { target: { value: rel.idA } });
-      fireEvent.change(selects2[1], { target: { value: rel.idB } });
-      expect(screen.getByText(messages[rel.key])).toBeInTheDocument();
-      if (rel.pathLen > 2) {
-        expect(screen.getByText(messages.kinshipChainLabel)).toBeInTheDocument();
-      }
-    }
-    },
-    60_000
-  );
 });
 

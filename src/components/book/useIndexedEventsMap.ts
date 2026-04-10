@@ -1,20 +1,35 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import type { Layer, Map as LeafletMap, Marker } from 'leaflet';
+import type { Layer, Map as LeafletMap, Marker, MarkerOptions } from 'leaflet';
 import { MAP_DEFAULT_CENTER, MAP_DEFAULT_ZOOM } from '@/lib/constants/map';
 import type { IndexedMapMarker } from '@/lib/data/indexedEventsMap';
+
+export type IndexedMapFocusTarget = {
+  hitId: string;
+  factType: string;
+  year: number;
+};
 
 type Params = {
   containerRef: React.RefObject<HTMLDivElement | null>;
   locale: string;
   markers: IndexedMapMarker[];
+  /** После появления маркеров — приблизить и открыть попап этого события. */
+  focusTarget?: IndexedMapFocusTarget | null;
+  onFocusDone?: () => void;
 };
 
 /**
  * Leaflet + MarkerClusterGroup для индексированных событий (много точек в одних координатах).
  */
-export function useIndexedEventsMap({ containerRef, locale, markers }: Params) {
+export function useIndexedEventsMap({
+  containerRef,
+  locale,
+  markers,
+  focusTarget,
+  onFocusDone,
+}: Params) {
   const [tilesReady, setTilesReady] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null);
   const libRef = useRef<typeof import('leaflet') | null>(null);
@@ -112,6 +127,7 @@ export function useIndexedEventsMap({ containerRef, locale, markers }: Params) {
       }
 
       if (markers.length === 0) {
+        if (focusTarget) onFocusDone?.();
         mapInner.invalidateSize({ animate: false });
         return;
       }
@@ -148,9 +164,12 @@ export function useIndexedEventsMap({ containerRef, locale, markers }: Params) {
           iconAnchor: [d / 2, d / 2],
           popupAnchor: [0, -d / 2],
         });
-        const m = LInner.marker([item.latLng.lat, item.latLng.lon], { icon }).bindPopup(
-          item.popupHtml,
-        );
+        const m = LInner.marker([item.latLng.lat, item.latLng.lon], {
+          icon,
+          indexedHitId: item.hitId,
+          indexedFactType: item.factType,
+          indexedYear: item.year,
+        } as MarkerOptions).bindPopup(item.popupHtml);
         leafletMarkers.push(m);
       }
 
@@ -162,10 +181,43 @@ export function useIndexedEventsMap({ containerRef, locale, markers }: Params) {
       if (
         bounds.isValid() &&
         leafletMarkers.length > 0 &&
-        !initialFitDoneRef.current
+        !initialFitDoneRef.current &&
+        !focusTarget
       ) {
         mapInner.fitBounds(bounds, { padding: [28, 28], maxZoom: 8, animate: false });
         initialFitDoneRef.current = true;
+      }
+
+      if (focusTarget) {
+        const target = leafletMarkers.find((mk) => {
+          const o = mk.options as {
+            indexedHitId?: string;
+            indexedFactType?: string;
+            indexedYear?: number;
+          };
+          return (
+            o.indexedHitId === focusTarget.hitId &&
+            o.indexedFactType === focusTarget.factType &&
+            o.indexedYear === focusTarget.year
+          );
+        });
+        if (target) {
+          const cg = cluster as L.Layer & {
+            zoomToShowLayer?: (layer: L.Layer, cb: () => void) => void;
+          };
+          if (typeof cg.zoomToShowLayer === 'function') {
+            cg.zoomToShowLayer(target, () => {
+              target.openPopup();
+              onFocusDone?.();
+            });
+          } else {
+            mapInner.setView(target.getLatLng(), Math.max(mapInner.getZoom(), 12), { animate: true });
+            target.openPopup();
+            onFocusDone?.();
+          }
+        } else {
+          onFocusDone?.();
+        }
       }
 
       mapInner.invalidateSize({ animate: false });
@@ -179,7 +231,7 @@ export function useIndexedEventsMap({ containerRef, locale, markers }: Params) {
       }
       clusterRef.current = null;
     };
-  }, [tilesReady, markers]);
+  }, [tilesReady, markers, focusTarget, onFocusDone]);
 
   return { tilesReady };
 }

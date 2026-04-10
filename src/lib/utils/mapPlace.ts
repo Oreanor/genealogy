@@ -1,3 +1,5 @@
+import type { Locale } from '@/lib/i18n/config';
+import { isLatinScriptLocale } from '@/lib/utils/person';
 import { transliterateCyrillicToLatin } from '@/lib/utils/transliteration';
 
 export function normalizePlace(raw: string): string {
@@ -30,5 +32,13 @@ export function escapeHtml(text: string): string {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
+}
+
+/** Для латинских локалей — транслитерация кириллицы в подписях карт; иначе исходная строка. */
+export function formatPlaceLabelForLocale(raw: string, locale: Locale): string {
+  const n = normalizePlace(raw);
+  if (!n) return '';
+  if (!isLatinScriptLocale(locale)) return n;
+  return transliterateCyrillicToLatin(n);
 }
 

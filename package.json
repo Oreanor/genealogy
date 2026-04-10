@@ -11,14 +11,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "fs-download-media": "node scripts/familysearch-download-media.mjs",
-    "fs-download-easy": "node scripts/familysearch-download-easy.mjs",
-    "fs-export-urls": "node scripts/familysearch-export-urls.mjs",
-    "fs-export-places": "node scripts/familysearch-export-places.mjs",
-    "fs-export-header-table": "node scripts/familysearch-export-header-table.mjs"
+    "fs-export-persons": "node scripts/familysearch-export-persons.mjs",
+    "fs-kanivets-build": "node scripts/fs-kanivets-build.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
+    "@tanstack/react-virtual": "^3.13.23",
     "@tiptap/extension-color": "^3.20.0",
     "@tiptap/extension-image": "^3.20.0",
     "@tiptap/extension-text-style": "^3.20.0",
@@ -47,7 +45,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "happy-dom": "^20.8.3",
-    "playwright": "^1.59.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.0.18"

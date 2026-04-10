@@ -26,8 +26,16 @@ export const BOOK_HELP_CONTEXTUAL_KEYS_SPREAD: Record<
     'lightboxShowLabels',
     'lightboxHideLabels',
   ],
-  map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3'],
-  map2: ['bookHelpMap2Tab1', 'bookHelpMap2Tab2', 'bookHelpMap2Tab3'],
+  map: [
+    'bookHelpMapUnifiedIntro',
+    'bookHelpMap1',
+    'bookHelpMap2',
+    'bookHelpMap3',
+    'bookHelpMap2Tab1',
+    'bookHelpMap2Tab2',
+    'bookHelpMap2Tab3',
+    'bookHelpMapPrizyv1',
+  ],
 };
 
 /** Keys for BookHelpDialog (toolbar) — shorter dedicated copy */
@@ -39,6 +47,14 @@ export const BOOK_HELP_CONTEXTUAL_KEYS_DIALOG: Record<
   persons: ['bookHelpPersons1', 'bookHelpPersons2', 'bookHelpPersons3'],
   history: ['bookHelpHistory1', 'bookHelpHistory2', 'bookHelpHistory3'],
   photos: ['bookHelpPhotos1', 'bookHelpPhotos2', 'bookHelpPhotos3', 'bookHelpPhotos4'],
-  map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3', 'bookHelpMap4', 'bookHelpMap5'],
-  map2: ['bookHelpMap2Tab1', 'bookHelpMap2Tab2', 'bookHelpMap2Tab3'],
+  map: [
+    'bookHelpMapUnifiedIntro',
+    'bookHelpMap1',
+    'bookHelpMap2',
+    'bookHelpMap3',
+    'bookHelpMap2Tab1',
+    'bookHelpMap2Tab2',
+    'bookHelpMap2Tab3',
+    'bookHelpMapPrizyv1',
+  ],
 };

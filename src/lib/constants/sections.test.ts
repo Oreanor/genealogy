@@ -2,15 +2,15 @@ import { describe, it, expect } from 'vitest';
 import { SECTION_IDS, SECTIONS, isSectionId } from './sections';
 
 describe('sections', () => {
-  it('exports SECTION_IDS with tree, persons, history, photos, map, map2, kinship, help', () => {
+  it('exports SECTION_IDS with tree, persons, history, photos, map, kinship, familySearch, help', () => {
     expect(SECTION_IDS).toEqual([
       'tree',
       'persons',
       'history',
       'photos',
       'map',
-      'map2',
       'kinship',
+      'familySearch',
       'help',
     ]);
   });
@@ -23,8 +23,8 @@ describe('sections', () => {
       'history',
       'photos',
       'map',
-      'map2',
       'kinship',
+      'familySearch',
       'help',
     ]);
     expect(SECTIONS.every((s) => s.i18nKey.startsWith('chapters_'))).toBe(true);
@@ -37,8 +37,8 @@ describe('sections', () => {
       expect(isSectionId('history')).toBe(true);
       expect(isSectionId('photos')).toBe(true);
       expect(isSectionId('map')).toBe(true);
-      expect(isSectionId('map2')).toBe(true);
       expect(isSectionId('kinship')).toBe(true);
+      expect(isSectionId('familySearch')).toBe(true);
       expect(isSectionId('help')).toBe(true);
     });
 

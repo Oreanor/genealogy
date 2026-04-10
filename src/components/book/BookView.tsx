@@ -10,8 +10,8 @@ import { HelpSpread } from './HelpSpread';
 import { HistorySection } from './HistorySection';
 import { PhotosSection } from './PhotosSection';
 import { PersonsSection } from './PersonsSection';
-import { MapSection } from './MapSection';
-import { IndexedEventsMapSection } from './IndexedEventsMapSection';
+import { UnifiedMapSection } from './UnifiedMapSection';
+import { FamilySearchPersonsSection } from './FamilySearchPersonsSection';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
 import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
@@ -206,9 +206,9 @@ export function BookView() {
     case 'photos':
       return <PhotosSection />;
     case 'map':
-      return <MapSection />;
-    case 'map2':
-      return <IndexedEventsMapSection />;
+      return <UnifiedMapSection />;
+    case 'familySearch':
+      return <FamilySearchPersonsSection />;
     case 'persons':
       return <PersonsSection />;
     default:

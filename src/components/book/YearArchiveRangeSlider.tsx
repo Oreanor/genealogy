@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import type { TranslationFn } from '@/lib/i18n/types';
 
 export type YearArchiveRangeSliderProps = {
   /** Абсолютные границы данных (концы линии). */
@@ -12,7 +13,14 @@ export type YearArchiveRangeSliderProps = {
   onChange: (next: { low: number; high: number }) => void;
   /** Число событий в текущем диапазоне — над центром выделенного участка. */
   eventCount: number;
+  /**
+   * События по годам от minBound до maxBound включительно:
+   * `countsByYear[i]` — число событий в годe `minBound + i`.
+   * Столбчатая диаграмма той же ширины, что дорожка, высотой 50px; высота столбца пропорциональна count (масштаб по max).
+   */
+  countsByYear: number[];
   className?: string;
+  t: TranslationFn;
 };
 
 /**
@@ -26,10 +34,13 @@ export function YearArchiveRangeSlider({
   high,
   onChange,
   eventCount,
+  countsByYear,
   className = '',
+  t,
 }: YearArchiveRangeSliderProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [drag, setDrag] = useState<'low' | 'high' | 'range' | null>(null);
+  const [hoverYear, setHoverYear] = useState<number | null>(null);
   const rangeStartRef = useRef<{ clientX: number; low: number; high: number } | null>(null);
 
   const span = Math.max(0, maxBound - minBound);
@@ -148,6 +159,13 @@ export function YearArchiveRangeSlider({
   const widthPct = Math.abs(pHigh - pLow);
   const pMid = leftPct + widthPct / 2;
 
+  const yearSpan = maxBound - minBound + 1;
+  const histCounts =
+    countsByYear.length === yearSpan
+      ? countsByYear
+      : Array.from({ length: yearSpan }, (_, i) => countsByYear[i] ?? 0);
+  const maxYearCount = histCounts.reduce((m, c) => Math.max(m, c), 0);
+
   return (
     <div className={`w-full ${className}`}>
       <div className="relative w-full touch-none select-none">
@@ -183,11 +201,66 @@ export function YearArchiveRangeSlider({
             </>
           )}
         </div>
+        {/* Столбцы по годам — та же ширина, что у дорожки (px-2). Наведение: число событий над столбцом. */}
+        <div className="mb-0.5 flex h-[50px] w-full items-stretch px-2">
+          {Array.from({ length: yearSpan }, (_, i) => minBound + i)
+            .filter((y) => y % 50 === 0)
+            .map((y) => {
+              const p = ((y - minBound) / span) * 100;
+              return (
+                <div
+                  key={`tick-${y}`}
+                  className="pointer-events-none absolute z-0"
+                  style={{ left: `calc(0.5rem + (100% - 1rem) * ${p / 100})` }}
+                  aria-hidden
+                >
+                  <div className="h-[50px] w-px bg-(--ink-muted)/20" />
+                  <div className="mt-0.5 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] leading-none text-(--ink-muted)/70">
+                    {y}
+                  </div>
+                </div>
+              );
+            })}
+          {histCounts.map((c, i) => {
+            const year = minBound + i;
+            const chartH = 50;
+            const hPx =
+              c > 0 && maxYearCount > 0
+                ? Math.max(1, Math.round((c / maxYearCount) * chartH))
+                : 0;
+            const inRange = year >= low && year <= high;
+            const showLabel = hoverYear === year;
+            return (
+              <div
+                key={year}
+                className="relative h-full min-w-0 flex-1 cursor-pointer"
+                onPointerEnter={() => setHoverYear(year)}
+                onPointerLeave={() => setHoverYear(null)}
+                onClick={() => onChange({ low: year, high: year })}
+              >
+                {showLabel && (
+                  <span
+                    className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2 font-mono text-[10px] font-semibold tabular-nums leading-none text-(--ink)"
+                    style={{ bottom: `${hPx + 4}px` }}
+                  >
+                    {c}
+                  </span>
+                )}
+                <div
+                  className={`absolute bottom-0 left-0 right-0 w-full rounded-t-[1px] transition-[height] duration-75 ${
+                    inRange ? 'bg-(--accent)' : 'bg-(--accent)/35'
+                  }`}
+                  style={{ height: hPx }}
+                />
+              </div>
+            );
+          })}
+        </div>
         <div
           ref={trackRef}
-          className="relative -mt-2 h-8 w-full"
+          className="relative h-8 w-full"
           role="group"
-          aria-label="Year range"
+          aria-label={t('mapArchiveYearRangeGroupAria')}
         >
         {/* вся линия */}
         <div
@@ -215,7 +288,7 @@ export function YearArchiveRangeSlider({
             minWidth: 24,
           }}
           onPointerDown={startRange}
-          aria-label="Drag year range"
+          aria-label={t('mapArchiveYearRangeDragAria')}
         />
         {/* левый ползунок */}
         <button
@@ -223,7 +296,7 @@ export function YearArchiveRangeSlider({
           className="absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-(--paper) bg-(--accent) shadow-md hover:ring-2 hover:ring-(--accent)/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
           style={{ left: `calc(0.5rem + (100% - 1rem) * ${pLow / 100})` }}
           onPointerDown={startLow}
-          aria-label={`Year from ${low}`}
+          aria-label={t('mapArchiveYearFromHandleAria', { year: low })}
         />
         {/* правый ползунок */}
         <button
@@ -231,7 +304,7 @@ export function YearArchiveRangeSlider({
           className="absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-(--paper) bg-(--accent) shadow-md hover:ring-2 hover:ring-(--accent)/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
           style={{ left: `calc(0.5rem + (100% - 1rem) * ${pHigh / 100})` }}
           onPointerDown={startHigh}
-          aria-label={`Year to ${high}`}
+          aria-label={t('mapArchiveYearToHandleAria', { year: high })}
         />
         </div>
       </div>

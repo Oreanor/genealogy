@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { MapSection } from './MapSection';
+import { UnifiedMapSection } from './UnifiedMapSection';
 
 const person = { id: 'p1', firstName: 'Иван', lastName: 'Петров' };
 let localeValue = 'ru';
@@ -13,6 +13,10 @@ vi.mock('@/lib/i18n/context', () => ({
         chapters_map: 'Map',
         mapFilterAll: 'All on map',
         mapFilterReset: 'Reset',
+        mapLayerFamily: 'Family',
+        mapLayerArchives: 'Archives',
+        mapLayerPrizyv: 'Draft office totals',
+        mapLayerSelectAria: 'Layer',
       })[key] ?? key,
   }),
 }));
@@ -47,14 +51,18 @@ vi.mock('./useLeafletBookMap', () => ({
   useLeafletBookMap: () => ({ showPersonFilter: true }),
 }));
 
-describe('MapSection', () => {
+vi.mock('./usePrizyvPointsMap', () => ({
+  usePrizyvPointsMap: () => ({}),
+}));
+
+describe('UnifiedMapSection (family layer)', () => {
   it('renders map region', () => {
-    render(<MapSection />);
+    render(<UnifiedMapSection />);
     expect(screen.getByLabelText('Map')).toBeInTheDocument();
   });
 
   it('resets the active filter when locale changes', () => {
-    const { rerender } = render(<MapSection />);
+    const { rerender } = render(<UnifiedMapSection />);
 
     fireEvent.click(screen.getByRole('button', { name: /All on map/i }));
     fireEvent.click(screen.getByRole('button', { name: /Иван Петров/i }));
@@ -62,7 +70,7 @@ describe('MapSection', () => {
     expect(screen.getByTitle('Reset')).toBeInTheDocument();
 
     localeValue = 'en';
-    rerender(<MapSection />);
+    rerender(<UnifiedMapSection />);
 
     expect(screen.getByRole('button', { name: /All on map/i })).toBeInTheDocument();
     expect(screen.queryByTitle('Reset')).not.toBeInTheDocument();
