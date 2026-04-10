@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: locais de alistamento",
   "mapPodvigPopupBirthYear": "Ano de nascimento: {{year}}",
   "mapPodvigPopupDraftedAt": "Alistamento em: {{place}}",
+  "mapPodvigExternalSiteHint": "Os links abrem o site oficial « Podvig Naroda » do Ministério da Defesa. Avisos de certificado ou ligação costumam vir da rede, proxy ou antivírus—não deste livro. Tente outra rede ou mais tarde.",
   "mapLayerSelectAria": "Escolher a fonte de dados do mapa",
   "mapPrizyvPopupStats": "{{count}} pessoas · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} p. · {{percent}} %",

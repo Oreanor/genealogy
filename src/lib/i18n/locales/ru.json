@@ -151,6 +151,7 @@
   "mapLayerPodvigNaroda": "Подвиг Народа: места призыва",
   "mapPodvigPopupBirthYear": "Год рождения: {{year}}",
   "mapPodvigPopupDraftedAt": "Призван в: {{place}}",
+  "mapPodvigExternalSiteHint": "Ссылки ведут на официальный сайт ОБД «Подвиг народа». Предупреждение о незащищённом подключении или сертификате чаще всего связано с вашей сетью, прокси или антивирусом, а не с этой книгой — попробуйте другую сеть (например мобильный интернет) или откройте ссылку позже.",
   "mapLayerSelectAria": "Источник данных на карте",
   "mapPrizyvPopupStats": "{{count}} чел. · {{percent}}%",
   "mapPrizyvMarkerSubline": "{{count}} чел · {{percent}}%",

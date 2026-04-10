@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Подвиг Народу: місця призову",
   "mapPodvigPopupBirthYear": "Рік народження: {{year}}",
   "mapPodvigPopupDraftedAt": "Призваний до: {{place}}",
+  "mapPodvigExternalSiteHint": "Посилання ведуть на офіційний сайт ОБД «Подвиг народу». Попередження про сертифікат або незахищене з’єднання зазвичай пов’язані з вашою мережею, проксі чи антивірусом, а не з цією книгою — спробуйте іншу мережу або відкрийте посилання пізніше.",
   "mapLayerSelectAria": "Джерело даних на мапі",
   "mapPrizyvPopupStats": "{{count}} ос. · {{percent}}%",
   "mapPrizyvMarkerSubline": "{{count}} ос · {{percent}}%",

@@ -15,6 +15,9 @@ import { transliterateCyrillicToLatin } from '@/lib/utils/transliteration';
 /** Совпадает с маркером Leaflet для фокуса после выбора в поиске. */
 export const PODVIG_NARODA_MAP_FACT_TYPE = 'podvig_person' as const;
 
+/** Официальный сайт ОБД: канонический хост без `www` (как в интерфейсе podvignaroda.ru). */
+const PODVIG_NARODA_PUBLIC_ORIGIN = 'https://podvignaroda.ru' as const;
+
 const PERSON_PLACE_SEP = '\u0002';
 
 const RECORD_TYPE_POPUP_ORDER: Partial<Record<PodvigNarodaRecord['recordType'], number>> = {
@@ -173,7 +176,8 @@ function pickShortestPlaceLabel(labels: readonly string[]): string {
   return uniq[0]!;
 }
 
-function mergePodvigRowsByLikelySamePlace(
+/** Слияние строк одного человека и года с разными подписями одного РВК (см. `draftPlacesLikelySame`). */
+function mergePodvigRowGroupByDraftPlace(
   rows: PodvigMapTimelineRow[],
   placeFallbacks: Record<string, GeocodedPoint>,
   geoOptions?: IndexedEventGeoResolveOptions,
@@ -184,9 +188,6 @@ function mergePodvigRowsByLikelySamePlace(
   const uf = new UnionFind(n);
   for (let i = 0; i < n; i += 1) {
     for (let j = i + 1; j < n; j += 1) {
-      if (rows[i]!.personKey !== rows[j]!.personKey || rows[i]!.birthYear !== rows[j]!.birthYear) {
-        continue;
-      }
       if (draftPlacesLikelySame(rows[i]!.placeLabel, rows[j]!.placeLabel, placeFallbacks, geoOptions)) {
         uf.union(i, j);
       }
@@ -232,6 +233,32 @@ function mergePodvigRowsByLikelySamePlace(
     });
   }
 
+  return merged;
+}
+
+function mergePodvigRowsByLikelySamePlace(
+  rows: PodvigMapTimelineRow[],
+  placeFallbacks: Record<string, GeocodedPoint>,
+  geoOptions?: IndexedEventGeoResolveOptions,
+): PodvigMapTimelineRow[] {
+  if (rows.length <= 1) return rows;
+
+  const byPersonYear = new Map<string, PodvigMapTimelineRow[]>();
+  for (const row of rows) {
+    const k = `${row.personKey}\u0001${row.birthYear}`;
+    let arr = byPersonYear.get(k);
+    if (!arr) {
+      arr = [];
+      byPersonYear.set(k, arr);
+    }
+    arr.push(row);
+  }
+
+  const merged: PodvigMapTimelineRow[] = [];
+  for (const group of byPersonYear.values()) {
+    merged.push(...mergePodvigRowGroupByDraftPlace(group, placeFallbacks, geoOptions));
+  }
+
   merged.sort((a, b) => {
     const na = a.displayName.localeCompare(b.displayName, 'ru', { sensitivity: 'base' });
     if (na !== 0) return na;
@@ -247,7 +274,7 @@ function mergePodvigRowsByLikelySamePlace(
 export function buildPodvigNarodaRecordUrl(recordId: string): string | null {
   const id = recordId.trim();
   if (!id) return null;
-  return `https://www.podvignaroda.ru/?#id=${encodeURIComponent(id)}`;
+  return `${PODVIG_NARODA_PUBLIC_ORIGIN}/?#id=${encodeURIComponent(id)}`;
 }
 
 /** Место для геокодинга: призывной пункт (награда), затем картотека / юбилейная. */
@@ -265,6 +292,19 @@ export function podvigGeoPlaceLabel(record: PodvigNarodaRecord): string | null {
     return record.recommendation.militaryUnitOrBody.trim();
   }
   return null;
+}
+
+function recordBirthYearForMap(record: PodvigNarodaRecord): number | null {
+  if (record.derived?.birthYear != null) return record.derived.birthYear;
+  return parsePodvigBirthYear(record.person.birthDateRaw);
+}
+
+function recordMapGeoPlaceLabelForMap(record: PodvigNarodaRecord): string | null {
+  if (record.derived) {
+    const p = record.derived.mapGeoPlaceLabel?.trim();
+    return p || null;
+  }
+  return podvigGeoPlaceLabel(record);
 }
 
 export function podvigRecordSubtitle(record: PodvigNarodaRecord): string {
@@ -351,9 +391,9 @@ export function buildPodvigTimelineRows(
   const aggs = new Map<string, Agg>();
 
   for (const record of records) {
-    const birthYear = parsePodvigBirthYear(record.person.birthDateRaw);
+    const birthYear = recordBirthYearForMap(record);
     if (birthYear == null) continue;
-    const placeLabel = podvigGeoPlaceLabel(record);
+    const placeLabel = recordMapGeoPlaceLabelForMap(record);
     if (!placeLabel) continue;
     if (!resolvePodvigGeoForLabel(placeLabel, placeFallbacks, geoOptions)) continue;
 
@@ -468,7 +508,10 @@ function buildPodvigPersonPopupHtml(
       ? `<div style="font-size:11px;opacity:.75;margin-top:6px">${escapeHtml(`+${more}`)}</div>`
       : '';
   const listBlock = `<ul style="list-style:none;margin:8px 0 0;padding:0;max-height:min(40vh,220px);overflow:auto">${items}</ul>`;
-  return `<div style="min-width:220px;max-width:min(92vw,340px)"><div style="font-weight:600;margin-bottom:6px">${escapeHtml(listName)}</div><div style="font-size:12px;opacity:.9;line-height:1.35">${birthLine}</div>${placeHtml}${listBlock}${moreHtml}</div>`;
+  const externalHint = `<div style="font-size:10px;opacity:.72;margin-top:10px;line-height:1.35;border-top:1px solid rgba(120,120,120,.22);padding-top:8px">${escapeHtml(
+    t('mapPodvigExternalSiteHint'),
+  )}</div>`;
+  return `<div style="min-width:220px;max-width:min(92vw,340px)"><div style="font-weight:600;margin-bottom:6px">${escapeHtml(listName)}</div><div style="font-size:12px;opacity:.9;line-height:1.35">${birthLine}</div>${placeHtml}${listBlock}${moreHtml}${externalHint}</div>`;
 }
 
 export function buildPodvigMapMarkers(

@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: wervingsplaatsen",
   "mapPodvigPopupBirthYear": "Geboortejaar: {{year}}",
   "mapPodvigPopupDraftedAt": "Aanmelding in: {{place}}",
+  "mapPodvigExternalSiteHint": "Links openen de officiële site « Podvig Naroda » van het ministerie van Defensie. Waarschuwingen over certificaat of verbinding komen meestal door netwerk, proxy of antivirus—niet door dit boek. Probeer een ander netwerk of later opnieuw.",
   "mapLayerSelectAria": "Bron voor kaartgegevens kiezen",
   "mapPrizyvPopupStats": "{{count}} personen · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} · {{percent}} %",

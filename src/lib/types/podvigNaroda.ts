@@ -71,6 +71,13 @@ export type PodvigNarodaRecommendationDetails = {
 /** Сырой объект строки как в ответе сайта (поля f2…, priznak, draftPlace…). */
 export type PodvigNarodaSourceApi = Record<string, string | undefined>;
 
+/** Заполняется `scripts/podvig-naroda-build.mjs`, чтобы рантайм карты не разбирал даты и типы карточек заново. */
+export type PodvigNarodaDerived = {
+  birthYear: number;
+  /** Место для геокодинга (как `podvigGeoPlaceLabel` в рантайме). */
+  mapGeoPlaceLabel: string | null;
+};
+
 export type PodvigNarodaRecordBase = {
   id: string;
   recordNumber?: string;
@@ -82,6 +89,8 @@ export type PodvigNarodaRecordBase = {
     entityLabelRu: string;
     api: PodvigNarodaSourceApi;
   };
+  /** Есть у записей из сборки; тесты и ручные фрагменты могут обходиться без него. */
+  derived?: PodvigNarodaDerived;
 };
 
 export type PodvigNarodaAwardRecord = PodvigNarodaRecordBase & {

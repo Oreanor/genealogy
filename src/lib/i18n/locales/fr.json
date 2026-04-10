@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda : lieux de conscription",
   "mapPodvigPopupBirthYear": "Année de naissance : {{year}}",
   "mapPodvigPopupDraftedAt": "Conscription : {{place}}",
+  "mapPodvigExternalSiteHint": "Les liens ouvrent le site officiel « Podvig Naroda » du ministère de la Défense. Les avertissements de certificat ou de connexion viennent en général du réseau, du proxy ou de l’antivirus—pas de ce livre. Essayez une autre connexion ou plus tard.",
   "mapLayerSelectAria": "Choisir la source des données cartographiques",
   "mapPrizyvPopupStats": "{{count}} personnes · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} pers. · {{percent}} %",

@@ -112,7 +112,7 @@ describe('podvigNarodaMap', () => {
   });
 
   it('buildPodvigNarodaRecordUrl points to official site', () => {
-    expect(buildPodvigNarodaRecordUrl('10324212')).toBe('https://www.podvignaroda.ru/?#id=10324212');
+    expect(buildPodvigNarodaRecordUrl('10324212')).toBe('https://podvignaroda.ru/?#id=10324212');
     expect(buildPodvigNarodaRecordUrl('')).toBeNull();
   });
 
@@ -131,6 +131,7 @@ describe('podvigNarodaMap', () => {
     const t = (key: string, params?: Record<string, string | number>) => {
       if (key === 'mapPodvigPopupBirthYear' && params?.year != null) return `Год рождения: ${params.year}`;
       if (key === 'mapPodvigPopupDraftedAt' && params?.place != null) return `Призван в: ${params.place}`;
+      if (key === 'mapPodvigExternalSiteHint') return 'Подсказка про внешний сайт.';
       return key;
     };
     const markers = buildPodvigMapMarkers(rows, t, 'ru', {}, { defaultWhenUnresolved: defaultPt });
@@ -139,7 +140,7 @@ describe('podvigNarodaMap', () => {
     expect(markers[0]!.factType).toBe(PODVIG_NARODA_MAP_FACT_TYPE);
     expect(markers[0]!.year).toBe(1930);
     expect(markers[0]!.latLng).toEqual(defaultPt);
-    expect(markers[0]!.popupHtml).toContain('https://www.podvignaroda.ru/?#id=x1');
+    expect(markers[0]!.popupHtml).toContain('https://podvignaroda.ru/?#id=x1');
     expect(markers[0]!.popupHtml).toContain('Орден X');
   });
 });

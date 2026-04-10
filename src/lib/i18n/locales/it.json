@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: luoghi di leva",
   "mapPodvigPopupBirthYear": "Anno di nascita: {{year}}",
   "mapPodvigPopupDraftedAt": "Leva a: {{place}}",
+  "mapPodvigExternalSiteHint": "I collegamenti aprono il sito ufficiale « Podvig Naroda » del Ministero della Difesa. Avvisi su certificato o connessione dipendono di solito da rete, proxy o antivirus—non da questo libro. Provare un’altra connessione o dopo.",
   "mapLayerSelectAria": "Scegliere la fonte dei dati sulla mappa",
   "mapPrizyvPopupStats": "{{count}} persone · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} pers. · {{percent}} %",

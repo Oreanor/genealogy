@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: miejsca poboru",
   "mapPodvigPopupBirthYear": "Rok urodzenia: {{year}}",
   "mapPodvigPopupDraftedAt": "Pobór w: {{place}}",
+  "mapPodvigExternalSiteHint": "Linki prowadzą na oficjalną stronę « Podvig Naroda » Ministerstwa Obrony. Ostrzeżenia o certyfikacie lub połączeniu zwykle wynikają z sieci, proxy lub antywirusa—nie z tej książki. Spróbuj innej sieci lub później.",
   "mapLayerSelectAria": "Wybór źródła danych na mapie",
   "mapPrizyvPopupStats": "{{count}} os. · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} os. · {{percent}} %",

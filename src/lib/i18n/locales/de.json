@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: Einberufungsorte",
   "mapPodvigPopupBirthYear": "Geburtsjahr: {{year}}",
   "mapPodvigPopupDraftedAt": "Eingezogen in: {{place}}",
+  "mapPodvigExternalSiteHint": "Die Links führen zur offiziellen Website des Verteidigungsministeriums („Podvig Naroda“). Zertifikats- oder Verbindungswarnungen hängen meist am Netzwerk, Proxy oder Virenschutz—nicht an diesem Buch. Anderes Netz versuchen oder später erneut öffnen.",
   "mapLayerSelectAria": "Datenquelle für die Karte wählen",
   "mapPrizyvPopupStats": "{{count}} Personen · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} Pers. · {{percent}} %",

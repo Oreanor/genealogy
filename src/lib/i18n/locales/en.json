@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: conscription places",
   "mapPodvigPopupBirthYear": "Birth year: {{year}}",
   "mapPodvigPopupDraftedAt": "Conscripted at: {{place}}",
+  "mapPodvigExternalSiteHint": "Links open the official Russian Ministry of Defence “Podvig Naroda” site. A “connection not secure” or certificate warning usually comes from your network, proxy, or security software—not from this book. Try another connection (e.g. mobile data) or open the link later.",
   "mapLayerSelectAria": "Choose map data source",
   "mapPrizyvPopupStats": "{{count}} people · {{percent}}%",
   "mapPrizyvMarkerSubline": "{{count}} p. · {{percent}}%",

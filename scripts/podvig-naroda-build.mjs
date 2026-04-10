@@ -1,5 +1,6 @@
 /**
  * Сборка `src/lib/data/podvigNaroda.json` из пагинированных ответов API «Подвиг народа» (`docs/podvig/1.json` … `4.json`).
+ * Для каждой записи с известным годом рождения добавляет `derived`: год и `mapGeoPlaceLabel` для карты (без повторного разбора на клиенте).
  *
  *   node scripts/podvig-naroda-build.mjs
  */
@@ -151,6 +152,41 @@ function normalizeRecord(raw) {
   return { ...base, unmapped: { hint: 'unknown entity type' } };
 }
 
+function parsePodvigBirthYear(birthDateRaw) {
+  if (birthDateRaw == null || String(birthDateRaw).trim() === '') return null;
+  const m = String(birthDateRaw).match(/\b(1[0-9]{3}|20[0-9]{2})\b/);
+  return m ? Number.parseInt(m[0], 10) : null;
+}
+
+/** Как `podvigGeoPlaceLabel` в `src/lib/data/podvigNarodaMap.ts` — одна точка правды по смыслу. */
+function geoPlaceFromRecord(rec) {
+  if (rec.recordType === 'award' && rec.award?.draftOffice?.trim()) {
+    return rec.award.draftOffice.trim().split('|')[0].trim();
+  }
+  if (rec.recordType === 'card_index' && rec.cardIndex?.residenceOrLocality?.trim()) {
+    return rec.cardIndex.residenceOrLocality.trim().split('|')[0].trim();
+  }
+  if (rec.recordType === 'jubilee_card' && rec.jubileeCard?.locality?.trim()) {
+    return rec.jubileeCard.locality.trim().split('|')[0].trim();
+  }
+  if (rec.recordType === 'recommendation' && rec.recommendation?.militaryUnitOrBody?.trim()) {
+    return rec.recommendation.militaryUnitOrBody.trim();
+  }
+  return null;
+}
+
+function withMapDerived(rec) {
+  const birthYear = parsePodvigBirthYear(rec.person?.birthDateRaw);
+  if (birthYear == null) return rec;
+  return {
+    ...rec,
+    derived: {
+      birthYear,
+      mapGeoPlaceLabel: geoPlaceFromRecord(rec),
+    },
+  };
+}
+
 function main() {
   const byId = new Map();
   const sources = [];
@@ -169,7 +205,7 @@ function main() {
     }
   }
 
-  const records = [...byId.values()].map((raw) => normalizeRecord(raw));
+  const records = [...byId.values()].map((raw) => withMapDerived(normalizeRecord(raw)));
 
   records.sort((a, b) => {
     const na = Number.parseInt(a.recordNumber ?? '0', 10);

@@ -144,6 +144,7 @@
   "mapLayerPodvigNaroda": "Podvig Naroda: lugares de reclutamiento",
   "mapPodvigPopupBirthYear": "Año de nacimiento: {{year}}",
   "mapPodvigPopupDraftedAt": "Reclutamiento en: {{place}}",
+  "mapPodvigExternalSiteHint": "Los enlaces abren el sitio oficial « Podvig Naroda » del Ministerio de Defensa. Las advertencias de certificado o conexión suelen deberse a la red, al proxy o al antivirus—no a este libro. Pruebe otra red o más tarde.",
   "mapLayerSelectAria": "Elegir fuente de datos del mapa",
   "mapPrizyvPopupStats": "{{count}} personas · {{percent}} %",
   "mapPrizyvMarkerSubline": "{{count}} pers. · {{percent}} %",

@@ -7,38 +7,23 @@ import type { IndexedMapMarker } from '@/lib/data/indexedEventsMap';
 import type { TranslationFn } from '@/lib/i18n/types';
 import { escapeHtml } from '@/lib/utils/mapPlace';
 
-function positionFixedFlyoutNearAnchor(anchor: DOMRect, el: HTMLElement): void {
-  const pad = 8;
-  document.body.appendChild(el);
-  void el.offsetWidth;
-  const fw = el.getBoundingClientRect().width;
-  const fh = el.getBoundingClientRect().height;
-  let left = anchor.right + pad;
-  if (left + fw > window.innerWidth - pad) {
-    left = Math.max(pad, anchor.left - fw - pad);
-  }
-  if (left + fw > window.innerWidth - pad) {
-    left = Math.max(pad, window.innerWidth - fw - pad);
-  }
-  let top = anchor.top;
-  if (top + fh > window.innerHeight - pad) {
-    top = Math.max(pad, window.innerHeight - fh - pad);
-  }
-  el.style.left = `${left}px`;
-  el.style.top = `${top}px`;
-}
-
 export type IndexedMapFocusTarget = {
   hitId: string;
   factType: string;
   year: number;
 };
 
-const CLUSTER_NAME_LIST_CAP = 55;
-const POPUP_HIDE_DELAY_MS = 320;
+/** Уход с маркера / с окна попапа — закрытие с задержкой, чтобы не «мигало». */
+const POPUP_HIDE_DELAY_MS = 600;
+/**
+ * Уход с **иконки кластера** — попап в другом месте карты; нужна длинная задержка, пока курсор
+ * дойдёт до списка по карте.
+ */
+const CLUSTER_ICON_LEAVE_HIDE_DELAY_MS = 1600;
 
-/** Как у ссылок в списке кластера архива: синий подчёркнутый текст. */
-const CLUSTER_LIST_NAME_LINK_STYLE = 'font-size:13px;text-decoration:underline;color:#1a73e8';
+/** Как у ссылок в списке кластера архива: синий подчёркнутый текст, компактные строки. */
+const CLUSTER_LIST_NAME_LINK_STYLE =
+  'font-size:12px;text-decoration:underline;color:#1a73e8;display:block;padding:3px 2px;margin:0;line-height:1.2;border-radius:3px;max-width:100%;box-sizing:border-box';
 
 const MARKER_POPUP_OPTIONS = {
   className: 'indexed-archive-marker-popup',
@@ -60,7 +45,7 @@ type IndexedMarkerOpts = {
   indexedYear?: number;
   indexedListName?: string;
   indexedRecordUrl?: string | null;
-  /** HTML одиночного маркера — для превью в списке кластера и перехода по клику. */
+  /** HTML одиночного маркера: непустой = строка кластера ведёт на точку по клику (Подвиг и т.д.). */
   indexedPopupHtml?: string;
 };
 
@@ -71,7 +56,7 @@ function clusterListLineHtml(o: IndexedMarkerOpts, t: TranslationFn): { labelHtm
     return { labelHtml: name };
   }
   const yearAppend = escapeHtml(t('mapClusterLineBirthYearAppend', { year: y }));
-  const labelHtml = `${name}<span style="font-size:12px;opacity:.72">${yearAppend}</span>`;
+  const labelHtml = `${name}<span style="font-size:11px;opacity:.72">${yearAppend}</span>`;
   return { labelHtml };
 }
 
@@ -89,28 +74,21 @@ function buildClusterHoverPopupHtml(
     const nb = (b.options as IndexedMarkerOpts).indexedListName ?? '';
     return na.localeCompare(nb, undefined, { sensitivity: 'base' });
   });
-  const slice = sorted.slice(0, CLUSTER_NAME_LIST_CAP);
-  const items = slice.map((mk, idx) => {
+  const items = sorted.map((mk, idx) => {
     const o = mk.options as IndexedMarkerOpts;
     const { labelHtml } = clusterListLineHtml(o, t);
     const url = o.indexedRecordUrl?.trim();
     const previewHtml = o.indexedPopupHtml?.trim();
     if (url) {
-      return `<li style="margin:5px 0;line-height:1.3"><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="${CLUSTER_LIST_NAME_LINK_STYLE}">${labelHtml}</a></li>`;
+      return `<li style="margin:1px 0;line-height:1.2"><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="${CLUSTER_LIST_NAME_LINK_STYLE}">${labelHtml}</a></li>`;
     }
     if (previewHtml) {
-      return `<li style="margin:5px 0;line-height:1.3"><button type="button" data-indexed-cluster-line="${idx}" style="${CLUSTER_LIST_NAME_LINK_STYLE};background:transparent;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;width:100%">${labelHtml}</button></li>`;
+      return `<li style="margin:1px 0;line-height:1.2;min-width:0"><button type="button" data-indexed-cluster-line="${idx}" style="${CLUSTER_LIST_NAME_LINK_STYLE};background:transparent;border:0;text-align:left;font:inherit;cursor:pointer;width:100%">${labelHtml}</button></li>`;
     }
-    return `<li style="margin:5px 0;line-height:1.3"><span style="font-size:13px">${labelHtml}</span></li>`;
+    return `<li style="margin:1px 0;line-height:1.2"><span style="font-size:12px">${labelHtml}</span></li>`;
   });
-  const overflow =
-    sorted.length > CLUSTER_NAME_LIST_CAP
-      ? `<div style="font-size:11px;opacity:.75;margin-top:8px">${escapeHtml(
-          t('mapArchiveClusterMore', { count: sorted.length - CLUSTER_NAME_LIST_CAP }),
-        )}</div>`
-      : '';
-  const html = `<div class="indexed-cluster-scroll" style="max-height:min(50vh,280px);overflow:auto;padding:2px 2px 4px"><ul style="list-style:none;margin:0;padding:0">${items.join('')}</ul>${overflow}</div>`;
-  return { html, slice };
+  const html = `<div class="indexed-cluster-scroll" style="max-height:min(65vh,420px);overflow-x:hidden;overflow-y:auto;padding:1px 4px 3px;min-width:0;overflow-wrap:anywhere"><ul style="list-style:none;margin:0;padding:0;min-width:0">${items.join('')}</ul></div>`;
+  return { html, slice: sorted };
 }
 
 function bindDismissibleHoverPopup(mk: Marker, cancelHide: () => void, scheduleHide: (target: Marker) => void): void {
@@ -248,12 +226,12 @@ export function useIndexedEventsMap({
         hidePopupTimer = null;
       }
     };
-    const schedulePopupHide = (target: Marker) => {
+    const schedulePopupHide = (target: Marker, delayMs: number = POPUP_HIDE_DELAY_MS) => {
       cancelPopupHideTimer();
       hidePopupTimer = setTimeout(() => {
         target.closePopup();
         hidePopupTimer = null;
-      }, POPUP_HIDE_DELAY_MS);
+      }, delayMs);
     };
 
     void import('leaflet.markercluster').then(() => {
@@ -332,14 +310,6 @@ export function useIndexedEventsMap({
         const el = clusterMarker.getPopup()?.getElement();
         if (!el) return;
 
-        let flyout: HTMLDivElement | null = null;
-        const removeFlyout = () => {
-          if (flyout) {
-            flyout.remove();
-            flyout = null;
-          }
-        };
-
         const ac = new AbortController();
         const { signal } = ac;
 
@@ -358,52 +328,11 @@ export function useIndexedEventsMap({
           const btn = el.querySelector(`button[data-indexed-cluster-line="${idx}"]`);
           if (!(btn instanceof HTMLButtonElement)) return;
 
-          let hideFlyTimer: ReturnType<typeof setTimeout> | null = null;
-          const cancelHideFly = () => {
-            if (hideFlyTimer !== null) {
-              clearTimeout(hideFlyTimer);
-              hideFlyTimer = null;
-            }
-          };
-          const scheduleHideFly = () => {
-            cancelHideFly();
-            hideFlyTimer = setTimeout(removeFlyout, 220);
-          };
-
-          const showFlyout = () => {
-            cancelHideFly();
-            removeFlyout();
-            const div = document.createElement('div');
-            div.className = 'indexed-cluster-person-flyout';
-            div.style.cssText = [
-              'position:fixed',
-              'z-index:10050',
-              'min-width:200px',
-              'max-width:min(92vw,360px)',
-              'max-height:min(50vh,340px)',
-              'overflow:auto',
-              'padding:10px 12px',
-              'background:var(--paper,#fffef7)',
-              'color:var(--ink,#111)',
-              'border:1px solid rgba(0,0,0,.18)',
-              'border-radius:8px',
-              'box-shadow:0 8px 28px rgba(0,0,0,.35)',
-            ].join(';');
-            div.innerHTML = o.indexedPopupHtml!;
-            positionFixedFlyoutNearAnchor(btn.getBoundingClientRect(), div);
-            flyout = div;
-            div.addEventListener('mouseenter', cancelHideFly, { signal });
-            div.addEventListener('mouseleave', scheduleHideFly, { signal });
-          };
-
-          btn.addEventListener('mouseenter', showFlyout, { signal });
-          btn.addEventListener('mouseleave', scheduleHideFly, { signal });
           btn.addEventListener(
             'click',
             (e) => {
               e.preventDefault();
               e.stopPropagation();
-              removeFlyout();
               cancelPopupHideTimer();
               clusterMarker.closePopup();
               if (typeof cg.zoomToShowLayer === 'function') {
@@ -421,12 +350,11 @@ export function useIndexedEventsMap({
 
         clusterMarker.once('popupclose', () => {
           ac.abort();
-          removeFlyout();
         });
       });
 
       clusterLayer.on('clustermouseout', (a) => {
-        schedulePopupHide(a.layer);
+        schedulePopupHide(a.layer, CLUSTER_ICON_LEAVE_HIDE_DELAY_MS);
       });
 
       cluster.addLayers(leafletMarkers);
