@@ -10,7 +10,7 @@ vi.mock('@/lib/i18n/context', () => ({
     locale: localeValue,
     t: (key: string) =>
       ({
-        chapters_map: 'Map',
+        chapters_map: 'Maps',
         mapFilterAll: 'All on map',
         mapFilterReset: 'Reset',
         mapLayerFamily: 'Family',
@@ -58,7 +58,7 @@ vi.mock('./usePrizyvPointsMap', () => ({
 describe('UnifiedMapSection (family layer)', () => {
   it('renders map region', () => {
     render(<UnifiedMapSection />);
-    expect(screen.getByLabelText('Map')).toBeInTheDocument();
+    expect(screen.getByLabelText('Maps')).toBeInTheDocument();
   });
 
   it('resets the active filter when locale changes', () => {

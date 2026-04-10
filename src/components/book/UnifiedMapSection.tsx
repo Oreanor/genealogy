@@ -34,7 +34,7 @@ function PrizyvMapBody({ locale, t }: { locale: Locale; t: TranslationFn }) {
 }
 
 /**
- * Одна вкладка «Карта»: выбор источника данных (семья / FamilySearch / призывные пункты).
+ * Одна вкладка «Карты»: выбор источника данных (семья / FamilySearch / призывные пункты).
  */
 export function UnifiedMapSection() {
   const { t, locale } = useLocaleRoutes();

@@ -16,7 +16,7 @@ type FamilyMapBodyProps = {
   persons: ReturnType<typeof getPersons>;
 };
 
-/** Только блок карты родственников (без обёртки BookPage) — для объединённой вкладки «Карта». */
+/** Только блок карты родственников (без обёртки BookPage) — для объединённой вкладки «Карты». */
 export function FamilyMapBody({ locale, t, placeFallbacks, persons }: FamilyMapBodyProps) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);
