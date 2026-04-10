@@ -3,7 +3,13 @@
 import { memo, useMemo } from 'react';
 import { useLocale } from '@/lib/i18n/context';
 import type { Locale } from '@/lib/i18n/config';
-import { formatLifeDates, formatNamePartsByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
+import {
+  formatLifeDates,
+  formatNamePartsByLocale,
+  formatPersonNameForLocale,
+  formatTreeSiblingChipLabel,
+} from '@/lib/utils/person';
+import { truncateWithEllipsis } from '@/lib/utils/string';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import { getSiblings } from '@/lib/data/familyRelations';
@@ -11,7 +17,7 @@ import Image from 'next/image';
 
 const MAX_NAME_LEN = 22;
 
-export interface TreeNodeProps {
+interface TreeNodeProps {
   person: Person | null;
   level: number;
   index: number;
@@ -24,21 +30,6 @@ export interface TreeNodeProps {
   isKinshipSelected?: boolean;
   /** Sibling mini-avatars beside the oval (off in descendants tree — siblings are already separate nodes). */
   showSiblings?: boolean;
-}
-
-function truncate(text: string, maxLen: number): string {
-  return text.length > maxLen ? `${text.slice(0, maxLen - 1)}…` : text;
-}
-
-function siblingShortLabel(person: Person, locale: Locale): string {
-  const localized = formatNamePartsByLocale(person, locale);
-  const last = localized.lastName.trim();
-  const firstInitial = localized.firstName.trim().charAt(0);
-  const patronymicInitial = localized.patronymic.trim().charAt(0);
-  const initials = `${firstInitial ? `${firstInitial}.` : ''}${patronymicInitial ? `${patronymicInitial}.` : ''}`;
-  const lastPart = last ? truncate(last, 10) : '';
-  const label = [lastPart, initials].filter(Boolean).join(' ');
-  return label || formatPersonNameForLocale(person, locale);
 }
 
 function TreeNodeBase({
@@ -57,9 +48,15 @@ function TreeNodeBase({
     [person, showSiblings]
   );
   const localized = hasPerson ? formatNamePartsByLocale(person, locale) : null;
-  const surname = localized?.lastName.trim() ? truncate(localized.lastName.trim(), MAX_NAME_LEN) : '';
-  const firstName = localized?.firstName.trim() ? truncate(localized.firstName.trim(), MAX_NAME_LEN) : '';
-  const patronymic = localized?.patronymic.trim() ? truncate(localized.patronymic.trim(), MAX_NAME_LEN) : '';
+  const surname = localized?.lastName.trim()
+    ? truncateWithEllipsis(localized.lastName.trim(), MAX_NAME_LEN)
+    : '';
+  const firstName = localized?.firstName.trim()
+    ? truncateWithEllipsis(localized.firstName.trim(), MAX_NAME_LEN)
+    : '';
+  const patronymic = localized?.patronymic.trim()
+    ? truncateWithEllipsis(localized.patronymic.trim(), MAX_NAME_LEN)
+    : '';
   const lifeDates = hasPerson ? formatLifeDates(person?.birthDate, person?.deathDate) : '';
   const hasRawNameParts = Boolean(surname || firstName || patronymic);
   const templateDisplayName =
@@ -156,7 +153,7 @@ function TreeNodeBase({
                       </div>
                     </div>
                     <span className="-mt-2.5 z-10 max-w-[4.8rem] truncate whitespace-nowrap rounded border border-(--tree-plaque-stroke) bg-(--tree-plaque-fill) px-1 py-0.5 text-center text-[8px] leading-none text-(--ink) md:-mt-3 md:max-w-[7.2rem] md:text-[10px]">
-                      {siblingShortLabel(sibling, locale)}
+                      {formatTreeSiblingChipLabel(sibling, locale)}
                     </span>
                   </button>
                 ))}

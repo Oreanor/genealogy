@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
+import { pxToPercent } from '@/lib/utils/numbers';
 
 /** Rect coords: [left%, top%, right%, bottom%] for face/avatar area. */
 interface PhotoHotspotEditorProps {
@@ -9,10 +10,6 @@ interface PhotoHotspotEditorProps {
   coords: number[];
   onChange: (coords: number[]) => void;
   imageClassName?: string;
-}
-
-function pxToPercent(value: number, total: number): number {
-  return total > 0 ? Math.max(0, Math.min(100, (value / total) * 100)) : 0;
 }
 
 export function PhotoHotspotEditor({

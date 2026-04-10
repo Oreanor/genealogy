@@ -8,7 +8,7 @@ import { getPersons } from '@/lib/data/persons';
 import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
 import type { Locale } from '@/lib/i18n/config';
-import { buildMapEntries } from './mapSectionUtils';
+import { buildMapEntries } from '@/lib/utils/mapSectionEntries';
 import { useLeafletBookMap } from './useLeafletBookMap';
 
 export function MapSection() {

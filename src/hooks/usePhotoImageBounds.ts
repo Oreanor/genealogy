@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 
-export type ImageBounds = {
+type ImageBounds = {
   left: number;
   top: number;
   width: number;

@@ -18,6 +18,6 @@ export function getRoutes(locale: LocaleParam) {
       slug === CHAPTER_IDS.TREE ? `/${locale}` : `/${locale}?section=${slug}`,
     chapterSpread: (slug: string) =>
       slug === CHAPTER_IDS.TREE ? `/${locale}` : `/${locale}?section=${slug}`,
-  } as const;
+  };
 }
 

@@ -11,6 +11,7 @@ import {
   type MergeResolutions,
   type MergeResult,
 } from '@/lib/utils/dataMerge';
+import type { TranslationFn } from '@/lib/i18n/types';
 import {
   ADMIN_DATA_FILENAME,
   downloadFile,
@@ -18,8 +19,6 @@ import {
   toCombinedJson,
   type AdminDataSections,
 } from './adminPageClientUtils';
-
-type TranslationFn = (key: string, params?: Record<string, string | number>) => string;
 
 type Params = {
   dataRef: React.RefObject<AdminDataSections>;

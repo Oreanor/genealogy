@@ -9,7 +9,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 const btnClass =
   'rounded border border-(--border) bg-(--book-bg) px-2 py-1 text-sm text-(--ink) hover:bg-(--paper-light)';
 
-export interface RichTextEditorProps {
+interface RichTextEditorProps {
   value: string;
   onChange: (html: string) => void;
   placeholder?: string;

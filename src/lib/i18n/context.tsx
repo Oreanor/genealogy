@@ -9,10 +9,11 @@ import {
 } from 'react';
 import { getRoutes } from '@/lib/constants/routes';
 import type { Locale } from './config';
+import type { TranslationFn } from './types';
 
 interface I18nContextValue {
   locale: Locale;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: TranslationFn;
 }
 
 const I18nContext = createContext<I18nContextValue | null>(null);
@@ -51,7 +52,7 @@ export function I18nProvider({ locale, messages, children }: I18nProviderProps) 
   );
 }
 
-export function useI18n(): I18nContextValue {
+function useI18n(): I18nContextValue {
   const ctx = useContext(I18nContext);
   if (!ctx) throw new Error('useI18n must be used within I18nProvider');
   return ctx;

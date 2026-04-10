@@ -4,7 +4,7 @@ import { getChildren } from '@/lib/data/familyRelations';
 
 export const MAX_TREE_LEVELS = 6; // self, parents, grandparents, great-grandparents, etc.
 /** Minimum levels: always draw slots up to great-grandparents (levels 0..3). */
-export const MIN_TREE_LEVELS = 4;
+const MIN_TREE_LEVELS = 4;
 
 /** Builds tree matrix: tree[level][index] = Person | null. At least MIN_TREE_LEVELS levels. Level 5 (great-great-great-grandparents) only if at least one person exists. */
 export function buildTreeMatrix(rootPersonId: string): (Person | null)[][] {
@@ -134,7 +134,7 @@ export function computeAncestorLayoutX(
   return memo;
 }
 
-export interface DescendantsTreeData {
+interface DescendantsTreeData {
   matrix: (Person | null)[][];
   parentKeyByChildKey: Record<string, string>;
 }
@@ -274,4 +274,29 @@ export function buildDescendantsMatrix(rootPersonId: string): DescendantsTreeDat
   }
 
   return { matrix, parentKeyByChildKey };
+}
+
+/**
+ * Parent node key for a `level-index` tree slot.
+ * Ancestors: binary heap parent; descendants: from `parentKeyByChildKey`.
+ */
+export function getParentTreeNodeKey(
+  childKey: string,
+  treeMode: 'ancestors' | 'descendants',
+  parentKeyByChildKey: Record<string, string>
+): string | null {
+  if (treeMode === 'descendants') return parentKeyByChildKey[childKey] ?? null;
+  const [levelStr, indexStr] = childKey.split('-');
+  const level = parseInt(levelStr, 10);
+  const index = parseInt(indexStr, 10);
+  if (!Number.isFinite(level) || !Number.isFinite(index) || level <= 0) return null;
+  return `${level - 1}-${index >> 1}`;
+}
+
+/** Deepest level index + 1 while any slot in that row has a person (for layout). */
+export function countVisibleTreeMatrixLevels(matrix: (Person | null)[][]): number {
+  for (let l = matrix.length - 1; l >= 0; l--) {
+    if (matrix[l]!.some((p) => p !== null)) return l + 1;
+  }
+  return 1;
 }

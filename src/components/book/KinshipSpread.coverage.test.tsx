@@ -2,6 +2,7 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import type { Person } from '@/lib/types/person';
+import type { Locale } from '@/lib/i18n/config';
 
 const p1: Person = { id: 'p1', firstName: 'A', lastName: 'One', gender: 'm', birthDate: '1900' };
 const p2: Person = { id: 'p2', firstName: 'B', lastName: 'Two', gender: 'f', birthDate: '1901' };
@@ -25,13 +26,13 @@ vi.mock('next/navigation', () => ({
 }));
 
 vi.mock('@/lib/i18n/context', () => ({
-  useLocale: () => 'en' as const,
+  useLocale: (): Locale => 'en',
   useLocaleRoutes: () => ({
     t: (key: string) => {
       if (key === 'kinshipCommonAncestor') return 'Common ancestor:';
       return key;
     },
-    locale: 'en' as const,
+    locale: 'en' satisfies Locale,
   }),
 }));
 
@@ -76,28 +77,32 @@ vi.mock('@/lib/utils/person', () => ({
   sortPersonsBySurname: (ps: Person[]) => ps,
 }));
 
-vi.mock('@/lib/utils/kinship', () => ({
-  getKinship: (targetId: string, originId: string) => {
-    // resultAtoB = getKinship(idB, idA)
-    if (originId === 'p1' && targetId === 'p2') {
-      // side-branch: includes parent+child but no spouse => triggers isSideBranch + highlight
-      return {
-        key: 'kinBrother',
-        path: ['p1', 'p3', 'p2', 'p1'],
-        edgeKinds: ['child', 'parent', 'child'],
-      };
-    }
-    if (originId === 'p3' && targetId === 'p2') {
-      // spouse edge: includes spouse so isSideBranch=false, but ChainArrow spouse styling is covered
-      return {
-        key: 'kinHusband',
-        path: ['p3', 'p2', 'p1', 'p2'],
-        edgeKinds: ['parent', 'spouse', 'child'],
-      };
-    }
-    return null;
-  },
-}));
+vi.mock('@/lib/utils/kinship', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/utils/kinship')>();
+  return {
+    ...actual,
+    getKinship: (targetId: string, originId: string) => {
+      // resultAtoB = getKinship(idB, idA)
+      if (originId === 'p1' && targetId === 'p2') {
+        // side-branch: includes parent+child but no spouse => triggers isSideBranch + highlight
+        return {
+          key: 'kinBrother',
+          path: ['p1', 'p3', 'p2', 'p1'],
+          edgeKinds: ['child', 'parent', 'child'],
+        };
+      }
+      if (originId === 'p3' && targetId === 'p2') {
+        // spouse edge: includes spouse so isSideBranch=false, but ChainArrow spouse styling is covered
+        return {
+          key: 'kinHusband',
+          path: ['p3', 'p2', 'p1', 'p2'],
+          edgeKinds: ['parent', 'spouse', 'child'],
+        };
+      }
+      return null;
+    },
+  };
+});
 
 describe('KinshipSpread coverage', () => {
   it('renders kinSelf when both selects are equal', async () => {

@@ -195,11 +195,6 @@ export function getPhotoBySrc(src: string): PhotoEntry | null {
   return visible.find((p) => p.src === src) ?? null;
 }
 
-/** Photos eligible for avatar: personal (this person) or group (this person in people). */
-export function getPhotosEligibleForAvatar(personId: string): PhotoEntry[] {
-  return getPhotosEligibleForAvatarFromList(visible, personId);
-}
-
 /** Same but from a given list (e.g. admin state). */
 export function getPhotosEligibleForAvatarFromList(photoList: PhotoEntry[], personId: string): PhotoEntry[] {
   return photoList.filter((p) => (p.people ?? []).some((pp) => pp.personId === personId));

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
 
-export interface AdminToolbarActions {
+interface AdminToolbarActions {
   onCopy: () => void;
   onDownload: () => void;
   onImport: (data: unknown) => void;

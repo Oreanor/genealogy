@@ -406,7 +406,9 @@ export function AdminPersonsTable({
                 const person = persons[avatarPickerRowIdx];
                 if (!person) return [];
                 const optionsRaw = getAvatarOptionsForPersonFromList(photos, person.id);
-                const categoryBySrc = new Map(photos.map((p) => [p.src, p.category] as const));
+                const categoryBySrc = new Map(
+                  photos.map((p): [string, PhotoEntry['category']] => [p.src, p.category])
+                );
                 return [
                   ...optionsRaw.filter((opt) => categoryBySrc.get(opt.src) === 'personal'),
                   ...optionsRaw.filter((opt) => categoryBySrc.get(opt.src) === 'group'),

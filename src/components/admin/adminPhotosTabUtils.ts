@@ -1,10 +1,10 @@
 'use client';
 
 import { splitAllPhotosForCarousels } from '@/lib/data/photos';
+import type { TranslationFn } from '@/lib/i18n/types';
 import type { PhotoEntry } from '@/lib/types/photo';
 
 export type PhotoItem = { photo: PhotoEntry; idx: number };
-export type TranslationFn = (key: string, params?: Record<string, string | number>) => string;
 export type AdminPhotoGroupSection = {
   key: string;
   title: string;
@@ -33,12 +33,12 @@ export function isBackSrc(src: string): boolean {
   return BACK_SUFFIX_RE.test(src);
 }
 
-export function getFrontSrcForBack(src: string): string {
+function getFrontSrcForBack(src: string): string {
   return src.replace(/_back\./, '.');
 }
 
 export function buildPhotoIndexMaps(photos: PhotoEntry[]) {
-  const photoIdxBySrc = new Map(photos.map((p, idx) => [p.src, idx] as const));
+  const photoIdxBySrc = new Map(photos.map((p, idx): [string, number] => [p.src, idx]));
   const backIdxByFrontSrc = new Map<string, number>();
 
   photos.forEach((p, idx) => {
@@ -50,7 +50,7 @@ export function buildPhotoIndexMaps(photos: PhotoEntry[]) {
   return { photoIdxBySrc, backIdxByFrontSrc };
 }
 
-export function toPhotoItems(
+function toPhotoItems(
   list: PhotoEntry[],
   photoIdxBySrc: Map<string, number>
 ): PhotoItem[] {

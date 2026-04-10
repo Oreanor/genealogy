@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { Person } from '@/lib/types/person';
 import type { GeocodedPoint } from '@/lib/constants/map';
-import { buildMapEntries, buildPersonColorMap } from './mapSectionUtils';
+import { buildMapEntries, buildPersonColorMap } from '@/lib/utils/mapSectionEntries';
 
 vi.mock('@/lib/utils/person', () => ({
   formatNameByLocale: (value: string) => `loc:${value}`,
@@ -16,7 +16,7 @@ function makePerson(overrides: Partial<Person>): Person {
   };
 }
 
-describe('mapSectionUtils', () => {
+describe('mapSectionEntries', () => {
   it('builds stable color map for person ids', () => {
     const colorMap = buildPersonColorMap(['p1', 'p2']);
     expect(colorMap.get('p1')).toMatch(/^hsl\(/);

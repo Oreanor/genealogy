@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n/config';
 import { getPathSegments } from '@/lib/utils/path';
-import { ADMIN_TAB_COOKIE, ADMIN_TAB_IDS } from '@/lib/constants/storage';
+import { ADMIN_TAB_COOKIE, isAdminTabId } from '@/lib/constants/storage';
 
 export function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
@@ -12,7 +12,7 @@ export function proxy(request: NextRequest) {
   if (segments.length === 2 && isLocale(segments[0]!) && segments[1] === 'admin') {
     if (!searchParams.has('tab')) {
       const tab = request.cookies.get(ADMIN_TAB_COOKIE)?.value;
-      const validTab = tab && (ADMIN_TAB_IDS as readonly string[]).includes(tab) ? tab : 'persons';
+      const validTab = tab && isAdminTabId(tab) ? tab : 'persons';
       const url = new URL(request.url);
       url.searchParams.set('tab', validTab);
       const res = NextResponse.redirect(url);

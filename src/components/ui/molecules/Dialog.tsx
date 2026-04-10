@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/atoms/Button';
 
-export interface DialogProps {
+interface DialogProps {
   open: boolean;
   onClose: () => void;
   /** Optional title above content */

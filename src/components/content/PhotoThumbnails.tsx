@@ -5,7 +5,7 @@ import { ChevronDown } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { PhotoEntry } from '@/lib/types/photo';
 
-export interface PhotoThumbnailsProps {
+interface PhotoThumbnailsProps {
   /** Optional section title above the grid */
   title?: string;
   photos: PhotoEntry[];

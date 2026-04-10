@@ -26,10 +26,6 @@ export function setAdminWorkingPersons(persons: Person[] | null): void {
   notifyPersonsOverlay();
 }
 
-export function bumpPersonsOverlayRevision(): void {
-  notifyPersonsOverlay();
-}
-
 /** Raw persons from bundled JSON (no locale template, no admin overlay). */
 export function getBundledPersons(): Person[] {
   return bundledPersons;

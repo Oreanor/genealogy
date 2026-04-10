@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { PhotoEntry } from '@/lib/types/photo';
 import {
   getPhotos,
   getPhotoById,
@@ -70,10 +71,10 @@ describe('photos', () => {
   });
 
   it('getPhotosEligibleForAvatarFromList returns photos where person is in people', () => {
-    const list = [
-      { id: 'a', src: '/a.jpg', category: 'personal' as const, people: [{ personId: 'p1' }] },
-      { id: 'b', src: '/b.jpg', category: 'group' as const, people: [{ personId: 'p1', coords: [0, 0, 10, 10] }] },
-      { id: 'c', src: '/c.jpg', category: 'related' as const },
+    const list: PhotoEntry[] = [
+      { id: 'a', src: '/a.jpg', category: 'personal', people: [{ personId: 'p1' }] },
+      { id: 'b', src: '/b.jpg', category: 'group', people: [{ personId: 'p1', coords: [0, 0, 10, 10] }] },
+      { id: 'c', src: '/c.jpg', category: 'related' },
     ];
     const eligible = getPhotosEligibleForAvatarFromList(list, 'p1');
     expect(eligible).toHaveLength(2);

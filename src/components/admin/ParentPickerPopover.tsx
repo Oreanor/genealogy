@@ -3,7 +3,7 @@
 import type { Person } from '@/lib/types/person';
 import { getFullName } from '@/lib/utils/person';
 import { Button, Input } from '@/components/ui/atoms';
-import type { TranslationFn } from './adminPersonsTableUtils';
+import type { TranslationFn } from '@/lib/i18n/types';
 
 type Props = {
   person: Person;

@@ -152,7 +152,7 @@ export function useAdminPersonsTableState({
   }, [persons]);
 
   const sortedPersons = useMemo(() => {
-    const byId = new Map(persons.map((p) => [p.id, p] as const));
+    const byId = new Map(persons.map((p): [string, Person] => [p.id, p]));
     const ordered = sessionOrderIds
       .map((id) => byId.get(id))
       .filter((p): p is Person => Boolean(p));
@@ -163,7 +163,7 @@ export function useAdminPersonsTableState({
   }, [persons, sessionOrderIds]);
 
   const personIndexById = useMemo(
-    () => new Map(persons.map((p, idx) => [p.id, idx] as const)),
+    () => new Map(persons.map((p, idx): [string, number] => [p.id, idx])),
     [persons]
   );
 

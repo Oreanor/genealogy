@@ -1,4 +1,4 @@
-import type { Gender } from '@/lib/types/person';
+import type { Gender, Person } from '@/lib/types/person';
 import { getPersons, getPersonById } from '@/lib/data/persons';
 import { getSpouse } from '@/lib/data/familyRelations';
 
@@ -199,4 +199,78 @@ export function getKinship(idA: string, idB: string): KinshipResult | null {
   }
 
   return { key: 'kinDistantRelative', path: result.ids, edgeKinds: ek };
+}
+
+/** Maps primary kin i18n key → short description category key (KinshipSpread UI). */
+export const KIN_RELATION_KEY_TO_DESC_CATEGORY: Record<string, string> = {
+  kinFather: 'kinDescParent',
+  kinMother: 'kinDescParent',
+  kinGrandfather: 'kinDescGrandparent',
+  kinGrandmother: 'kinDescGrandparent',
+  kinGreatGrandfather: 'kinDescGreatGrandparent',
+  kinGreatGrandmother: 'kinDescGreatGrandparent',
+  kinAncestorM: 'kinDescAncestor',
+  kinAncestorF: 'kinDescAncestor',
+  kinSon: 'kinDescChild',
+  kinDaughter: 'kinDescChild',
+  kinGrandson: 'kinDescGrandchild',
+  kinGranddaughter: 'kinDescGrandchild',
+  kinGreatGrandson: 'kinDescGreatGrandchild',
+  kinGreatGranddaughter: 'kinDescGreatGrandchild',
+  kinDescendantM: 'kinDescDescendant',
+  kinDescendantF: 'kinDescDescendant',
+  kinBrother: 'kinDescSibling',
+  kinSister: 'kinDescSibling',
+  kinUncle: 'kinDescUncleAunt',
+  kinAunt: 'kinDescUncleAunt',
+  kinNephew: 'kinDescNephewNiece',
+  kinNiece: 'kinDescNephewNiece',
+  kinCousinM: 'kinDescCousin',
+  kinCousinF: 'kinDescCousin',
+  kinGreatUncle: 'kinDescGreatUncleAunt',
+  kinGreatAunt: 'kinDescGreatUncleAunt',
+  kinGreatNephew: 'kinDescGreatNephewNiece',
+  kinGreatNiece: 'kinDescGreatNephewNiece',
+  kinSecondUncle: 'kinDescSecondUncleAunt',
+  kinSecondAunt: 'kinDescSecondUncleAunt',
+  kinSecondNephew: 'kinDescSecondNephewNiece',
+  kinSecondNiece: 'kinDescSecondNephewNiece',
+  kinSecondCousinM: 'kinDescSecondCousin',
+  kinSecondCousinF: 'kinDescSecondCousin',
+  kinHusband: 'kinDescSpouse',
+  kinWife: 'kinDescSpouse',
+  kinFatherInLawM: 'kinDescParentInLaw',
+  kinMotherInLawM: 'kinDescParentInLaw',
+  kinFatherInLawF: 'kinDescParentInLaw',
+  kinMotherInLawF: 'kinDescParentInLaw',
+  kinBrotherInLawM: 'kinDescSiblingInLaw',
+  kinBrotherInLawF: 'kinDescSiblingInLaw',
+  kinSisterInLawM: 'kinDescSiblingInLaw',
+  kinSisterInLawF: 'kinDescSiblingInLaw',
+  kinSonInLaw: 'kinDescChildInLaw',
+  kinDaughterInLaw: 'kinDescChildInLaw',
+  kinBrotherInLawSpouse: 'kinDescSiblingSpouseInLaw',
+  kinSisterInLawSpouse: 'kinDescSiblingSpouseInLaw',
+  kinInLaw: 'kinDescInLaw',
+  kinDistantRelative: 'kinDescDistant',
+};
+
+/** Index after the last `parent` edge (peak of “up” segment in chain UI). */
+export function findPeakParentEdgeIndex(edgeKinds: EdgeKind[]): number {
+  let last = 0;
+  for (let i = 0; i < edgeKinds.length; i++) {
+    if (edgeKinds[i] === 'parent') last = i + 1;
+  }
+  return last;
+}
+
+/** Short label on the path connector (spouse / parent / child) for chain visualization. */
+export function kinshipChainConnectorLabel(
+  kind: EdgeKind,
+  targetPerson: Person | null,
+  t: (key: string) => string
+): string {
+  if (kind === 'spouse') return targetPerson?.gender === 'f' ? t('kinWife') : t('kinHusband');
+  if (kind === 'parent') return targetPerson?.gender === 'f' ? t('kinMother') : t('kinFather');
+  return targetPerson?.gender === 'f' ? t('kinDaughter') : t('kinSon');
 }

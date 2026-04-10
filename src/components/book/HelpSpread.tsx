@@ -1,19 +1,12 @@
 'use client';
 
 import { useLocaleRoutes } from '@/lib/i18n/context';
-import type { SectionId } from '@/lib/constants/sections';
+import { bookHelpSectionTitleMessageKey, resolveBookHelpTargetSection } from '@/lib/constants/sections';
+import {
+  BOOK_HELP_CONTEXTUAL_KEYS_SPREAD,
+  TREE_HELP_STEP_MESSAGE_KEYS,
+} from '@/lib/utils/bookHelpContent';
 import { BookSpread } from './BookSpread';
-
-const STEP_KEYS = [
-  'treeHelpStep1', 'treeHelpStep2', 'treeHelpStep3', 'treeHelpStep4',
-  'treeHelpStep5', 'treeHelpStep6', 'treeHelpStep7', 'treeHelpStep8',
-];
-
-const HELP_TARGETS: SectionId[] = ['tree', 'persons', 'history', 'photos', 'map'];
-
-function isHelpTarget(value: string): value is SectionId {
-  return HELP_TARGETS.includes(value as SectionId);
-}
 
 interface HelpSpreadProps {
   section?: string;
@@ -25,27 +18,9 @@ interface HelpSpreadProps {
  */
 export function HelpSpread({ section }: HelpSpreadProps) {
   const { t } = useLocaleRoutes();
-  const targetSection: SectionId = section && isHelpTarget(section) ? section : 'tree';
-  const targetTitleKey =
-    targetSection === 'tree'
-      ? 'chapters_family-tree'
-      : targetSection === 'persons'
-        ? 'chapters_persons'
-        : targetSection === 'history'
-          ? 'chapters_history'
-          : targetSection === 'photos'
-            ? 'chapters_photos'
-            : 'chapters_map';
-
-  const contextualHelpKeys: Record<SectionId, string[]> = {
-    tree: STEP_KEYS,
-    persons: ['personsSearchPlaceholder', 'personsSelectHint', 'goToPerson'],
-    history: ['historySearchPlaceholder', 'historySelectHint', 'personMentionedInStories'],
-    photos: ['noPhotosYet', 'openFullscreen', 'photoToggleBack', 'lightboxShowLabels', 'lightboxHideLabels'],
-    map: ['bookHelpMap1', 'bookHelpMap2', 'bookHelpMap3'],
-    kinship: [],
-    help: [],
-  };
+  const targetSection = resolveBookHelpTargetSection(section);
+  const targetTitleKey = bookHelpSectionTitleMessageKey(targetSection);
+  const contextualHelpKeys = BOOK_HELP_CONTEXTUAL_KEYS_SPREAD;
 
   return (
     <BookSpread
@@ -66,7 +41,7 @@ export function HelpSpread({ section }: HelpSpreadProps) {
                 {t('treeHelpStepsTitle')}
               </p>
               <ul className="list-inside list-disc space-y-2.5 text-left text-base text-(--ink)">
-                {STEP_KEYS.map((key) => (
+                {TREE_HELP_STEP_MESSAGE_KEYS.map((key) => (
                   <li key={key} style={{ breakInside: 'avoid' }}>{t(key)}</li>
                 ))}
               </ul>

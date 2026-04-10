@@ -7,16 +7,13 @@ import type { Person } from '@/lib/types/person';
 import type { PhotoCategory, PhotoEntry } from '@/lib/types/photo';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui/atoms';
+import { pxToPercent } from '@/lib/utils/numbers';
 
 const DRAG_THRESHOLD_PX = 5;
 
 export const CUSTOM_PERSON_VALUE = '__custom__';
 
 const SERIES_NEW_VALUE = '__new__';
-
-function pxToPercent(value: number, total: number): number {
-  return total > 0 ? Math.max(0, Math.min(100, (value / total) * 100)) : 0;
-}
 
 function SeriesControl({
   value,
@@ -76,7 +73,7 @@ function SeriesControl({
   );
 }
 
-export interface PhotoEditLightboxProps {
+interface PhotoEditLightboxProps {
   photo: PhotoEntry;
   photoIdx: number;
   persons: Person[];

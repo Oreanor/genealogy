@@ -29,5 +29,3 @@ export function getMessages(locale: string): Record<string, string> {
   const key = isLocale(locale) ? locale : DEFAULT_LOCALE;
   return messages[key] ?? messages[DEFAULT_LOCALE];
 }
-
-export type MessageKey = keyof typeof ru;

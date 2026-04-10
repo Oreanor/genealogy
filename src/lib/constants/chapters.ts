@@ -1,12 +1,10 @@
-/** Path to cover/title photo (in public/). Empty string = placeholder */
-export const COVER_IMAGE = '';
-
+/** Slugs for legacy `/chapter/[slug]` redirects. Titles for UI live in i18n (`chapters_*` keys), not here. */
 export const CHAPTERS = [
-  { id: 'family-tree', title: 'Семейное древо' },
-  { id: 'persons', title: 'Персоны' },
-  { id: 'history', title: 'Тексты' },
-  { id: 'photos', title: 'Фото' },
-] as const;
+  { id: 'family-tree' },
+  { id: 'persons' },
+  { id: 'history' },
+  { id: 'photos' },
+];
 
 export type ChapterId = (typeof CHAPTERS)[number]['id'];
 
@@ -15,7 +13,7 @@ export const CHAPTER_IDS = {
   PERSONS: 'persons',
   HISTORY: 'history',
   PHOTOS: 'photos',
-} as const satisfies Record<string, ChapterId>;
+} satisfies Record<string, ChapterId>;
 
 /** ID of the root person (self, bottom of tree). Format: p001, p002, … */
 export const ROOT_PERSON_ID = 'p001';

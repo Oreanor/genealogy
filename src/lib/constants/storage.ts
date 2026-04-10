@@ -8,10 +8,15 @@ export const STORAGE_KEYS = {
   adminData: 'genealogy-admin-data',
   /** Person ids whose first/last/patronymic were edited in admin — do not auto-replace with locale template. */
   personNameLocks: 'genealogy-person-name-locks',
-} as const;
+} satisfies Record<string, string>;
 
 /** Cookie for redirect to last admin tab (read by proxy) */
 export const ADMIN_TAB_COOKIE = 'genealogy-admin-tab';
 
-export const ADMIN_TAB_IDS = ['persons', 'texts', 'photos'] as const;
-export type AdminTabId = (typeof ADMIN_TAB_IDS)[number];
+export type AdminTabId = 'persons' | 'texts' | 'photos';
+
+export const ADMIN_TAB_IDS: readonly AdminTabId[] = ['persons', 'texts', 'photos'];
+
+export function isAdminTabId(value: string): value is AdminTabId {
+  return ADMIN_TAB_IDS.some((id) => id === value);
+}

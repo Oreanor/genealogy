@@ -3,7 +3,7 @@
 import { SearchField } from './SearchField';
 import type { Person } from '@/lib/types/person';
 
-export interface PersonSearchDropdownProps {
+interface PersonSearchDropdownProps {
   value: string;
   onChange: (value: string) => void;
   onFocus: () => void;

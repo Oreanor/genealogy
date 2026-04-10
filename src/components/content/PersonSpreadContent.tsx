@@ -7,6 +7,7 @@ import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { getLightboxFacesFromPhoto, splitPersonPhotosForCarousels } from '@/lib/data/photos';
 import { buildPersonSummary } from '@/lib/utils/personSummary';
 import { formatNameByLocale, formatNamePartsByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
+import { stableModuloHash } from '@/lib/utils/string';
 import { normalizePlace } from '@/lib/utils/mapPlace';
 import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } from '@/lib/data/familyRelations';
 import type { Person } from '@/lib/types/person';
@@ -17,7 +18,7 @@ import { List, ListX } from 'lucide-react';
 import { PhotoThumbnails } from './PhotoThumbnails';
 import { CityPreviewMap } from '@/components/book/CityPreviewMap';
 
-export interface PersonSpreadLeftContentProps {
+interface PersonSpreadLeftContentProps {
   person: Person;
   personPhotos: PhotoEntry[];
   /** Current big photo (for toggle back on same thumb). */
@@ -76,11 +77,7 @@ export function PersonSpreadLeftContent({
     return mentions.sort((a, b) => b.display.length - a.display.length);
   })();
   const isDeceased = Boolean(person.deathDate?.trim());
-  const pickVariant = (seed: string, count: number) => {
-    let hash = 0;
-    for (let i = 0; i < seed.length; i += 1) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
-    return hash % count;
-  };
+  const pickVariant = (seed: string, count: number) => stableModuloHash(seed, count);
   const renderTemplateWithNode = (template: string, token: string, node: React.ReactNode) => {
     const [before, ...rest] = template.split(token);
     return (
@@ -270,7 +267,7 @@ export function PersonSpreadLeftContent({
   );
 }
 
-export interface PersonSpreadRightContentProps {
+interface PersonSpreadRightContentProps {
   person?: Person | null;
   photo: PhotoEntry | null;
   showFaces: boolean;

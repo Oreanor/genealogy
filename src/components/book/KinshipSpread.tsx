@@ -13,41 +13,18 @@ import {
   sortPersonsBySurname,
 } from '@/lib/utils/person';
 import { getSiblings } from '@/lib/data/familyRelations';
-import { getKinship, type EdgeKind, type KinshipResult } from '@/lib/utils/kinship';
+import {
+  findPeakParentEdgeIndex,
+  getKinship,
+  kinshipChainConnectorLabel,
+  KIN_RELATION_KEY_TO_DESC_CATEGORY,
+  type KinshipResult,
+} from '@/lib/utils/kinship';
 import type { Person } from '@/lib/types/person';
 import { BookSpread } from './BookSpread';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
-
-const KIN_DESC_MAP: Record<string, string> = {
-  kinFather: 'kinDescParent', kinMother: 'kinDescParent',
-  kinGrandfather: 'kinDescGrandparent', kinGrandmother: 'kinDescGrandparent',
-  kinGreatGrandfather: 'kinDescGreatGrandparent', kinGreatGrandmother: 'kinDescGreatGrandparent',
-  kinAncestorM: 'kinDescAncestor', kinAncestorF: 'kinDescAncestor',
-  kinSon: 'kinDescChild', kinDaughter: 'kinDescChild',
-  kinGrandson: 'kinDescGrandchild', kinGranddaughter: 'kinDescGrandchild',
-  kinGreatGrandson: 'kinDescGreatGrandchild', kinGreatGranddaughter: 'kinDescGreatGrandchild',
-  kinDescendantM: 'kinDescDescendant', kinDescendantF: 'kinDescDescendant',
-  kinBrother: 'kinDescSibling', kinSister: 'kinDescSibling',
-  kinUncle: 'kinDescUncleAunt', kinAunt: 'kinDescUncleAunt',
-  kinNephew: 'kinDescNephewNiece', kinNiece: 'kinDescNephewNiece',
-  kinCousinM: 'kinDescCousin', kinCousinF: 'kinDescCousin',
-  kinGreatUncle: 'kinDescGreatUncleAunt', kinGreatAunt: 'kinDescGreatUncleAunt',
-  kinGreatNephew: 'kinDescGreatNephewNiece', kinGreatNiece: 'kinDescGreatNephewNiece',
-  kinSecondUncle: 'kinDescSecondUncleAunt', kinSecondAunt: 'kinDescSecondUncleAunt',
-  kinSecondNephew: 'kinDescSecondNephewNiece', kinSecondNiece: 'kinDescSecondNephewNiece',
-  kinSecondCousinM: 'kinDescSecondCousin', kinSecondCousinF: 'kinDescSecondCousin',
-  kinHusband: 'kinDescSpouse', kinWife: 'kinDescSpouse',
-  kinFatherInLawM: 'kinDescParentInLaw', kinMotherInLawM: 'kinDescParentInLaw',
-  kinFatherInLawF: 'kinDescParentInLaw', kinMotherInLawF: 'kinDescParentInLaw',
-  kinBrotherInLawM: 'kinDescSiblingInLaw', kinBrotherInLawF: 'kinDescSiblingInLaw',
-  kinSisterInLawM: 'kinDescSiblingInLaw', kinSisterInLawF: 'kinDescSiblingInLaw',
-  kinSonInLaw: 'kinDescChildInLaw', kinDaughterInLaw: 'kinDescChildInLaw',
-  kinBrotherInLawSpouse: 'kinDescSiblingSpouseInLaw', kinSisterInLawSpouse: 'kinDescSiblingSpouseInLaw',
-  kinInLaw: 'kinDescInLaw',
-  kinDistantRelative: 'kinDescDistant',
-};
 
 function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: string }>) {
   const locale = useLocale();
@@ -84,20 +61,6 @@ function PersonInfo({ person, pathname }: Readonly<{ person: Person; pathname: s
   );
 }
 
-function edgeLabel(kind: EdgeKind, targetPerson: Person | null, t: (k: string) => string): string {
-  if (kind === 'spouse') return targetPerson?.gender === 'f' ? t('kinWife') : t('kinHusband');
-  if (kind === 'parent') return targetPerson?.gender === 'f' ? t('kinMother') : t('kinFather');
-  return targetPerson?.gender === 'f' ? t('kinDaughter') : t('kinSon');
-}
-
-function findPeakIndex(edgeKinds: EdgeKind[]): number {
-  let last = 0;
-  for (let i = 0; i < edgeKinds.length; i++) {
-    if (edgeKinds[i] === 'parent') last = i + 1;
-  }
-  return last;
-}
-
 function KinshipChain({
   result,
   t,
@@ -107,7 +70,7 @@ function KinshipChain({
 }>) {
   if (result.path.length <= 2) return null;
 
-  const peakIdx = findPeakIndex(result.edgeKinds);
+  const peakIdx = findPeakParentEdgeIndex(result.edgeKinds);
   const hasUp = result.edgeKinds.includes('parent');
   const hasDown = result.edgeKinds.includes('child');
   const hasSpouse = result.edgeKinds.includes('spouse');
@@ -130,7 +93,7 @@ function KinshipChain({
           const person = getPersonById(id);
           const isPeak = isSideBranch && i + 1 === peakIdx;
           const edgeIdx = i + 1;
-          const label = edgeLabel(result.edgeKinds[edgeIdx]!, person, t);
+          const label = kinshipChainConnectorLabel(result.edgeKinds[edgeIdx]!, person, t);
           const isSpouseEdge = result.edgeKinds[edgeIdx] === 'spouse';
           return (
             <span key={id} className="contents">
@@ -141,7 +104,7 @@ function KinshipChain({
         })}
         {/* Last person (B) */}
         <ChainArrow
-          label={edgeLabel(middleKinds.at(-1)!, getPersonById(result.path.at(-1)!), t)}
+          label={kinshipChainConnectorLabel(middleKinds.at(-1)!, getPersonById(result.path.at(-1)!), t)}
           spouse={middleKinds.at(-1) === 'spouse'}
         />
         <ChainNode
@@ -297,9 +260,9 @@ export function KinshipSpread() {
                   <p className="book-serif text-base font-bold text-(--ink) md:text-lg">
                     {t(resultAtoB.key)}
                   </p>
-                  {KIN_DESC_MAP[resultAtoB.key] && (
+                  {KIN_RELATION_KEY_TO_DESC_CATEGORY[resultAtoB.key] && (
                     <p className="mt-0.5 text-xs italic text-(--ink-muted)">
-                      {t(KIN_DESC_MAP[resultAtoB.key])}
+                      {t(KIN_RELATION_KEY_TO_DESC_CATEGORY[resultAtoB.key])}
                     </p>
                   )}
                   <svg className="my-2 w-full" height="20" viewBox="0 0 200 20" preserveAspectRatio="none">
@@ -317,9 +280,9 @@ export function KinshipSpread() {
                   <p className="book-serif text-base font-bold text-(--ink) md:text-lg">
                     {t(resultBtoA.key)}
                   </p>
-                  {KIN_DESC_MAP[resultBtoA.key] && (
+                  {KIN_RELATION_KEY_TO_DESC_CATEGORY[resultBtoA.key] && (
                     <p className="mt-0.5 text-xs italic text-(--ink-muted)">
-                      {t(KIN_DESC_MAP[resultBtoA.key])}
+                      {t(KIN_RELATION_KEY_TO_DESC_CATEGORY[resultBtoA.key])}
                     </p>
                   )}
                 </div>

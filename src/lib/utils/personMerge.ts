@@ -3,7 +3,7 @@ import type { Locale } from '@/lib/i18n/config';
 import { getTemplatePersonParts } from '@/lib/utils/person';
 import { readPersonNameLocks } from '@/lib/utils/personNameLocks';
 
-export function bundledHasStoredNames(
+function bundledHasStoredNames(
   b: Pick<Person, 'firstName' | 'lastName' | 'patronymic'>
 ): boolean {
   return Boolean(
@@ -59,7 +59,7 @@ export function mergePersonsForDisplay(
   working: Person[] | null,
   locale: Locale
 ): Person[] {
-  const bundledById = new Map(bundled.map((p) => [p.id, p] as const));
+  const bundledById = new Map(bundled.map((p): [string, Person] => [p.id, p]));
   const list = working ?? bundled;
   const hasWorkingSession = working !== null;
 

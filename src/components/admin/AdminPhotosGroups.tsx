@@ -4,11 +4,11 @@ import { useMemo, useState } from 'react';
 import { ChevronDown, Eye, EyeOff, File, Files } from 'lucide-react';
 import { Button } from '@/components/ui/atoms';
 import type { PhotoEntry } from '@/lib/types/photo';
+import type { TranslationFn } from '@/lib/i18n/types';
 import {
   isNew,
   type AdminPhotoGroupSection,
   type PhotoItem,
-  type TranslationFn,
 } from './adminPhotosTabUtils';
 
 type AdminPhotoGroupProps = {

@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getPersons } from '@/lib/data/persons';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { CUSTOM_PERSON_VALUE } from './PhotoEditLightbox';
+import type { TranslationFn } from '@/lib/i18n/types';
 import {
   buildAdminPhotoGroups,
   buildPhotoIndexMaps,
   slugFromSrc,
-  type TranslationFn,
 } from './adminPhotosTabUtils';
 
 type PeopleEditorState = { photoIdx: number; personIdx: number | null };

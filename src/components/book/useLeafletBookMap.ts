@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MAP_DEFAULT_CENTER, MAP_DEFAULT_ZOOM, MAP_LINE_STYLE } from '@/lib/constants/map';
 import { escapeHtml } from '@/lib/utils/mapPlace';
-import type { LineEntry, MarkerEntry } from './mapSectionUtils';
+import type { LineEntry, MarkerEntry } from '@/lib/utils/mapSectionEntries';
 
 type Params = {
   containerRef: React.RefObject<HTMLDivElement | null>;

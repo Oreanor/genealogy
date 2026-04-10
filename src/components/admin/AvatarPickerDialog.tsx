@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/atoms';
 import type { Person } from '@/lib/types/person';
 import type { AvatarSource } from '@/lib/data/photos';
-import type { TranslationFn } from './adminPersonsTableUtils';
+import type { TranslationFn } from '@/lib/i18n/types';
 
 type Props = {
   open: boolean;

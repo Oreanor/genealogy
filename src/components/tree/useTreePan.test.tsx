@@ -1,6 +1,10 @@
+import { createRef } from 'react';
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { useTreePan } from './useTreePan';
+
+const zoomRootRef = createRef<HTMLDivElement>();
+const transformTargetRef = createRef<HTMLDivElement>();
 
 function createPointerEvent(pointerId: number, clientX: number, clientY: number) {
   return {
@@ -28,6 +32,8 @@ describe('useTreePan', () => {
           limitYUp: -50,
           dragStartThresholdPx: 3,
           resetKey,
+          zoomRootRef,
+          transformTargetRef,
         }),
       {
         initialProps: { resetKey: 'a' },
@@ -54,6 +60,8 @@ describe('useTreePan', () => {
         limitYUp: -50,
         dragStartThresholdPx: 3,
         resetKey: 'stable',
+        zoomRootRef,
+        transformTargetRef,
       })
     );
 

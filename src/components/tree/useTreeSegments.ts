@@ -2,10 +2,12 @@
 
 import { useLayoutEffect, useState } from 'react';
 import { getKinship } from '@/lib/utils/kinship';
+import { roundToHalf } from '@/lib/utils/numbers';
+import { getParentTreeNodeKey } from '@/lib/utils/tree';
 import type { Person } from '@/lib/types/person';
 
 type NodeAnchor = { x: number; y: number; top: number; bottom: number };
-export type TreeSegment = {
+type TreeSegment = {
   key: string;
   edgeKey: string;
   left: number;
@@ -50,14 +52,13 @@ export function useTreeSegments({
       if (!container) return;
 
       const containerRect = container.getBoundingClientRect();
-      const roundSnap = (n: number) => Math.round(n * 2) / 2;
       const getAnchor = (el: HTMLDivElement) => {
         const r = el.getBoundingClientRect();
         return {
-          x: roundSnap(r.left - containerRect.left + r.width / 2),
-          y: roundSnap(r.top - containerRect.top + r.height / 2),
-          top: roundSnap(r.top - containerRect.top),
-          bottom: roundSnap(r.bottom - containerRect.top),
+          x: roundToHalf(r.left - containerRect.left + r.width / 2),
+          y: roundToHalf(r.top - containerRect.top + r.height / 2),
+          top: roundToHalf(r.top - containerRect.top),
+          bottom: roundToHalf(r.bottom - containerRect.top),
         };
       };
 
@@ -74,15 +75,6 @@ export function useTreeSegments({
       let spouseDirectOnly = false;
       const spouseEdgePairs: Array<{ pairKey: string; aKey: string; bKey: string }> = [];
       const spouseEdgePairSet = new Set<string>();
-
-      const getParentKeyForChildKey = (childKey: string): string | null => {
-        if (treeMode === 'descendants') return parentKeyByChildKey[childKey] ?? null;
-        const [levelStr, indexStr] = childKey.split('-');
-        const level = parseInt(levelStr, 10);
-        const index = parseInt(indexStr, 10);
-        if (!Number.isFinite(level) || !Number.isFinite(index) || level <= 0) return null;
-        return `${level - 1}-${index >> 1}`;
-      };
 
       if (kinshipMode && kinshipSelectedIds.length === 2) {
         const [a, b] = kinshipSelectedIds;
@@ -103,12 +95,12 @@ export function useTreeSegments({
             const vKey = idToKey.get(v);
             if (!uKey || !vKey) continue;
             if (kind === 'parent' || kind === 'child') {
-              const vParentKey = getParentKeyForChildKey(vKey);
+              const vParentKey = getParentTreeNodeKey(vKey, treeMode, parentKeyByChildKey);
               if (vParentKey === uKey) {
                 activeEdgeKeys.add(`${uKey}->${vKey}`);
                 continue;
               }
-              const uParentKey = getParentKeyForChildKey(uKey);
+              const uParentKey = getParentTreeNodeKey(uKey, treeMode, parentKeyByChildKey);
               if (uParentKey === vKey) activeEdgeKeys.add(`${vKey}->${uKey}`);
               continue;
             }
@@ -174,7 +166,7 @@ export function useTreeSegments({
             const child = row[index];
             if (!child) continue;
             const childKey = `${level}-${index}`;
-            const parentKey = getParentKeyForChildKey(childKey);
+            const parentKey = getParentTreeNodeKey(childKey, treeMode, parentKeyByChildKey);
             if (!parentKey) continue;
             const childCenter = currentCenters.get(childKey);
             if (!childCenter) continue;
@@ -213,7 +205,7 @@ export function useTreeSegments({
           const child = row[index];
           if (!child) continue;
           const childKey = `${level}-${index}`;
-          const parentKey = getParentKeyForChildKey(childKey);
+          const parentKey = getParentTreeNodeKey(childKey, treeMode, parentKeyByChildKey);
           if (!parentKey) continue;
 
           const parentCenter = currentCenters.get(parentKey);

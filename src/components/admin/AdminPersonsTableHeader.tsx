@@ -1,12 +1,12 @@
 'use client';
 
 import type { Person } from '@/lib/types/person';
+import type { TranslationFn } from '@/lib/i18n/types';
 import {
   COLUMNS,
   COLUMN_LABELS,
   type SortDirection,
   type SortKey,
-  type TranslationFn,
 } from './adminPersonsTableUtils';
 
 type Props = {

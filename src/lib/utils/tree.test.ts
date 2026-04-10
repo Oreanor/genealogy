@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from 'vitest';
-import { buildTreeMatrix, computeAncestorLayoutX, MAX_TREE_LEVELS } from './tree';
+import {
+  buildTreeMatrix,
+  computeAncestorLayoutX,
+  countVisibleTreeMatrixLevels,
+  MAX_TREE_LEVELS,
+} from './tree';
 import { ROOT_PERSON_ID } from '@/lib/constants/chapters';
 import { PERSONS_FIXTURE } from '../data/__fixtures__/persons';
 import type { Person } from '@/lib/types/person';
@@ -36,6 +41,20 @@ describe('buildTreeMatrix', () => {
   it('respects MAX_TREE_LEVELS', () => {
     const matrix = buildTreeMatrix(ROOT_PERSON_ID);
     expect(matrix.length).toBeLessThanOrEqual(MAX_TREE_LEVELS);
+  });
+});
+
+describe('countVisibleTreeMatrixLevels', () => {
+  const p = (id: string): Person => ({ id, firstName: 'T' });
+
+  it('returns 1 for empty rows', () => {
+    expect(countVisibleTreeMatrixLevels([[p('a')], [null, null]])).toBe(1);
+  });
+
+  it('returns deepest level with a person', () => {
+    expect(
+      countVisibleTreeMatrixLevels([[p('a')], [p('b'), null], [null, null, null, p('c')]])
+    ).toBe(3);
   });
 });
 

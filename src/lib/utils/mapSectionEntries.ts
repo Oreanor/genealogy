@@ -1,7 +1,6 @@
-'use client';
-
 import { MARKER_GROUPING, type GeocodedPoint } from '@/lib/constants/map';
 import type { Locale } from '@/lib/i18n/config';
+import type { TranslationFn } from '@/lib/i18n/types';
 import type { Person } from '@/lib/types/person';
 import {
   normalizePlace,
@@ -9,8 +8,6 @@ import {
   toPlaceFallbackKey,
 } from '@/lib/utils/mapPlace';
 import { formatNameByLocale, formatPersonNameForLocale } from '@/lib/utils/person';
-
-type TranslationFn = (key: string, params?: Record<string, string | number>) => string;
 
 export type MarkerEntry = {
   personId: string;
@@ -29,7 +26,7 @@ export type LineEntry = {
   color: string;
 };
 
-export type PersonOnMap = {
+type PersonOnMap = {
   id: string;
   name: string;
   color: string;

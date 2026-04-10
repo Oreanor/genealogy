@@ -5,8 +5,11 @@ import { Button, Input } from '@/components/ui/atoms';
 import type { AvatarSource } from '@/lib/data/photos';
 import type { Person } from '@/lib/types/person';
 import { getFullName } from '@/lib/utils/person';
-import { COLUMNS, type TranslationFn } from './adminPersonsTableUtils';
+import type { TranslationFn } from '@/lib/i18n/types';
+import { COLUMNS } from './adminPersonsTableUtils';
 import { ParentPickerPopover } from './ParentPickerPopover';
+
+const PARENT_COLUMNS: Array<'father' | 'mother'> = ['father', 'mother'];
 
 type Props = {
   person: Person;
@@ -148,7 +151,7 @@ export function AdminPersonsTableRow({
           )}
         </button>
       </td>
-      {(['father', 'mother'] as const).map((type) => (
+      {PARENT_COLUMNS.map((type) => (
         <ParentPickerPopover
           key={type}
           person={person}

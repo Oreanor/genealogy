@@ -1,8 +1,9 @@
 'use client';
 
 import type { Person } from '@/lib/types/person';
+import { compareStringsRuNumeric } from '@/lib/utils/string';
 
-export const PERSON_ID_PAD = 3;
+const PERSON_ID_PAD = 3;
 
 /** Numeric part of id (e.g. p001, p002) for sorting; NaN otherwise */
 export function personIdNum(id: string): number {
@@ -45,10 +46,6 @@ export function sortPersonsDefault(ps: Person[]): Person[] {
 export type SortDirection = 'asc' | 'desc';
 export type SortKey = keyof Person;
 
-export function compareValues(a: string, b: string): number {
-  return a.localeCompare(b, 'ru', { sensitivity: 'base', numeric: true });
-}
-
 export function sortPersonsByColumn(
   ps: Person[],
   sortBy: SortKey,
@@ -58,7 +55,7 @@ export function sortPersonsByColumn(
   return [...ps].sort((a, b) => {
     const av = String(a[sortBy] ?? '').trim();
     const bv = String(b[sortBy] ?? '').trim();
-    const cmp = compareValues(av, bv);
+    const cmp = compareStringsRuNumeric(av, bv);
     if (cmp !== 0) return cmp * factor;
 
     // Stable tie-breaker: default persons ordering.
@@ -124,8 +121,6 @@ export function nextPersonId(persons: Person[]): string {
   const max = nums.length ? Math.max(...nums) : 0;
   return `p${String(max + 1).padStart(PERSON_ID_PAD, '0')}`;
 }
-
-export type TranslationFn = (key: string, params?: Record<string, string | number>) => string;
 
 export type CityReviewState = {
   rowIdx: number;

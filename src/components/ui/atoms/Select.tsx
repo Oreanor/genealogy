@@ -3,7 +3,7 @@
 import type { SelectHTMLAttributes } from 'react';
 import { controlClass } from './Input';
 
-export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   className?: string;
 }
 

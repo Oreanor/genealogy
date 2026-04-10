@@ -7,13 +7,18 @@ import {
   buildTreeMatrix,
   computeAncestorLayoutX,
   computeDescendantLayoutX,
+  countVisibleTreeMatrixLevels,
 } from '@/lib/utils/tree';
+import {
+  FAMILY_TREE_VIEW_LAYOUT,
+  getFamilyTreeNodePosition,
+} from '@/lib/utils/familyTreeViewLayout';
 import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
 import { useTreePan } from './useTreePan';
 import { useTreeSegments } from './useTreeSegments';
 
-export interface FamilyTreeProps {
+interface FamilyTreeProps {
   onPersonClick: (personId: string) => void;
   kinshipMode?: boolean;
   kinshipSelectedIds?: string[];
@@ -25,104 +30,6 @@ export interface FamilyTreeProps {
 /** Stable defaults — avoid new [] / {} each render (useLayoutEffect deps). */
 const DEFAULT_KINSHIP_SELECTED_IDS: string[] = [];
 const DEFAULT_KINSHIP_HINT_BY_ID: Record<string, string | null | undefined> = {};
-
-const TREE_LAYOUT = {
-  view: {
-    width: 120,
-    height: 98,
-  },
-  node: {
-    baseScale: 0.75,
-  },
-  pan: {
-    limitX: 1100,
-    /** Baseline vertical pan (px); `panVerticalLimits` adds headroom per tree level. */
-    limitYDownBase: 120,
-    limitYUpBase: -210,
-    initialY: 0,
-    dragStartThresholdPx: 6,
-    /** Extra downward pan (px) per generation beyond the first four (ancestors stack upward). */
-    extraLimitYDownPerLevel: 82,
-    extraLimitYUpPerLevel: 58,
-  },
-  spacing: {
-    safeTopPct: 12,
-    safeBottomPctDescendants: 12,
-    safeBottomPctAncestors: 40,
-    generationStepMultDescendants: 1.35,
-    generationStepMultAncestors: 1.25,
-    minGenerationStepPxDescendants: 28,
-    minGenerationStepPxAncestors: 24,
-    horizontalSpreadMult: 1.35,
-  },
-} as const;
-
-function getScaleForLevel(): number {
-  return TREE_LAYOUT.node.baseScale;
-}
-
-function getNodePosition(
-  level: number,
-  index: number,
-  visibleLevelCount: number,
-  treeMode: 'ancestors' | 'descendants',
-  rowCount: number,
-  nodeXByKey: Map<string, number> | null
-) {
-  const count = treeMode === 'descendants' ? Math.max(1, rowCount) : Math.pow(2, level);
-  const xPx =
-    nodeXByKey
-      ? (nodeXByKey.get(`${level}-${index}`) ??
-          ((2 * index + 1) / (2 * count)) * TREE_LAYOUT.view.width)
-      : ((2 * index + 1) / (2 * count)) * TREE_LAYOUT.view.width;
-  const xRaw = (xPx / TREE_LAYOUT.view.width) * 100;
-  const x = 50 + (xRaw - 50) * TREE_LAYOUT.spacing.horizontalSpreadMult;
-  const heightPx = TREE_LAYOUT.view.height;
-  const topPadPx = (heightPx * TREE_LAYOUT.spacing.safeTopPct) / 100;
-  const bottomSafePct =
-    treeMode === 'ancestors'
-      ? TREE_LAYOUT.spacing.safeBottomPctAncestors
-      : TREE_LAYOUT.spacing.safeBottomPctDescendants;
-  const bottomPadPx = (heightPx * bottomSafePct) / 100;
-  const usableHeightPx = Math.max(1, heightPx - topPadPx - bottomPadPx);
-  const baseRowStep = usableHeightPx / Math.max(1, visibleLevelCount);
-  const rowStepRaw =
-    baseRowStep *
-    (treeMode === 'descendants'
-      ? TREE_LAYOUT.spacing.generationStepMultDescendants
-      : TREE_LAYOUT.spacing.generationStepMultAncestors);
-  const minRowStepPx =
-    treeMode === 'descendants'
-      ? TREE_LAYOUT.spacing.minGenerationStepPxDescendants
-      : TREE_LAYOUT.spacing.minGenerationStepPxAncestors;
-  const rowStep = Math.max(minRowStepPx, rowStepRaw);
-  const y =
-    treeMode === 'descendants'
-      ? (() => {
-          // Root starts from top safe zone, children go downward within inner bounds.
-          const yPx = topPadPx + level * rowStep;
-          return (yPx / heightPx) * 100;
-        })()
-      : (() => {
-          // Root starts from bottom safe zone, ancestors go upward within inner bounds.
-          const rootY = heightPx - bottomPadPx;
-          const yPx = rootY - level * rowStep;
-          return (yPx / heightPx) * 100;
-        })();
-  return {
-    x,
-    y,
-    scale: getScaleForLevel(),
-  };
-}
-
-/** Last level index that has at least one person; levels above are hidden and tree is raised. */
-function getVisibleLevelCount(matrix: (Person | null)[][]): number {
-  for (let l = matrix.length - 1; l >= 0; l--) {
-    if (matrix[l]!.some((p) => p !== null)) return l + 1;
-  }
-  return 1;
-}
 
 export function FamilyTree({
   onPersonClick,
@@ -141,7 +48,7 @@ export function FamilyTree({
     return { matrix: buildTreeMatrix(rootPersonId), parentKeyByChildKey: {} as Record<string, string> };
   }, [rootPersonId, treeMode]);
 
-  const visibleLevelCount = useMemo(() => getVisibleLevelCount(matrix), [matrix]);
+  const visibleLevelCount = useMemo(() => countVisibleTreeMatrixLevels(matrix), [matrix]);
   const visibleNodeCount = useMemo(
     () => {
       let count = 0;
@@ -158,19 +65,31 @@ export function FamilyTree({
   const nodeXByKey = useMemo(
     () =>
       treeMode === 'ancestors'
-        ? computeAncestorLayoutX(matrix, visibleLevelCount, TREE_LAYOUT.view.width)
-        : computeDescendantLayoutX(matrix, parentKeyByChildKey, visibleLevelCount, TREE_LAYOUT.view.width),
+        ? computeAncestorLayoutX(matrix, visibleLevelCount, FAMILY_TREE_VIEW_LAYOUT.view.width)
+        : computeDescendantLayoutX(
+            matrix,
+            parentKeyByChildKey,
+            visibleLevelCount,
+            FAMILY_TREE_VIEW_LAYOUT.view.width
+          ),
     [matrix, parentKeyByChildKey, visibleLevelCount, treeMode]
   );
   const nodePositionByKey = useMemo(() => {
-    const map = new Map<string, ReturnType<typeof getNodePosition>>();
+    const map = new Map<string, ReturnType<typeof getFamilyTreeNodePosition>>();
     for (let level = 0; level < visibleLevelCount; level += 1) {
       const row = matrix[level] ?? [];
       for (let index = 0; index < row.length; index += 1) {
         if (!row[index]) continue;
         map.set(
           `${level}-${index}`,
-          getNodePosition(level, index, visibleLevelCount, treeMode, row.length, nodeXByKey)
+          getFamilyTreeNodePosition(
+            level,
+            index,
+            visibleLevelCount,
+            treeMode,
+            row.length,
+            nodeXByKey
+          )
         );
       }
     }
@@ -185,13 +104,14 @@ export function FamilyTree({
     const extraLevels = Math.max(0, depth - 4);
     return {
       limitYDown:
-        TREE_LAYOUT.pan.limitYDownBase +
-        extraLevels * TREE_LAYOUT.pan.extraLimitYDownPerLevel,
+        FAMILY_TREE_VIEW_LAYOUT.pan.limitYDownBase +
+        extraLevels * FAMILY_TREE_VIEW_LAYOUT.pan.extraLimitYDownPerLevel,
       limitYUp:
-        TREE_LAYOUT.pan.limitYUpBase -
-        extraLevels * TREE_LAYOUT.pan.extraLimitYUpPerLevel,
+        FAMILY_TREE_VIEW_LAYOUT.pan.limitYUpBase -
+        extraLevels * FAMILY_TREE_VIEW_LAYOUT.pan.extraLimitYUpPerLevel,
     };
   }, [visibleLevelCount]);
+  const zoomRootRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const avatarRefCallbacksRef = useRef<Map<string, (el: HTMLDivElement | null) => void>>(new Map());
@@ -208,13 +128,15 @@ export function FamilyTree({
     }
     return cb;
   }, []);
-  const { pan, panHandlers } = useTreePan({
-    initialY: TREE_LAYOUT.pan.initialY,
-    limitX: TREE_LAYOUT.pan.limitX,
+  const { pan, scale, panHandlers } = useTreePan({
+    initialY: FAMILY_TREE_VIEW_LAYOUT.pan.initialY,
+    limitX: FAMILY_TREE_VIEW_LAYOUT.pan.limitX,
     limitYDown: panVerticalLimits.limitYDown,
     limitYUp: panVerticalLimits.limitYUp,
-    dragStartThresholdPx: TREE_LAYOUT.pan.dragStartThresholdPx,
+    dragStartThresholdPx: FAMILY_TREE_VIEW_LAYOUT.pan.dragStartThresholdPx,
     resetKey: `${rootPersonId}:${treeMode}`,
+    zoomRootRef,
+    transformTargetRef: containerRef,
   });
   const segments = useTreeSegments({
     containerRef,
@@ -231,14 +153,16 @@ export function FamilyTree({
 
   return (
     <div
-      className="flex h-full w-full min-h-0 justify-center overflow-hidden touch-none cursor-grab active:cursor-grabbing"
+      ref={zoomRootRef}
+      className="relative flex h-full w-full min-h-0 cursor-grab touch-none justify-center overflow-hidden active:cursor-grabbing"
       {...panHandlers}
     >
       <div
         ref={containerRef}
         className="relative h-full w-full max-h-full max-w-full origin-top p-8 md:min-h-0 md:aspect-[120/98] md:p-9"
         style={{
-          transform: `translate(${pan.x}px, ${pan.y}px)`,
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+          transformOrigin: '0 0',
         }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>

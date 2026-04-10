@@ -6,7 +6,7 @@ import { forwardRef, type InputHTMLAttributes } from 'react';
 export const controlClass =
   'rounded border border-(--border-subtle) bg-(--book-bg) px-2 py-1 text-(--ink) focus:outline-none';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 

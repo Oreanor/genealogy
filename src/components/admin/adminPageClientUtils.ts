@@ -28,7 +28,7 @@ export function toCombinedJson(data: AdminDataSections): string {
   return JSON.stringify(data, null, 2);
 }
 
-export interface StoredPayload {
+interface StoredPayload {
   data: AdminDataSections;
   bundledHash: string;
 }

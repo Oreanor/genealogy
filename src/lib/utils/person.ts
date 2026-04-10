@@ -2,8 +2,9 @@ import type { Person } from '@/lib/types/person';
 import type { Locale } from '@/lib/i18n/config';
 import { getMessages } from '@/lib/i18n/messages';
 import { transliterateCyrillicToLatin } from '@/lib/utils/transliteration';
+import { truncateWithEllipsis } from '@/lib/utils/string';
 
-export type NameParts = {
+type NameParts = {
   lastName?: string | null;
   firstName?: string | null;
   patronymic?: string | null;
@@ -20,7 +21,7 @@ export function getTemplatePersonParts(
   };
 }
 
-export function getTemplateRootNameByLocale(locale: Locale): string {
+function getTemplateRootNameByLocale(locale: Locale): string {
   const t = getTemplatePersonParts(locale);
   return [t.lastName, t.firstName, t.patronymic].filter(Boolean).join(' ').trim();
 }
@@ -107,4 +108,20 @@ export function formatPersonNameForLocale(
   const hasPersonName = Boolean(person.firstName?.trim() || person.lastName?.trim() || person.patronymic?.trim());
   if (!hasPersonName) return getTemplateRootNameByLocale(locale);
   return formatNameByLocale(full, locale);
+}
+
+/** Compact “Surname I.P.” for sibling mini-labels on the tree. */
+export function formatTreeSiblingChipLabel(
+  person: Person,
+  locale: Locale,
+  maxLastLen = 10
+): string {
+  const localized = formatNamePartsByLocale(person, locale);
+  const last = localized.lastName.trim();
+  const firstInitial = localized.firstName.trim().charAt(0);
+  const patronymicInitial = localized.patronymic.trim().charAt(0);
+  const initials = `${firstInitial ? `${firstInitial}.` : ''}${patronymicInitial ? `${patronymicInitial}.` : ''}`;
+  const lastPart = last ? truncateWithEllipsis(last, maxLastLen) : '';
+  const label = [lastPart, initials].filter(Boolean).join(' ');
+  return label || formatPersonNameForLocale(person, locale);
 }

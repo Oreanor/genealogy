@@ -29,7 +29,7 @@ vi.mock('@/hooks/usePersonsOverlayRevision', () => ({
   usePersonsOverlayRevision: () => 0,
 }));
 
-vi.mock('./mapSectionUtils', () => ({
+vi.mock('@/lib/utils/mapSectionEntries', () => ({
   buildMapEntries: () => ({
     markerEntries: [],
     lineEntries: [],

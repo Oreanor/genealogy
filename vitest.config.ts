@@ -42,7 +42,6 @@ export default defineConfig({
         'src/components/admin/**',
         'src/components/book/BookView.tsx',
         'src/components/StorageGate.tsx',
-        'src/lib/theme-init.ts',
         'src/components/ui/AdminButton.tsx',
         'src/components/ui/ImageLightbox.tsx',
         'src/lib/utils/color.ts',
