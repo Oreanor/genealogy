@@ -1,0 +1,290 @@
+{
+  "byKey": {
+    "Вири@@Kharkov, Russian Empire": {
+      "label": "Вири",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Вири, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Ворожба@@Kharkov, Russian Empire": {
+      "label": "Ворожба",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Ворожба, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Журавка@@Kharkiv, Ukraine, Soviet Union": {
+      "label": "Журавка",
+      "placeKey": "Kharkiv, Ukraine, Soviet Union",
+      "query": "Журавка, Kharkiv, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Ильмы@@Kharkov, Russian Empire": {
+      "label": "Ильмы",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Ильмы, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Київ@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Київ",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Київ, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Київський повіт@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Київський повіт",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Київський повіт, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Краснопільський@@Kharkov, Russian Empire": {
+      "label": "Краснопільський",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Краснопільський, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Кузьмина Гребля@@Cherkasy, Ukraine": {
+      "label": "Кузьмина Гребля",
+      "placeKey": "Cherkasy, Ukraine",
+      "query": "Кузьмина Гребля, Cherkasy, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Кузьмина Гребля@@Cherkasy, Ukraine, Soviet Union": {
+      "label": "Кузьмина Гребля",
+      "placeKey": "Cherkasy, Ukraine, Soviet Union",
+      "query": "Кузьмина Гребля, Cherkasy, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Локня@@Kharkov, Russian Empire": {
+      "label": "Локня",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Локня, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Максимівка@@Cherkasy, Ukraine, Soviet Union": {
+      "label": "Максимівка",
+      "placeKey": "Cherkasy, Ukraine, Soviet Union",
+      "query": "Максимівка, Cherkasy, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Махновский уезд@@Cheremoshnoye, Berdichev, Kiev, Russian Empire": {
+      "label": "Махновский уезд",
+      "placeKey": "Cheremoshnoye, Berdichev, Kiev, Russian Empire",
+      "query": "Махновский уезд, Cheremoshnoye, Berdichev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Сошников@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Сошников",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Сошников, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Сумской уезд@@Donetsk Guberniya, Ukraine, Soviet Union": {
+      "label": "Сумской уезд",
+      "placeKey": "Donetsk Guberniya, Ukraine, Soviet Union",
+      "query": "Сумской уезд, Donetsk Guberniya, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Сумы, хутор Степной@@Kharkov, Russian Empire": {
+      "label": "Сумы, хутор Степной",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Сумы, хутор Степной, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Сумы@@Kharkiv, Ukraine, Soviet Union": {
+      "label": "Сумы",
+      "placeKey": "Kharkiv, Ukraine, Soviet Union",
+      "query": "Сумы, Kharkiv, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Сумы@@Kharkov, Russian Empire": {
+      "label": "Сумы",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Сумы, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Сумы@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Сумы",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Сумы, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Терешковка@@Kharkov, Russian Empire": {
+      "label": "Терешковка",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Терешковка, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Токарі@@Kharkov, Russian Empire": {
+      "label": "Токарі",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Токарі, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Томашівка@@Cherkasy, Ukraine": {
+      "label": "Томашівка",
+      "placeKey": "Cherkasy, Ukraine",
+      "query": "Томашівка, Cherkasy, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Томашівка@@Cherkasy, Ukraine, Soviet Union": {
+      "label": "Томашівка",
+      "placeKey": "Cherkasy, Ukraine, Soviet Union",
+      "query": "Томашівка, Cherkasy, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Томашівка@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Томашівка",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Томашівка, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Cherkasy, Ukraine": {
+      "label": "Умань",
+      "placeKey": "Cherkasy, Ukraine",
+      "query": "Умань, Cherkasy, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Cherkasy, Ukraine, Soviet Union": {
+      "label": "Умань",
+      "placeKey": "Cherkasy, Ukraine, Soviet Union",
+      "query": "Умань, Cherkasy, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Умань",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Умань, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Kyïv, Ukraine": {
+      "label": "Умань",
+      "placeKey": "Kyïv, Ukraine",
+      "query": "Умань, Kyïv, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Tomašovka, Uman, Cherkasy, Ukraine": {
+      "label": "Умань",
+      "placeKey": "Tomašovka, Uman, Cherkasy, Ukraine",
+      "query": "Умань, Tomašovka, Uman, Cherkasy, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Умань@@Ukraine": {
+      "label": "Умань",
+      "placeKey": "Ukraine",
+      "query": "Умань, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "хутор Никонцев@@Donetsk Guberniya, Ukraine, Soviet Union": {
+      "label": "хутор Никонцев",
+      "placeKey": "Donetsk Guberniya, Ukraine, Soviet Union",
+      "query": "хутор Никонцев, Donetsk Guberniya, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "хутор Никонцев@@Kharkov, Russian Empire": {
+      "label": "хутор Никонцев",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "хутор Никонцев, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Berdichev@@Cheremoshnoye, Berdichev, Kiev, Russian Empire": {
+      "label": "Berdichev",
+      "placeKey": "Cheremoshnoye, Berdichev, Kiev, Russian Empire",
+      "query": "Berdichev, Cheremoshnoye, Berdichev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Berdichev@@Kyiv, Ukraine": {
+      "label": "Berdichev",
+      "placeKey": "Kyiv, Ukraine",
+      "query": "Berdichev, Kyiv, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Berdichev@@Kyïv, Ukraine": {
+      "label": "Berdichev",
+      "placeKey": "Kyïv, Ukraine",
+      "query": "Berdichev, Kyïv, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Berdichev@@Ukraine": {
+      "label": "Berdichev",
+      "placeKey": "Ukraine",
+      "query": "Berdichev, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Bilopillia@@Kharkov, Russian Empire": {
+      "label": "Bilopillia",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Bilopillia, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Mariupol@@Donetsk Guberniya, Ukraine, Soviet Union": {
+      "label": "Mariupol",
+      "placeKey": "Donetsk Guberniya, Ukraine, Soviet Union",
+      "query": "Mariupol, Donetsk Guberniya, Ukraine, Soviet Union, Ukraine",
+      "status": "not_found"
+    },
+    "Mariupol@@Donetsk, Ukraine": {
+      "label": "Mariupol",
+      "placeKey": "Donetsk, Ukraine",
+      "query": "Mariupol, Donetsk, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Okhtyrka@@Kharkov, Russian Empire": {
+      "label": "Okhtyrka",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Okhtyrka, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Romny@@Kharkov, Russian Empire": {
+      "label": "Romny",
+      "placeKey": "Kharkov, Russian Empire",
+      "query": "Romny, Kharkov, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Tarashcha@@Kiev, Kiev, Kiev, Russian Empire": {
+      "label": "Tarashcha",
+      "placeKey": "Kiev, Kiev, Kiev, Russian Empire",
+      "query": "Tarashcha, Kiev, Kiev, Kiev, Russian Empire, Ukraine",
+      "status": "not_found"
+    },
+    "Tarashcha@@Lyubcha, Bila Tserkva, Kyiv, Ukraine": {
+      "label": "Tarashcha",
+      "placeKey": "Lyubcha, Bila Tserkva, Kyiv, Ukraine",
+      "query": "Tarashcha, Lyubcha, Bila Tserkva, Kyiv, Ukraine, Ukraine",
+      "status": "not_found"
+    },
+    "Tarashcha@@Tarashcha, Bila Tserkva, Kyiv, Ukraine": {
+      "label": "Tarashcha",
+      "placeKey": "Tarashcha, Bila Tserkva, Kyiv, Ukraine",
+      "query": "Tarashcha, Tarashcha, Bila Tserkva, Kyiv, Ukraine, Ukraine",
+      "status": "not_found"
+    }
+  },
+  "byLabel": {
+    "Київ": { "lat": 50.4501, "lon": 30.5234, "source": "manual" },
+    "Київський повіт": { "lat": 50.4501, "lon": 30.5234, "source": "manual" },
+    "Умань": { "lat": 48.7484, "lon": 30.2219, "source": "manual" },
+    "Томашівка": { "lat": 48.6456, "lon": 30.1091, "source": "manual" },
+    "хутор Никонцев": { "lat": 50.8684, "lon": 34.6585, "source": "manual (Nikontsi)" },
+    "Berdichev": { "lat": 49.894, "lon": 28.6022, "source": "manual" },
+    "Tarashcha": { "lat": 49.5555, "lon": 30.5023, "source": "manual" },
+    "Mariupol": { "lat": 47.0971, "lon": 37.5434, "source": "manual" },
+    "Сумы": { "lat": 50.9077, "lon": 34.7981, "source": "manual" },
+    "Вири": { "lat": 51.15, "lon": 34.3, "source": "manual (user)" },
+    "Локня": { "lat": 51.1, "lon": 34.2, "source": "manual (user)" },
+    "Сумской уезд": { "lat": 50.9077, "lon": 34.7981, "source": "manual" },
+    "Okhtyrka": { "lat": 50.31, "lon": 34.898, "source": "manual" },
+    "Romny": { "lat": 50.7516, "lon": 33.4747, "source": "manual" },
+    "Bilopillia": { "lat": 51.1499, "lon": 34.3121, "source": "manual" },
+    "Ворожба": { "lat": 51.0208, "lon": 34.219, "source": "manual" }
+    ,"Кузьмина Гребля": { "lat": 50.98, "lon": 34.22, "source": "manual (user)" }
+    ,"Краснопільський": { "lat": 50.77, "lon": 35.26, "source": "manual (user)" }
+    ,"Ильмы": { "lat": 51.05, "lon": 34.1, "source": "manual (user)" }
+    ,"Терешковка": { "lat": 50.92, "lon": 34.78, "source": "manual (user)" }
+    ,"Токарі": { "lat": 50.9, "lon": 34.75, "source": "manual (user)" }
+    ,"Журавка": { "lat": 51.13, "lon": 34.35, "source": "manual (user)" }
+    ,"Махновский уезд": { "lat": 49.73, "lon": 28.83, "source": "manual (user)" }
+    ,"Максимівка": { "lat": 50.85, "lon": 34.6, "source": "manual (user)" }
+    ,"Сошников": { "lat": 50.95, "lon": 34.55, "source": "manual (user)" }
+    ,"Сумы, хутор Степной": { "lat": 50.88, "lon": 34.8, "source": "manual (user)" }
+  }
+}
