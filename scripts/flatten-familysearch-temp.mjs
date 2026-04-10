@@ -1,5 +1,5 @@
 /**
- * Собирает JSON из ответов FamilySearch (src/data/temp/1.json … 6.json).
+ * Собирает JSON из ответов FamilySearch (docs/1.json … 6.json).
  * Только данные для таймлайна / карты / родства; без поисковой и внутренней «шелухи».
  * Запуск: node scripts/flatten-familysearch-temp.mjs
  */
@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
+const RAW_DIR = path.join(ROOT, "docs");
 const TEMP_DIR = path.join(ROOT, "src", "data", "temp");
 const OUT_FILE = path.join(TEMP_DIR, "familysearch-search-flat.json");
 
@@ -240,7 +241,7 @@ function flattenEntry(entry) {
 }
 
 function main() {
-  const files = [1, 2, 3, 4, 5, 6].map((n) => path.join(TEMP_DIR, `${n}.json`));
+  const files = [1, 2, 3, 4, 5, 6].map((n) => path.join(RAW_DIR, `${n}.json`));
   for (const f of files) {
     if (!fs.existsSync(f)) {
       console.error("Нет файла:", f);
