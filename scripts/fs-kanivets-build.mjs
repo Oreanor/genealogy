@@ -211,7 +211,7 @@ function main() {
     meta: {
       source: "kanivets gedcomx-personas",
       eventCount: indexedEvents.length,
-      note: "Без precisePlace; на карте — приближённые координаты (kanivetsMapPlaceGeo + placeFallbacks).",
+      note: "Без precisePlace; на карте — приближённые координаты (mapPlaceGeoOverlays.json «extended» + placeFallbacks).",
       generatedAt: new Date().toISOString(),
     },
     events: indexedEvents,

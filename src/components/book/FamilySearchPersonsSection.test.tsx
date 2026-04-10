@@ -27,9 +27,9 @@ vi.mock('@/lib/data/familysearchPersons', () => ({
   }),
 }));
 
-vi.mock('@/lib/data/kanivetsFamilysearch', () => ({
-  getKanivetsFamilySearchPersons: () => ({
-    meta: { sourceJson: 'kanivets-fixture.json' },
+vi.mock('@/lib/data/familysearchPersonsAlt', () => ({
+  getFamilysearchPersonsAlt: () => ({
+    meta: { sourceJson: 'alt-fixture.json' },
     persons: [
       {
         id: 'fs-K1',

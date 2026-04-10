@@ -166,6 +166,10 @@ export type IndexedMapMarker = {
   circlePx: number;
   color: string;
   popupHtml: string;
+  /** Имя для списка в попапе кластера (plain text, экранируется на карте). */
+  listName: string;
+  /** Полный URL записи FamilySearch или null. */
+  recordUrl: string | null;
 };
 
 function hueFromString(s: string): string {
@@ -260,7 +264,8 @@ export function buildIndexedMapMarkers(
         : ''
     }`;
 
-    const displayName = escapeHtml(formatNameByLocale(e.principalName, locale));
+    const listName = formatNameByLocale(e.principalName, locale);
+    const displayName = escapeHtml(listName);
     const extra = renderAttachmentBlock(e.hitId, t, locale);
     const popupHtml = `<div style="min-width:200px"><div style="font-weight:600;margin-bottom:4px">${displayName}</div><div style="font-size:12px;opacity:.9">${escapeHtml(fact)} · ${e.year}</div>${lineDate}${placeHtml}${url ? `<div style="margin-top:8px"><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;text-decoration:underline">${escapeHtml(open)}</a></div>` : ''}${extra}</div>`;
 
@@ -273,6 +278,8 @@ export function buildIndexedMapMarkers(
       circlePx,
       color,
       popupHtml,
+      listName,
+      recordUrl: url || null,
     });
   });
 

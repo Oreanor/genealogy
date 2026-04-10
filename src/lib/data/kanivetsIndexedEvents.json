@@ -2,7 +2,7 @@
   "meta": {
     "source": "kanivets gedcomx-personas",
     "eventCount": 2610,
-    "note": "Без precisePlace; на карте — приближённые координаты (kanivetsMapPlaceGeo + placeFallbacks).",
+    "note": "Без precisePlace; на карте — приближённые координаты (mapPlaceGeoOverlays.json «extended» + placeFallbacks).",
     "generatedAt": "2026-04-10T16:42:39.012Z"
   },
   "events": [

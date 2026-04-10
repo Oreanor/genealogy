@@ -1,0 +1,14 @@
+{
+  "datasets": [
+    {
+      "id": "fs-persons-a",
+      "bundle": "default",
+      "i18nLabelKey": "familySearchDatasetPrimary"
+    },
+    {
+      "id": "fs-persons-b",
+      "bundle": "alt",
+      "i18nLabelKey": "familySearchDatasetSecondary"
+    }
+  ]
+}

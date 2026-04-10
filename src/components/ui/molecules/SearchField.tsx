@@ -9,11 +9,13 @@ const WRAPPER_CLASS =
 
 interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   className?: string;
+  /** Доп. классы для внешней оболочки (например `h-8` для выравнивания с селектом). */
+  wrapperClassName?: string;
 }
 
-export function SearchField({ className = '', ...rest }: SearchFieldProps) {
+export function SearchField({ className = '', wrapperClassName = '', ...rest }: SearchFieldProps) {
   return (
-    <div className={`${WRAPPER_CLASS} w-full`}>
+    <div className={`${WRAPPER_CLASS} w-full ${wrapperClassName}`.trim()}>
       <Search className="size-3.5 shrink-0 text-(--ink-muted)" aria-hidden />
       <Input
         type="search"

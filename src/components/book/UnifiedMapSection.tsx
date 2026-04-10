@@ -4,46 +4,28 @@ import { useMemo, useRef, useState } from 'react';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
-import type { Locale } from '@/lib/i18n/config';
-import type { TranslationFn } from '@/lib/i18n/types';
 import { getPersons } from '@/lib/data/persons';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
-import { getPrizyvMapPoints } from '@/lib/data/prizyvMap';
 import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
-import kanivetsIndexedBundle from '@/lib/data/kanivetsIndexedEvents.json';
-import { mergeKanivetsMapPlaceGeo } from '@/lib/data/kanivetsMapPlaceGeo';
-import type { IndexedEvent } from '@/lib/data/indexedEventsMap';
+import { getBookMapLayerOptions, resolveBookMapIndexedLayer } from '@/lib/data/bookMapLayerRegistry';
 import { ArchiveIndexedMapBody } from './IndexedEventsMapSection';
+import { PodvigNarodaMapSection } from './PodvigNarodaMapSection';
 import { FamilyMapBody } from './MapSection';
-import { usePrizyvPointsMap } from './usePrizyvPointsMap';
 
-const KANIVETS_INDEXED_EVENTS = kanivetsIndexedBundle.events as IndexedEvent[];
-
-export type MapDataLayerId = 'family' | 'archives' | 'archivesKanivets' | 'prizyv';
-
-function PrizyvMapBody({ locale, t }: { locale: Locale; t: TranslationFn }) {
-  const mapRef = useRef<HTMLDivElement | null>(null);
-  const points = useMemo(() => getPrizyvMapPoints(), []);
-  usePrizyvPointsMap({ containerRef: mapRef, locale, t, points });
-
-  return (
-    <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25">
-      <div ref={mapRef} className="h-full w-full" aria-label={t('mapLayerPrizyv')} />
-    </div>
-  );
-}
+/** Значение селекта — `id` из `bookMapLayers.json`. */
+export type MapDataLayerId = string;
 
 /**
- * Одна вкладка «Карты»: выбор источника данных (семья / FamilySearch / призывные пункты).
+ * Вкладка «Карты»: слои и порядок — в `bookMapLayers.json`, загрузка indexed-бандлов — в `bookMapLayerRegistry.ts`.
  */
 export function UnifiedMapSection() {
   const { t, locale } = useLocaleRoutes();
-  const [layer, setLayer] = useState<MapDataLayerId>('family');
+  const layerOptions = useMemo(() => getBookMapLayerOptions(), []);
+  const [layer, setLayer] = useState<MapDataLayerId>(() => layerOptions[0]?.id ?? 'family');
   const placeFallbacks = useMemo(() => getPlaceFallbacks(), []);
-  const kanivetsPlaceFallbacksForGeo = useMemo(() => mergeKanivetsMapPlaceGeo(placeFallbacks), [placeFallbacks]);
-  const kanivetsIndexedGeoOptions = useMemo(
-    () => (placeFallbacks.sumy ? { defaultWhenUnresolved: placeFallbacks.sumy } : undefined),
-    [placeFallbacks.sumy],
+  const activeIndexed = useMemo(
+    () => resolveBookMapIndexedLayer(layer, placeFallbacks),
+    [layer, placeFallbacks],
   );
   const personsOverlayRev = usePersonsOverlayRevision();
   const persons = useMemo(() => getPersons(), [personsOverlayRev]);
@@ -55,20 +37,18 @@ export function UnifiedMapSection() {
       >
         <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
           <BookPage className="relative flex h-full min-h-0 min-w-0 flex-col p-2 sm:p-4 md:p-5">
-            <h1 className="book-serif mb-2 hidden border-b border-(--ink-muted)/35 pb-0 text-center text-lg font-semibold text-(--ink) md:block md:text-2xl lg:text-3xl">
-              {t('chapters_map')}
-            </h1>
             <select
               id="book-map-data-layer"
               value={layer}
-              onChange={(e) => setLayer(e.target.value as MapDataLayerId)}
+              onChange={(e) => setLayer(e.target.value)}
               className="mb-2 shrink-0 w-full max-w-md rounded-md border border-(--ink-muted)/45 bg-(--paper) px-2 py-1.5 text-sm text-(--ink) outline-none focus:border-(--accent) md:mx-0"
               aria-label={t('mapLayerSelectAria')}
             >
-              <option value="family">{t('mapLayerFamily')}</option>
-              <option value="archives">{t('mapLayerArchives')}</option>
-              <option value="archivesKanivets">{t('mapLayerArchivesKanivets')}</option>
-              <option value="prizyv">{t('mapLayerPrizyv')}</option>
+              {layerOptions.map((opt) => (
+                <option key={opt.id} value={opt.id}>
+                  {t(opt.labelKey)}
+                </option>
+              ))}
             </select>
             <div className="flex min-h-0 flex-1 flex-col">
               {layer === 'family' && (
@@ -80,19 +60,25 @@ export function UnifiedMapSection() {
                   persons={persons}
                 />
               )}
-              {layer === 'archives' && <ArchiveIndexedMapBody key={locale} locale={locale} t={t} />}
-              {layer === 'archivesKanivets' && (
+              {activeIndexed && (
                 <ArchiveIndexedMapBody
-                  key={`${locale}-kanivets`}
+                  key={`${locale}-${activeIndexed.id}`}
                   locale={locale}
                   t={t}
-                  events={KANIVETS_INDEXED_EVENTS}
-                  placeFallbacksForGeo={kanivetsPlaceFallbacksForGeo}
-                  indexedGeoOptions={kanivetsIndexedGeoOptions}
-                  mapAriaLabelKey="mapLayerArchivesKanivets"
+                  events={activeIndexed.events}
+                  placeFallbacksForGeo={activeIndexed.placeFallbacksForGeo}
+                  indexedGeoOptions={activeIndexed.indexedGeoOptions}
+                  mapAriaLabelKey={activeIndexed.labelKey}
                 />
               )}
-              {layer === 'prizyv' && <PrizyvMapBody key={locale} locale={locale} t={t} />}
+              {layer === 'podvig-naroda' && (
+                <PodvigNarodaMapSection
+                  key={`${locale}-podvig`}
+                  locale={locale}
+                  t={t}
+                  placeFallbacks={placeFallbacks}
+                />
+              )}
             </div>
           </BookPage>
         </div>

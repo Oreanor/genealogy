@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "about": "Вкладка «Карты»: порядок слоёв, kind, ключ подписи (i18n), для indexed — eventsBundle (см. bookMapLayerRegistry.ts) и гео-пресеты."
+  },
+  "layers": [
+    {
+      "id": "family",
+      "kind": "family",
+      "labelKey": "mapLayerFamily",
+      "dataSource": "getPersons(), getPlaceFallbacks()"
+    },
+    {
+      "id": "fs-export-a",
+      "kind": "indexed",
+      "labelKey": "mapLayerArchives",
+      "eventsBundle": "main",
+      "placeGeoOverlay": null,
+      "indexedGeoOptionsPreset": null,
+      "dataSource": "indexedEvents.json → registry bundle key main"
+    },
+    {
+      "id": "fs-export-b",
+      "kind": "indexed",
+      "labelKey": "mapLayerArchivesFamilySearchAlt",
+      "eventsBundle": "alt",
+      "placeGeoOverlay": "extended",
+      "indexedGeoOptionsPreset": "sumyDefaultWhenUnresolved",
+      "dataSource": "kanivetsIndexedEvents.json → registry bundle key alt"
+    },
+    {
+      "id": "podvig-naroda",
+      "kind": "podvig_naroda",
+      "labelKey": "mapLayerPodvigNaroda",
+      "dataSource": "podvigNaroda.json — места призыва, люди по году рождения"
+    }
+  ]
+}

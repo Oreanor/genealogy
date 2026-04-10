@@ -34,7 +34,6 @@ export const BOOK_HELP_CONTEXTUAL_KEYS_SPREAD: Record<
     'bookHelpMap2Tab1',
     'bookHelpMap2Tab2',
     'bookHelpMap2Tab3',
-    'bookHelpMapPrizyv1',
   ],
 };
 
@@ -55,6 +54,5 @@ export const BOOK_HELP_CONTEXTUAL_KEYS_DIALOG: Record<
     'bookHelpMap2Tab1',
     'bookHelpMap2Tab2',
     'bookHelpMap2Tab3',
-    'bookHelpMapPrizyv1',
   ],
 };

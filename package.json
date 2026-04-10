@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "fs-export-persons": "node scripts/familysearch-export-persons.mjs",
-    "fs-kanivets-build": "node scripts/fs-kanivets-build.mjs"
+    "fs-kanivets-build": "node scripts/fs-kanivets-build.mjs",
+    "podvig-naroda-build": "node scripts/podvig-naroda-build.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",

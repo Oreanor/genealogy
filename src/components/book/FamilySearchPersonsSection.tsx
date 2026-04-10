@@ -7,18 +7,17 @@ import { useLocaleRoutes } from '@/lib/i18n/context';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import { BookPage } from './BookPage';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
-import { getFamilySearchPersons } from '@/lib/data/familysearchPersons';
-import { getKanivetsFamilySearchPersons } from '@/lib/data/kanivetsFamilysearch';
+import { getFamilySearchPersonDatasets } from '@/lib/data/familySearchPersonDatasets';
 import type { FamilySearchPersonEntry } from '@/lib/types/familysearchPersons';
 import { SearchField } from '@/components/ui/molecules/SearchField';
 import { FAMILYSEARCH_PUBLIC_ORIGIN } from '@/lib/data/indexedEventsMap';
 
 const SEARCH_DEBOUNCE_MS = 280;
-/** Колонки виртуальной сетки: персона | даты | место | отец | мать. */
+/** Колонки виртуальной сетки: персона | рождение | смерть | место | отец | мать. */
 const GRID_COLS =
-  'minmax(120px,1.1fr) minmax(5.25rem,auto) minmax(88px,0.85fr) minmax(104px,1fr) minmax(104px,1fr)';
+  'minmax(120px,1.1fr) minmax(4.75rem,auto) minmax(4.75rem,auto) minmax(88px,0.85fr) minmax(104px,1fr) minmax(104px,1fr)';
 
-type FamilySearchPersonsSortKey = 'name' | 'dates' | 'place' | 'father' | 'mother';
+type FamilySearchPersonsSortKey = 'name' | 'birth' | 'death' | 'place' | 'father' | 'mother';
 
 function yearFromLooseDate(s: string | undefined): number {
   if (!s?.trim()) return 99999;
@@ -29,10 +28,11 @@ function yearFromLooseDate(s: string | undefined): number {
   return 99999;
 }
 
-function compareDates(a: FamilySearchPersonEntry, b: FamilySearchPersonEntry): number {
-  const ba = yearFromLooseDate(a.birthDate);
-  const bb = yearFromLooseDate(b.birthDate);
-  if (ba !== bb) return ba - bb;
+function compareBirth(a: FamilySearchPersonEntry, b: FamilySearchPersonEntry): number {
+  return yearFromLooseDate(a.birthDate) - yearFromLooseDate(b.birthDate);
+}
+
+function compareDeath(a: FamilySearchPersonEntry, b: FamilySearchPersonEntry): number {
   return yearFromLooseDate(a.deathDate) - yearFromLooseDate(b.deathDate);
 }
 
@@ -67,8 +67,11 @@ function compareRows(
     case 'name':
       cmp = displayName(a).localeCompare(displayName(b), loc, { sensitivity: 'base', numeric: true });
       break;
-    case 'dates':
-      cmp = compareDates(a, b);
+    case 'birth':
+      cmp = compareBirth(a, b);
+      break;
+    case 'death':
+      cmp = compareDeath(a, b);
       break;
     case 'place':
       cmp = placeForDisplay(a).localeCompare(placeForDisplay(b), loc, { sensitivity: 'base', numeric: true });
@@ -183,12 +186,8 @@ const FamilySearchPersonRow = memo(function FamilySearchPersonRow({ person: p, b
       style={{ gridTemplateColumns: GRID_COLS }}
     >
       <div className="min-w-0">{nameEl}</div>
-      <div className="whitespace-nowrap tabular-nums">
-        <div>{p.birthDate ?? '—'}</div>
-        {p.deathDate ? (
-          <div className="text-[10px] leading-tight text-(--ink-muted)">{p.deathDate}</div>
-        ) : null}
-      </div>
+      <div className="min-w-0 whitespace-nowrap tabular-nums">{p.birthDate ?? '—'}</div>
+      <div className="min-w-0 whitespace-nowrap tabular-nums">{p.deathDate ?? '—'}</div>
       <div className="min-w-0 truncate whitespace-nowrap text-[10px] leading-tight text-(--ink-muted)">
         {birthPlaceCol || '—'}
       </div>
@@ -202,19 +201,19 @@ const FamilySearchPersonRow = memo(function FamilySearchPersonRow({ person: p, b
   );
 });
 
-type FamilySearchDatasetId = 'nikonets' | 'kanivets';
+const FAMILY_SEARCH_PERSON_DATASETS = getFamilySearchPersonDatasets();
 
 export function FamilySearchPersonsSection() {
   const { t, locale } = useLocaleRoutes();
-  const [dataset, setDataset] = useState<FamilySearchDatasetId>('nikonets');
-  const bundle = useMemo(
-    () => (dataset === 'kanivets' ? getKanivetsFamilySearchPersons() : getFamilySearchPersons()),
-    [dataset],
-  );
+  const [datasetId, setDatasetId] = useState(() => FAMILY_SEARCH_PERSON_DATASETS[0]!.id);
+  const bundle = useMemo(() => {
+    const row = FAMILY_SEARCH_PERSON_DATASETS.find((d) => d.id === datasetId);
+    return (row ?? FAMILY_SEARCH_PERSON_DATASETS[0]!).getBundle();
+  }, [datasetId]);
   const all = bundle.persons;
 
-  const onDatasetChange = useCallback((next: FamilySearchDatasetId) => {
-    setDataset(next);
+  const onDatasetChange = useCallback((next: string) => {
+    setDatasetId(next);
     setQuery('');
   }, []);
 
@@ -262,7 +261,7 @@ export function FamilySearchPersonsSection() {
 
   useEffect(() => {
     scrollParentRef.current?.scrollTo({ top: 0 });
-  }, [debouncedQuery, sortKey, sortDir, dataset]);
+  }, [debouncedQuery, sortKey, sortDir, datasetId]);
 
   const isSearchPending = query.trim() !== debouncedQuery.trim();
 
@@ -273,35 +272,27 @@ export function FamilySearchPersonsSection() {
       >
         <div className="min-h-0 min-w-0 flex-1 overflow-hidden">
           <BookPage className="flex min-h-0 flex-col gap-2 overflow-y-auto p-2 sm:p-4 md:p-5">
-            <div className="flex min-w-0 flex-col gap-1">
-              <div
-                id="family-search-dataset-heading"
-                className="text-[10px] font-medium uppercase tracking-wide text-(--ink-muted)"
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
+              <select
+                value={datasetId}
+                onChange={(e) => onDatasetChange(e.target.value)}
+                className="box-border h-8 min-w-[8.5rem] max-w-[12rem] shrink-0 rounded border border-(--ink-muted)/30 bg-(--paper) px-2 text-xs leading-tight text-(--ink) outline-none focus:border-(--accent)"
+                aria-label={t('familySearchDatasetSelectAria')}
               >
-                {t('familySearchDatasetLabel')}
-              </div>
-              <div
-                className="flex min-w-0 flex-wrap items-center gap-2"
-                role="group"
-                aria-labelledby="family-search-dataset-heading"
-              >
-                <select
-                  value={dataset}
-                  onChange={(e) => onDatasetChange(e.target.value as FamilySearchDatasetId)}
-                  className="min-w-[8.5rem] max-w-[12rem] shrink-0 rounded border border-(--ink-muted)/30 bg-(--paper) px-1.5 py-0.5 text-xs leading-tight text-(--ink) outline-none focus:border-(--accent)"
-                  aria-label={t('familySearchDatasetLabel')}
-                >
-                  <option value="nikonets">{t('familySearchDatasetNikonets')}</option>
-                  <option value="kanivets">{t('familySearchDatasetKanivets')}</option>
-                </select>
-                <div className="min-w-0 flex-1 basis-[min(100%,10rem)]">
-                  <SearchField
-                    placeholder={t('familySearchSearchPlaceholder')}
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    aria-label={t('familySearchSearchPlaceholder')}
-                  />
-                </div>
+                {FAMILY_SEARCH_PERSON_DATASETS.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {t(d.i18nLabelKey)}
+                  </option>
+                ))}
+              </select>
+              <div className="min-h-8 min-w-0 flex-1 basis-[min(100%,10rem)]">
+                <SearchField
+                  wrapperClassName="h-8"
+                  placeholder={t('familySearchSearchPlaceholder')}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  aria-label={t('familySearchSearchPlaceholder')}
+                />
               </div>
             </div>
             <p className="text-[11px] leading-tight text-(--ink-muted)">
@@ -311,7 +302,7 @@ export function FamilySearchPersonsSection() {
               ref={scrollParentRef}
               className="min-h-0 flex-1 overflow-auto rounded-md border border-(--ink-muted)/25"
             >
-              <div className="min-w-[720px]">
+              <div className="min-w-[800px]">
                 <div
                   role="row"
                   className="sticky top-0 z-10 grid gap-x-1 border-b border-(--ink-muted)/20 bg-(--paper) px-1.5 py-1 text-left text-[10px] font-semibold uppercase tracking-wide shadow-[0_1px_0_var(--ink-muted)]"
@@ -320,7 +311,8 @@ export function FamilySearchPersonsSection() {
                   {(
                     [
                       ['name', t('familySearchColPerson')],
-                      ['dates', t('familySearchColDates')],
+                      ['birth', t('familySearchColBirth')],
+                      ['death', t('familySearchColDeath')],
                       ['place', t('familySearchColBirthPlace')],
                       ['father', t('familySearchParentFather')],
                       ['mother', t('familySearchParentMother')],

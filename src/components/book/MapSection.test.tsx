@@ -15,7 +15,8 @@ vi.mock('@/lib/i18n/context', () => ({
         mapFilterReset: 'Reset',
         mapLayerFamily: 'Family',
         mapLayerArchives: 'Archives',
-        mapLayerPrizyv: 'Draft office totals',
+        mapLayerArchivesFamilySearchAlt: 'Archives B',
+        mapLayerPodvigNaroda: 'Podvig Naroda: conscription places',
         mapLayerSelectAria: 'Layer',
       })[key] ?? key,
   }),
@@ -49,10 +50,6 @@ vi.mock('@/lib/utils/mapSectionEntries', () => ({
 
 vi.mock('./useLeafletBookMap', () => ({
   useLeafletBookMap: () => ({ showPersonFilter: true }),
-}));
-
-vi.mock('./usePrizyvPointsMap', () => ({
-  usePrizyvPointsMap: () => ({}),
 }));
 
 describe('UnifiedMapSection (family layer)', () => {

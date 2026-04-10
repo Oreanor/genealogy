@@ -4,49 +4,58 @@ import { startTransition, useCallback, useEffect, useMemo, useRef, useState } fr
 import type { Locale } from '@/lib/i18n/config';
 import type { TranslationFn } from '@/lib/i18n/types';
 import type { GeocodedPoint } from '@/lib/constants/map';
+import { getPodvigNarodaRecords } from '@/lib/data/podvigNaroda';
 import {
-  INDEXED_EVENTS,
-  buildIndexedMapMarkers,
-  getIndexedEventYearBounds,
-  indexedEventFactTypeLabel,
-  indexedEventPrincipalMatchesSearch,
-  type IndexedEvent,
-  type IndexedEventGeoResolveOptions,
-} from '@/lib/data/indexedEventsMap';
-import { formatPlaceLabelForLocale } from '@/lib/utils/mapPlace';
+  buildPodvigMapMarkers,
+  buildPodvigTimelineRows,
+  getPodvigMapYearBounds,
+  PODVIG_NARODA_MAP_FACT_TYPE,
+  podvigPersonMatchesSearch,
+  podvigRecordSubtitle,
+  type PodvigMapTimelineRow,
+} from '@/lib/data/podvigNarodaMap';
+import { mergeMapPlaceGeoOverlay } from '@/lib/data/mapPlaceGeoOverlay';
+import type { IndexedEventGeoResolveOptions } from '@/lib/data/indexedEventsMap';
 import { formatNameByLocale } from '@/lib/utils/person';
+import { formatPlaceLabelForLocale } from '@/lib/utils/mapPlace';
 import { useIndexedEventsMap, type IndexedMapFocusTarget } from './useIndexedEventsMap';
 import { YearArchiveRangeSlider } from './YearArchiveRangeSlider';
 
-type ArchiveMapBodyProps = {
+type Props = {
   locale: Locale;
   t: TranslationFn;
-  /** По умолчанию — основной бандл из `indexedEventsMap` (`indexedEvents.json`). */
-  events?: IndexedEvent[];
-  /** Если в событии нет lat/lon, подобрать точку из `placeFallbacks` (как на карте семьи). */
-  placeFallbacksForGeo?: Record<string, GeocodedPoint>;
-  /** Запасная точка при неразрешённом месте (см. пресеты indexed-слоя в `bookMapLayers.json`). */
-  indexedGeoOptions?: IndexedEventGeoResolveOptions;
-  /** Ключ i18n для aria-label карты. */
+  placeFallbacks: Record<string, GeocodedPoint>;
   mapAriaLabelKey?: string;
 };
 
-/** Архив FamilySearch: таймлайн по годам, поиск по имени, кластер маркеров. */
-export function ArchiveIndexedMapBody({
+/** Карта «Подвиг народа»: кластеры по месту призыва / учётной локации, таймлайн по году рождения. */
+export function PodvigNarodaMapSection({
   locale,
   t,
-  events: eventsProp,
-  placeFallbacksForGeo,
-  indexedGeoOptions,
-  mapAriaLabelKey = 'mapLayerArchives',
-}: ArchiveMapBodyProps) {
+  placeFallbacks,
+  mapAriaLabelKey = 'mapLayerPodvigNaroda',
+}: Props) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
-  const events = eventsProp ?? INDEXED_EVENTS;
-  const bounds = useMemo(() => getIndexedEventYearBounds(events), [events]);
+
+  const placeFallbacksForGeo = useMemo(() => {
+    let m = mergeMapPlaceGeoOverlay(placeFallbacks, 'extended');
+    m = mergeMapPlaceGeoOverlay(m, 'podvigDraft');
+    return m;
+  }, [placeFallbacks]);
+
+  const indexedGeoOptions = useMemo((): IndexedEventGeoResolveOptions | undefined => {
+    return placeFallbacks.sumy ? { defaultWhenUnresolved: placeFallbacks.sumy } : undefined;
+  }, [placeFallbacks.sumy]);
+
+  const allRows = useMemo(
+    () => buildPodvigTimelineRows(getPodvigNarodaRecords(), placeFallbacksForGeo, indexedGeoOptions),
+    [placeFallbacksForGeo, indexedGeoOptions],
+  );
+
+  const bounds = useMemo(() => getPodvigMapYearBounds(allRows), [allRows]);
   const [yearFrom, setYearFrom] = useState(bounds.min);
   const [yearTo, setYearTo] = useState(bounds.max);
-  /** Диапазон для карты/маркеров: отстаёт на ≤1 кадр от слайдера, чтобы не дергать Leaflet на каждый pointermove. */
   const [mapYearFrom, setMapYearFrom] = useState(bounds.min);
   const [mapYearTo, setMapYearTo] = useState(bounds.max);
   const mapRangeRafRef = useRef<number | null>(null);
@@ -56,34 +65,38 @@ export function ArchiveIndexedMapBody({
   const [focusTarget, setFocusTarget] = useState<IndexedMapFocusTarget | null>(null);
 
   const normalizedQuery = nameQuery.trim().toLocaleLowerCase();
-  const nameFilteredEvents = useMemo(() => {
-    if (!normalizedQuery) return events;
-    return events.filter((e) => indexedEventPrincipalMatchesSearch(e.principalName, normalizedQuery));
-  }, [normalizedQuery, events]);
+  const nameFilteredRows = useMemo(() => {
+    if (!normalizedQuery) return allRows;
+    return allRows.filter((r) => podvigPersonMatchesSearch(r.displayName, normalizedQuery));
+  }, [normalizedQuery, allRows]);
 
   const nameSearchSuggestions = useMemo(() => {
     if (normalizedQuery.length < 3) return [];
     const cap = 40;
-    const sorted = [...nameFilteredEvents].sort((a, b) => {
-      const na = formatNameByLocale(a.principalName, locale);
-      const nb = formatNameByLocale(b.principalName, locale);
+    const sorted = [...nameFilteredRows].sort((a, b) => {
+      const na = formatNameByLocale(a.displayName, locale);
+      const nb = formatNameByLocale(b.displayName, locale);
       const byName = na.localeCompare(nb, undefined, { sensitivity: 'base' });
       if (byName !== 0) return byName;
-      return b.year - a.year;
+      return b.birthYear - a.birthYear;
     });
     return sorted.slice(0, cap);
-  }, [normalizedQuery, nameFilteredEvents, locale]);
+  }, [normalizedQuery, nameFilteredRows, locale]);
 
   const countsByYear = useMemo(() => {
     const span = bounds.max - bounds.min + 1;
     const arr = new Array<number>(span).fill(0);
-    for (const e of nameFilteredEvents) {
-      if (e.year >= bounds.min && e.year <= bounds.max) {
-        arr[e.year - bounds.min] += 1;
+    const sets = Array.from({ length: span }, () => new Set<string>());
+    for (const r of nameFilteredRows) {
+      if (r.birthYear >= bounds.min && r.birthYear <= bounds.max) {
+        sets[r.birthYear - bounds.min]!.add(r.personKey);
       }
     }
+    for (let i = 0; i < span; i += 1) {
+      arr[i] = sets[i]!.size;
+    }
     return arr;
-  }, [bounds.min, bounds.max, nameFilteredEvents]);
+  }, [bounds.min, bounds.max, nameFilteredRows]);
 
   const clampedFrom = Math.min(Math.max(yearFrom, bounds.min), bounds.max);
   const clampedTo = Math.min(Math.max(yearTo, bounds.min), bounds.max);
@@ -96,18 +109,18 @@ export function ArchiveIndexedMapBody({
   const mapHi = Math.max(mapClampedFrom, mapClampedTo);
 
   const sliderEventCount = useMemo(
-    () => nameFilteredEvents.reduce((n, e) => n + (e.year >= lo && e.year <= hi ? 1 : 0), 0),
-    [nameFilteredEvents, lo, hi],
+    () => nameFilteredRows.reduce((n, r) => n + (r.birthYear >= lo && r.birthYear <= hi ? 1 : 0), 0),
+    [nameFilteredRows, lo, hi],
   );
 
-  const filteredEvents = useMemo(
-    () => nameFilteredEvents.filter((e) => e.year >= mapLo && e.year <= mapHi),
-    [nameFilteredEvents, mapLo, mapHi],
+  const filteredRows = useMemo(
+    () => nameFilteredRows.filter((r) => r.birthYear >= mapLo && r.birthYear <= mapHi),
+    [nameFilteredRows, mapLo, mapHi],
   );
 
   const markers = useMemo(
-    () => buildIndexedMapMarkers(filteredEvents, t, locale, placeFallbacksForGeo, indexedGeoOptions),
-    [filteredEvents, t, locale, placeFallbacksForGeo, indexedGeoOptions],
+    () => buildPodvigMapMarkers(filteredRows, t, locale, placeFallbacksForGeo, indexedGeoOptions),
+    [filteredRows, t, locale, placeFallbacksForGeo, indexedGeoOptions],
   );
 
   const onFocusDone = useCallback(() => {
@@ -173,14 +186,14 @@ export function ArchiveIndexedMapBody({
   }, [suggestOpen]);
 
   const pickSuggestion = useCallback(
-    (e: IndexedEvent) => {
+    (row: PodvigMapTimelineRow) => {
       cancelMapRangeRaf();
-      setYearFrom(e.year);
-      setYearTo(e.year);
-      pendingMapRangeRef.current = { lo: e.year, hi: e.year };
-      setMapYearFrom(e.year);
-      setMapYearTo(e.year);
-      setFocusTarget({ hitId: e.hitId, factType: e.factType, year: e.year });
+      setYearFrom(row.birthYear);
+      setYearTo(row.birthYear);
+      pendingMapRangeRef.current = { lo: row.birthYear, hi: row.birthYear };
+      setMapYearFrom(row.birthYear);
+      setMapYearTo(row.birthYear);
+      setFocusTarget({ hitId: row.mapEntryId, factType: PODVIG_NARODA_MAP_FACT_TYPE, year: row.birthYear });
       setSuggestOpen(false);
     },
     [cancelMapRangeRaf],
@@ -233,12 +246,12 @@ export function ArchiveIndexedMapBody({
               className="h-8 w-full rounded-md border border-(--ink-muted)/45 bg-(--paper)/95 px-2 text-sm text-(--ink) shadow-sm backdrop-blur-[1px] outline-none placeholder:text-(--ink-muted)/80 focus:border-(--accent)"
               aria-label={t('mapArchiveSearchAria')}
               aria-expanded={suggestOpen && normalizedQuery.length >= 3}
-              aria-controls="indexed-map-name-suggestions"
+              aria-controls="podvig-map-name-suggestions"
               autoComplete="off"
             />
             {suggestOpen && normalizedQuery.length >= 3 ? (
               <ul
-                id="indexed-map-name-suggestions"
+                id="podvig-map-name-suggestions"
                 role="listbox"
                 aria-label={t('mapArchiveSearchListAria')}
                 className="absolute left-0 right-0 top-full z-[460] mt-1 max-h-[min(16rem,40vh)] overflow-y-auto rounded-md border border-(--ink-muted)/40 bg-(--paper) py-1 text-sm text-(--ink) shadow-lg"
@@ -248,16 +261,18 @@ export function ArchiveIndexedMapBody({
                     {t('mapArchiveSearchNoResults')}
                   </li>
                 ) : (
-                  nameSearchSuggestions.map((e, idx) => {
-                    const displayName = formatNameByLocale(e.principalName, locale);
-                    const placeDisplay = e.placeLabel
-                      ? formatPlaceLabelForLocale(e.placeLabel, locale)
+                  nameSearchSuggestions.map((row, idx) => {
+                    const displayName = formatNameByLocale(row.displayName, locale);
+                    const placeDisplay = row.placeLabel
+                      ? formatPlaceLabelForLocale(row.placeLabel, locale)
                       : '';
-                    const fact = indexedEventFactTypeLabel(t, e.factType);
-                    const factAndYear = `${fact} · ${e.year}`;
+                    const primary = podvigRecordSubtitle(row.records[0]!);
+                    const extra =
+                      row.records.length > 1 ? ` (+${row.records.length - 1})` : '';
+                    const factAndYear = `${row.birthYear} · ${primary}${extra}`;
                     const placePart = placeDisplay ? ` · ${placeDisplay}` : '';
                     return (
-                      <li key={`${e.hitId}-${e.factType}-${e.year}-${idx}`} role="presentation">
+                      <li key={`${row.mapEntryId}-${idx}`} role="presentation">
                         <button
                           type="button"
                           role="option"
@@ -269,7 +284,7 @@ export function ArchiveIndexedMapBody({
                           className="flex w-full cursor-pointer flex-col gap-0.5 px-2 py-1.5 text-left hover:bg-(--ink-muted)/12"
                           onPointerDown={(ev) => {
                             ev.preventDefault();
-                            pickSuggestion(e);
+                            pickSuggestion(row);
                           }}
                         >
                           <span className="font-medium leading-tight">{displayName}</span>
