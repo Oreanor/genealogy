@@ -1765,6 +1765,20 @@
       "series": "Дореволюционный Елец"
     },
     {
+      "id": "others-map_prizyv",
+      "src": "/photos/others/map_prizyv.jpg",
+      "caption": "Статистика призыва Никонцев",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-map_strelbitsky",
+      "src": "/photos/others/map_strelbitsky.jpg",
+      "caption": "Фрагмент карты Стрельбицкого 1871 года",
+      "category": "related",
+      "people": []
+    },
+    {
       "id": "others-photo_elets-aleksandro-mikhaylovskaya_cerkov",
       "src": "/photos/others/photo_elets/aleksandro-mikhaylovskaya_cerkov.jpg",
       "caption": "Александро-Михайловская церковь",

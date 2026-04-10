@@ -1,5 +1,6 @@
 'use client';
 
+import { HISTORY_RICH_HTML_IMAGE_CLASS } from '@/lib/constants/theme';
 import type { HistoryEntry } from '@/lib/types/history';
 
 interface HistoryContentRendererProps {
@@ -18,7 +19,7 @@ export function HistoryContentRenderer({ entries }: HistoryContentRendererProps)
           )}
           {entry.richText && (
             <div
-              className="prose max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline"
+              className={`prose max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
               dangerouslySetInnerHTML={{ __html: entry.richText }}
             />
           )}

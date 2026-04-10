@@ -18,7 +18,7 @@ import {
 } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import type { PhotoEntry } from '@/lib/types/photo';
-import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+import { CONTENT_LINK_CLASS, HISTORY_RICH_HTML_IMAGE_CLASS } from '@/lib/constants/theme';
 import { PersonSearchDropdown } from '@/components/ui/molecules/PersonSearchDropdown';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { usePhotoImageBounds } from '@/hooks/usePhotoImageBounds';
@@ -257,7 +257,7 @@ export function PersonsSection() {
               {selectedHistoryEntry.title}
             </h3>
             <div
-              className="book-serif prose-sm text-(--ink) leading-relaxed"
+              className={`book-serif prose-sm text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
               dangerouslySetInnerHTML={{ __html: selectedHistoryEntry.richText }}
             />
           </div>

@@ -52,7 +52,7 @@ describe('person utils', () => {
 
   describe('transliteration and locale formatting', () => {
     it('transliterates cyrillic to latin', () => {
-      expect(transliterateCyrillicToLatin('Никонец Иван')).toBe('Nikonets Ivan');
+      expect(transliterateCyrillicToLatin('Иванов Иван')).toBe('Ivanov Ivan');
     });
 
     it('detects latin-script locales', () => {

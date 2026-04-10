@@ -7,12 +7,14 @@ import { Input } from '@/components/ui/atoms';
 import { Dialog } from '@/components/ui/molecules/Dialog';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { Person } from '@/lib/types/person';
+import type { PhotoEntry } from '@/lib/types/photo';
 import { getFullName } from '@/lib/utils/person';
 import { RichTextEditor } from './RichTextEditor';
 
 interface AdminTextsTabProps {
   initialHistory: HistoryEntry[];
   persons: Person[];
+  photos: PhotoEntry[];
   onHistoryChange?: (entries: HistoryEntry[]) => void;
   onAddEntryActionChange?: (action: (() => void) | null) => void;
 }
@@ -26,6 +28,7 @@ const emptyEntry: HistoryEntry = {
 export function AdminTextsTab({
   initialHistory,
   persons,
+  photos,
   onHistoryChange,
   onAddEntryActionChange,
 }: AdminTextsTabProps) {
@@ -247,6 +250,7 @@ export function AdminTextsTab({
               <RichTextEditor
                 value={selectedEntry.richText}
                 onChange={(html) => updateEntry(selectedIdx, 'richText', html)}
+                photos={photos}
               />
             </div>
           </>

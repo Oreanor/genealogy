@@ -11,6 +11,7 @@ import { HistorySection } from './HistorySection';
 import { PhotosSection } from './PhotosSection';
 import { PersonsSection } from './PersonsSection';
 import { MapSection } from './MapSection';
+import { IndexedEventsMapSection } from './IndexedEventsMapSection';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
 import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
@@ -206,6 +207,8 @@ export function BookView() {
       return <PhotosSection />;
     case 'map':
       return <MapSection />;
+    case 'map2':
+      return <IndexedEventsMapSection />;
     case 'persons':
       return <PersonsSection />;
     default:

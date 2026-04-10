@@ -12,6 +12,10 @@ export const TOOLBAR_BUTTON_CLASS =
 export const CONTENT_LINK_CLASS =
   'text-(--link) underline hover:text-(--link-hover)';
 
+/** Embedded images in history HTML (TipTap / dangerouslySetInnerHTML) */
+export const HISTORY_RICH_HTML_IMAGE_CLASS =
+  '[&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-md [&_img]:my-4';
+
 /** Drop shadow under the book container (spread / tree block) — same everywhere. Use BOOK_SPREAD_SHADOW_MD where shadow only on desktop. */
 export const BOOK_SPREAD_SHADOW = 'shadow-xl';
 export const BOOK_SPREAD_SHADOW_MD = 'md:shadow-xl';

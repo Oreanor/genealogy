@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useState } from 'react';
-import { CONTENT_LINK_CLASS } from '@/lib/constants/theme';
+import { CONTENT_LINK_CLASS, HISTORY_RICH_HTML_IMAGE_CLASS } from '@/lib/constants/theme';
 import { getPersonById, getPersons } from '@/lib/data/persons';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { getLightboxFacesFromPhoto, splitPersonPhotosForCarousels } from '@/lib/data/photos';
@@ -320,7 +320,7 @@ export function PersonSpreadRightContent({
           {historyEntry.title}
         </h3>
         <div
-          className="book-serif prose-sm text-(--ink) leading-relaxed"
+          className={`book-serif prose-sm text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
           dangerouslySetInnerHTML={{ __html: historyEntry.richText }}
         />
       </div>

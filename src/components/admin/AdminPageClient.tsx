@@ -204,6 +204,7 @@ function AdminPageClientInner({
           <AdminTextsTab
             initialHistory={initialData.history}
             persons={personsForUi}
+            photos={photos}
             onAddEntryActionChange={handleAddTextEntryActionChange}
             onHistoryChange={handleHistoryChange}
           />

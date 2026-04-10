@@ -1,4 +1,4 @@
-/** One history entry: title, rich text, person links (no images in rich text) */
+/** One history entry: title, HTML rich text (TipTap; may include images from `/photos/…`), person links */
 export interface HistoryEntry {
   /** Title (heading) */
   title: string;

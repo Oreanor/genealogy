@@ -8,6 +8,8 @@ import { StorageGate } from '@/components/StorageGate';
 import { RootPersonProvider } from '@/lib/contexts/RootPersonContext';
 import { DEFAULT_PAPER_COLOR } from '@/lib/constants/theme';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import './globals.css';
 
 const DEFAULT_PAPER_JSON = JSON.stringify(DEFAULT_PAPER_COLOR);
