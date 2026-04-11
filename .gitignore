@@ -23,6 +23,9 @@
 # Local FamilySearch browser profile (если снова понадобится автоматизация)
 playwright-fs-profile/
 
+# Исходники книг, выгрузки FS/Podvig и т.п. — не в git (тяжёлые; Vercel serverless < 250 MB)
+/docs/
+
 # misc
 .DS_Store
 .cursor/
