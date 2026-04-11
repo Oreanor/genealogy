@@ -7,6 +7,7 @@ import { useLocaleRoutes } from '@/lib/i18n/context';
 import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 import { BookPage } from './BookPage';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
+import { getFamilyLineUiLabel } from '@/lib/data/familyLineLabels';
 import { getFamilySearchPersonDatasets } from '@/lib/data/familySearchPersonDatasets';
 import type { FamilySearchPersonEntry } from '@/lib/types/familysearchPersons';
 import { SearchField } from '@/components/ui/molecules/SearchField';
@@ -281,7 +282,7 @@ export function FamilySearchPersonsSection() {
               >
                 {FAMILY_SEARCH_PERSON_DATASETS.map((d) => (
                   <option key={d.id} value={d.id}>
-                    {t(d.i18nLabelKey)}
+                    {getFamilyLineUiLabel(d.lineId, locale, 'familySearch')}
                   </option>
                 ))}
               </select>

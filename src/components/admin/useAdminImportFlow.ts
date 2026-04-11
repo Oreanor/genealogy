@@ -7,7 +7,7 @@ import {
   computeMerge,
   mergeHasChanges,
   mergeHasConflicts,
-  validateImportData,
+  parseAdminImportData,
   type MergeResolutions,
   type MergeResult,
 } from '@/lib/utils/dataMerge';
@@ -52,12 +52,11 @@ export function useAdminImportFlow({ dataRef, bundledHash, onReload, t }: Params
 
   const handleImport = useCallback(
     (raw: unknown) => {
-      if (!validateImportData(raw)) {
+      const imported = parseAdminImportData(raw);
+      if (!imported) {
         setAlertMessage(t('adminImportError'));
         return;
       }
-
-      const imported = raw;
       const merge = computeMerge(dataRef.current, imported);
 
       if (!mergeHasChanges(merge)) {

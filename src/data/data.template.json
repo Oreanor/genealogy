@@ -19,5 +19,11 @@
     }
   ],
   "photos": [],
-  "history": []
+  "history": [],
+  "placeFallbacks": {},
+  "lineDynamics": {
+    "title": "",
+    "description": "",
+    "data": []
+  }
 }

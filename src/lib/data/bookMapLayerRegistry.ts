@@ -1,4 +1,5 @@
 import type { GeocodedPoint } from '@/lib/constants/map';
+import type { FamilyLineId } from '@/lib/data/familyLineLabels';
 import type { IndexedEvent, IndexedEventGeoResolveOptions } from '@/lib/data/indexedEventsMap';
 import manifest from '@/lib/data/bookMapLayers.json';
 import indexedMain from '@/lib/data/indexedEvents.json';
@@ -24,7 +25,7 @@ type LayerJsonPodvigNaroda = {
 type LayerJsonIndexed = {
   id: string;
   kind: 'indexed';
-  labelKey: string;
+  lineId: FamilyLineId;
   eventsBundle: string;
   placeGeoOverlay: string | null;
   indexedGeoOptionsPreset: string | null;
@@ -38,15 +39,13 @@ const EVENT_BUNDLES: Record<string, IndexedEvent[]> = {
   alt: (indexedAlt as { events: IndexedEvent[] }).events,
 };
 
-export type BookMapLayerOption = {
-  id: string;
-  kind: BookMapLayerKind;
-  labelKey: string;
-};
+export type BookMapLayerOption =
+  | { id: string; kind: 'family' | 'podvig_naroda'; labelKey: string }
+  | { id: string; kind: 'indexed'; lineId: FamilyLineId };
 
 export type BookMapIndexedLayerResolved = {
   id: string;
-  labelKey: string;
+  lineId: FamilyLineId;
   events: IndexedEvent[];
   placeFallbacksForGeo: Record<string, GeocodedPoint>;
   indexedGeoOptions?: IndexedEventGeoResolveOptions;
@@ -70,17 +69,21 @@ function buildIndexedLayer(
   }
   return {
     id: row.id,
-    labelKey: row.labelKey,
+    lineId: row.lineId,
     events,
     placeFallbacksForGeo,
     indexedGeoOptions,
   };
 }
 
-/** Слои селекта вкладки «Карты» — порядок и подписи из `bookMapLayers.json`. */
+/** Слои селекта вкладки «Карты» — порядок из `bookMapLayers.json`; подписи indexed — `familyLineLabels.json`. */
 export function getBookMapLayerOptions(): BookMapLayerOption[] {
   const { layers } = manifest as { layers: LayerJson[] };
-  return layers.map((L) => ({ id: L.id, kind: L.kind, labelKey: L.labelKey }));
+  return layers.map((L) =>
+    L.kind === 'indexed'
+      ? { id: L.id, kind: 'indexed', lineId: L.lineId }
+      : { id: L.id, kind: L.kind, labelKey: L.labelKey }
+  );
 }
 
 /** Конфиг indexed-слоя по `id` из манифеста, или null. */

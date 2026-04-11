@@ -2,6 +2,7 @@ import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { AdminDataSections } from '@/lib/utils/dataMerge';
+import { EMPTY_LINE_DYNAMICS } from '@/lib/types/lineDynamics';
 
 /**
  * Create a Person with realistic defaults.
@@ -89,6 +90,7 @@ export function makeData(
     photos: [],
     history: [],
     placeFallbacks: {},
+    lineDynamics: EMPTY_LINE_DYNAMICS,
     ...overrides,
   };
 }

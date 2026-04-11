@@ -12,6 +12,7 @@ import {
   mergeHasConflicts,
   buildDefaultResolutions,
   validateImportData,
+  parseAdminImportData,
   hashData,
   changedKeys,
   type MergeResolutions,
@@ -228,6 +229,26 @@ describe('computeMerge', () => {
     expect(m.persons.conflicts).toHaveLength(0);
     expect(mergeHasChanges(m)).toBe(true);
   });
+
+  it('detects lineDynamics conflict', () => {
+    const current = makeData({
+      lineDynamics: {
+        title: 'A',
+        description: '',
+        data: [],
+      },
+    });
+    const incoming = makeData({
+      lineDynamics: {
+        title: 'B',
+        description: '',
+        data: [],
+      },
+    });
+    const m = computeMerge(current, incoming);
+    expect(m.lineDynamicsConflict).toBe(true);
+    expect(mergeHasConflicts(m)).toBe(true);
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -260,6 +281,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -280,6 +302,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -306,6 +329,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -323,6 +347,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'take',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -339,6 +364,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -354,6 +380,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'take',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(data, m, res);
 
@@ -382,6 +409,7 @@ describe('applyMerge', () => {
       history: ['take', 'keep'],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -415,6 +443,7 @@ describe('applyMerge', () => {
       history: [],
       rootPersonId: 'keep',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -481,6 +510,7 @@ describe('applyMerge', () => {
       history: ['take'],
       rootPersonId: 'take',
       placeFallbacks: 'keep',
+      lineDynamics: 'keep',
     };
     const result = applyMerge(current, m, res);
 
@@ -521,6 +551,8 @@ describe('buildDefaultResolutions', () => {
     expect(res.photos).toEqual(['keep']);
     expect(res.history).toEqual(['keep']);
     expect(res.rootPersonId).toBe('keep');
+    expect(res.placeFallbacks).toBe('keep');
+    expect(res.lineDynamics).toBe('keep');
   });
 
   it('creates empty arrays when there are no conflicts', () => {
@@ -531,6 +563,8 @@ describe('buildDefaultResolutions', () => {
     expect(res.photos).toEqual([]);
     expect(res.history).toEqual([]);
     expect(res.rootPersonId).toBe('keep');
+    expect(res.placeFallbacks).toBe('keep');
+    expect(res.lineDynamics).toBe('keep');
   });
 });
 
@@ -593,6 +627,61 @@ describe('validateImportData', () => {
         customField: 'hello',
       })
     ).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// parseAdminImportData
+// ---------------------------------------------------------------------------
+
+describe('parseAdminImportData', () => {
+  it('fills empty lineDynamics when key is missing', () => {
+    const raw = {
+      rootPersonId: 'p1',
+      persons: [],
+      photos: [],
+      history: [],
+      placeFallbacks: {},
+    };
+    const parsed = parseAdminImportData(raw);
+    expect(parsed).not.toBeNull();
+    expect(parsed!.lineDynamics.data).toEqual([]);
+    expect(parsed!.lineDynamics.title).toBe('');
+  });
+
+  it('preserves lineDynamics when present', () => {
+    const raw = {
+      rootPersonId: 'p1',
+      persons: [],
+      photos: [],
+      history: [],
+      placeFallbacks: {},
+      lineDynamics: {
+        title: 'T',
+        description: 'D',
+        data: [{ decade: '1990', low: 1, mid: 2, high: 3, cluster_uman: 0, cluster_sumy: 0 }],
+      },
+    };
+    const parsed = parseAdminImportData(raw);
+    expect(parsed!.lineDynamics.title).toBe('T');
+    expect(parsed!.lineDynamics.data).toHaveLength(1);
+  });
+
+  it('accepts legacy nikonetsLineDynamics import key', () => {
+    const raw = {
+      rootPersonId: 'p1',
+      persons: [],
+      photos: [],
+      history: [],
+      placeFallbacks: {},
+      nikonetsLineDynamics: {
+        title: 'Legacy',
+        description: '',
+        data: [],
+      },
+    };
+    const parsed = parseAdminImportData(raw);
+    expect(parsed!.lineDynamics.title).toBe('Legacy');
   });
 });
 

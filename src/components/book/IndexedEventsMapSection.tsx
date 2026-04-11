@@ -27,8 +27,8 @@ type ArchiveMapBodyProps = {
   placeFallbacksForGeo?: Record<string, GeocodedPoint>;
   /** Запасная точка при неразрешённом месте (см. пресеты indexed-слоя в `bookMapLayers.json`). */
   indexedGeoOptions?: IndexedEventGeoResolveOptions;
-  /** Ключ i18n для aria-label карты. */
-  mapAriaLabelKey?: string;
+  /** Подпись для aria-label карты (полная строка, см. `familyLineLabels.json`). */
+  mapAriaLabel: string;
 };
 
 /** Архив FamilySearch: таймлайн по годам, поиск по имени, кластер маркеров. */
@@ -38,7 +38,7 @@ export function ArchiveIndexedMapBody({
   events: eventsProp,
   placeFallbacksForGeo,
   indexedGeoOptions,
-  mapAriaLabelKey = 'mapLayerArchives',
+  mapAriaLabel,
 }: ArchiveMapBodyProps) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const searchWrapRef = useRef<HTMLDivElement | null>(null);
@@ -286,7 +286,7 @@ export function ArchiveIndexedMapBody({
             ) : null}
           </div>
         </div>
-        <div ref={mapRef} className="h-full w-full" aria-label={t(mapAriaLabelKey)} />
+        <div ref={mapRef} className="h-full w-full" aria-label={mapAriaLabel} />
       </div>
     </>
   );

@@ -2,7 +2,7 @@
 
 import { splitAllPhotosForCarousels } from '@/lib/data/photos';
 import type { TranslationFn } from '@/lib/i18n/types';
-import type { PhotoEntry } from '@/lib/types/photo';
+import type { PhotoCategory, PhotoEntry } from '@/lib/types/photo';
 
 export type PhotoItem = { photo: PhotoEntry; idx: number };
 export type AdminPhotoGroupSection = {
@@ -22,11 +22,21 @@ export function slugFromSrc(src: string): string {
   );
 }
 
-export function isNew(photo: PhotoEntry): boolean {
-  const hasCaption = Boolean(photo.caption?.trim());
-  const hasPeople = Boolean(photo.people?.length);
-  if (hasCaption || hasPeople) return false;
+/** Состояние «только что из скана», без любых правок (подпись, лица, серия, категория, …). */
+function isPristineUneditedPhoto(photo: PhotoEntry): boolean {
+  if (photo.caption?.trim()) return false;
+  if (photo.backCaption?.trim()) return false;
+  if (photo.people?.length) return false;
+  if (photo.series?.trim()) return false;
+  if (photo.hidden) return false;
+  if (photo.backSrc?.trim()) return false;
+  const category: PhotoCategory = photo.category ?? 'related';
+  if (category !== 'related') return false;
   return true;
+}
+
+export function isNew(photo: PhotoEntry): boolean {
+  return isPristineUneditedPhoto(photo);
 }
 
 export function isBackSrc(src: string): boolean {

@@ -4,6 +4,7 @@ import { getPhotos } from '@/lib/data/photos';
 import { getHistoryEntries } from '@/lib/data/history';
 import { getRootPersonId } from '@/lib/data/root';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
+import { getLineDynamics } from '@/lib/data/lineDynamics';
 import { AdminPageClient } from '@/components/admin/AdminPageClient';
 import type { AdminTabId } from '@/components/admin/AdminTabs';
 import { ADMIN_TAB_IDS } from '@/lib/constants/storage';
@@ -22,11 +23,12 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   await params;
   const { tab } = await searchParams;
   const initialTab = parseTab(tab);
-  const [persons, photos, history, placeFallbacks] = [
+  const [persons, photos, history, placeFallbacks, lineDynamics] = [
     getBundledPersons(),
     getPhotos({ includeHidden: true }),
     getHistoryEntries({ includeHidden: true }),
     getPlaceFallbacks(),
+    getLineDynamics(),
   ];
   const rootPersonId = getRootPersonId();
   return (
@@ -38,6 +40,7 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
           photos={photos}
           history={history}
           placeFallbacks={placeFallbacks}
+          lineDynamics={lineDynamics}
           initialTab={initialTab}
         />
       </div>

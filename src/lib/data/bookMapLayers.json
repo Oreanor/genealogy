@@ -1,6 +1,6 @@
 {
   "meta": {
-    "about": "Вкладка «Карты»: порядок слоёв, kind, ключ подписи (i18n), для indexed — eventsBundle (см. bookMapLayerRegistry.ts) и гео-пресеты."
+    "about": "Вкладка «Карты»: порядок слоёв, kind; family/podvig — labelKey (i18n); indexed — lineId (подписи в familyLineLabels.json), eventsBundle (см. bookMapLayerRegistry.ts) и гео-пресеты."
   },
   "layers": [
     {
@@ -12,7 +12,7 @@
     {
       "id": "fs-export-a",
       "kind": "indexed",
-      "labelKey": "mapLayerArchives",
+      "lineId": "main",
       "eventsBundle": "main",
       "placeGeoOverlay": null,
       "indexedGeoOptionsPreset": null,
@@ -21,7 +21,7 @@
     {
       "id": "fs-export-b",
       "kind": "indexed",
-      "labelKey": "mapLayerArchivesFamilySearchAlt",
+      "lineId": "alt",
       "eventsBundle": "alt",
       "placeGeoOverlay": "extended",
       "indexedGeoOptionsPreset": "sumyDefaultWhenUnresolved",

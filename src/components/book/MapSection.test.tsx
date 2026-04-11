@@ -14,8 +14,6 @@ vi.mock('@/lib/i18n/context', () => ({
         mapFilterAll: 'All on map',
         mapFilterReset: 'Reset',
         mapLayerFamily: 'Family',
-        mapLayerArchives: 'Archives',
-        mapLayerArchivesFamilySearchAlt: 'Archives B',
         mapLayerPodvigNaroda: 'Podvig Naroda: conscription places',
         mapLayerSelectAria: 'Layer',
       })[key] ?? key,

@@ -1,0 +1,88 @@
+{
+  "lines": {
+    "main": {
+      "ru": {
+        "familySearch": "Род Никонец",
+        "mapLayer": "FamilySearch: род Никонец"
+      },
+      "en": {
+        "familySearch": "Nikonec family",
+        "mapLayer": "FamilySearch: Nikonec line"
+      },
+      "pt": {
+        "familySearch": "Família Nikonec",
+        "mapLayer": "FamilySearch: linha Nikonec"
+      },
+      "uk": {
+        "familySearch": "Рід Ніконець",
+        "mapLayer": "FamilySearch: рід Ніконець"
+      },
+      "de": {
+        "familySearch": "Familie Nikonec",
+        "mapLayer": "FamilySearch: Linie Nikonec"
+      },
+      "fr": {
+        "familySearch": "Famille Nikonec",
+        "mapLayer": "FamilySearch : lignée Nikonec"
+      },
+      "es": {
+        "familySearch": "Familia Nikonec",
+        "mapLayer": "FamilySearch: línea Nikonec"
+      },
+      "it": {
+        "familySearch": "Famiglia Nikonec",
+        "mapLayer": "FamilySearch: linea Nikonec"
+      },
+      "nl": {
+        "familySearch": "Familie Nikonec",
+        "mapLayer": "FamilySearch: lijn Nikonec"
+      },
+      "pl": {
+        "familySearch": "Ród Nikońiec",
+        "mapLayer": "FamilySearch: ród Nikońców"
+      }
+    },
+    "alt": {
+      "ru": {
+        "familySearch": "Род Канивец",
+        "mapLayer": "FamilySearch: род Канивец"
+      },
+      "en": {
+        "familySearch": "Kanivets family",
+        "mapLayer": "FamilySearch: Kanivets line"
+      },
+      "pt": {
+        "familySearch": "Família Kanivets",
+        "mapLayer": "FamilySearch: linha Kanivets"
+      },
+      "uk": {
+        "familySearch": "Рід Канівець",
+        "mapLayer": "FamilySearch: рід Канівець"
+      },
+      "de": {
+        "familySearch": "Familie Kanivets",
+        "mapLayer": "FamilySearch: Linie Kanivets"
+      },
+      "fr": {
+        "familySearch": "Famille Kanivets",
+        "mapLayer": "FamilySearch : lignée Kanivets"
+      },
+      "es": {
+        "familySearch": "Familia Kanivets",
+        "mapLayer": "FamilySearch: línea Kanivets"
+      },
+      "it": {
+        "familySearch": "Famiglia Kanivets",
+        "mapLayer": "FamilySearch: linea Kanivets"
+      },
+      "nl": {
+        "familySearch": "Familie Kanivets",
+        "mapLayer": "FamilySearch: lijn Kanivets"
+      },
+      "pl": {
+        "familySearch": "Ród Kanivets",
+        "mapLayer": "FamilySearch: ród Kanivets"
+      }
+    }
+  }
+}

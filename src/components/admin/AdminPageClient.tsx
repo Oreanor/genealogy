@@ -17,6 +17,7 @@ import type { Person } from '@/lib/types/person';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { PhotoEntry } from '@/lib/types/photo';
 import type { GeocodedPoint } from '@/lib/constants/map';
+import type { LineDynamicsDataset } from '@/lib/types/lineDynamics';
 import {
   saveToStorage,
   setTabCookie,
@@ -33,6 +34,7 @@ interface AdminPageClientProps {
   readonly photos: PhotoEntry[];
   readonly history: HistoryEntry[];
   readonly placeFallbacks: Record<string, GeocodedPoint>;
+  readonly lineDynamics: LineDynamicsDataset;
   readonly initialTab: AdminTabId;
 }
 
@@ -46,6 +48,7 @@ export function AdminPageClient({
   photos: serverPhotos,
   history: serverHistory,
   placeFallbacks: serverPlaceFallbacks,
+  lineDynamics: serverLineDynamics,
   initialTab,
 }: AdminPageClientProps) {
   const serverData = useMemo<AdminDataSections>(
@@ -55,8 +58,16 @@ export function AdminPageClient({
       photos: serverPhotos,
       history: serverHistory,
       placeFallbacks: serverPlaceFallbacks,
+      lineDynamics: serverLineDynamics,
     }),
-    [serverRoot, serverPersons, serverPhotos, serverHistory, serverPlaceFallbacks]
+    [
+      serverRoot,
+      serverPersons,
+      serverPhotos,
+      serverHistory,
+      serverPlaceFallbacks,
+      serverLineDynamics,
+    ]
   );
   const {
     serverHash,

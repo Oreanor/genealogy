@@ -4,16 +4,33 @@ import { useMemo, useRef, useState } from 'react';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
+import type { Locale } from '@/lib/i18n/config';
 import { getPersons } from '@/lib/data/persons';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
 import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
-import { getBookMapLayerOptions, resolveBookMapIndexedLayer } from '@/lib/data/bookMapLayerRegistry';
+import { getFamilyLineUiLabel } from '@/lib/data/familyLineLabels';
+import {
+  getBookMapLayerOptions,
+  resolveBookMapIndexedLayer,
+  type BookMapLayerOption,
+} from '@/lib/data/bookMapLayerRegistry';
 import { ArchiveIndexedMapBody } from './IndexedEventsMapSection';
 import { PodvigNarodaMapSection } from './PodvigNarodaMapSection';
 import { FamilyMapBody } from './MapSection';
 
 /** Значение селекта — `id` из `bookMapLayers.json`. */
 export type MapDataLayerId = string;
+
+function mapLayerSelectLabel(
+  opt: BookMapLayerOption,
+  locale: Locale,
+  t: (key: string) => string
+): string {
+  if (opt.kind === 'indexed') {
+    return getFamilyLineUiLabel(opt.lineId, locale, 'mapLayer');
+  }
+  return t(opt.labelKey);
+}
 
 /**
  * Вкладка «Карты»: слои и порядок — в `bookMapLayers.json`, загрузка indexed-бандлов — в `bookMapLayerRegistry.ts`.
@@ -46,7 +63,7 @@ export function UnifiedMapSection() {
             >
               {layerOptions.map((opt) => (
                 <option key={opt.id} value={opt.id}>
-                  {t(opt.labelKey)}
+                  {mapLayerSelectLabel(opt, locale, t)}
                 </option>
               ))}
             </select>
@@ -68,7 +85,11 @@ export function UnifiedMapSection() {
                   events={activeIndexed.events}
                   placeFallbacksForGeo={activeIndexed.placeFallbacksForGeo}
                   indexedGeoOptions={activeIndexed.indexedGeoOptions}
-                  mapAriaLabelKey={activeIndexed.labelKey}
+                  mapAriaLabel={getFamilyLineUiLabel(
+                    activeIndexed.lineId,
+                    locale,
+                    'mapLayer'
+                  )}
                 />
               )}
               {layer === 'podvig-naroda' && (

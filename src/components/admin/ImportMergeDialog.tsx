@@ -224,6 +224,7 @@ export function ImportMergeDialog({
       history: merge.history.conflicts.map(() => value),
       rootPersonId: value,
       placeFallbacks: value,
+      lineDynamics: value,
     });
   };
 
@@ -237,7 +238,8 @@ export function ImportMergeDialog({
     merge.photos.conflicts.length +
     merge.history.conflicts.length +
     (merge.rootConflict ? 1 : 0) +
-    (merge.placeFallbacksConflict ? 1 : 0);
+    (merge.placeFallbacksConflict ? 1 : 0) +
+    (merge.lineDynamicsConflict ? 1 : 0);
 
   return (
     <div
@@ -390,6 +392,28 @@ export function ImportMergeDialog({
                         ...prev,
                         placeFallbacks:
                           prev.placeFallbacks === 'keep' ? 'take' : 'keep',
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+            </>
+          )}
+          {merge.lineDynamicsConflict && (
+            <>
+              <SectionHeader label={t('adminImportLineDynamics')} count={1} />
+              <div className="rounded-lg border border-(--border) px-3 py-2">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs text-(--ink-muted)">
+                    lineDynamics
+                  </span>
+                  <ToggleButton
+                    value={resolutions.lineDynamics}
+                    onToggle={() =>
+                      setResolutions((prev) => ({
+                        ...prev,
+                        lineDynamics:
+                          prev.lineDynamics === 'keep' ? 'take' : 'keep',
                       }))
                     }
                   />

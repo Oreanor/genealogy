@@ -2,6 +2,8 @@ import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import type { HistoryEntry } from '@/lib/types/history';
 import type { GeocodedPoint } from '@/lib/constants/map';
+import type { LineDynamicsDataset } from '@/lib/types/lineDynamics';
+import { EMPTY_LINE_DYNAMICS } from '@/lib/types/lineDynamics';
 
 export interface AdminDataSections {
   rootPersonId: string;
@@ -9,6 +11,7 @@ export interface AdminDataSections {
   photos: PhotoEntry[];
   history: HistoryEntry[];
   placeFallbacks: Record<string, GeocodedPoint>;
+  lineDynamics: LineDynamicsDataset;
 }
 
 export interface MergeConflict<T> {
@@ -29,6 +32,8 @@ export interface MergeResult {
   incomingRootPersonId: string;
   placeFallbacksConflict: boolean;
   incomingPlaceFallbacks: Record<string, GeocodedPoint>;
+  lineDynamicsConflict: boolean;
+  incomingLineDynamics: LineDynamicsDataset;
 }
 
 export type ConflictResolution = 'keep' | 'take';
@@ -40,6 +45,7 @@ export interface MergeResolutions {
   history: ConflictResolution[];
   rootPersonId: ConflictResolution;
   placeFallbacks: ConflictResolution;
+  lineDynamics: ConflictResolution;
 }
 
 function eq(a: unknown, b: unknown): boolean {
@@ -96,6 +102,11 @@ export function computeMerge(
     incomingRootPersonId: incoming.rootPersonId,
     placeFallbacksConflict: !eq(current.placeFallbacks, incoming.placeFallbacks),
     incomingPlaceFallbacks: incoming.placeFallbacks,
+    lineDynamicsConflict: !eq(
+      current.lineDynamics,
+      incoming.lineDynamics
+    ),
+    incomingLineDynamics: incoming.lineDynamics,
   };
 }
 
@@ -108,7 +119,8 @@ export function mergeHasChanges(m: MergeResult): boolean {
     m.history.toAdd.length > 0 ||
     m.history.conflicts.length > 0 ||
     m.rootConflict ||
-    m.placeFallbacksConflict
+    m.placeFallbacksConflict ||
+    m.lineDynamicsConflict
   );
 }
 
@@ -118,7 +130,8 @@ export function mergeHasConflicts(m: MergeResult): boolean {
     m.photos.conflicts.length > 0 ||
     m.history.conflicts.length > 0 ||
     m.rootConflict ||
-    m.placeFallbacksConflict
+    m.placeFallbacksConflict ||
+    m.lineDynamicsConflict
   );
 }
 
@@ -129,6 +142,7 @@ export function buildDefaultResolutions(m: MergeResult): MergeResolutions {
     history: m.history.conflicts.map(() => 'keep' as ConflictResolution),
     rootPersonId: 'keep',
     placeFallbacks: 'keep',
+    lineDynamics: 'keep',
   };
 }
 
@@ -178,6 +192,10 @@ export function applyMerge(
       resolutions.placeFallbacks === 'take' && merge.placeFallbacksConflict
         ? merge.incomingPlaceFallbacks
         : current.placeFallbacks,
+    lineDynamics:
+      resolutions.lineDynamics === 'take' && merge.lineDynamicsConflict
+        ? merge.incomingLineDynamics
+        : current.lineDynamics,
     persons: applySectionPerRecord(
       current.persons,
       merge.persons,
@@ -209,20 +227,51 @@ export function changedKeys<T extends Record<string, unknown>>(
   return changed;
 }
 
-const REQUIRED_KEYS: (keyof AdminDataSections)[] = [
+/** Legacy imports may omit `lineDynamics`; use `parseAdminImportData`. */
+const IMPORT_BASE_KEYS = [
   'rootPersonId',
   'persons',
   'photos',
   'history',
   'placeFallbacks',
-];
+] as const;
 
-export function validateImportData(
-  data: unknown
-): data is AdminDataSections {
+export function validateImportData(data: unknown): boolean {
   if (!data || typeof data !== 'object') return false;
   const obj = data as Record<string, unknown>;
-  return REQUIRED_KEYS.every((key) => key in obj);
+  return IMPORT_BASE_KEYS.every((key) => key in obj);
+}
+
+function isLineDynamicsDataset(v: unknown): v is LineDynamicsDataset {
+  if (!v || typeof v !== 'object') return false;
+  const o = v as Record<string, unknown>;
+  return (
+    typeof o.title === 'string' &&
+    typeof o.description === 'string' &&
+    Array.isArray(o.data)
+  );
+}
+
+function pickLineDynamics(obj: Record<string, unknown>): LineDynamicsDataset {
+  if (isLineDynamicsDataset(obj.lineDynamics)) return obj.lineDynamics;
+  if (isLineDynamicsDataset(obj.nikonetsLineDynamics)) {
+    return obj.nikonetsLineDynamics;
+  }
+  return EMPTY_LINE_DYNAMICS;
+}
+
+/** Normalizes optional `lineDynamics`; legacy imports may use `nikonetsLineDynamics`. */
+export function parseAdminImportData(raw: unknown): AdminDataSections | null {
+  if (!validateImportData(raw)) return null;
+  const obj = raw as Record<string, unknown>;
+  return {
+    rootPersonId: obj.rootPersonId as string,
+    persons: obj.persons as Person[],
+    photos: obj.photos as PhotoEntry[],
+    history: obj.history as HistoryEntry[],
+    placeFallbacks: obj.placeFallbacks as Record<string, GeocodedPoint>,
+    lineDynamics: pickLineDynamics(obj),
+  };
 }
 
 /** djb2 hash — fast, sufficient for equality detection. */

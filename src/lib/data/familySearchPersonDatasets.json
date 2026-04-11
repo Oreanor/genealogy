@@ -3,12 +3,12 @@
     {
       "id": "fs-persons-a",
       "bundle": "default",
-      "i18nLabelKey": "familySearchDatasetPrimary"
+      "lineId": "main"
     },
     {
       "id": "fs-persons-b",
       "bundle": "alt",
-      "i18nLabelKey": "familySearchDatasetSecondary"
+      "lineId": "alt"
     }
   ]
 }

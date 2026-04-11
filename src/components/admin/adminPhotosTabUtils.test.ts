@@ -21,6 +21,9 @@ describe('adminPhotosTabUtils', () => {
   it('detects new and back photos and generates slug from src', () => {
     expect(isNew(makePhoto({ caption: '', people: [] }))).toBe(true);
     expect(isNew(makePhoto({ caption: 'Caption' }))).toBe(false);
+    expect(isNew(makePhoto({ caption: '', people: [], series: 'Album' }))).toBe(false);
+    expect(isNew(makePhoto({ caption: '', people: [], category: 'personal' }))).toBe(false);
+    expect(isNew(makePhoto({ caption: '', people: [], hidden: true }))).toBe(false);
     expect(isBackSrc('/photos/family_back.jpg')).toBe(true);
     expect(slugFromSrc('/photos/family/portrait.jpg')).toBe('family-portrait');
   });
@@ -44,7 +47,14 @@ describe('adminPhotosTabUtils', () => {
       makePhoto({ id: 'new', src: '/photos/new.jpg', caption: '', people: [] }),
       makePhoto({ id: 'personal', src: '/photos/personal.jpg', category: 'personal', caption: 'P' }),
       makePhoto({ id: 'group', src: '/photos/group.jpg', category: 'group', caption: 'G' }),
-      makePhoto({ id: 'series', src: '/photos/series.jpg', category: 'related', caption: 'S', series: 'Trip' }),
+      makePhoto({
+        id: 'series',
+        src: '/photos/series.jpg',
+        category: 'related',
+        caption: '',
+        people: [],
+        series: 'Trip',
+      }),
       makePhoto({ id: 'back', src: '/photos/personal_back.jpg', category: 'related', caption: 'Back' }),
     ];
     const { photoIdxBySrc } = buildPhotoIndexMaps(photos);

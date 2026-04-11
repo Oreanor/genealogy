@@ -1,0 +1,4533 @@
+{
+  "rootPersonId": "p001",
+  "persons": [
+    {
+      "id": "p024",
+      "firstName": "Василий",
+      "birthPlace": "",
+      "residenceCity": "г.Елец",
+      "occupation": "купец",
+      "comment": "",
+      "gender": "m",
+      "lastName": ""
+    },
+    {
+      "id": "p017",
+      "firstName": "Надежда",
+      "birthPlace": "",
+      "occupation": "конструктор",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Аксененко",
+      "fatherId": "p006",
+      "motherId": "p007",
+      "deathDate": "2020",
+      "birthDate": "03.08.1945",
+      "residenceCity": "г.Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
+    },
+    {
+      "id": "p012",
+      "firstName": "Григорий",
+      "birthPlace": "",
+      "occupation": "купец",
+      "gender": "m",
+      "patronymic": "Прохорович",
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "residenceCity": "г.Елец",
+      "comment": "умер в 54 года"
+    },
+    {
+      "id": "p006",
+      "firstName": "Николай",
+      "birthPlace": "г.Ливны",
+      "occupation": "главный бухгалтер",
+      "fatherId": "p012",
+      "motherId": "p013",
+      "gender": "m",
+      "patronymic": "Григорьевич",
+      "lastName": "Андреев",
+      "avatarPhotoSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "birthDate": "24.03.1910",
+      "deathDate": "16.02.1992",
+      "residenceCity": "г.Елец,г.Брянск"
+    },
+    {
+      "id": "p003",
+      "firstName": "Вера",
+      "birthPlace": "г.Брянск",
+      "occupation": "инженер-конструктор",
+      "fatherId": "p006",
+      "motherId": "p007",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Андреева",
+      "birthDate": "15.11.1949",
+      "deathDate": "26.12.2020",
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
+      "residenceCity": "Воркута"
+    },
+    {
+      "id": "p018",
+      "firstName": "Ирина",
+      "birthPlace": "г.Аткарск",
+      "occupation": "учитель, директор",
+      "gender": "f",
+      "patronymic": "Николаевна",
+      "lastName": "Андреева",
+      "fatherId": "p006",
+      "motherId": "p007",
+      "birthDate": "23.12.1942",
+      "deathDate": "2019",
+      "residenceCity": "г.Брянск",
+      "avatarPhotoSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg"
+    },
+    {
+      "id": "p014",
+      "firstName": "Алексей",
+      "birthPlace": "",
+      "occupation": "столяр, плотник",
+      "gender": "m",
+      "patronymic": "Иванович",
+      "lastName": "Беляев",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
+      "birthDate": "25.06.1889",
+      "deathDate": "14.05.1955",
+      "residenceCity": "г.Елец"
+    },
+    {
+      "id": "p007",
+      "firstName": "Елена",
+      "birthPlace": "г.Елец",
+      "occupation": "счетовод, бухгалтер",
+      "fatherId": "p014",
+      "motherId": "p015",
+      "gender": "f",
+      "patronymic": "Алексеевна",
+      "lastName": "Беляева",
+      "avatarPhotoSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
+      "birthDate": "22.05.1918",
+      "deathDate": "10.10.1980",
+      "residenceCity": "г.Брянск"
+    },
+    {
+      "id": "p015",
+      "firstName": "Татьяна",
+      "birthPlace": "",
+      "occupation": "белошвейка",
+      "gender": "f",
+      "patronymic": "Филимоновна",
+      "lastName": "Беляева",
+      "birthDate": "15.05.1891",
+      "deathDate": "14.12.1957",
+      "avatarPhotoSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg",
+      "residenceCity": "г.Елец"
+    },
+    {
+      "id": "p011",
+      "firstName": "Александра",
+      "birthPlace": "ст.Брюховецкая",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Егоровна",
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "residenceCity": "г.Буйнакск"
+    },
+    {
+      "id": "p005",
+      "firstName": "Вера",
+      "birthPlace": "ст.Брюховецкая",
+      "occupation": "банковский служащий",
+      "fatherId": "p010",
+      "motherId": "p011",
+      "gender": "f",
+      "patronymic": "Ивановна",
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "birthDate": "1917",
+      "deathDate": "1953",
+      "residenceCity": "г.Буйнакск"
+    },
+    {
+      "id": "p010",
+      "firstName": "Иван",
+      "birthPlace": "ст.Брюховецкая",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Павлович",
+      "lastName": "Дудник",
+      "avatarPhotoSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "residenceCity": "г.Буйнакск"
+    },
+    {
+      "id": "p009",
+      "firstName": "Дарья",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Никитична",
+      "lastName": "Канивец",
+      "avatarPhotoSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
+      "residenceCity": "г.Сумы"
+    },
+    {
+      "id": "p021",
+      "firstName": "Марина",
+      "birthPlace": "",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Курсанова",
+      "motherId": "p020"
+    },
+    {
+      "id": "p008",
+      "firstName": "Андрей",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "m",
+      "patronymic": "Павлович",
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
+      "residenceCity": "г.Сумы"
+    },
+    {
+      "id": "p002",
+      "firstName": "Владимир",
+      "birthPlace": "г.Буйнакск",
+      "occupation": "электрик 6 разряда",
+      "fatherId": "p004",
+      "motherId": "p005",
+      "gender": "f",
+      "patronymic": "Павлович",
+      "lastName": "Никонец",
+      "birthDate": "05.08.1947",
+      "deathDate": "13.09.2021",
+      "avatarPhotoSrc": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "residenceCity": "г.Воркута"
+    },
+    {
+      "id": "p022",
+      "firstName": "Оксана",
+      "birthPlace": "",
+      "residenceCity": "г.Калуга",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Никонец",
+      "patronymic": "Сергеевна",
+      "fatherId": "p019"
+    },
+    {
+      "id": "p023",
+      "firstName": "Олег",
+      "birthPlace": "г.Воркута",
+      "residenceCity": "",
+      "occupation": "",
+      "comment": "",
+      "gender": "m",
+      "lastName": "Никонец",
+      "patronymic": "Владимирович",
+      "birthDate": "26.11.1974",
+      "fatherId": "p002",
+      "motherId": "p003"
+    },
+    {
+      "id": "p004",
+      "firstName": "Павел",
+      "birthPlace": "г.Сумы",
+      "occupation": "снабженец на консервном заводе",
+      "fatherId": "p008",
+      "motherId": "p009",
+      "gender": "m",
+      "patronymic": "Андреевич",
+      "lastName": "Никонец",
+      "avatarPhotoSrc": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
+      "birthDate": "19.11.1905",
+      "deathDate": "21.03.1995",
+      "residenceCity": "г.Краснодар,г.Буйнакск,г.Buharest,г.Budapest,г.Prague,г.Буйнакск"
+    },
+    {
+      "id": "p001",
+      "firstName": "Сергей",
+      "birthPlace": "г.Брянск",
+      "occupation": "программист",
+      "fatherId": "p002",
+      "motherId": "p003",
+      "gender": "m",
+      "patronymic": "Владимирович",
+      "lastName": "Никонец",
+      "birthDate": "25.07.1980",
+      "avatarPhotoSrc": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg",
+      "residenceCity": "г.Воркута,г.Москва, г.Королев,г.Коимбра"
+    },
+    {
+      "id": "p019",
+      "firstName": "Сергей",
+      "birthPlace": "г.Буйнакск",
+      "residenceCity": "г.Буйнакск",
+      "occupation": "",
+      "comment": "",
+      "gender": "m",
+      "lastName": "Никонец",
+      "patronymic": "Павлович",
+      "birthDate": "05.08.1947",
+      "fatherId": "p004",
+      "motherId": "p005"
+    },
+    {
+      "id": "p020",
+      "firstName": "Тамара",
+      "birthPlace": "",
+      "residenceCity": "г.Львов",
+      "occupation": "",
+      "comment": "",
+      "gender": "f",
+      "lastName": "Никонец",
+      "patronymic": "Павловна",
+      "fatherId": "p004",
+      "motherId": "p005"
+    },
+    {
+      "id": "p013",
+      "firstName": "Анна",
+      "birthPlace": "",
+      "occupation": "",
+      "gender": "f",
+      "patronymic": "Васильевна",
+      "lastName": "Стёпина",
+      "deathDate": "1943",
+      "residenceCity": "г.Елец",
+      "avatarPhotoSrc": "/photos/personal/styopina_anna_vasilevna/Image66.jpg",
+      "fatherId": "p024",
+      "comment": "фамилия первого мужа Стёпина Николая"
+    }
+  ],
+  "photos": [
+    {
+      "id": "others-armonika-IMG_7614",
+      "src": "/photos/others/armonika/IMG_7614.jpg",
+      "caption": "Губная гармошка Николая Григорьевича",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ]
+    },
+    {
+      "id": "others-book-IMG_7616",
+      "src": "/photos/others/book/IMG_7616.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-book-IMG_7617",
+      "src": "/photos/others/book/IMG_7617.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-book-IMG_7618",
+      "src": "/photos/others/book/IMG_7618.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-book-IMG_7619",
+      "src": "/photos/others/book/IMG_7619.JPG",
+      "caption": "Книга \"Сочинения А.Н.Островского\"",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Книга Островского"
+    },
+    {
+      "id": "others-bryansk-1",
+      "src": "/photos/others/bryansk/bryansk_1.jpg",
+      "caption": "Московская улица-3",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-10",
+      "src": "/photos/others/bryansk/bryansk_10.jpg",
+      "caption": "Бежица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-11",
+      "src": "/photos/others/bryansk/bryansk_11.jpg",
+      "caption": "Бежица. Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-12",
+      "src": "/photos/others/bryansk/bryansk_12.jpg",
+      "caption": "Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-13",
+      "src": "/photos/others/bryansk/bryansk_13.jpg",
+      "caption": "Петровская гора зимой",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-14",
+      "src": "/photos/others/bryansk/bryansk_14.jpg",
+      "caption": "Остановка автобуса на Брянск 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-15",
+      "src": "/photos/others/bryansk/bryansk_15.jpg",
+      "caption": "Почтово-телеграфное здание",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-16",
+      "src": "/photos/others/bryansk/bryansk_16.jpg",
+      "caption": "Соборная площадь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-17",
+      "src": "/photos/others/bryansk/bryansk_17.jpg",
+      "caption": "Московская улица зимой",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-18",
+      "src": "/photos/others/bryansk/bryansk_18.jpg",
+      "caption": "Московская улица-1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-19",
+      "src": "/photos/others/bryansk/bryansk_19.jpg",
+      "caption": "Московская улица-2",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-2",
+      "src": "/photos/others/bryansk/bryansk_2.jpg",
+      "caption": "Общественное собрание",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-20",
+      "src": "/photos/others/bryansk/bryansk_20.jpg",
+      "caption": "Московская улица-4",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-21",
+      "src": "/photos/others/bryansk/bryansk_21.jpg",
+      "caption": "Московская улица-5",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-22",
+      "src": "/photos/others/bryansk/bryansk_22.jpg",
+      "caption": "Комаровская гора-1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-23",
+      "src": "/photos/others/bryansk/bryansk_23.jpg",
+      "caption": "Комаровская гора-2",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-24",
+      "src": "/photos/others/bryansk/bryansk_24.jpg",
+      "caption": "Чёрный мост",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-25",
+      "src": "/photos/others/bryansk/bryansk_25.jpg",
+      "caption": "Колодец Падарь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-26",
+      "src": "/photos/others/bryansk/bryansk_26.jpg",
+      "caption": "Свенский монастырь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-27",
+      "src": "/photos/others/bryansk/bryansk_27.jpg",
+      "caption": "БИТМ",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-28",
+      "src": "/photos/others/bryansk/bryansk_28.jpg",
+      "caption": "Собор",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-29",
+      "src": "/photos/others/bryansk/bryansk_29.jpg",
+      "caption": "Домик Петра Великого",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-3",
+      "src": "/photos/others/bryansk/bryansk_3.jpg",
+      "caption": "Разлитая дамба (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-30",
+      "src": "/photos/others/bryansk/bryansk_30.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-31",
+      "src": "/photos/others/bryansk/bryansk_31.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-32",
+      "src": "/photos/others/bryansk/bryansk_32.jpg",
+      "caption": "Вид с Авиловской горы",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-33",
+      "src": "/photos/others/bryansk/bryansk_33.jpg",
+      "caption": "Родильный приют",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-34",
+      "src": "/photos/others/bryansk/bryansk_34.jpg",
+      "caption": "Авиловская гора",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-35",
+      "src": "/photos/others/bryansk/bryansk_35.jpg",
+      "caption": "Рождественская гора",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-36",
+      "src": "/photos/others/bryansk/bryansk_36.jpg",
+      "caption": "Брянск N1. Общий вид города 1917г",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-4",
+      "src": "/photos/others/bryansk/bryansk_4.jpg",
+      "caption": "Наводнение-1 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-5",
+      "src": "/photos/others/bryansk/bryansk_5.jpg",
+      "caption": "Наводнение-2 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-6",
+      "src": "/photos/others/bryansk/bryansk_6.jpg",
+      "caption": "Наводнение-3 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-7",
+      "src": "/photos/others/bryansk/bryansk_7.jpg",
+      "caption": "Наводнение-4 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-8",
+      "src": "/photos/others/bryansk/bryansk_8.jpg",
+      "caption": "Наводнение-5 (1908)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk-9",
+      "src": "/photos/others/bryansk/bryansk_9.jpg",
+      "caption": "Бежица Каменное училище",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Брянск"
+    },
+    {
+      "id": "others-bryansk2-1",
+      "src": "/photos/others/bryansk2/bryansk2_1.jpg",
+      "caption": "Брянск, 1960 (2)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-10",
+      "src": "/photos/others/bryansk2/bryansk2_10.jpg",
+      "caption": "Почтамт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-11",
+      "src": "/photos/others/bryansk2/bryansk2_11.jpg",
+      "caption": "ул. Калинина, д. 50",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-12",
+      "src": "/photos/others/bryansk2/bryansk2_12.jpg",
+      "caption": "ул. Литейная",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-13",
+      "src": "/photos/others/bryansk2/bryansk2_13.jpg",
+      "caption": "Улица Фокина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-14",
+      "src": "/photos/others/bryansk2/bryansk2_14.jpg",
+      "caption": "ЦУМ",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-2",
+      "src": "/photos/others/bryansk2/bryansk2_2.jpg",
+      "caption": "Брянск, 1960",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-3",
+      "src": "/photos/others/bryansk2/bryansk2_3.jpg",
+      "caption": "Дом книги",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-4",
+      "src": "/photos/others/bryansk2/bryansk2_4.jpg",
+      "caption": "Дом Советов",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-5",
+      "src": "/photos/others/bryansk2/bryansk2_5.jpg",
+      "caption": "Дома железнодорожников",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-6",
+      "src": "/photos/others/bryansk2/bryansk2_6.jpg",
+      "caption": "Новый вокзал ст. Брянск I",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-7",
+      "src": "/photos/others/bryansk2/bryansk2_7.jpg",
+      "caption": "Областной драматический театр",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-8",
+      "src": "/photos/others/bryansk2/bryansk2_8.jpg",
+      "caption": "Памятник В. И. Ленину",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-bryansk2-9",
+      "src": "/photos/others/bryansk2/bryansk2_9.jpg",
+      "caption": "Перекресток улиц Ленина и Фокина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Брянск 50-60х"
+    },
+    {
+      "id": "others-buynaksk-1",
+      "src": "/photos/others/buynaksk/buynaksk_1.jpg",
+      "caption": "Андреевский военный собор.Буйнакск.Дагестан.1895",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-10",
+      "src": "/photos/others/buynaksk/buynaksk_10.jpg",
+      "caption": "Шура №32 (Общий вид) Изд. Шерер, Набгольц и Ко 1902 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-2",
+      "src": "/photos/others/buynaksk/buynaksk_2.jpg",
+      "caption": "Военный парад",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-3",
+      "src": "/photos/others/buynaksk/buynaksk_3.jpg",
+      "caption": "Городская управа",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-4",
+      "src": "/photos/others/buynaksk/buynaksk_4.jpg",
+      "caption": "Демонстрация 7 ноября. Женское пед училище 1957",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-5",
+      "src": "/photos/others/buynaksk/buynaksk_5.jpg",
+      "caption": "Здание бывшей 14 женской гимназии.Буйнакск.Дагестан.1970",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-6",
+      "src": "/photos/others/buynaksk/buynaksk_6.jpg",
+      "caption": "Парад 1 мая",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-7",
+      "src": "/photos/others/buynaksk/buynaksk_7.jpg",
+      "caption": "Пожарная команда города Буйнакск.Дагестан.Конец 19 века",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-8",
+      "src": "/photos/others/buynaksk/buynaksk_8.jpg",
+      "caption": "Посетители чайханы в Буйнакске.1920",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-buynaksk-9",
+      "src": "/photos/others/buynaksk/buynaksk_9.jpg",
+      "caption": "Темир-Хан Шура на рубеже XX века. Виден главный храм города — Андреевский военный собор (1861)",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p005"
+        }
+      ],
+      "series": "Буйнакск"
+    },
+    {
+      "id": "others-krasnodar-1",
+      "src": "/photos/others/krasnodar/krasnodar_1.jpg",
+      "caption": "Больница г.Екатеринодара",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-10",
+      "src": "/photos/others/krasnodar/krasnodar_10.jpg",
+      "caption": "Мариинский женский институт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-11",
+      "src": "/photos/others/krasnodar/krasnodar_11.jpg",
+      "caption": "Отделение Городского Банка на улице Красной",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-12",
+      "src": "/photos/others/krasnodar/krasnodar_12.jpg",
+      "caption": "Торжественный молебен в честь окончания Кавказской войны 1864",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-13",
+      "src": "/photos/others/krasnodar/krasnodar_13.jpg",
+      "caption": "Триумфальная Арка",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-2",
+      "src": "/photos/others/krasnodar/krasnodar_2.jpg",
+      "caption": "Вид нового города",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-3",
+      "src": "/photos/others/krasnodar/krasnodar_3.jpg",
+      "caption": "Военно-морское Училище",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-4",
+      "src": "/photos/others/krasnodar/krasnodar_4.jpg",
+      "caption": "Дворец начальника области",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-5",
+      "src": "/photos/others/krasnodar/krasnodar_5.jpg",
+      "caption": "Дом Багарсукова",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-6",
+      "src": "/photos/others/krasnodar/krasnodar_6.jpg",
+      "caption": "Екатеринодар, ул.Красная",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-7",
+      "src": "/photos/others/krasnodar/krasnodar_7.jpg",
+      "caption": "Женская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-8",
+      "src": "/photos/others/krasnodar/krasnodar_8.jpg",
+      "caption": "Жители Пашковской . Екатеринодар",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-krasnodar-9",
+      "src": "/photos/others/krasnodar/krasnodar_9.jpg",
+      "caption": "Кубанская община сестер милосердия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p011"
+        }
+      ],
+      "series": "Краснодар"
+    },
+    {
+      "id": "others-mama-scan_1",
+      "src": "/photos/others/mama/scan_1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p007"
+        },
+        {
+          "personId": "p014"
+        },
+        {
+          "personId": "p015"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_2",
+      "src": "/photos/others/mama/scan_2.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p015"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_3",
+      "src": "/photos/others/mama/scan_3.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p005"
+        },
+        {
+          "personId": "p011"
+        },
+        {
+          "personId": "p010"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_4",
+      "src": "/photos/others/mama/scan_4.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_5",
+      "src": "/photos/others/mama/scan_5.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p012"
+        },
+        {
+          "personId": "p013"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-mama-scan_6",
+      "src": "/photos/others/mama/scan_6.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        },
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p017"
+        },
+        {
+          "personId": "p018"
+        },
+        {
+          "personId": "p003"
+        }
+      ],
+      "series": "Мамины записи"
+    },
+    {
+      "id": "others-map_elets-elets_map_old_1899_01",
+      "src": "/photos/others/map_elets/elets_map_old_1899_01.jpg",
+      "caption": "План города Елец 1899",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-map_elets-elets_map_old_kvartali",
+      "src": "/photos/others/map_elets/elets_map_old_kvartali.jpg",
+      "caption": "План города Елец 1908",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-map_prizyv",
+      "src": "/photos/others/map_prizyv.jpg",
+      "caption": "Статистика призыва Никонцев",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-map_strelbitsky",
+      "src": "/photos/others/map_strelbitsky.jpg",
+      "caption": "Фрагмент карты Стрельбицкого 1871 года",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-photo_elets-aleksandro-mikhaylovskaya_cerkov",
+      "src": "/photos/others/photo_elets/aleksandro-mikhaylovskaya_cerkov.jpg",
+      "caption": "Александро-Михайловская церковь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-bez_podpisi",
+      "src": "/photos/others/photo_elets/bez_podpisi.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-bez_podpisi_1",
+      "src": "/photos/others/photo_elets/bez_podpisi_1.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-dom_prizreniya",
+      "src": "/photos/others/photo_elets/dom_prizreniya.jpg",
+      "caption": "Дом призрения",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-dom_trudolyubiya",
+      "src": "/photos/others/photo_elets/dom_trudolyubiya.jpg",
+      "caption": "Дом Трудолюбия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-gorodskoy_sad",
+      "src": "/photos/others/photo_elets/gorodskoy_sad.jpg",
+      "caption": "Городской сад",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-gosudarstvennyy_bank",
+      "src": "/photos/others/photo_elets/gosudarstvennyy_bank.jpg",
+      "caption": "Государственный банк",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-i_f_yakhontov_s_gimnazistkami_3_iyunya_1913",
+      "src": "/photos/others/photo_elets/i_f_yakhontov_s_gimnazistkami_3_iyunya_1913.jpg",
+      "caption": "И. Ф. Яхонтов с гимназистками. 3 июня 1913 года",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-kazennaya_muzhskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/kazennaya_muzhskaya_gimnaziya.jpg",
+      "caption": "Казенная мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-kolokolnya_i_stena_zhenskogo_monastyrya",
+      "src": "/photos/others/photo_elets/kolokolnya_i_stena_zhenskogo_monastyrya.jpg",
+      "caption": "Колокольня и стена Женского монастыря",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-monastyr",
+      "src": "/photos/others/photo_elets/monastyr.jpg",
+      "caption": "Монастырь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-muzhskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya.jpg",
+      "caption": "Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-muzhskaya_gimnaziya_2",
+      "src": "/photos/others/photo_elets/muzhskaya_gimnaziya_2.jpg",
+      "caption": "Мужская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-novyy_i_staryy_sobery",
+      "src": "/photos/others/photo_elets/novyy_i_staryy_sobery.jpg",
+      "caption": "Новый и Старый соборы",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-obshchiy_vid_goroda_2",
+      "src": "/photos/others/photo_elets/obshchiy_vid_goroda_2.jpg",
+      "caption": "Общий вид города",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-obshchiy_vid_s_zapadnoy_storony",
+      "src": "/photos/others/photo_elets/obshchiy_vid_s_zapadnoy_storony.jpg",
+      "caption": "Общий вид с западной стороны",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-okruzhnoy_sud",
+      "src": "/photos/others/photo_elets/okruzhnoy_sud.jpg",
+      "caption": "Окружной суд",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-orlovskaya_ulitsa",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa.jpg",
+      "caption": "Орловская улица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-orlovskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/orlovskaya_ulitsa_1.jpg",
+      "caption": "Орловская улица 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-otdelenie_gosudarstvennogo_banka",
+      "src": "/photos/others/photo_elets/otdelenie_gosudarstvennogo_banka.jpg",
+      "caption": "Отделение Государственного банка",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-panorama_goroda",
+      "src": "/photos/others/photo_elets/panorama_goroda.jpg",
+      "caption": "Панорама города",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-sad_obshchestvennogo_sobraniya",
+      "src": "/photos/others/photo_elets/sad_obshchestvennogo_sobraniya.jpg",
+      "caption": "Сад Общественного Собрания",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-sobornaya_ploshchad",
+      "src": "/photos/others/photo_elets/sobornaya_ploshchad.jpg",
+      "caption": "Соборная площадь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-sobor_i_vvedenskaya_gora",
+      "src": "/photos/others/photo_elets/sobor_i_vvedenskaya_gora.jpg",
+      "caption": "Собор и Введенская гора",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-torgovaya_ulitsa",
+      "src": "/photos/others/photo_elets/torgovaya_ulitsa.jpg",
+      "caption": "Торговая улица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-tserkov_svyatogo_vladimira",
+      "src": "/photos/others/photo_elets/tserkov_svyatogo_vladimira.jpg",
+      "caption": "Церковь Святого Владимира",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-ugol_ulits_torgovaya_i_orlovskaya",
+      "src": "/photos/others/photo_elets/ugol_ulits_torgovaya_i_orlovskaya.jpg",
+      "caption": "Угол улиц Торговая и Орловская",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-ul_torgovaya",
+      "src": "/photos/others/photo_elets/ul_torgovaya.jpg",
+      "caption": "Ул. Торговая",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-ul_torgovaya_1",
+      "src": "/photos/others/photo_elets/ul_torgovaya_1.jpg",
+      "caption": "Ул. Торговая 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa.jpg",
+      "caption": "Великокняжеская улица",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-velikoknyazheskaya_ulitsa_1",
+      "src": "/photos/others/photo_elets/velikoknyazheskaya_ulitsa_1.jpg",
+      "caption": "Великокняжеская улица 1",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-zheleznodorozhnyy_most",
+      "src": "/photos/others/photo_elets/zheleznodorozhnyy_most.jpg",
+      "caption": "Железнодорожный мост",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-zhenskaya_gimnaziya",
+      "src": "/photos/others/photo_elets/zhenskaya_gimnaziya.jpg",
+      "caption": "Женская гимназия",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-photo_elets-zhenskiy_monastyr",
+      "src": "/photos/others/photo_elets/zhenskiy_monastyr.jpg",
+      "caption": "Женский монастырь",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p012"
+        }
+      ],
+      "series": "Дореволюционный Елец"
+    },
+    {
+      "id": "others-ruler-cutter-1878-Hockley Abbey Works-Birmingha-02-530",
+      "src": "/photos/others/ruler-cutter/1878-Hockley Abbey Works-Birmingha-02-530.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879",
+      "src": "/photos/others/ruler-cutter/1879-The British Trade Journal, Vol. 17, No. 202, October 1, 1879.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-image",
+      "src": "/photos/others/ruler-cutter/image.png",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7601",
+      "src": "/photos/others/ruler-cutter/IMG_7601.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7602",
+      "src": "/photos/others/ruler-cutter/IMG_7602.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7603",
+      "src": "/photos/others/ruler-cutter/IMG_7603.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7606",
+      "src": "/photos/others/ruler-cutter/IMG_7606.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7608",
+      "src": "/photos/others/ruler-cutter/IMG_7608.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7610",
+      "src": "/photos/others/ruler-cutter/IMG_7610.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-IMG_7611",
+      "src": "/photos/others/ruler-cutter/IMG_7611.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-ruler-cutter-Trade Mark-280",
+      "src": "/photos/others/ruler-cutter/Trade Mark-280.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p014"
+        }
+      ],
+      "series": "Линейка и резец Беляева А.И."
+    },
+    {
+      "id": "others-sumy-01",
+      "src": "/photos/others/sumy/sumy_01.jpg",
+      "caption": "Сумы Окрестности Луки Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-02",
+      "src": "/photos/others/sumy/sumy_02.jpg",
+      "caption": "Сумы №25 1-ая мужская гимназия Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-03",
+      "src": "/photos/others/sumy/sumy_03.jpg",
+      "caption": "Сумы Базарная площадь Изд. Ильченко И. Г. 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-04",
+      "src": "/photos/others/sumy/sumy_04.jpg",
+      "caption": "Сумы Городской сад 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-05",
+      "src": "/photos/others/sumy/sumy_05.jpg",
+      "caption": "Сумы Машиностроительные заводы 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-06",
+      "src": "/photos/others/sumy/sumy_06.jpg",
+      "caption": "Сумы №9а Собор Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-07",
+      "src": "/photos/others/sumy/sumy_07.jpg",
+      "caption": "Сумы Общий вид 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-08",
+      "src": "/photos/others/sumy/sumy_08.jpg",
+      "caption": "Сумы Почтово-телеграфная контора Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-09",
+      "src": "/photos/others/sumy/sumy_09.jpg",
+      "caption": "Сумы Станция ж. д. Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-10",
+      "src": "/photos/others/sumy/sumy_10.jpg",
+      "caption": "Сумы Базарная площадь 1905 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-11",
+      "src": "/photos/others/sumy/sumy_11.jpg",
+      "caption": "Сумы р. Псёл 1905-1910 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-12",
+      "src": "/photos/others/sumy/sumy_12.jpg",
+      "caption": "Сумы Новый городской парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-13",
+      "src": "/photos/others/sumy/sumy_13.jpg",
+      "caption": "Суды 44 Городс. парк имени Лещинских Изд. Гончаренко В. И. 1910-1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-14",
+      "src": "/photos/others/sumy/sumy_14.jpg",
+      "caption": "Сумы №47 р. Псёл Купанье Изд. Гончаренко В. И. 1910-1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-15",
+      "src": "/photos/others/sumy/sumy_15.jpg",
+      "caption": "Сумы №5 Бетонный мост на р. Сумке Изд. Суворина А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-16",
+      "src": "/photos/others/sumy/sumy_16.jpg",
+      "caption": "Сумы 34 Общественное собрание Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-17",
+      "src": "/photos/others/sumy/sumy_17.jpg",
+      "caption": "Сумы №1 Соборная улица Изд. Суворина А. С. 1915 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-18",
+      "src": "/photos/others/sumy/sumy_18.jpg",
+      "caption": "Сумы. Собор",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-19",
+      "src": "/photos/others/sumy/sumy_19.jpg",
+      "caption": "Сумы Река Сумка Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-20",
+      "src": "/photos/others/sumy/sumy_20.jpg",
+      "caption": "Суды Вид нового места 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-21",
+      "src": "/photos/others/sumy/sumy_21.jpg",
+      "caption": "Сумы №27 Воскресенская улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-22",
+      "src": "/photos/others/sumy/sumy_22.jpg",
+      "caption": "Сумы Городской сквер Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-23",
+      "src": "/photos/others/sumy/sumy_23.jpg",
+      "caption": "Сумы Вид с птичьего полёта 1905 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-24",
+      "src": "/photos/others/sumy/sumy_24.jpg",
+      "caption": "Сумы Соборная улица Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-25",
+      "src": "/photos/others/sumy/sumy_25.jpg",
+      "caption": "Сумы Общий вид 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-26",
+      "src": "/photos/others/sumy/sumy_26.jpg",
+      "caption": "Сумы №12 Лодочная пристань на р. Псёл Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-27",
+      "src": "/photos/others/sumy/sumy_27.jpg",
+      "caption": "Сумы №3 Памятник И. Г. Харитоненко Изд. Суворина А. С. 1917 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-28",
+      "src": "/photos/others/sumy/sumy_28.jpg",
+      "caption": "Сумы Окружной суд Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-29",
+      "src": "/photos/others/sumy/sumy_29.jpg",
+      "caption": "Сумы №9 Троицкая улица Изд. Суворин А. С. 1911-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-30",
+      "src": "/photos/others/sumy/sumy_30.jpg",
+      "caption": "Сумы Сквер 1905-1907 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-31",
+      "src": "/photos/others/sumy/sumy_31.jpg",
+      "caption": "Сумы Писаревский мост 1905-1909 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-32",
+      "src": "/photos/others/sumy/sumy_32.jpg",
+      "caption": "Сумы Вид с Кустово на парк Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-33",
+      "src": "/photos/others/sumy/sumy_33.jpg",
+      "caption": "Сумы Разлив у 3-го моста Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        },
+        {
+          "personId": "p008"
+        },
+        {
+          "personId": "p009"
+        }
+      ],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-34",
+      "src": "/photos/others/sumy/sumy_34.jpg",
+      "caption": "Сумы Короленковский берег 1905-1909 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-35",
+      "src": "/photos/others/sumy/sumy_35.jpg",
+      "caption": "Сумы Собор Изд. Магазин Реньен 1900-1901 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-36",
+      "src": "/photos/others/sumy/sumy_36.jpg",
+      "caption": "Сумы 48 Сад ШВЕЙЦАРИЯ Осиротелая аллея Любви Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-37",
+      "src": "/photos/others/sumy/sumy_37.jpg",
+      "caption": "Сумы Вид реки Псёл 1905 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-38",
+      "src": "/photos/others/sumy/sumy_38.jpg",
+      "caption": "Сумы Покровская площадь, Воскресенская улица 1905-1910 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-39",
+      "src": "/photos/others/sumy/sumy_39.jpg",
+      "caption": "Сумы 36 Пансион мужской гимназии Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-40",
+      "src": "/photos/others/sumy/sumy_40.jpg",
+      "caption": "Сумы Мост через Сумку Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-sumy-41",
+      "src": "/photos/others/sumy/sumy_41.jpg",
+      "caption": "Сумы №33 4-й мост Ледоход на Псле Изд. Гончаренко В. И. 1910-1912 г.",
+      "category": "related",
+      "people": [],
+      "series": "Дореволюционные Сумы"
+    },
+    {
+      "id": "others-table",
+      "src": "/photos/others/table.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "others-vorkuta_1972-1",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_1.jpg",
+      "caption": "Река Воркута и пос. Рудник",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-10",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_10.jpg",
+      "caption": "Монумент в честь освоения Воркуты",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-11",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_11.jpg",
+      "caption": "Дворец пионеров и школьников имени 50-летия Октября",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-2",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_2.jpg",
+      "caption": "Тундра",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-4",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_4.jpg",
+      "caption": "Улица Ленина",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-5",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_5.jpg",
+      "caption": "Памятник С.М. Кирову",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-6",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_6.jpg",
+      "caption": "Аэропорт",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-7",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_7.jpg",
+      "caption": "Шахта «Северная»",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-8",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_8.jpg",
+      "caption": "Дворец культуры шахтёров",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "others-vorkuta_1972-9",
+      "src": "/photos/others/vorkuta_1972/vorkuta_1972_9.jpg",
+      "caption": "Горный техникум",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p002"
+        },
+        {
+          "personId": "p003"
+        },
+        {
+          "personId": "p001"
+        }
+      ],
+      "series": "Воркута 1972"
+    },
+    {
+      "id": "personal-andreeva_irina_nikolaevna-Image29",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p017",
+          "coords": [
+            48.27586206896552,
+            35.53759119105759,
+            70.53291536050156,
+            66.79356316260446
+          ]
+        },
+        {
+          "personId": "p018",
+          "coords": [
+            29.780564263322884,
+            29.907633506741693,
+            49.843260188087775,
+            60.19292311892376
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_irina_nikolaevna-Image29_back",
+      "src": "/photos/personal/andreeva_irina_nikolaevna/Image29_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreeva_vera_nikolaevna-Image56",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p003",
+          "coords": [
+            29.08476512303079,
+            3.6615103730288743,
+            68.07386607015373,
+            36.63511198369328
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg"
+    },
+    {
+      "id": "personal-andreeva_vera_nikolaevna-Image56_back",
+      "src": "/photos/personal/andreeva_vera_nikolaevna/Image56_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image19",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image19.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p012",
+          "coords": [
+            70.24826414905839,
+            32.153263221078696,
+            80.47854538188722,
+            41.91729088248903
+          ]
+        },
+        {
+          "personId": "p006",
+          "coords": [
+            16.53928767670713,
+            31.512999112133755,
+            27.408961486587742,
+            41.59715882801655
+          ]
+        },
+        {
+          "personId": "p013",
+          "coords": [
+            45.093872720426056,
+            34.616083873704625,
+            53.87325837861101,
+            43.79532553582611
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image19_back.jpg"
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image19_back",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image19_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image62",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image62.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p012",
+          "coords": [
+            34.48180604367777,
+            13.745670088911677,
+            67.87703924246843,
+            48.31993197193842
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_grigoriy_prokhorovich/Image62_back.jpg"
+    },
+    {
+      "id": "personal-andreev_grigoriy_prokhorovich-Image62_back",
+      "src": "/photos/personal/andreev_grigoriy_prokhorovich/Image62_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image16",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image16.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            45.99955877486487,
+            15.666462415746496,
+            61.53068353127183,
+            27.991546512936587
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image16_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image16_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image16_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image18",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image18.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            46.22933313694443,
+            10.383162844208789,
+            61.31200058916669,
+            24.6292174174024
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image21",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image21.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.705882352941174,
+            29.43177270908363,
+            64.8235294117647,
+            49.43977591036415
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image22",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image22.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            26.3110730148835,
+            8.622414526173623,
+            43.01800046754461,
+            21.747992896981216
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image22__back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image22__back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image28",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image28.jpg",
+      "caption": "Свидетельство о браке",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p007"
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image36",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image36.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.93437910487541,
+            8.783623244588393,
+            61.209998286660706,
+            23.509697750322008
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image36_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image36_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image36_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image38",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image38.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            44.521427552201416,
+            31.03280103042505,
+            54.668400107811586,
+            41.43709280078032
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image39",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image39.jpg",
+      "caption": "Дом деда в Брянске",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p006"
+        },
+        {
+          "personId": "p003"
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image40",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image40.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            26.64110457721164,
+            13.265472007202971,
+            77.60797832138184,
+            55.84303525204146
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image40_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image40_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image40_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image43",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image43.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            18.96551724137931,
+            22.068757942612535,
+            27.58620689655172,
+            39.191358437562705
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image43_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image43_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image43_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image60",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image60.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            17.0846394984326,
+            14.369678375676514,
+            35.57993730407524,
+            46.80099279533938
+          ]
+        },
+        {
+          "personId": "p017",
+          "coords": [
+            54.85893416927899,
+            45.477265676169466,
+            72.5705329153605,
+            75.92298941707746
+          ]
+        },
+        {
+          "personId": "p018",
+          "coords": [
+            34.639498432601876,
+            37.09366058809335,
+            51.72413793103448,
+            69.52497500775621
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image60_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image60_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image60_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image68",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image68.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            28.92472597543061,
+            50.880988407718185,
+            39.46276655850969,
+            60.64501606912851
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image71",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image71.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            58.77742946708464,
+            9.354626775155406,
+            77.11598746081505,
+            39.75842725021479
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image71_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image71_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image71_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image73",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image73.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            27.58620689655172,
+            31.458401193190586,
+            42.63322884012539,
+            61.08244329773191
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image73_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image73_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image73_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image75",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image75.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            35.294117647058826,
+            11.344537815126053,
+            49.57983193277311,
+            24.469787915166066
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Image75_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image75_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image75_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image77",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image77.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            57.83699059561128,
+            37.02763723858337,
+            71.00313479623824,
+            58.12224987227871
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Image83",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Image83.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            58.32425666119357,
+            19.667108521121477,
+            75.17923040658073,
+            34.39336718105195
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Scan5",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan5.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ],
+      "backSrc": "/photos/personal/andreev_nikolay_grigorevich/Scan5_back.jpg"
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Scan5_back",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan5_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Scan6",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan6.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ]
+    },
+    {
+      "id": "personal-andreev_nikolay_grigorevich-Scan7",
+      "src": "/photos/personal/andreev_nikolay_grigorevich/Scan7.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006"
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image27",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image27.jpg",
+      "caption": "Свидетельство о рождении бабушки",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p007"
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image34",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            29.51169555414035,
+            21.748971450723424,
+            81.72601938071223,
+            63.52620455938075
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image34_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image34_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image53",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image53.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            57.210031347962385,
+            11.551312649164675,
+            75.07836990595611,
+            37.25454695086824
+          ]
+        },
+        {
+          "personId": "p003",
+          "coords": [
+            35.26645768025078,
+            17.450415603654022,
+            49.52978056426332,
+            42.52160316023373
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image54",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image54.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007"
+        }
+      ],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image54_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image58",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            65.8307210031348,
+            41.29551338773638,
+            85.8934169278997,
+            72.96725985645463
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Image58_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Image58_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Image58_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Scan4",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            33.954014553904486,
+            27.351282403991643,
+            60.76255121384455,
+            50.56085635324571
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg"
+    },
+    {
+      "id": "personal-belyaeva_elena_alekseevna-Scan4_back",
+      "src": "/photos/personal/belyaeva_elena_alekseevna/Scan4_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image24",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image24.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p007",
+          "coords": [
+            47.492163009404386,
+            15.333896617278736,
+            56.26959247648903,
+            27.500829837955283
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            34.24764890282132,
+            28.56453121699508,
+            42.711598746081506,
+            41.89021998249796
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            56.34796238244514,
+            25.47451643079152,
+            63.87147335423198,
+            38.02770149974351
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image24_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image24_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image24_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image49",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image49.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            31.743488540221577,
+            18.54765090599873,
+            73.51061959006624,
+            47.35953580852102
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image49_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image49_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image49_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image69",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            20.49316097744233,
+            29.592206785298934,
+            43.225013234063624,
+            52.3215826528443
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            52.405184337699154,
+            14.54600022509285,
+            69.89122453510015,
+            30.232470894243875
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image69_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image69a",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69a.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p014",
+          "coords": [
+            16.54129990219614,
+            27.991546512936587,
+            43.627634035742865,
+            53.44204484349794
+          ]
+        },
+        {
+          "personId": "p015",
+          "coords": [
+            52.50466791144305,
+            12.30507584378556,
+            70.4863519160665,
+            28.79187664911776
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image69_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image69_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image79",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            42.051431911163064,
+            45.11792511817522,
+            55.61075394506136,
+            55.04214291073707
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            70.572764465225,
+            35.0336392967011,
+            84.36586791350088,
+            44.79778906035065
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg"
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image79a",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79a.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p006",
+          "coords": [
+            37.53480416026769,
+            47.03940375404855,
+            52.39789739171692,
+            63.36613853214451
+          ]
+        },
+        {
+          "personId": "p014",
+          "coords": [
+            72.37517324043901,
+            30.712668975952575,
+            86.59899364472912,
+            47.83973389022972
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-belyaev_aleksey_ivanovich-Image79_back",
+      "src": "/photos/personal/belyaev_aleksey_ivanovich/Image79_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-dudnik_ivan_pavlovich-Image01",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p011",
+          "coords": [
+            49.52978056426332,
+            35.978835978835974,
+            58.30721003134797,
+            46.913580246913575
+          ]
+        },
+        {
+          "personId": "p010",
+          "coords": [
+            40.75235109717868,
+            20.458553791887123,
+            51.56739811912225,
+            34.21516754850088
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/dudnik_ivan_pavlovich/Image01_back.jpg"
+    },
+    {
+      "id": "personal-dudnik_ivan_pavlovich-Image01_back",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-dudnik_ivan_pavlovich-Image01_r",
+      "src": "/photos/personal/dudnik_ivan_pavlovich/Image01_r.JPG",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p011",
+          "coords": [
+            47.02194357366771,
+            35.80246913580247,
+            56.739811912225704,
+            47.08994708994709
+          ]
+        },
+        {
+          "personId": "p010",
+          "coords": [
+            37.14733542319749,
+            19.400352733686063,
+            48.90282131661442,
+            32.451499118165785
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image03",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image03.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p005",
+          "coords": [
+            51.923365890308034,
+            5.102104618154988,
+            68.03155522163786,
+            18.227518851526256
+          ]
+        },
+        {
+          "personId": "p002",
+          "coords": [
+            42.30653643876784,
+            27.671414458464117,
+            60.09767092411721,
+            40.79682869183538
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image03_back.jpg"
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image03_back",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image03_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image13",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image13.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p005"
+        }
+      ],
+      "backSrc": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg",
+      "hidden": false
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image13_back",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image13_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-dudnik_vera_ivanovna-Image15",
+      "src": "/photos/personal/dudnik_vera_ivanovna/Image15.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p005",
+          "coords": [
+            57.36677115987461,
+            8.271959190180137,
+            79.62382445141067,
+            42.14410967639088
+          ]
+        }
+      ],
+      "hidden": false
+    },
+    {
+      "id": "personal-kanivets_darya_nikitichna-Image05",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            10.38390596179698,
+            42.237422936961494,
+            24.18951449026167,
+            54.88263908862405
+          ]
+        },
+        {
+          "personId": "p009",
+          "coords": [
+            39.19561071685372,
+            22.70936761414083,
+            55.202113358551905,
+            37.595508147110685
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/kanivets_darya_nikitichna/Image05_back.jpg"
+    },
+    {
+      "id": "personal-kanivets_darya_nikitichna-Image05_back",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-kanivets_darya_nikitichna-Image05_r",
+      "src": "/photos/personal/kanivets_darya_nikitichna/Image05_r.JPG",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p009",
+          "coords": [
+            40.12993831211445,
+            22.389235559668364,
+            56.93004331277071,
+            38.715970337764325
+          ]
+        },
+        {
+          "personId": "p004",
+          "coords": [
+            6.739729623310145,
+            41.59715882801655,
+            23.11983199894999,
+            54.88263908862405
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-nikonets_andrey_pavlovich-01",
+      "src": "/photos/personal/nikonets_andrey_pavlovich/01.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p008",
+          "coords": [
+            30.327613711528738,
+            24.630159940975652,
+            69.17435119256061,
+            55.52290319756899
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-1938",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            34.639498432601876,
+            27.810746307166355,
+            48.11912225705329,
+            48.245500870799205
+          ]
+        },
+        {
+          "personId": "p005",
+          "coords": [
+            14.733542319749215,
+            33.59027285041605,
+            28.683385579937305,
+            54.0250274140489
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/nikonets_pavel_andreevich/1938_back.jpg"
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-1938_back",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-1938_restored",
+      "src": "/photos/personal/nikonets_pavel_andreevich/1938_restored.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            35.893416927899686,
+            28.588579935648085,
+            48.27586206896552,
+            48.05423490051065
+          ]
+        },
+        {
+          "personId": "p005",
+          "coords": [
+            17.24137931034483,
+            35.96503865917495,
+            27.58620689655172,
+            52.56207078711041
+          ]
+        }
+      ],
+      "hidden": false
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-NikonetsPA",
+      "src": "/photos/personal/nikonets_pavel_andreevich/NikonetsPA.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p004",
+          "coords": [
+            22.283554009442337,
+            8.783623244588393,
+            70.90092648468283,
+            52.801780734553006
+          ]
+        }
+      ],
+      "hidden": false
+    },
+    {
+      "id": "personal-nikonets_pavel_andreevich-table",
+      "src": "/photos/personal/nikonets_pavel_andreevich/table.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p004"
+        }
+      ]
+    },
+    {
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_0874",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_0874.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p001",
+          "coords": [
+            49.686520376175544,
+            29.832810867293624,
+            62.85266457680251,
+            49.686520376175544
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_1496a",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_1496a.jpg",
+      "caption": "",
+      "category": "personal",
+      "people": [
+        {
+          "personId": "p001",
+          "coords": [
+            13.106070048610247,
+            7.021734237050746,
+            84.10195687398728,
+            85.77520446189631
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-nikonets_sergey_vladimirovich-IMG_3546a",
+      "src": "/photos/personal/nikonets_sergey_vladimirovich/IMG_3546a.jpg",
+      "caption": "",
+      "category": "related",
+      "people": [
+        {
+          "personId": "p001"
+        }
+      ]
+    },
+    {
+      "id": "personal-styopina_anna_vasilevna-Image66",
+      "src": "/photos/personal/styopina_anna_vasilevna/Image66.jpg",
+      "caption": "",
+      "category": "group",
+      "people": [
+        {
+          "personId": "p013",
+          "coords": [
+            36.36363636363637,
+            25.27559564219442,
+            52.66457680250783,
+            52.7931335466977
+          ]
+        }
+      ],
+      "backSrc": "/photos/personal/styopina_anna_vasilevna/Image66_back.jpg"
+    },
+    {
+      "id": "personal-styopina_anna_vasilevna-Image66_back",
+      "src": "/photos/personal/styopina_anna_vasilevna/Image66_back.jpg",
+      "caption": "",
+      "category": "related",
+      "people": []
+    }
+  ],
+  "history": [
+    {
+      "title": "Из письма Людмилы Павловны Романовой",
+      "richText": "<p>Теперь выполняю просьбу Ирушки о нашем генеалогическом древе, на котором не оказалось листочков и веточек в виде маркиз, лордов и т.д. Я думаю, что Ирочка все сама знает. Мои источники: мама, которая мало что рассказывала и Наташа<span>&nbsp; </span>/ от бабушки Шуры.</p><p>Фамилию нашего прадеда я не знаю. Звали его Василий, он был небогатым купцом, имел лавку и мельницу недалеко от Ельца. Про прабабушку ничего не знаю. Овдовев в возрасте 50-54 лет, он женился на очень молодой, хорошенькой девушке из обедневшей дворянской семьи, получившей образование (играла «на фортепьянах»). Она была очень доброй и пыталась помочь нашей бабушке Анне Васильевне, когда она потеряла мужа.</p><p>Прадедушка Василий очень ее любил, особенно когда она родила ему сына и очень ее баловал, своих же внучек не любил.</p><p>Перед войной она жила вместе с семьей сына Николая (который был учителем) в Волоколамске. Мы с бабушкой ездили к ним, и она мне очень понравилась: такая седенькая милая старушка. Нашу бабушку А.В. отец очень рано выдал замуж (16-18 лет) за Стёпина Николая, который был приказчиком и старше лет на 10, а может быть и больше. По характеру он был замкнутым, страдал заболеванием сердца, отчего и рано умер. У них с А.В. было 4 детей: Ваня, который умер подростком также от болезни сердца, и 3 дочери (т.Шура, т.Муся и моя мама). С детьми дед Николай общался мало.</p><p>Овдовев в возрасте примерно 24 лет, с 4 детьми бабушка оказалась в трудном положении. Какое-то время она жила на мельнице, отец ей не помогал, а мачеха ей сочувствовала и помогала, чем могла.</p><p>Вернувшись в Елец, бабушка А.В. встретилась со своим далеким родственником Григорием Прохоровичем Андреевым, младше ее на несколько лет. К этому времени бабушка А.В. была нехороша собой, образования не имела, характер был властный. А ваш дедушка был высоким, красивым, очень общительным мужчиной, очень добрым. Работал он главным приказчиком в немецкой фирме, которая закупала яйца и топлёное масло в России.</p><p>Ваш дедушка был уважаемым человеком, церковным старостой, очень любил церковное пение. По праздникам он ездил в разные церкви Ельца, чтобы сравнивать «где лучше поют». Был он довольно состоятельным человеком, имел 2 дома на Соборной площади (в центре Ельца). Мать его очень противилась его браку. У них с А.В. родилось 4 детей: Катенька, которая умерла в раннем детстве от скарлатины, Саша (умер в возрасте 18-19 лет от брюшного тифа), ваш папа (Николай Григорьевич) и т.Тося. Г.П. очень хорошо относился к падчерицам, но дал образование только моей маме (она кончила частную гимназию). К т.Мусе многократно сватался Король Василий Дмитриевич, который имел свое кожевенное дело вместе с братьями в Рязани. Отказывали ему, т.к. старшая сестра т.Шура еще была на выданье. (потом т.Муся вышла замуж за Короля, вот вам Король и Королева). Потом его раскулачили и выслали всю семью в Котлас, где они прожили несколько лет, а затем приехали к нам в &lt;…&gt;, где вначале жили у нас, а потом получили маленький домик.</p><p>Т.Шура вышла замуж за весовщика на железной дороге, Корякина Андрея Николаевича и стала жить в «лучке» (?) (пригород Ельца) в своем маленьком доме.</p><p>К этому времени дедушка Г.П. умер от нераспознанного аппендицита (перитонита). Дома отобрали. Бабушка А.В. вместе с вдовой сестрой Г.П. – т.Настей поселилась с вашим папой &lt;…&gt; у т.Шуры (как они помещались не знаю)</p><p>Вот такая «Сага о Форсайтах». Все!!!</p>",
+      "personIds": [
+        "p012",
+        "p013",
+        "p006"
+      ]
+    },
+    {
+      "title": "Воспоминания Марины Курсановой",
+      "richText": "<p>Никонцы родом из-под Сум, жили на хуторе. Были зажиточными людьми. Куда они все делись после революции - непонятно. Мама говорит, что дед Павел ни с кем из родни по своей линии не общался. Скорее всего, их всех репрессировали. Он поехал в Дагестан заниматься мелиорацией - хотел разбить сады по всему Дагестану, вот такая у него была мечта. Романтик. Заехал по дороге на Кубань и там познакомился с бабушкой Верой, красавицей и певуньей, одной из трех сестер - еще были Лена и Шура. Фамилия Дудник. Это уже из Воронежской губернии, тоже были образованные и зажиточные люди, из Кубанского казачества. Я тетушек хорошо помню. Забрал всех трех с собой (уговорил поехать) в Дагестан, а на Вере женился. Бабушка Вера рано умерла - в 36 лет, от сепсиса, как мне рассказывала мама. Осталась мама - 12 летняя девочка и братья-близнецы - Сергей и Володя. Мама их, по сути, вырастила, заменила мать. Тетки, конечно, помогали, но дед Павел был строг и не любил чужих женщин в доме. Так и прожил почти до ста лет бобылем. Но это было уже после войны. А до войны он еще усыновил сироту - Сережу Горячева и вырастил его. В первые дни войны дед Павел пошел воевать. И прошел всю войну. А Сережа - как только ему исполнилось 18 - пошел добровольцем на фронт. Его почти сразу убили. Дед, вернувшись, не мог теткам простить, что они отпустили мальчика на верную погибель. Он о войне никогда ничего не рассказывал. Так говорила мама, и я так помню. А еще наш прапрадед был запорожским казаком и привел из какого-то похода жену-турчанку. Так что у нас есть и турецкая кровь))))</p><p></p><p>Дед очень любил Шевченко - даже незадолго до смерти простил маму прислать ему томик стихов - хоть на русском, хоть на украинском. Был неразговорчив, молчалив, но с золотым сердцем и очень щедрый.</p><p></p>",
+      "personIds": [
+        "p004",
+        "p005",
+        "p002"
+      ]
+    },
+    {
+      "title": "О происхождении фамилии Дудник",
+      "richText": "<p>Фамилия <strong>Дудник</strong> относится к категории фамилий, происходящих от <strong>профессий, занятий или характерных прозвищ</strong>.</p><p>Её основа — слово <strong>«дуда» или «дудка»</strong>, старинный народный духовой инструмент. Подобные инструменты были широко распространены у восточных славян: пастухи и народные музыканты часто играли на свирелях и дудках.</p><p>Слово <strong>«дудник»</strong> в старых диалектах могло означать:</p><ol><li><p><strong>Музыканта, играющего на дудке</strong></p></li><li><p><strong>Изготовителя духовых инструментов</strong></p></li><li><p>Иногда <strong>пастуха</strong>, который играл на свирели во время выпаса скота</p></li></ol><p>Поэтому фамилия могла возникнуть как <strong>профессиональное прозвище</strong>.</p><p>Есть и ещё одна интересная версия. В некоторых славянских говорах <strong>«дудником»</strong> называли человека, который <strong>часто насвистывает или напевает</strong>. Поэтому прозвище могло быть связано просто с привычкой.</p><p>Любопытно, что слово <strong>«дудник»</strong> также является названием растения — <strong>дягиля (Angelica)</strong>. В некоторых случаях прозвище могло происходить от человека, который занимался сбором или продажей этого растения, хотя эта версия менее распространена.</p><p>Фамилия распространена в <strong>Украине, Беларуси, Польше и России</strong>, что говорит о её древнем славянском происхождении. Похожие фамилии:</p><ul><li><p>Дудко</p></li><li><p>Дудка</p></li><li><p>Дудин</p></li><li><p>Дудченко</p></li></ul><p>Все они происходят от одного корня.</p><p>Такие фамилии начали закрепляться примерно <strong>в XVI–XVII веках</strong>, когда прозвища постепенно превращались в наследственные фамилии.</p>",
+      "personIds": [
+        "p005",
+        "p010"
+      ]
+    },
+    {
+      "title": "О происхождении фамилии Андреев",
+      "richText": "<p>Фамилия <strong>Андреев</strong> — классическая русская <strong>патронимическая фамилия</strong>, образованная от имени <strong>Андрей</strong>.</p><p>Имя Андрей происходит от греческого <strong>Ἀνδρέας (Andreas)</strong> и связано со словом <em>aner</em> — «муж», «мужчина». Поэтому его значение обычно переводят как <strong>«мужественный», «храбрый»</strong>.</p><p>Имя стало чрезвычайно распространённым на Руси благодаря почитанию <strong>апостола Андрея Первозванного</strong>, одного из ближайших учеников Христа. Согласно церковному преданию, он проповедовал на землях будущей Руси и благословил место, где позже возник Киев.</p><p>В русском языке суффикс <strong>-ев</strong> означает принадлежность. Поэтому фамилия <strong>Андреев</strong> буквально означает <strong>«сын Андрея»</strong>.</p><p>Такие фамилии начали активно закрепляться в <strong>XV–XVII веках</strong>, когда государство стало вести систематические переписи населения и фиксировать родовые имена.</p><p>Интересно, что фамилия <strong>Андреев</strong> могла возникать <strong>многократно и независимо</strong> в разных регионах. Если в деревне жил человек по имени Андрей, его сыновей могли записать как Андреевых — и так возникал новый род с этой фамилией.</p><p>Поэтому носители фамилии Андреев <strong>не обязательно происходят от одного общего предка</strong>.</p><p>Фамилия широко распространена по всей России и относится к числу <strong>наиболее частых русских фамилий</strong>.</p>",
+      "personIds": [
+        "p003",
+        "p006",
+        "p012",
+        "p018"
+      ]
+    },
+    {
+      "title": "О происхождении фамилии Беляев",
+      "richText": "<p>Фамилия <strong>Беляев</strong> происходит от древнего прозвища <strong>Беляй</strong>, которое связано со словом <strong>«белый»</strong>.</p><p>В старорусской традиции прозвища часто давали по внешности человека. «Белым» могли назвать человека:</p><ul><li><p>со светлыми волосами</p></li><li><p>с очень светлой кожей</p></li><li><p>иногда просто с необычно «чистой» внешностью</p></li></ul><p>Форма <strong>Беляй</strong> была распространённым древнерусским личным именем-прозвищем. Позднее от него образовались фамилии:</p><ul><li><p>Беляев</p></li><li><p>Беляков</p></li><li><p>Белянин</p></li><li><p>Беляковский</p></li></ul><p>Суффикс <strong>-ев</strong> означает «принадлежащий», поэтому <strong>Беляев</strong> — это <strong>«сын Беляя»</strong>.</p><p>Иногда прозвище могло иметь и символическое значение. В народной культуре <strong>белый цвет ассоциировался с чистотой, светом и добром</strong>, поэтому прозвище могло иметь положительный оттенок.</p><p>Есть и менее очевидная версия: в некоторых регионах «беляями» называли людей, <strong>занимавшихся белением тканей или обработкой льна</strong>. Поэтому иногда фамилия могла быть связана и с ремеслом.</p><p>Фамилия начала закрепляться примерно <strong>в XVI–XVII веках</strong> и распространилась по всей территории России.</p>",
+      "personIds": [
+        "p007",
+        "p014"
+      ]
+    },
+    {
+      "title": "Фамилия Никонец в фольклоре",
+      "richText": "<p>Сказка «Вороватый мужик» относится к циклу русских народных сатирических и анекдотических сказок, записанных и опубликованных фольклористом Александром Николаевичем Афанасьевым в знаменитом собрании «Народные русские сказки» (середина XIX века). Сюжеты этого типа широко бытовали в устной традиции и высмеивали человеческую доверчивость, простодушие и склонность к суевериям.</p><p>В основе сказки лежит комический эпизод: солдат-плут, желая обмануть старуху, представляется «Никонцом, с того света выходцем». Услышав это, старуха принимает его за человека, вернувшегося из загробного мира, и начинает расспрашивать о судьбе своего умершего сына. Мошенник пользуется её доверием и выманивает у неё подарки якобы для передачи на тот свет. Подобные мотивы — обман доверчивых людей под видом посланника из загробного мира — встречаются в фольклоре многих европейских народов и относятся к распространённому международному типу анекдотических сказок.</p><p>Фраза «Никонец, с того света выходец» представляет собой характерную для устного народного повествования ритмическую формулу с рифмой («Никонец — выходец»). В фольклористике отмечается, что подобные звучные сочетания нередко создавались специально для сказочного рассказа и могли не отражать реальных имён, а служить выразительным приёмом устной речи.</p><p>Сказки такого рода занимали особое место в народной культуре. Они выполняли не только развлекательную функцию, но и служили своеобразной социальной сатирой, высмеивая легковерие, жадность и бытовые суеверия. Благодаря записи Афанасьева эти тексты, долгое время существовавшие исключительно в устной традиции, были сохранены и стали важной частью классического корпуса русского фольклора.</p><p></p><p></p><p><strong>Вороватый мужик</strong></p><h4></h4><p><strong>No 391 [180]</strong></p><p>&nbsp;&nbsp;&nbsp;Жила-была старуха, у ней было два сына: один-то помер, а другой в дальню сторону уехал. Дня три спустя как уехал сын, приходит к ней солдат и просится: \"Бабушка, пусти ночевать\". -- \"Иди, родимый. Да ты откудова?\" -- \"Я, бабушка, Никонец, с того свету выходец\". -- \"Ах, золотой мой! У меня сыночек помер; не видал ли ты его?\" -- \"Как же, видел; мы с ним в одной горнице жили\". -- \"Что ты!\" -- \"Он, бабушка, на том свете журавлей пасет\". -- \"Ах, родненький, чай он с ними замаялся?\" -- \"Еще как замаялся! Ведь журавли-то, бабушка, всё по шиповнику бродят\". -- \"Чай, он обносился?\" -- \"Еще как обносился-то, совсем в лохмотьях\". -- \"Есть у меня, родимый, аршин сорок холста да рублев с десяток денег; отнеси к сынку\". -- \"Изволь, бабушка!\" Долго ли, коротко ли, приезжает сын: \"Здравствуй, матушка!\" -- \"А ко мне без тебя приходил Никонец, с того света выходец, про покойного сынка сказывал; они вместе в одной горнице жили; я услала с ним туда холстик да десять рублев денег\". -- \"Коли так, -- говорит сын, -- прощай, матушка! Я поеду по вольному свету; когда найду дураковатей тебя -- буду тебя и кормить и поить, а не найду -- со двора спихну!\" Повернулся и пошел в путь-дорогу.</p><p>&nbsp;&nbsp;&nbsp;Приходит в господску деревню, остановился возле барского двора, а на дворе ходит свинья с поросятами; вот мужик стал на колени и кланяется свинье в землю. Увидала то из окна барыня и говорит девке: \"Ступай спроси, чего мужик кланяется?\" Спрашивает девка: \"Мужичок, чего ты на коленях стоишь да свинье поклоны бьешь?\" -- \"Матушка! Доложи барыньке, что свинья-то ваша пестра, моей жене сестра, а у меня сын завтра женится, так на свадьбу прошу. Не отпустит ли свинью в свахи, а поросят в поезд?\" Барыня как выслушала эти речи, и говорит девке: \"Какой дурак! Просит свинью на свадьбу, да еще с поросятами. Ну что ж! Пусть с него люди посмеются. Наряди поскорей свинью в мою шубу да вели запрячь в повозку пару лошадей, пусть не пешком идет на свадьбу\". Запрягли повозку, посадили в нее наряженну свинью с поросятами и отдали мужику; он сел и поехал назад.</p><p>&nbsp;&nbsp;&nbsp;Вот воротился домой барин, а был он в то время на охоте. Барыня его встречает, сама со смеху помирает: \"Ах, душенька! Не было тебя, не с кем было посмеяться. Был здесь мужичок, кланялся нашей свинье: ваша свинья, говорит, пестра -- моей жене сестра, и просил ее к своему сыну в свахи, а поросят в поезжане\". -- \"Я знаю, -- говорит барин, -- ты ее отдала\". -- \"Отпустила, душенька! Нарядила в свою шубу и дала повозку с парою лошадей\". -- \"Да откуда мужик-то?\" -- \"Не знаю, голубчик!\" -- \"Это, выходит, не мужик -- дурак, а ты -- дура!\" Рассердился барин, что жену обманули, выбежал из хором, сел на виноходца и поскакал в погоню.</p><p>&nbsp;&nbsp;&nbsp;Слышит мужик, что барин его нагоняет, завел лошадей с повозкою в густой лес, а сам снял с головы шляпу, опрокинул наземь и сел возле. \"Эй ты, борода! -- закричал барин. -- Не видал ли -- не проехал ли здесь мужик на паре лошадей? Еще у него свинья с поросятами в повозке\". -- \"Как не видать! Уж он давно проехал\". -- \"В какую сторону? Как бы мне его догнать!\" -- \"Догнать -- не устать, да повёрток много; того и смотри заплутаешься. Тебе, чай, дороги неведомы?\" -- \"Поезжай, братец, ты, поймай мне этого мужика!\" -- \"Нет, барин, мне никак нельзя! У меня под шляпою сокол сидит\". -- \"Ничего, я постерегу твоего сокола\". -- \"Смотри, еще выпустишь! Птица дорогая! Меня хозяин тогда со свету сживет\". -- \"А что она стоит?\" -- \"Да рублев триста будет\". -- \"Ну коли упущу, так заплачу\". -- \"Нет, барин, хоть теперь ты сулишь, а что после будет -- не ведаю\". -- \"Экой невера! Ну вот тебе триста рублев про всякий случай\". Мужик взял деньги, сел на виноходца и поскакал в лес, а барин остался пустую шляпу караулить.</p><p>&nbsp;&nbsp;&nbsp;Долго ждал барин; уж и солнышко закатывается, а мужика нет как нет! \"Постой, посмотрю: есть ли под шляпою сокол? Коли есть, так приедет; а коли нет, так и ждать нечего!\" Поднял шляпу, а сокола и не бывало! \"Экой мерзавец! Ведь, наверно, это был тот самый мужик, что барыню обманул!\" Плюнул с досады барин и поплелся к жене; а мужик уж давно дома. \"Ну, матушка, -- говорит старухе, -- живи у меня; есть на свете и тебя дурашливее. Вот ни за что ни про что дали тройку лошадей с повозкою, триста рублев денег да свинью с поросятами\".</p>",
+      "personIds": [
+        "p001",
+        "p002",
+        "p004",
+        "p008"
+      ]
+    },
+    {
+      "title": "Генеалогический очерк о роде Никонец",
+      "richText": "<h2><strong>Генеалогический очерк семьи Никонец по актам гражданского состояния (1790–1928 гг.)</strong></h2><p></p><p>Данные с Familysearch — это богатейшая коллекция из нескольких сотен записей (рождения, крещения, смерти, иногда с дублями birth/baptism для одного hitId). Это типичный срез метрических книг православных приходов Российской империи и раннего СССР. Основные регионы — Харьковская губерния (Сумы, Охтырка, хутор Никонцев, Белополье, Краснопольский) и Киевская губерния (Умань, Томашівка, Черемошное/Черемошня, Бердичев, Тараща). Позже появляются записи с советской маркировкой «Черкасская, Украина, Советский Союз» и единичные — Донецкая губерния.</p><p></p><p></p><h2>### 1. Первые упоминания и «до-уманский» период (1790–1810-е)</h2><p></p><p>Самая ранняя запись — <strong>24 марта 1790 года</strong>, рождение <strong>Никона Никонца</strong> в Охтырке, Харьковская губерния. Это точка отсчёта всей коллекции.</p><p>В 1802–1803 гг. появляются <strong>Артем Никонец</strong> (23 октября 1802, Томашівка, Киевский уезд) и <strong>Гнат Никонец</strong> (1803, Умань).</p><p>Смерти 1808 и 1817 гг. — тоже в Киевском уезде (Київ, Київський повіт).</p><p><strong>Вывод:</strong> семья, скорее всего, имела харьковские корни в конце XVIII века, а в самом начале XIX века произошла первая заметная миграция (или брак, приведший к переезду) на Правобережье — в район Умани/Томашівки. Это классический для того времени путь: крепостные или государственные крестьяне двигались за землёй или по помещичьим переводам.</p><p></p><p></p><p>### 2. «Уманский» период — расцвет ветви в Киевской губернии (1830–1860-е)</p><p></p><p>С 1830 по ~1869 год основная масса событий сосредоточена в Умани и особенно в Томашівке (Троицкая церковь).</p><p>Ключевые фигуры-основатели поколения:</p><p>- Потомки Артема (Калинник Артемиев 1830, Сельвестр Артемов 1834, Фекла Игнатиева 1834).</p><p>- Дети Гната (Настасия 1814, её смерть 1845).</p><p>- Много записей 1840–1846 гг.: Дария, Семеон, Мария, Григорий, Семен, Иван, Ксенифонт и др.</p><p><strong>Примерно 40–50 событий</strong> только за 1830–1850-е в одном приходе Троицкой церкви Томашівки. Это говорит о <strong>3–5 параллельных нуклеарных семьях</strong>, активно рожавших детей (многодетность 5–8 человек на семью — норма).</p><p>В этот же период появляются записи в Бердичеве, Черемошном, Тараще — вероятно, браки с соседними приходами или временные переезды.</p><p></p><p></p><p>### 3. Возврат/расширение в Харьковскую губернию и рождение «хуторского» кластера (с 1849 года)</p><p></p><p>С 1849 года резко возрастает число рождений в Сумах и окрестностях (Харьковская губерния).</p><p>Ключевой момент — <strong>1872 год</strong>: впервые фиксируется <strong>хутор Никонцев</strong> как место рождения (Димитрий, Иоанн, Иулиания и др.). До этого — только «Сумы» или «Харьковская губерния». С 1872 по 1910-е хутор Никонцев становится <strong>главным фамильным гнездом</strong>.</p><p><strong>Динамика по десятилетиям (примерные подсчёты по событиям):</strong></p><p>- 1840-е: ~25–30 событий (в основном Умань/Томашівка).</p><p>- 1850-е: ~35–40 (уже смешанно Сумы + Томашівка).</p><p>- 1860-е: ~45 (рост в обеих ветвях).</p><p>- 1870-е: <strong>взрыв</strong> — более 60 событий, из них большинство в хуторе Никонцев и Сумах.</p><p>- 1880–1890-е: стабильно высокий уровень (по 40–50 рождений за десятилетие в Сумском уезде).</p><p>- 1900–1910-е: пик многодетности — десятки записей ежегодно в хуторе Никонцев, Ильмы, Белополье.</p><p><strong>Вывод по миграции:</strong> примерно в середине XIX века (1849–1870-е) произошла вторая крупная волна — либо возврат одной из ветвей в Харьковскую губернию, либо активное освоение новых земель (возможно, после реформы 1861 года). Появление хутора с фамильным названием — очень сильный маркер: семья получила/купила/освоила участок и дала ему своё имя. Это типично для зажиточных крестьян или однодворцев.</p><p></p><p></p><p>### 4. Демографические наблюдения и всплески</p><p></p><p>- <strong>Многодетность и выживаемость.</strong> Огромное количество повторяющихся имён (Мария, Анна, Иоанн/Иван, Григорий, Феодор, Пелагия) — типичная православная традиция называть в честь святых или родственников. Смертей записано относительно мало по сравнению с рождениями (единицы до 1910-х). Это может говорить как о неполноте данных, так и о достаточно хорошей выживаемости в крестьянской среде после 1840-х.</p><p>- <strong>Всплески рождаемости:</strong></p><p>- 1840–1846 — пик в Томашівке (много близких по времени рождений).</p><p>- 1872–1878 — «бэби-бум» в хуторе Никонцев (практически каждые 1–2 месяца новая запись).</p><p>- 1906–1912 — ещё один мощный всплеск в Сумском уезде.</p><p>- <strong>Географическое «двойное ядро»</strong>. К 1870-м годам семья чётко разделилась на две большие ветви:</p><p>1. <strong>Сумская (хутор Никонцев + Сумы + Белополье)</strong> — доминирует по количеству событий после 1870-х.</p><p>2. <strong>Томашівская (Черкасская обл.)</strong> — продолжает существовать параллельно, но уже в меньшем объёме.</p><p>### 5. Поздний период (1914–1928) и влияние исторических событий</p><p>- 1914–1918: продолжается высокая рождаемость, но появляются первые «советские» метки.</p><p>- 1915, 1919–1921: несколько смертей (Анастасия, Константин, Василий, Леонид в Мариуполе). Возможно, влияние Первой мировой, революции и Гражданской войны.</p><p>- 1928: последние записи (рождения в Журавке и смерть Титяны).</p><p>Единичный «донецкий» эпизод (Леонид Никонец, р. 1914 Мариуполь — ум. 1921) — вероятно, одна из ветвей ушла на заработки или по мобилизации в промышленный Донбасс.</p><p></p><p></p><p>### Итоговые наблюдения</p><p></p><p>1. Семья Никонец — классический пример <strong>крестьянской многопоколенной династии</strong> с двумя основными «гнёздами»: Умань/Томашівка (первая половина XIX в.) и Сумы/хутор Никонцев (вторая половина XIX – начало XX в.).</p><p>2. Две крупные миграционные волны: ~1800–1803 (Харьков → Киевщина) и ~1849–1872 (обратное движение или расширение на Левобережье).</p><p>3. К 1870-м годам семья уже насчитывала <strong>несколько десятков нуклеарных семей</strong> одновременно (оценка по количеству рождений).</p><p>4. Хутор Никонцев — ярчайший символ успешного крестьянского землеустройства после отмены крепостного права.</p><p>5. Данные заканчиваются на рубеже 1920-х — дальше, скорее всего, следы теряются в советских метриках или репрессиях/коллективизации.</p>",
+      "personIds": []
+    },
+    {
+      "title": "Генеалогический очерк о роде Канивец",
+      "richText": "<p><strong>История рода Канивец: происхождение, расселение, особенности и возможная встреча с родом Никонец в начале XX века</strong></p><p>Массив данных — 2610 индексированных событий (рождения, смерти, редкие крещения) из базы FamilySearch (GEDCOMX-персоны «kanivets»). Это ценнейший срез, позволяющий профессионально проанализировать род как типичный украинский крестьянский клан Левобережной Украины. Я работал как генеалог: сгруппировал события по губерниям/уездам, хронологии, типам фактов и выявил миграционные тренды. Ниже — подробное эссе с максимумом аналитики. Все выводы опираются исключительно на предоставленные данные, исторический контекст и подтверждённые источники по ономастике.</p><p>### 1. Происхождение фамилии Канивец</p><p>Фамилия <strong>Канивец</strong> (варианты: Канивець, иногда транслит Kanivets) — классическая <strong>топонимическая украинская фамилия</strong>. Она образована от названия города <strong>Канев (Канів)</strong> в современной Черкасской области на правом берегу Днепра. Город известен с XI–XII вв. как крепость Киевской Руси (по легенде, основан Ярославом Мудрым ок. 1030 г. как форпост). Слово «канивец» буквально означало «житель Канева» или «переселенец оттуда». Суффикс <strong>-ец</strong> типичен для украинских прозвищ XVI–XVII вв., когда крестьяне-беглецы или переселенцы получали именование по месту происхождения (аналоги: Полтавец, Олешковец, Черниговец).</p><p>Название самого Канева, вероятно, восходит к тюркскому «кан/хан» (повелитель) — след половецких стоянок на Днепре. Фамилия закрепилась в украинских землях Речи Посполитой в XVII в., а после Переяславской рады 1654 г. уже существовала как наследственная. Первые письменные упоминания фамилии в метриках — XVIII век. Это <strong>не патронимическая</strong> (не от имени) и не профессиональная фамилия, а чисто географическая — типичная для Левобережья и Слободской Украины.</p><p>### 2. Географическое расселение по вашим данным</p><p>Данные охватывают <strong>1740–1920-е гг.</strong> и показывают <strong>четыре основных кластера</strong> (я проанализировал placeKey и placeLabel):</p><p>- <strong>Черниговская губерния (Chernigov, Russian Empire)</strong> — самый плотный кластер (десятки записей 1840–1916 гг.). Ранние: Влас Канивец (р. 1740, ум. 1807). Это «ядро» — севернее Канева, но в зоне миграции вдоль Днепра и Десны.</p><p>- <strong>Киевская губерния (Kiev, Kiev uyezd)</strong> — второй по величине (1870–1918 гг.). Много в Киевском уезде. Прямое соседство с Каневом (Каневский уезд Черкасской обл. исторически относился к Киевской губ.).</p><p>- <strong>Харьковская губерния (Kharkov, Russian Empire)</strong> — заметный кластер (1845–1905 гг.). Восточное направление миграции в Слободскую Украину.</p><p>- <strong>Запорожская (запорижжя), Черкасская, Донецкая губернии (Soviet Union)</strong> — южный и восточный «фронтир» (1870–1918 гг.). Здесь много записей 1880–1910-х — типичная колонизация бывших земель Запорожской Сечи и Новороссии.</p><p><strong>Миграционный вектор</strong> (XVIII–нач. XX вв.):</p><p>- <strong>XVIII в.</strong> — концентрация вокруг Канева/Чернигова (ранние записи 1740–1770-е).</p><p>- <strong>XIX в.</strong> — «расход» на восток (Харьков) и юг (Запорожье, Донбасс). Крестьяне уходили на свободные земли после отмены крепостного права (1861), в поисках работы или казацких привилегий.</p><p>- <strong>Нач. XX в.</strong> — дальнейшее расселение в советский период (1914–1920): Запорожье, Черкассы, Донецк. Это время столыпинских реформ, Первой мировой и Гражданской войны — массовая мобильность.</p><p>Общий вывод: род <strong>не один</strong> (не единый клан от одного предка), а <strong>несколько параллельных ветвей</strong>, произошедших от разных «канивец»-переселенцев из Канева в XVII–XVIII вв. Это типично для распространённых украинских фамилий. Общий предок большинства, скорее всего, жил в Каневе или окрестностях в XVI–XVII вв.</p><p>### 3. Особенности рода по метрикам</p><p>- <strong>Социальный слой</strong>: почти исключительно крестьяне. Записи — из церковных метрических книг (Троицкая церковь в Пашковке, Николаевская в Медвине, Рождество-Богородицкая в Малых Степанцах и др.). Нет дворян, купцов или духовенства в индексе.</p><p>- <strong>Демография</strong>: высокая рождаемость (много семей по 8–12 детей в 1880–1910-е). Но и высокая детская смертность — десятки случаев «Birth + Death» в одном году (примеры: Анна 1906–1908, Иоанн 1914–1914, Евфимий 1882–1884). Типичная картина дореволюционной Украины.</p><p>- <strong>Хронология</strong>: пик — 1870–1918 гг. (более 80 % событий). До 1840-х — единичные. После 1920 — почти ничего (советские архивы индексированы слабее).</p><p>- <strong>Особенности имён</strong>: типично украинские/церковнославянские (Иоанн, Параскева, Евфросиния, Матрона, Агрипина, Феодора). Много двойных записей (один человек — birth + death). Женщины чаще фиксируются при рождении/смерти детей.</p><p>Род — <strong>стабильный крестьянский</strong>, с характерной для Украины мобильностью: «от Канева — по всей Левобережной Украине».</p><p>### 4. Как в начале XX века могли пересечься Андрей (Палыч?) Никонец и Дарья Никитична Канивец</p><p>Ваши предки — Андрей (вероятно, <strong>Андрей Павлович Никонец</strong>, «Палыч» = отчество от Павла) и <strong>Дарья Никитична Канивец</strong> — поженились примерно в 1910–1920-е и позже осели <strong>под Сумами</strong> (Сумская обл., исторически Сумской уезд Харьковской губернии / Полтавской).</p><p><strong>Возможные сценарии встречи</strong> (максимальная аналитика на основе данных):</p><p>1. <strong>Харьковский «коридор» (самый вероятный)</strong>.</p><p>В данных есть кластер Канивец именно в <strong>Харьковской губернии</strong> (1845–1905 гг., включая Василия, Марфу, Лаврентия, Агриппину и др.). Сумы — всего 120–150 км от Харькова. Никонец — тоже распространённая слободско-украинская фамилия. Андрей (или его отец Павел) мог быть местным харьковским/сумским крестьянином или рабочим. Дарья (дочь Никиты) — из одной из харьковских ветвей Канивец. Встреча могла произойти на ярмарке, в волостном правлении или при сезонных работах (уборка, строительство железной дороги Харьков–Сумы).</p><p>2. <strong>Никитинская линия</strong>.</p><p>В данных несколько <strong>Никита Канивец</strong>: 1849 г. (Чернигов), 1902 г. (Чернигов), 1849 (сестра Ефимия). Если Дарья Никитична р. ок. 1885–1900, она — дочь одного из Никит 1849–1870-х. Такие семьи часто мигрировали в Харьковскую губ. на новые земли. Патронимик «Никитична» точно указывает на отца Никиту — это сужает поиск до 2–3 реальных кандидатов в ваших данных.</p><p>3. <strong>Война и революция как катализатор (1914–1920)</strong>.</p><p>Первая мировая, революция, Гражданская война — массовые перемещения. Многие Канивец из Запорожья/Донбасса или Киева бежали/переселялись в более спокойные Сумы/Харьковщину. Андрей Никонец мог быть мобилизованным или беженцем. Брак в военное время часто заключали «по обстоятельствам» — в полевом госпитале, эвакуационном пункте или новой деревне.</p><p>4. <strong>Церковный/соседский вариант</strong>.</p><p>Под Сумами в 1910-е были общие приходы, где могли пересекаться семьи из разных уездов. Никонец и Канивец — оба «среднестатистические» украинские крестьянские фамилии региона. Брак мог быть традиционным — родители договорились на ярмарке или через сватов.</p><p><strong>Почему именно под Сумами осели?</strong></p><p>Харьковская губерния (куда входили Сумы) — один из миграционных «магнитов» для Канивец. После 1917–1920 гг. многие семьи оседали на относительно стабильных землях Слободской Украины, подальше от фронтов и голода 1921–1922 гг. Это типичный финал миграции крестьянских родов того периода.</p><p></p>",
+      "personIds": []
+    },
+    {
+      "title": "Генеалогический анализ численности и динамики рода Никонец",
+      "richText": "<p><strong>Генеалогический анализ численности и динамики рода Никонец (примерно 1750–1928 гг.)</strong>  </p><p>На основе индексированных метрических записей FamilySearch</p><p>### Введение</p><p>Настоящая работа представляет собой попытку количественной реконструкции динамики одной крестьянской фамилии — Никонец — на протяжении примерно двух столетий. Основной целью является не только описание известных событий, но и <strong>экстраполяция</strong> числа параллельно существовавших репродуктивных линий (семей) и оценка времени появления первого носителя фамилии, которого условно можно назвать «основателем рода».</p><p>Анализ опирается исключительно на предоставленный массив данных (файл с событиями по Никонцам). Учтены все уникальные записи о рождениях (дубли birth/baptism объединены). Смерти использовались только как косвенный индикатор существования взрослых поколений.</p><p>### Данные и методы</p><p>- <strong>Источник</strong>: 550+ событий (преимущественно рождения, небольшое число смертей) за 1790–1928 гг.</p><p>- <strong>Географическое разделение</strong>: два основных кластера  </p><p>  – Умань/Томашівка (Киевская губерния) — ранний этап.  </p><p>  – Сумы / хутор Никонцев + окрестности (Харьковская губерния) — доминирующий кластер с 1870-х.</p><p>- <strong>Метод оценки численности линий</strong>:  </p><p>  Количество рождений за десятилетие ÷ 3 (средняя плодовитость крестьянской семьи XIX — начала XX в. с учётом младенческой смертности).  </p><p>  Полученная цифра — это <strong>примерное число одновременно активных репродуктивных линий</strong> (пар, имевших детей в данный период).</p><p>- <strong>Корректировка на неполноту оцифровки</strong>: принято среднее покрытие метрических книг ≈40 %. Для периодов до 1860-х применялся повышающий коэффициент (до ×1,7), так как ранние книги сохранились хуже. Для 1870–1917 гг. коэффициент ближе к ×1,3–1,4.</p><p>### Результаты</p><h3 class=\"mt-6 mb-3 text-base font-semibold text-(--ink)\">Таблица 1. Динамика численности активных линий Никонец (скорректированная оценка)</h3><div class=\"not-prose my-4 w-full max-w-full min-w-0 overflow-x-auto\"><table class=\"table-fixed w-full max-w-full border-collapse border border-(--ink-muted)/35 text-[0.62rem] leading-snug text-(--ink) sm:text-xs md:text-sm\"><colgroup><col style=\"width:10%\" /><col style=\"width:13%\" /><col style=\"width:10%\" /><col style=\"width:13%\" /><col style=\"width:10%\" /><col style=\"width:14%\" /><col style=\"width:30%\" /></colgroup><thead><tr class=\"bg-(--paper-light)\">\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Декада<br/><span class=\"mt-0.5 block text-[0.55rem] font-normal leading-tight text-(--ink-muted) sm:text-xs\">годы</span></th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Рождений<br/>Умань / Томашівка</th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Линий<br/>Умань</th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Рождений<br/>Сумы / Никонцев</th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Линий<br/>Сумы</th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Итого активных<br/>линий</th>\n<th class=\"min-w-0 break-words border-b border-(--ink-muted)/35 px-1 py-1.5 text-left align-bottom font-semibold sm:px-2 sm:py-2\">Основной тренд</th>\n</tr></thead><tbody><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1750–<br/>1769</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>3–5</strong> (экстраполяция)</td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Предполагаемое появление фамилии</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1770–<br/>1789</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">—</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>4–7</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Первое «невидимое» поколение</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1790–<br/>1809</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">4</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2–3</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">3</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">1–2</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>5–8</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Первые метрические фиксации</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1810–<br/>1829</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">8</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">3–4</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">1</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>6–9</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Рост Уманского кластера</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1830–<br/>1839</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">18</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">6–7</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">3</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">1</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>9–12</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Начало массового размножения</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1840–<br/>1849</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">28</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">9–10</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">6</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2–3</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>13–18</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Пик Уманского кластера</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1850–<br/>1859</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">38</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">11–13</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">12</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">4–5</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>18–24</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Начало сдвига на Левобережье</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1860–<br/>1869</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">30</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">9–10</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">22</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">7–8</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>20–26</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Переход доминирования</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1870–<br/>1879</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">16</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">5–6</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">58</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">18–20</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>28–35</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \"><strong>Взрыв</strong> — появление хутора Никонцев</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1880–<br/>1889</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">11</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">3–4</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">52</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">16–18</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>24–32</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Максимум сумской ветви</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1890–<br/>1899</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">6</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">48</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">15–16</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>22–28</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Стабилизация на высоком уровне</td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1900–<br/>1909</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">6</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">68</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">21–23</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>30–38</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Пик численности</td></tr><tr class=\"border-b border-(--ink-muted)/20\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1910–<br/>1919</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">5</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">2</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">72</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">23–25</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>32–40</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \"><strong>Абсолютный максимум</strong></td></tr><tr class=\"border-b border-(--ink-muted)/20 bg-(--paper)/35\"><td class=\"min-w-0 px-1 py-1 align-top text-center sm:px-2 sm:py-1.5 \">1920–<br/>1928</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">1</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">&lt;1</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">32</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \">10–11</td><td class=\"min-w-0 break-words px-1 py-1 align-top sm:px-2 sm:py-1.5 \"><strong>12–16</strong></td><td class=\"min-w-0 break-words px-1 py-1 align-top text-(--ink-muted) sm:px-2 sm:py-1.5 \">Резкое падение после войн и революции</td></tr></tbody></table></div><p>#### Графическое представление (описание)</p><p><strong>График 1. Число активных линий по десятилетиям (скорректированная оценка)</strong>  </p><p>Линия растёт медленно до 1860-х (5→20), затем резко взлетает в 1870-е (до 28–35), достигает плато в 30–40 линий в 1900–1919 гг. и обваливается после 1920 г.</p><p><strong>График 2. Соотношение кластеров (%)</strong>  </p><p>- 1790–1869: Умань доминирует (60–80 % всех линий).  </p><p>- 1870–1919: Сумы/Никонцев — 85–90 % всех известных Никонец.  </p><p>Это чётко показывает <strong>два этапа</strong>: правобережный (ранний) и левобережный (основной).</p><p>### Обсуждение</p><p>#### Экстраполяция первого основателя</p><p>Записи о рождениях начинаются только с 1790 г., однако уже в 1808 и 1817 гг. фиксируются смерти <strong>взрослых</strong> Никонцев (Алексей и Фадей). Это означает, что поколение, родившееся примерно в <strong>1770–1785 гг.</strong>, уже было репродуктивно активным.  </p><p>С учётом типичной демографии крестьянских семей (первые дети в 20–25 лет) <strong>самый ранний вероятный носитель фамилии</strong> (условный «основатель») должен был родиться в <strong>1750–1765 гг.</strong> (возможно, даже в 1740-е). К этому времени фамилия уже стабилизировалась как наследственная.</p><p>Таким образом, реальная история рода охватывает <strong>минимум 1750–1928 гг.</strong> (около 180 лет), а не 1790–1928.</p><p>#### Динамика роста</p><p>- До 1860-х: медленный линейный рост (примерно +1–2 линии за десятилетие).  </p><p>- 1861–1875-е: <strong>демографический взрыв</strong> — отмена крепостного права, доступ к новым землям, появление хутора Никонцев. Число линий удваивается за 10–15 лет.  </p><p>- 1900–1919: пик — 32–40 параллельных линий одновременно. Это уже большая разветвлённая династия (сотни живых людей).  </p><p>- После 1920: резкий спад — последствия Первой мировой, революции, Гражданской войны и начала коллективизации.</p><p>### Выводы</p><p>1. Род Никонец возник <strong>не позднее середины XVIII века</strong> (вероятнее всего 1750–1765 гг.). Никон 1790 года — представитель <strong>второго</strong> известного поколения.</p><p>2. На протяжении XIX века род прошёл два этапа расселения: сначала из Харьковской губернии на Правобережье (Умань), затем мощный обратный/расширительный поток в Сумской уезд, где сформировалось главное фамильное гнездо — хутор Никонцев.</p><p>3. Максимальная численность (32–40 одновременно активных линий) пришлась на 1900–1919 гг. — это один из самых крупных документированных крестьянских родов Левобережья Украины того периода.</p><p>4. Несмотря на неполноту оцифровки (≈40 % книг), основные пики и миграционные волны надёжно прослеживаются. Дальнейшее углубление (поиск неоцифрованных книг 1750–1790 гг.) может лишь немного сдвинуть дату основателя вглубь, но не изменит общей картины.</p><p>Таким образом, за два столетия из небольшой группы в несколько семей Никонец превратились в разветвлённую династию с десятками параллельных линий, оставившую заметный след на карте Сумского уезда.</p>",
+      "personIds": []
+    }
+  ],
+  "placeFallbacks": {
+    "bryansk": {
+      "lat": 53.2423258,
+      "lon": 34.3668288
+    },
+    "elets": {
+      "lat": 52.6247023,
+      "lon": 38.5016984
+    },
+    "livny": {
+      "lat": 52.4253443,
+      "lon": 37.6097277
+    },
+    "vorkuta": {
+      "lat": 67.49741,
+      "lon": 64.06101
+    },
+    "atkarsk": {
+      "lat": 51.8728579,
+      "lon": 45.0011046
+    },
+    "bryukhovetskaya": {
+      "lat": 45.8063024,
+      "lon": 38.9957933
+    },
+    "buynaksk": {
+      "lat": 42.820182,
+      "lon": 47.1163672
+    },
+    "sumy": {
+      "lat": 50.9077005,
+      "lon": 34.7980972
+    },
+    "kaluga": {
+      "lat": 54.5135904,
+      "lon": 36.2612152
+    },
+    "lvov": {
+      "lat": 49.841952,
+      "lon": 24.0315921
+    },
+    "krasnodar": {
+      "lat": 45.0448,
+      "lon": 38.976
+    },
+    "buharest": {
+      "lat": 44.4268,
+      "lon": 26.1025
+    },
+    "budapest": {
+      "lat": 47.4979,
+      "lon": 19.0402
+    },
+    "prague": {
+      "lat": 50.0755,
+      "lon": 14.4378
+    },
+    "korolev": {
+      "lat": 55.9190049,
+      "lon": 37.8150443
+    },
+    "koimbra": {
+      "lat": 40.2111931,
+      "lon": -8.4294632
+    },
+    "moskva": {
+      "lat": 55.820573,
+      "lon": 37.809448
+    },
+    "kuban": {
+      "lat": 45.7684014,
+      "lon": 39.0261044
+    }
+  }
+}
