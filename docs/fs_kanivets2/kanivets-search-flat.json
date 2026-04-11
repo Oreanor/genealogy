@@ -3,35 +3,10 @@
     "kind": "search-flat",
     "source": "gedcomx-personas",
     "kanivetsSourceFiles": [
-      "docs/fs_kanivets2/1.json",
-      "docs/fs_kanivets2/2.json",
-      "docs/fs_kanivets2/3.json",
-      "docs/fs_kanivets2/4.json",
-      "docs/fs_kanivets2/5.json",
-      "docs/fs_kanivets2/6.json",
-      "docs/fs_kanivets2/7.json",
-      "docs/fs_kanivets2/8.json",
-      "docs/fs_kanivets2/9.json",
-      "docs/fs_kanivets2/10.json",
-      "docs/fs_kanivets2/11.json",
-      "docs/fs_kanivets2/12.json",
-      "docs/fs_kanivets2/13.json",
-      "docs/fs_kanivets2/14.json",
-      "docs/fs_kanivets2/15.json",
-      "docs/fs_kanivets2/16.json",
-      "docs/fs_kanivets2/17.json",
-      "docs/fs_kanivets2/18.json",
-      "docs/fs_kanivets2/19.json",
-      "docs/fs_kanivets2/20.json",
-      "docs/fs_kanivets2/21.json",
-      "docs/fs_kanivets2/22.json",
-      "docs/fs_kanivets2/23.json",
-      "docs/fs_kanivets2/24.json",
-      "docs/fs_kanivets2/25.json",
-      "docs/fs_kanivets2/26.json"
+      "docs/fs_kanivets2/fs_kanivets2.zip"
     ],
     "recordCount": 2429,
-    "generatedAt": "2026-04-10T16:42:38.975Z"
+    "generatedAt": "2026-04-11T03:43:13.547Z"
   },
   "records": [
     {

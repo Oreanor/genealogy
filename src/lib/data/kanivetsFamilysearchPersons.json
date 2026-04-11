@@ -6,7 +6,7 @@
     "afterDedupeArks": 6238,
     "outputRows": 5731,
     "anchorRows": 1682,
-    "generatedAt": "2026-04-10T16:42:39.418Z",
+    "generatedAt": "2026-04-11T03:43:13.989Z",
     "note": "Прореживание: дубликаты по имени+году (рожд./смерт.) слиты; precisePlace подставляется из indexedEvents.json по principal hitId. id fs-* не смешивать с p* из data.json."
   },
   "persons": [

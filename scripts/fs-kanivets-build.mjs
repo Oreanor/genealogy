@@ -1,6 +1,6 @@
 /**
  * Сборка плоского search-flat + indexed events из выгрузок FamilySearch «personas»
- * (docs/fs_kanivets2/*.json: entries[].content.gedcomx).
+ * (docs/fs_kanivets2/*.json или fs_kanivets2.zip с теми же N.json внутри: entries[].content.gedcomx).
  *
  * npm run fs-kanivets-build
  */
@@ -8,6 +8,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
 
 const __root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const KANIVETS_DIR = path.join(__root, "docs", "fs_kanivets2");
@@ -82,12 +83,74 @@ function yearFromGedcomFact(fact) {
   return null;
 }
 
-function listKanivetsSourceFiles() {
-  const names = fs.readdirSync(KANIVETS_DIR);
-  return names
+function extractZipToDir(zipPath, destDir) {
+  fs.mkdirSync(destDir, { recursive: true });
+  execFileSync("tar", ["-xf", zipPath, "-C", destDir], { stdio: "inherit" });
+}
+
+/** Каталог, где лежат 1.json, 2.json, … (учитывает вложенность после распаковки zip). */
+function findNumberedJsonDirectory(root) {
+  const names = fs.readdirSync(root);
+  if (names.some((n) => /^\d+\.json$/i.test(n))) return root;
+  for (const n of names) {
+    const p = path.join(root, n);
+    if (fs.statSync(p).isDirectory()) {
+      const found = findNumberedJsonDirectory(p);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+/**
+ * @returns {{ files: string[], cleanup: (() => void) | null, metaFiles: string[] }}
+ */
+function resolveKanivetsSourceFiles() {
+  const zipPath = path.join(KANIVETS_DIR, "fs_kanivets2.zip");
+  const names = fs.existsSync(KANIVETS_DIR) ? fs.readdirSync(KANIVETS_DIR) : [];
+  const loose = names
     .filter((n) => /^\d+\.json$/i.test(n))
-    .sort((a, b) => Number(path.basename(a, ".json")) - Number(path.basename(b, ".json")))
-    .map((n) => path.join(KANIVETS_DIR, n));
+    .sort((a, b) => Number(path.basename(a, ".json")) - Number(path.basename(b, ".json")));
+
+  if (loose.length > 0) {
+    const files = loose.map((n) => path.join(KANIVETS_DIR, n));
+    return {
+      files,
+      cleanup: null,
+      metaFiles: files.map((f) => path.relative(__root, f).replace(/\\/g, "/")),
+    };
+  }
+
+  if (!fs.existsSync(zipPath)) {
+    throw new Error(`Нет файлов N.json в ${KANIVETS_DIR} и нет архива ${zipPath}`);
+  }
+
+  const tmpRoot = fs.mkdtempSync(path.join(tmpdir(), "fs-kanivets2-"));
+  try {
+    extractZipToDir(zipPath, tmpRoot);
+  } catch (e) {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+    throw e;
+  }
+
+  const workDir = findNumberedJsonDirectory(tmpRoot);
+  if (!workDir) {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+    throw new Error(`В ${zipPath} не найдены файлы N.json`);
+  }
+
+  const inner = fs
+    .readdirSync(workDir)
+    .filter((n) => /^\d+\.json$/i.test(n))
+    .sort((a, b) => Number(path.basename(a, ".json")) - Number(path.basename(b, ".json")));
+  const files = inner.map((n) => path.join(workDir, n));
+  const archiveRel = path.relative(__root, zipPath).replace(/\\/g, "/");
+
+  return {
+    files,
+    cleanup: () => fs.rmSync(tmpRoot, { recursive: true, force: true }),
+    metaFiles: [archiveRel],
+  };
 }
 
 function processGedcomEntry(gx, sourceFile) {
@@ -167,9 +230,22 @@ function processGedcomEntry(gx, sourceFile) {
 }
 
 function main() {
-  const files = listKanivetsSourceFiles();
+  let cleanup = null;
+  let files = [];
+  let metaFiles = [];
+  try {
+    const resolved = resolveKanivetsSourceFiles();
+    files = resolved.files;
+    metaFiles = resolved.metaFiles;
+    cleanup = resolved.cleanup;
+  } catch (e) {
+    console.error(e instanceof Error ? e.message : e);
+    process.exit(1);
+  }
+
   if (files.length === 0) {
     console.error(`Нет файлов N.json в ${KANIVETS_DIR}`);
+    if (cleanup) cleanup();
     process.exit(1);
   }
 
@@ -177,6 +253,7 @@ function main() {
   const indexedEvents = [];
   const seenHit = new Set();
 
+  try {
   for (const fp of files) {
     const raw = JSON.parse(fs.readFileSync(fp, "utf8"));
     const entries = raw.entries ?? [];
@@ -196,7 +273,7 @@ function main() {
     meta: {
       kind: "search-flat",
       source: "gedcomx-personas",
-      kanivetsSourceFiles: files.map((f) => path.relative(__root, f).replace(/\\/g, "/")),
+      kanivetsSourceFiles: metaFiles,
       recordCount: records.length,
       generatedAt: new Date().toISOString(),
     },
@@ -233,6 +310,9 @@ function main() {
     ],
     { stdio: "inherit", cwd: __root },
   );
+  } finally {
+    if (cleanup) cleanup();
+  }
 }
 
 main();
