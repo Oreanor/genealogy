@@ -214,6 +214,71 @@ function renderNode(node: HtmlNode, baseSize: number): React.ReactNode {
           </Text>
         </View>
       );
+    case 'div':
+      return (
+        <View key={key} style={{ marginVertical: 6 }}>
+          {children}
+        </View>
+      );
+    case 'table':
+      return (
+        <View
+          key={key}
+          style={{
+            marginVertical: 8,
+            borderWidth: 0.5,
+            borderColor: COLORS.border,
+          }}
+        >
+          {children}
+        </View>
+      );
+    case 'thead':
+    case 'tbody':
+      return (
+        <View key={key} wrap={false}>
+          {children}
+        </View>
+      );
+    case 'tr':
+      return (
+        <View
+          key={key}
+          wrap={false}
+          style={{
+            flexDirection: 'row',
+            borderBottomWidth: 0.3,
+            borderBottomColor: COLORS.border,
+          }}
+        >
+          {children}
+        </View>
+      );
+    case 'th':
+    case 'td':
+      return (
+        <View
+          key={key}
+          style={{
+            flexGrow: 1,
+            flexBasis: 0,
+            paddingHorizontal: 4,
+            paddingVertical: 3,
+            minWidth: 36,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: baseSize * (node.tag === 'th' ? 0.92 : 0.88),
+              fontWeight: node.tag === 'th' ? 700 : 400,
+              lineHeight: 1.35,
+              color: node.tag === 'th' ? COLORS.ink : COLORS.ink,
+            }}
+          >
+            {children}
+          </Text>
+        </View>
+      );
     case 'img': {
       const src = node.attrs.src;
       if (!src) return null;
@@ -222,7 +287,6 @@ function renderNode(node: HtmlNode, baseSize: number): React.ReactNode {
         <Image key={key} src={src} style={{ maxWidth: '100%', maxHeight: 300, marginVertical: 6, objectFit: 'contain' }} />
       );
     }
-    case 'div':
     case 'span':
     case 'section':
     case 'article':

@@ -19,7 +19,7 @@ export function HistoryContentRenderer({ entries }: HistoryContentRendererProps)
           )}
           {entry.richText && (
             <div
-              className={`prose max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
+              className={`prose min-w-0 max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
               dangerouslySetInnerHTML={{ __html: entry.richText }}
             />
           )}

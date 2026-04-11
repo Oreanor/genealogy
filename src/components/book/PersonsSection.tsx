@@ -252,12 +252,12 @@ export function PersonsSection() {
     {isMobile && textLightboxOpen && selectedHistoryEntry && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-3 py-4">
         <div className="flex max-h-[calc(100vh-3rem)] w-full max-w-[640px] flex-col overflow-hidden rounded-2xl bg-(--paper) shadow-2xl">
-          <div className="flex-1 space-y-3 overflow-y-auto p-4">
+          <div className="min-w-0 flex-1 space-y-3 overflow-y-auto p-4">
             <h3 className="book-serif text-lg font-semibold text-(--ink)">
               {selectedHistoryEntry.title}
             </h3>
             <div
-              className={`book-serif prose-sm text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
+              className={`book-serif prose-sm min-w-0 max-w-full text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
               dangerouslySetInnerHTML={{ __html: selectedHistoryEntry.richText }}
             />
           </div>

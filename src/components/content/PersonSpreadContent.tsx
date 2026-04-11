@@ -315,12 +315,12 @@ export function PersonSpreadRightContent({
   let mediaContent: React.ReactNode;
   if (historyEntry) {
     mediaContent = (
-      <div className="flex-1 overflow-y-auto">
+      <div className="min-w-0 flex-1 overflow-y-auto">
         <h3 className="book-serif text-xl font-semibold text-(--ink) mb-4">
           {historyEntry.title}
         </h3>
         <div
-          className={`book-serif prose-sm text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
+          className={`book-serif prose-sm min-w-0 max-w-full text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
           dangerouslySetInnerHTML={{ __html: historyEntry.richText }}
         />
       </div>
