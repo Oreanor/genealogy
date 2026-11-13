@@ -22,6 +22,8 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin', 'cyrillic'],
+  // Only used by the map year slider; don't preload it on every page.
+  preload: false,
 });
 
 export const metadata: Metadata = {
