@@ -212,21 +212,43 @@ export type AvatarSource = { src: string; faceRect: [number, number, number, num
 const MIN_RECT_SIZE = 0.5;
 
 /**
+ * Widths accepted by the Next.js image optimizer (default `deviceSizes` + `imageSizes`).
+ * `/_next/image` rejects any other `w`, so requested widths are rounded up to one of these.
+ */
+const OPTIMIZER_WIDTHS = [16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840] as const;
+/** Device pixel ratio headroom for background crops (covers retina screens and tree zoom-in). */
+const CROP_DPR = 2;
+
+/** URL of `src` resized by the Next.js image optimizer to at least `minWidthPx` (WebP/AVIF by Accept). */
+export function getOptimizedImageUrl(src: string, minWidthPx: number): string {
+  const w = OPTIMIZER_WIDTHS.find((x) => x >= minWidthPx) ?? OPTIMIZER_WIDTHS[OPTIMIZER_WIDTHS.length - 1];
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=75`;
+}
+
+/**
  * CSS styles to show only the face rect [l, t, r, b] (0–100%) filling the container.
  * Scale is uniform (no stretch): one scale by the larger side so the rect fills the container.
  * Use on a div with fixed size and overflow hidden; set backgroundImage from src.
+ *
+ * With `displayWidthPx` (the container's largest CSS width), the image is served through the
+ * Next.js optimizer at the resolution the crop actually needs instead of the full original.
+ * Size/position are percentages, so the crop is identical regardless of image resolution.
  */
 export function getAvatarCropStyles(
   faceRect: [number, number, number, number],
-  src: string
+  src: string,
+  displayWidthPx?: number
 ): { backgroundImage: string; backgroundRepeat: string; backgroundSize: string; backgroundPosition: string } {
   const [l, t, r, b] = faceRect;
   const w = r - l;
   const h = b - t;
-  const encoded = encodeURI(src);
+  const imageUrl = (bgSizePercent: number) =>
+    displayWidthPx
+      ? `url("${getOptimizedImageUrl(src, displayWidthPx * (bgSizePercent / 100) * CROP_DPR)}")`
+      : `url(${encodeURI(src)})`;
   if (w < MIN_RECT_SIZE || h < MIN_RECT_SIZE) {
     return {
-      backgroundImage: `url(${encoded})`,
+      backgroundImage: imageUrl(100),
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: '50% 50%',
@@ -239,7 +261,7 @@ export function getAvatarCropStyles(
   const posX = (l / (l - r + 100)) * 100;
   const posY = (t / (t - b + 100)) * 100;
   return {
-    backgroundImage: `url(${encoded})`,
+    backgroundImage: imageUrl(size),
     backgroundRepeat: 'no-repeat',
     // Use uniform horizontal scale and auto height to avoid stretching.
     backgroundSize: `${size}% auto`,

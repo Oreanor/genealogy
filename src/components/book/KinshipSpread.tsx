@@ -142,7 +142,7 @@ function ChainNode({
           (avatar.faceRect ? (
             <div
               className="h-full w-full"
-              style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
+              style={getAvatarCropStyles(avatar.faceRect, avatar.src, 72)}
               role="img"
               aria-hidden
             />

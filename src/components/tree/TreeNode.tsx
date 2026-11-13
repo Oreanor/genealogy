@@ -16,6 +16,10 @@ import { getSiblings } from '@/lib/data/familyRelations';
 import Image from 'next/image';
 
 const MAX_NAME_LEN = 22;
+/** md:w-[5.8rem] — main oval width on desktop. */
+const MAIN_AVATAR_MAX_WIDTH_PX = 93;
+/** md:w-[4.1rem] — sibling mini-oval width on desktop. */
+const SIBLING_AVATAR_MAX_WIDTH_PX = 66;
 
 interface TreeNodeProps {
   person: Person | null;
@@ -78,14 +82,15 @@ function TreeNodeBase({
       : 'bg-(--tree-plaque-fill)'
     : 'bg-gray-100';
 
-  const renderAvatarFill = (p: Person) => {
+  /** `displayWidthPx`: largest CSS width of the oval (desktop), used to pick the served image size. */
+  const renderAvatarFill = (p: Person, displayWidthPx: number) => {
     const avatar = getAvatarForPerson(p.id, p.avatarPhotoSrc);
     if (!avatar) return null;
     if (avatar.faceRect) {
       return (
         <div
           className="absolute inset-0 bg-(--tree-plaque-fill)"
-          style={getAvatarCropStyles(avatar.faceRect, avatar.src)}
+          style={getAvatarCropStyles(avatar.faceRect, avatar.src, displayWidthPx)}
           role="img"
           aria-hidden
         />
@@ -105,7 +110,7 @@ function TreeNodeBase({
   const ovalInner = (
     <>
       <div className={`relative h-full w-full overflow-hidden rounded-[50%] border-2 ${strokeClass} ${plaqueFillClass}`}>
-        {hasPerson ? renderAvatarFill(person!) : null}
+        {hasPerson ? renderAvatarFill(person!, MAIN_AVATAR_MAX_WIDTH_PX) : null}
       </div>
       {kinshipHint && isKinshipSelected && (
         <div className="pointer-events-none absolute left-1/2 top-1 z-30 w-max max-w-none -translate-x-1/2 whitespace-normal break-words rounded-md bg-black/65 px-2 py-0.5 text-[12px] font-semibold leading-tight text-white shadow-sm">
@@ -149,7 +154,7 @@ function TreeNodeBase({
                   >
                     <div className="rounded-[50%] border border-(--tree-stroke) bg-(--tree-plaque-fill) p-[1px] shadow-sm">
                       <div className="relative h-[3.2rem] w-[2.5rem] overflow-hidden rounded-[50%] border border-(--tree-stroke) md:h-[5.2rem] md:w-[4.1rem]">
-                        {renderAvatarFill(sibling)}
+                        {renderAvatarFill(sibling, SIBLING_AVATAR_MAX_WIDTH_PX)}
                       </div>
                     </div>
                     <span className="-mt-2.5 z-10 max-w-[4.8rem] truncate whitespace-nowrap rounded border border-(--tree-plaque-stroke) bg-(--tree-plaque-fill) px-1 py-0.5 text-center text-[8px] leading-none text-(--ink) md:-mt-3 md:max-w-[7.2rem] md:text-[10px]">

@@ -11,6 +11,8 @@ import {
   getAvatarForPerson,
   getAvatarOptionsForPerson,
   getImageLinksByCategory,
+  getAvatarCropStyles,
+  getOptimizedImageUrl,
 } from './photos';
 
 describe('photos', () => {
@@ -137,5 +139,29 @@ describe('photos', () => {
         expect(o.faceRect === null || (Array.isArray(o.faceRect) && o.faceRect.length === 4)).toBe(true);
       });
     }
+  });
+});
+
+describe('getAvatarCropStyles', () => {
+  const rect: [number, number, number, number] = [40, 10, 50, 25];
+
+  it('keeps the raw original URL when no display width is given', () => {
+    expect(getAvatarCropStyles(rect, '/photos/a b.jpg').backgroundImage).toBe('url(/photos/a%20b.jpg)');
+  });
+
+  it('serves a resized image without changing crop size/position', () => {
+    const raw = getAvatarCropStyles(rect, '/photos/a b.jpg');
+    const opt = getAvatarCropStyles(rect, '/photos/a b.jpg', 93);
+    expect(opt.backgroundSize).toBe(raw.backgroundSize);
+    expect(opt.backgroundPosition).toBe(raw.backgroundPosition);
+    // 1000% of 93px at 2x DPR = 1860px -> rounded up to optimizer width 1920
+    expect(opt.backgroundImage).toBe('url("/_next/image?url=%2Fphotos%2Fa%20b.jpg&w=1920&q=75")');
+  });
+});
+
+describe('getOptimizedImageUrl', () => {
+  it('rounds up to an allowed optimizer width and caps at the largest', () => {
+    expect(getOptimizedImageUrl('/p.jpg', 100)).toBe('/_next/image?url=%2Fp.jpg&w=128&q=75');
+    expect(getOptimizedImageUrl('/p.jpg', 10000)).toBe('/_next/image?url=%2Fp.jpg&w=3840&q=75');
   });
 });
