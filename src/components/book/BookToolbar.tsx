@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { BookOpen, HelpCircle } from 'lucide-react';
 import { AdminButton } from '@/components/ui/AdminButton';
@@ -9,12 +10,18 @@ import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { SquareIconButton, SquareIconLink } from '@/components/ui/SquareIconButton';
 import { useLocaleRoutes } from '@/lib/i18n/context';
-import { PdfPreviewDialog } from '@/components/pdf/PdfPreviewDialog';
 import { SECTIONS, isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
 import { ADMIN_TAB_IDS, type AdminTabId } from '@/lib/constants/storage';
-import { AdminHelpDialog } from '@/components/admin/AdminHelpDialog';
 import { BookHelpDialog } from '@/components/book/BookHelpDialog';
+
+// Loaded only when opened: PDF preview pulls in @react-pdf (~1.5 MB), admin help is admin-only.
+const PdfPreviewDialog = dynamic(() =>
+  import('@/components/pdf/PdfPreviewDialog').then((m) => m.PdfPreviewDialog)
+);
+const AdminHelpDialog = dynamic(() =>
+  import('@/components/admin/AdminHelpDialog').then((m) => m.AdminHelpDialog)
+);
 
 function BookLinkButton({ title }: { title?: string }) {
   const { routes, t } = useLocaleRoutes();
@@ -168,7 +175,7 @@ export function BookToolbar() {
           onClose={() => setBookHelpOpen(false)}
         />
       )}
-      <PdfPreviewDialog open={pdfOpen} onClose={closePdfPreview} />
+      {pdfOpen && <PdfPreviewDialog open={pdfOpen} onClose={closePdfPreview} />}
     </>
   );
 }

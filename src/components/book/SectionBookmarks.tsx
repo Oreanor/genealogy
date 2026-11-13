@@ -13,6 +13,7 @@ import { LocaleSwitcher } from '@/components/ui/LocaleSwitcher';
 import { SquareIconButton } from '@/components/ui/SquareIconButton';
 import { useState } from 'react';
 import { BookHelpDialog } from './BookHelpDialog';
+import { prefetchSection } from './sectionLoaders';
 
 const BOOKMARK_BASE =
   'rounded-t-md px-3 py-1.5 text-xs font-medium shadow-md transition-colors md:min-h-[36px] md:px-4 md:py-2 md:text-sm';
@@ -49,6 +50,8 @@ export function SectionBookmarks() {
               key={id}
               href={href}
               style={{ zIndex: i }}
+              onPointerEnter={() => prefetchSection(id)}
+              onFocus={() => prefetchSection(id)}
               className={`${BOOKMARK_BASE} ${
                 i > 0 ? '-ml-[6px]' : ''
               } ${isActive ? BOOKMARK_ACTIVE : BOOKMARK_INACTIVE}`}

@@ -5,13 +5,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
+import dynamic from 'next/dynamic';
 import { BookPage } from './BookPage';
-import { HelpSpread } from './HelpSpread';
-import { HistorySection } from './HistorySection';
-import { PhotosSection } from './PhotosSection';
-import { PersonsSection } from './PersonsSection';
-import { UnifiedMapSection } from './UnifiedMapSection';
-import { FamilySearchPersonsSection } from './FamilySearchPersonsSection';
+import { sectionLoaders } from './sectionLoaders';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
 import { PersonDetailPanel } from '@/components/tree/PersonDetailPanel';
@@ -22,6 +18,19 @@ import { getRootPersonId } from '@/lib/data/root';
 import { useRootPersonId, useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 
 const EMPTY_KINSHIP_HINT_BY_ID: Record<string, string> = {};
+
+/** Same placeholder as the page-level Suspense fallback, shown while a section chunk loads. */
+function SectionLoading() {
+  return <div className="h-[94vh] min-h-[500px] animate-pulse rounded-lg bg-[var(--paper)]" />;
+}
+
+// Non-default sections are code-split: the tree (first screen) doesn't pay for their JS/data.
+const HelpSpread = dynamic(() => sectionLoaders.help(), { loading: SectionLoading });
+const HistorySection = dynamic(() => sectionLoaders.history(), { loading: SectionLoading });
+const PhotosSection = dynamic(() => sectionLoaders.photos(), { loading: SectionLoading });
+const UnifiedMapSection = dynamic(() => sectionLoaders.map(), { loading: SectionLoading });
+const FamilySearchPersonsSection = dynamic(() => sectionLoaders.familySearch(), { loading: SectionLoading });
+const PersonsSection = dynamic(() => sectionLoaders.persons(), { loading: SectionLoading });
 
 export function BookView() {
   const searchParams = useSearchParams();
