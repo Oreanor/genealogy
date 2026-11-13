@@ -7,6 +7,7 @@ import { isSectionId } from '@/lib/constants/sections';
 import type { SectionId } from '@/lib/constants/sections';
 import dynamic from 'next/dynamic';
 import { BookPage } from './BookPage';
+import { StorageGate } from '@/components/StorageGate';
 import { sectionLoaders } from './sectionLoaders';
 import { FamilyTree } from '@/components/tree/FamilyTree';
 import { getPersonById } from '@/lib/data/persons';
@@ -112,7 +113,11 @@ export function BookView() {
   const isDefaultTreeRoot = currentRootPersonId === defaultRootPersonId;
 
   if (section === 'help') {
-    return <HelpSpread section={helpForParam} />;
+    return (
+      <StorageGate>
+        <HelpSpread section={helpForParam} />
+      </StorageGate>
+    );
   }
 
   if (section === 'tree') {
@@ -184,31 +189,41 @@ export function BookView() {
                   </div>
                 </div>
                 <div className="relative z-0 min-h-0 flex-1 overflow-hidden rounded-md border border-(--ink-muted)/25 px-2 pb-2 md:px-3 md:pb-3">
-                  <FamilyTree
-                    onPersonClick={handleTreePersonSelect}
-                    kinshipMode={kinshipPickMode}
-                    kinshipSelectedIds={kinshipSelectedIds}
-                    onKinshipSelect={onKinshipNodeClick}
-                    kinshipHintById={kinshipHintById}
-                    treeMode={treeMode}
-                  />
+                  {/* Tree layout is measured and names depend on localStorage: client-only.
+                      The page chrome above is server-rendered so it paints from the HTML. */}
+                  <StorageGate>
+                    <FamilyTree
+                      onPersonClick={handleTreePersonSelect}
+                      kinshipMode={kinshipPickMode}
+                      kinshipSelectedIds={kinshipSelectedIds}
+                      onKinshipSelect={onKinshipNodeClick}
+                      kinshipHintById={kinshipHintById}
+                      treeMode={treeMode}
+                    />
+                  </StorageGate>
                 </div>
               </BookPage>
             </div>
           </div>
         </div>
         {selectedTreePerson && (
-          <PersonDetailPanel
-            person={selectedTreePerson}
-            onClose={closePersonPanel}
-            onSelectPerson={handleTreePersonSelect}
-            inline
-          />
+          <StorageGate>
+            <PersonDetailPanel
+              person={selectedTreePerson}
+              onClose={closePersonPanel}
+              onSelectPerson={handleTreePersonSelect}
+              inline
+            />
+          </StorageGate>
         )}
       </>
     );
   }
 
+  return <StorageGate>{renderSection(section)}</StorageGate>;
+}
+
+function renderSection(section: SectionId) {
   switch (section) {
     case 'history':
       return <HistorySection />;

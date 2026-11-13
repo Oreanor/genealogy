@@ -4,7 +4,6 @@ import {
   getDefaultBookTitle,
   getDefaultMetaDescription,
 } from '@/lib/data/owner';
-import { StorageGate } from '@/components/StorageGate';
 import { RootPersonProvider } from '@/lib/contexts/RootPersonContext';
 import { DEFAULT_PAPER_COLOR } from '@/lib/constants/theme';
 import 'leaflet/dist/leaflet.css';
@@ -55,7 +54,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RootPersonProvider>
-          <StorageGate>{children}</StorageGate>
+          {children}
         </RootPersonProvider>
       </body>
     </html>

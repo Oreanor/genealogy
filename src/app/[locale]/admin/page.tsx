@@ -1,4 +1,5 @@
 import { BookLayout } from '@/components/book';
+import { StorageGate } from '@/components/StorageGate';
 import { getBundledPersons } from '@/lib/data/persons';
 import { getPhotos } from '@/lib/data/photos';
 import { getHistoryEntries } from '@/lib/data/history';
@@ -32,6 +33,8 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
   ];
   const rootPersonId = getRootPersonId();
   return (
+    // Admin reads localStorage while rendering: client-only, as before.
+    <StorageGate>
     <BookLayout alignTop>
       <div className="w-full max-w-[100%] p-4 sm:max-w-[100%] md:max-w-[100%]">
         <AdminPageClient
@@ -45,5 +48,6 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
         />
       </div>
     </BookLayout>
+    </StorageGate>
   );
 }
