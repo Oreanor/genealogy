@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/build-avatar-crops.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -13,7 +14,8 @@
     "test:coverage": "vitest run --coverage",
     "fs-export-persons": "node scripts/familysearch-export-persons.mjs",
     "fs-kanivets-build": "node scripts/fs-kanivets-build.mjs",
-    "podvig-naroda-build": "node scripts/podvig-naroda-build.mjs"
+    "podvig-naroda-build": "node scripts/podvig-naroda-build.mjs",
+    "avatar-crops": "node scripts/build-avatar-crops.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",

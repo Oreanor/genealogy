@@ -1,4 +1,7 @@
 import { describe, it, expect } from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
+import avatarCrops from './avatarCrops.generated.json';
 import type { PhotoEntry } from '@/lib/types/photo';
 import {
   getPhotos,
@@ -163,5 +166,28 @@ describe('getOptimizedImageUrl', () => {
   it('rounds up to an allowed optimizer width and caps at the largest', () => {
     expect(getOptimizedImageUrl('/p.jpg', 100)).toBe('/_next/image?url=%2Fp.jpg&w=128&q=75');
     expect(getOptimizedImageUrl('/p.jpg', 10000)).toBe('/_next/image?url=%2Fp.jpg&w=3840&q=75');
+  });
+});
+
+describe('pre-cropped avatar strips', () => {
+  const manifest = avatarCrops as Record<string, { url: string; size: number; posX: number }>;
+
+  it('uses the strip when one exists for this src+rect, keeping position-y', () => {
+    const [key, crop] = Object.entries(manifest)[0]!;
+    const [src, rectStr] = key.split('|') as [string, string];
+    const rect = rectStr.split(',').map(Number) as [number, number, number, number];
+    const raw = getAvatarCropStyles(rect, src);
+    const opt = getAvatarCropStyles(rect, src, 93);
+    expect(opt.backgroundImage).toBe(`url("${crop.url}")`);
+    expect(opt.backgroundSize).toBe(`${crop.size}% auto`);
+    expect(opt.backgroundPosition.split(' ')[1]).toBe(raw.backgroundPosition.split(' ')[1]);
+  });
+
+  it.each(Object.entries(manifest))('%s: strip covers the whole visible width and exists', (_key, crop) => {
+    const s = crop.size / 100;
+    const left = (1 - s) * (crop.posX / 100); // strip left edge, in container widths
+    expect(left).toBeLessThanOrEqual(1e-6);
+    expect(left + s).toBeGreaterThanOrEqual(1 - 1e-6);
+    expect(fs.existsSync(path.join(process.cwd(), 'public', crop.url))).toBe(true);
   });
 });

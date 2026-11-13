@@ -1,6 +1,7 @@
 import type { PhotoEntry, PhotoCategory } from '@/lib/types/photo';
 import type { Person } from '@/lib/types/person';
 import appData from '@/data/data.json';
+import avatarCrops from '@/lib/data/avatarCrops.generated.json';
 
 /** Face rect + name parts for overlay (Ф, И, О from admin). */
 export type LightboxFace = {
@@ -225,6 +226,14 @@ export function getOptimizedImageUrl(src: string, minWidthPx: number): string {
   return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=75`;
 }
 
+type AvatarCrop = { url: string; size: number; posX: number };
+const AVATAR_CROPS = avatarCrops as Record<string, AvatarCrop>;
+
+/** Pre-cropped strip for this face rect, if the build generated one for exactly this src+rect. */
+function getAvatarCrop(src: string, faceRect: [number, number, number, number]): AvatarCrop | null {
+  return AVATAR_CROPS[`${src}|${faceRect.join(',')}`] ?? null;
+}
+
 /**
  * CSS styles to show only the face rect [l, t, r, b] (0–100%) filling the container.
  * Scale is uniform (no stretch): one scale by the larger side so the rect fills the container.
@@ -260,6 +269,16 @@ export function getAvatarCropStyles(
   const size = scale * 100;
   const posX = (l / (l - r + 100)) * 100;
   const posY = (t / (t - b + 100)) * 100;
+  // Pre-cropped strip (scripts/build-avatar-crops.mjs): same visible crop, a fraction of the bytes.
+  const crop = displayWidthPx ? getAvatarCrop(src, faceRect) : null;
+  if (crop) {
+    return {
+      backgroundImage: `url("${crop.url}")`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: `${crop.size}% auto`,
+      backgroundPosition: `${crop.posX}% ${posY}%`,
+    };
+  }
   return {
     backgroundImage: imageUrl(size),
     backgroundRepeat: 'no-repeat',
