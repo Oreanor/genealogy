@@ -58,7 +58,8 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
               </div>
             )}
             {!isAdmin && <SectionBookmarks />}
-            <div
+            {/* Main landmark (a11y): the current section's content. */}
+            <main
               className={
                 !isAdmin
                   ? 'book-content flex min-h-0 flex-1 flex-col overflow-y-auto pt-2.5 pb-20 md:pt-1 md:pb-0'
@@ -66,7 +67,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
               }
             >
               {children}
-            </div>
+            </main>
           </div>
         </div>
       </div>
