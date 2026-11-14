@@ -2,6 +2,7 @@
 
 An interactive album-book about **your family's** genealogy built with Next.js. Not tied to a single surname: you configure the album "owner's" surname in one place — the title and description are generated in all languages. Users browse spreads, navigate chapters, and open person cards from the family tree or interactive photos.
 
+[![CI](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml/badge.svg)](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -37,6 +38,7 @@ Open [http://localhost:3000](http://localhost:3000) — the main page opens in t
 ## Navigation and State
 
 - All public routes are locale-prefixed; `src/proxy.ts` redirects `/`, `/admin`, and legacy chapter paths to `/{locale}/...`.
+- The admin helper APIs (photo folder scan, geocoding proxy) run only in development; see [DEPLOY.md](DEPLOY.md#environment-variables).
 - Reader state is deep-linkable through query params: section, selected person, selected photo, selected history entry, and selected tree person stay in the URL.
 - The admin screen remembers the last active tab and opens it by default on the next visit.
 - The map chapter supports filtering by a selected person from the top-right dropdown, with a one-click reset back to all markers.
@@ -50,7 +52,8 @@ Open [http://localhost:3000](http://localhost:3000) — the main page opens in t
 | `npm run start` | Run production build |
 | `npm run test` | Run tests |
 | `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Code coverage (thresholds 90% / branches 74%) |
+| `npm run test:coverage` | Code coverage (thresholds: lines 79%, statements 76%, functions 75%, branches 64%) |
+| `npm run check` | Lint + type-check + tests (same as CI, without build) |
 | `npm run type-check` | TypeScript type checking |
 | `npm run lint` | ESLint check |
 
@@ -59,30 +62,41 @@ Open [http://localhost:3000](http://localhost:3000) — the main page opens in t
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout
+│   ├── layout.tsx              # Root layout, fonts, pre-paint theme script
+│   ├── robots.ts               # robots.txt (admin and API excluded)
+│   ├── api/                    # Dev-only admin helpers (photo scan, geocoding proxy)
 │   └── [locale]/               # Locales: /ru, /en, ...
 │       ├── layout.tsx          # I18nProvider, SetDocumentLang
 │       ├── page.tsx            # Home (book view)
-│       ├── admin/              # Admin panel
+│       ├── admin/              # Admin panel (client-side editor, exports data.json)
 │       └── chapter/[slug]/     # Legacy redirect to ?section=
 ├── components/
-│   ├── book/                   # BookLayout, BookSpread, SectionBookmarks, …
+│   ├── admin/                  # Persons table, photo hotspot editor, rich text, import/merge
+│   ├── book/                   # Book layout, sections, Leaflet maps, archive timelines
 │   ├── content/                # RichText, ContentBlocks, ImageWithHotspots, PersonCard
-│   ├── tree/                   # FamilyTree, TreeNode
-│   └── ui/                     # NavButton, PageColorPicker, LocaleSwitcher
-├── data/
-│   └── data.json               # Single data file: persons, photos, history, rootPersonId
+│   ├── pdf/                    # @react-pdf export of the whole book
+│   ├── tree/                   # FamilyTree, TreeNode, pan/zoom, connector lines
+│   └── ui/                     # Atoms / molecules, dialogs, pickers
+├── data/                       # data.json — the single content source
+├── hooks/                      # usePersons, useSpreadState, useClickOutside, …
 ├── lib/
-│   ├── constants/              # chapters, routes, sections, storage
-│   ├── data/                   # persons, photos, history, root, spreads, owner
-│   ├── i18n/                   # locales, messages, useLocaleRoutes
+│   ├── constants/              # chapters, routes, sections, storage keys, theme
+│   ├── data/                   # Read-only data access layer (+ generated JSON bundles)
+│   ├── i18n/                   # 10 locales, typed messages, context
+│   ├── server/                 # Server-only helpers
 │   ├── types/
-│   └── utils/
-├── hooks/
-│   ├── useSpreadState.ts
-│   └── useClickOutside.ts
-└── proxy.ts                    # Redirect / and /chapter/* to /{locale}/...
+│   └── utils/                  # Pure logic: kinship, tree layout, merge, transliteration
+└── proxy.ts                    # Locale redirects for /, /admin, legacy paths
+scripts/                        # Build-time data pipelines (avatar crops, archive imports)
 ```
+
+## Engineering Notes
+
+- **Performance** — PageSpeed Insights 100 on mobile and desktop: the page chrome is server-rendered and only client-only parts are gated, book sections and the PDF preview are code-split, face avatars are pre-cropped to small WebP strips at build time (`scripts/build-avatar-crops.mjs`), global CSS is inlined.
+- **Data layer** — components never import `data.json` directly; `@/lib/data/*` exposes typed accessors. Admin edits live in an in-memory overlay that React subscribes to via `useSyncExternalStore` (`usePersons`), with a memoized snapshot.
+- **Accessibility** — landmarks, labelled controls, archive name search implements the WAI-ARIA combobox pattern (arrow keys, Enter, Escape, `aria-activedescendant`).
+- **Quality gates** — strict TypeScript, ESLint (Next + React Hooks rules) with zero warnings, ~400 Vitest + Testing Library tests with coverage thresholds; all run in GitHub Actions on every push and PR.
+- **Security** — dev-only API routes are disabled in production, conservative security headers, path-traversal guard on the photo scanner, admin excluded from indexing.
 
 ## Data
 
@@ -108,12 +122,12 @@ Connect the repository to [vercel.com](https://vercel.com). Deploy runs automati
 
 ### Standalone / Docker
 
-See [DEPLOY.md](DEPLOY.md) (if present in the repository).
+See [DEPLOY.md](DEPLOY.md).
 
 ## Specification
 
-Detailed description: [SPEC.md](SPEC.md) (if present in the repository).
+Detailed description: [SPEC.md](SPEC.md).
 
 ---
 
-**Russian:** [README.ru.md](README.ru.md)
+**Other languages:** [Русский](README.ru.md) · [Português](README.pt.md)

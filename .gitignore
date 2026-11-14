@@ -20,11 +20,14 @@
 # production
 /build
 
-# Local FamilySearch browser profile (если снова понадобится автоматизация)
+# Local FamilySearch browser profile (for browser automation)
 playwright-fs-profile/
 
-# Исходники книг, выгрузки FS/Podvig и т.п. — не в git (тяжёлые; Vercel serverless < 250 MB)
+# Book sources and FamilySearch / Podvig exports stay local (heavy; Vercel serverless < 250 MB)
 /docs/
+
+# Local Lighthouse / PageSpeed measurement artifacts
+/perf/
 
 # misc
 .DS_Store

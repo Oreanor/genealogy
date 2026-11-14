@@ -2,6 +2,7 @@
 
 Álbum-livro interativo sobre genealogia **da sua família** em Next.js. Não vinculado a um único sobrenome: em um único arquivo de configuração você define o sobrenome do «dono» do álbum — o título e a descrição são inseridos automaticamente em todos os idiomas. O usuário folheia as páginas duplas, navega pelos capítulos e pelas fichas de pessoas a partir da árvore genealógica ou de fotos interativas.
 
+[![CI](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml/badge.svg)](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -37,6 +38,7 @@ Acesse [http://localhost:3000](http://localhost:3000) — a página inicial abri
 ## Navegação e estado
 
 - Todas as rotas públicas usam prefixo de localidade; `src/proxy.ts` redireciona `/`, `/admin` e os caminhos legados de capítulos para `/{locale}/...`.
+- As APIs auxiliares do painel admin (varredura da pasta de fotos, proxy de geocodificação) funcionam apenas em desenvolvimento; veja [DEPLOY.md](DEPLOY.md#environment-variables).
 - O estado de leitura pode ser aberto por deep-link: secção atual, pessoa selecionada, foto, texto e pessoa selecionada na árvore ficam nos query params da URL.
 - O painel admin memoriza a última aba ativa e volta a abri-la na próxima visita.
 - O capítulo do mapa permite filtrar por uma pessoa no seletor no canto superior direito e voltar rapidamente a todos os marcadores.
@@ -50,7 +52,8 @@ Acesse [http://localhost:3000](http://localhost:3000) — a página inicial abri
 | `npm run start` | Execução do build de produção |
 | `npm run test` | Execução dos testes |
 | `npm run test:watch` | Testes em modo watch |
-| `npm run test:coverage` | Cobertura de código (limites 90% / branches 74%) |
+| `npm run test:coverage` | Cobertura de código (limites: lines 79%, statements 76%, functions 75%, branches 64%) |
+| `npm run check` | Lint + verificação de tipos + testes (como no CI, sem build) |
 | `npm run type-check` | Verificação de tipos TypeScript |
 | `npm run lint` | Verificação ESLint |
 
@@ -120,8 +123,12 @@ Conecte o repositório em [vercel.com](https://vercel.com). O deploy é feito au
 
 ### Standalone / Docker
 
-Consulte [DEPLOY.md](DEPLOY.md) (se existir no repositório).
+Consulte [DEPLOY.md](DEPLOY.md).
 
 ## Especificação
 
-Descrição detalhada: [SPEC.md](SPEC.md) (se existir no repositório).
+Descrição detalhada: [SPEC.md](SPEC.md).
+
+---
+
+**Outros idiomas:** [English](README.md) · [Русский](README.ru.md)

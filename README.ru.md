@@ -2,6 +2,7 @@
 
 Интерактивный альбом-книга о генеалогии **вашей семьи** на Next.js. Не привязан к одной фамилии: в одном конфиге задаёте фамилию «хозяина» альбома — заголовок и описание подставляются во всех языках. Пользователь листает развороты, переходит по главам и на карточки персон из древа или с интерактивных фото.
 
+[![CI](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml/badge.svg)](https://github.com/Oreanor/genealogy/actions/workflows/ci.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -37,6 +38,7 @@ npm run dev
 ## Навигация и состояние
 
 - Все публичные маршруты идут с префиксом локали; `src/proxy.ts` перенаправляет `/`, `/admin` и legacy chapter-paths на `/{locale}/...`.
+- Вспомогательные API админки (сканирование папки фото, прокси геокодинга) работают только в режиме разработки; см. [DEPLOY.md](DEPLOY.md#environment-variables).
 - Состояние чтения можно открывать по deep-link: текущая секция, выбранная персона, фото, текст и выбранная персона в древе сохраняются в query-параметрах URL.
 - Экран админки запоминает последнюю активную вкладку и открывает её при следующем заходе.
 - В главе карты есть фильтр по персоне в правом верхнем углу и быстрый сброс обратно ко всем меткам.
@@ -50,7 +52,8 @@ npm run dev
 | `npm run start` | Запуск production-сборки |
 | `npm run test` | Запуск тестов |
 | `npm run test:watch` | Тесты в watch-режиме |
-| `npm run test:coverage` | Покрытие кода тестами (пороги 90% / branches 74%) |
+| `npm run test:coverage` | Покрытие кода тестами (пороги: lines 79%, statements 76%, functions 75%, branches 64%) |
+| `npm run check` | Линт + проверка типов + тесты (как в CI, без сборки) |
 | `npm run type-check` | Проверка типов TypeScript |
 | `npm run lint` | Проверка ESLint |
 
@@ -108,12 +111,12 @@ src/
 
 ### Standalone / Docker
 
-См. [DEPLOY.md](DEPLOY.md) (если есть в репозитории).
+См. [DEPLOY.md](DEPLOY.md).
 
 ## Спецификация
 
-Подробное описание: [SPEC.md](SPEC.md) (если есть в репозитории).
+Подробное описание: [SPEC.md](SPEC.md).
 
 ---
 
-**English:** [README.md](README.md)
+**Другие языки:** [English](README.md) · [Português](README.pt.md)

@@ -1,27 +1,24 @@
-# Деплой «Родословная семьи Никонец»
+# Deployment
 
-## Сборка
-
-```bash
-npm run build
-```
-
-## Запуск (production)
+## Build and run
 
 ```bash
+npm ci
+npm run build   # runs scripts/build-avatar-crops.mjs first (prebuild)
 npm run start
 ```
 
-## Хостинг
+## Vercel (recommended)
 
-### Vercel (рекомендуется)
+1. Import the repository at [vercel.com](https://vercel.com).
+2. Every push to `main` deploys automatically.
 
-1. Подключите репозиторий к [vercel.com](https://vercel.com)
-2. Деплой происходит автоматически при push
+Heavy local sources (`docs/`, `perf/`) are excluded via `.gitignore` / `.vercelignore`
+to stay under the serverless bundle limit.
 
-### Standalone (Docker, VPS)
+## Standalone (Docker, VPS)
 
-Сборка создаёт папку `.next/standalone`. Для запуска:
+`next.config.ts` sets `output: 'standalone'`, so the build produces a self-contained server in `.next/standalone`:
 
 ```bash
 npm run build
@@ -29,10 +26,10 @@ cd .next/standalone
 node server.js
 ```
 
-Или через Docker:
+Docker:
 
 ```dockerfile
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY .next/standalone ./
 COPY .next/static ./.next/static
@@ -41,6 +38,10 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
-### Статический экспорт
+## Environment variables
 
-Приложение использует SSG для глав. Для полностью статического экспорта потребуется доработка `next.config`.
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `ENABLE_ADMIN_API` | unset | The admin helper endpoints (`/api/admin/photos/scan`, `/api/map/geocode`) are available in development only. Set to `true` to enable them in a production build (e.g. a private self-hosted instance). |
+
+The admin screen itself never writes to the server: edits live in the browser session and are exported as `data.json`, which you commit back to `src/data/`.
