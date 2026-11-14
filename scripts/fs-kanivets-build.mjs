@@ -1,6 +1,6 @@
 /**
- * Сборка плоского search-flat + indexed events из выгрузок FamilySearch «personas»
- * (docs/fs_kanivets2/*.json или fs_kanivets2.zip с теми же N.json внутри: entries[].content.gedcomx).
+ * Builds a flat search-flat file + indexed events from FamilySearch "personas" exports
+ * (docs/fs_kanivets2/*.json or fs_kanivets2.zip with the same N.json inside: entries[].content.gedcomx).
  *
  * npm run fs-kanivets-build
  */
@@ -88,7 +88,7 @@ function extractZipToDir(zipPath, destDir) {
   execFileSync("tar", ["-xf", zipPath, "-C", destDir], { stdio: "inherit" });
 }
 
-/** Каталог, где лежат 1.json, 2.json, … (учитывает вложенность после распаковки zip). */
+/** Directory containing 1.json, 2.json, … (handles nesting after unzipping). */
 function findNumberedJsonDirectory(root) {
   const names = fs.readdirSync(root);
   if (names.some((n) => /^\d+\.json$/i.test(n))) return root;
@@ -153,7 +153,7 @@ function resolveKanivetsSourceFiles() {
   };
 }
 
-function processGedcomEntry(gx, sourceFile) {
+function processGedcomEntry(gx) {
   const persons = gx?.persons;
   if (!Array.isArray(persons)) return { record: null, indexed: [] };
 
@@ -260,7 +260,7 @@ function main() {
     for (const ent of entries) {
       const gx = ent?.content?.gedcomx;
       if (!gx) continue;
-      const { record, indexed } = processGedcomEntry(gx, path.basename(fp));
+      const { record, indexed } = processGedcomEntry(gx);
       if (!record) continue;
       if (seenHit.has(record.hitId)) continue;
       seenHit.add(record.hitId);

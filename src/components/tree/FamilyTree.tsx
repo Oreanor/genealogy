@@ -13,7 +13,6 @@ import {
   FAMILY_TREE_VIEW_LAYOUT,
   getFamilyTreeNodePosition,
 } from '@/lib/utils/familyTreeViewLayout';
-import type { Person } from '@/lib/types/person';
 import { TreeNode } from './TreeNode';
 import { useTreePan } from './useTreePan';
 import { useTreeSegments } from './useTreeSegments';
@@ -30,6 +29,10 @@ interface FamilyTreeProps {
 /** Stable defaults — avoid new [] / {} each render (useLayoutEffect deps). */
 const DEFAULT_KINSHIP_SELECTED_IDS: string[] = [];
 const DEFAULT_KINSHIP_HINT_BY_ID: Record<string, string | null | undefined> = {};
+
+/** Dashed line between spouses. */
+const SPOUSE_LINK_DASH =
+  'repeating-linear-gradient(90deg, rgba(107,114,128,0.95) 0 5px, rgba(107,114,128,0) 5px 10px)';
 
 export function FamilyTree({
   onPersonClick,
@@ -114,19 +117,12 @@ export function FamilyTree({
   const zoomRootRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const avatarRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const avatarRefCallbacksRef = useRef<Map<string, (el: HTMLDivElement | null) => void>>(new Map());
   const [avatarLayoutGeneration, setAvatarLayoutGeneration] = useState(0);
-  const getAvatarRefForKey = useCallback((key: string) => {
-    let cb = avatarRefCallbacksRef.current.get(key);
-    if (!cb) {
-      cb = (el: HTMLDivElement | null) => {
-        if (!el) avatarRefs.current.delete(key);
-        else avatarRefs.current.set(key, el);
-        setAvatarLayoutGeneration((n) => n + 1);
-      };
-      avatarRefCallbacksRef.current.set(key, cb);
-    }
-    return cb;
+  /** Registering an avatar re-triggers connector-line layout. */
+  const registerAvatar = useCallback((key: string, el: HTMLDivElement | null) => {
+    if (el) avatarRefs.current.set(key, el);
+    else avatarRefs.current.delete(key);
+    setAvatarLayoutGeneration((n) => n + 1);
   }, []);
   const { pan, scale, panHandlers } = useTreePan({
     initialY: FAMILY_TREE_VIEW_LAYOUT.pan.initialY,
@@ -166,33 +162,31 @@ export function FamilyTree({
         }}
       >
         <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          {segments.map((seg) => (
-            <div
-              key={seg.key}
-              style={{
-                left: `${seg.left}px`,
-                top: `${seg.top}px`,
-                width: `${seg.width}px`,
-                height: `${seg.height}px`,
-                backgroundImage:
-                  seg.edgeKey.startsWith('spouse-direct:')
-                    ? 'repeating-linear-gradient(90deg, rgba(107,114,128,0.95) 0 5px, rgba(107,114,128,0) 5px 10px)'
-                    : undefined,
-                backgroundColor: seg.edgeKey.startsWith('spouse-direct:') ? 'transparent' : undefined,
-                opacity: seg.edgeKey.startsWith('spouse-direct:') ? 1 : undefined,
-                transform: seg.rotateDeg != null ? `rotate(${seg.rotateDeg}deg)` : undefined,
-                transformOrigin: 'left center',
-              }}
-              className={`absolute ${
-                seg.edgeKey.startsWith('spouse-direct:')
-                  ? 'bg-transparent'
-                  : seg.active
-                    ? 'bg-gray-500/95 opacity-100'
-                    : 'bg-gray-500/30 opacity-10'
-              }`}
-              aria-hidden
-            />
-          ))}
+          {segments.map((seg) => {
+            const isSpouseLink = seg.edgeKey.startsWith('spouse-direct:');
+            return (
+              <div
+                key={seg.key}
+                style={{
+                  left: `${seg.left}px`,
+                  top: `${seg.top}px`,
+                  width: `${seg.width}px`,
+                  height: `${seg.height}px`,
+                  backgroundImage: isSpouseLink ? SPOUSE_LINK_DASH : undefined,
+                  transform: seg.rotateDeg != null ? `rotate(${seg.rotateDeg}deg)` : undefined,
+                  transformOrigin: 'left center',
+                }}
+                className={`absolute ${
+                  isSpouseLink
+                    ? 'bg-transparent opacity-100'
+                    : seg.active
+                      ? 'bg-gray-500/95 opacity-100'
+                      : 'bg-gray-500/30 opacity-10'
+                }`}
+                aria-hidden
+              />
+            );
+          })}
         </div>
 
         {matrix.slice(0, visibleLevelCount).map((row, level) =>
@@ -225,7 +219,8 @@ export function FamilyTree({
                   scale={pos.scale}
                   showSiblings={treeMode !== 'descendants'}
                   onPersonClick={kinshipMode && onKinshipSelect ? onKinshipSelect : onPersonClick}
-                  onAvatarRef={getAvatarRefForKey(key)}
+                  avatarKey={key}
+                  onAvatarRef={registerAvatar}
                   kinshipHint={
                     kinshipMode && person
                       ? kinshipHintById[person.id] ?? null

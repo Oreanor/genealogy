@@ -1,8 +1,7 @@
 'use client';
 
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { useLocale } from '@/lib/i18n/context';
-import type { Locale } from '@/lib/i18n/config';
 import {
   formatLifeDates,
   formatNamePartsByLocale,
@@ -27,7 +26,10 @@ interface TreeNodeProps {
   index: number;
   scale: number;
   onPersonClick: (personId: string) => void;
-  onAvatarRef?: (el: HTMLDivElement | null) => void;
+  /** Node key passed back to `onAvatarRef`. */
+  avatarKey?: string;
+  /** Registers the avatar element (used to draw connecting lines). */
+  onAvatarRef?: (key: string, el: HTMLDivElement | null) => void;
   /** When kinship pick mode is active, show who this person is to the other selected one. */
   kinshipHint?: string | null;
   /** Visual selection state (kinship pick mode). */
@@ -40,12 +42,19 @@ function TreeNodeBase({
   person,
   scale,
   onPersonClick,
+  avatarKey,
   onAvatarRef,
   kinshipHint,
   isKinshipSelected,
   showSiblings = true,
 }: TreeNodeProps) {
   const locale = useLocale();
+  const avatarRef = useCallback(
+    (el: HTMLDivElement | null) => {
+      if (avatarKey !== undefined) onAvatarRef?.(avatarKey, el);
+    },
+    [avatarKey, onAvatarRef]
+  );
   const hasPerson = !!person;
   const siblings = useMemo(
     () => (person && showSiblings ? getSiblings(person.id) : []),
@@ -132,7 +141,7 @@ function TreeNodeBase({
               onClick={() => onPersonClick(person!.id)}
             >
               <div
-                ref={onAvatarRef}
+                ref={avatarRef}
                 className={`relative shrink-0 origin-center rounded-[50%] p-[1px] outline outline-2 transition-transform duration-200 ease-out will-change-transform group-hover:scale-[1.15] bg-(--background) ${strokeClass} ${
                   isKinshipSelected ? 'ring-2 ring-(--ink)/25' : ''
                 } w-[3.6rem] h-[4.6rem] md:w-[5.8rem] md:h-[7.4rem]`}
@@ -167,7 +176,7 @@ function TreeNodeBase({
           </>
         ) : (
           <div
-            ref={onAvatarRef}
+            ref={avatarRef}
             className={`relative shrink-0 origin-center rounded-[50%] p-[1px] outline outline-2 transition-transform duration-200 ease-out will-change-transform group-hover:scale-[1.15] bg-(--background) ${strokeClass} w-[3.6rem] h-[4.6rem] md:w-[5.8rem] md:h-[7.4rem]`}
           >
             {ovalInner}

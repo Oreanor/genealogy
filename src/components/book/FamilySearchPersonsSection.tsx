@@ -14,7 +14,7 @@ import { SearchField } from '@/components/ui/molecules/SearchField';
 import { FAMILYSEARCH_PUBLIC_ORIGIN } from '@/lib/data/indexedEventsMap';
 
 const SEARCH_DEBOUNCE_MS = 280;
-/** Колонки виртуальной сетки: персона | рождение | смерть | место | отец | мать. */
+/** Virtual grid columns: person | birth | death | place | father | mother. */
 const GRID_COLS =
   'minmax(120px,1.1fr) minmax(4.75rem,auto) minmax(4.75rem,auto) minmax(88px,0.85fr) minmax(104px,1fr) minmax(104px,1fr)';
 
@@ -41,7 +41,7 @@ function displayName(p: FamilySearchPersonEntry): string {
   return [p.firstName, p.patronymic, p.lastName].filter(Boolean).join(' ') || p.firstName;
 }
 
-/** Место для отображения: уже слито в JSON (precisePlace при сборке). */
+/** Display place: already merged into the JSON (precisePlace at build time). */
 function placeForDisplay(p: FamilySearchPersonEntry): string {
   return (p.precisePlace ?? p.birthPlace ?? '').trim();
 }
@@ -252,6 +252,9 @@ export function FamilySearchPersonsSection() {
 
   const scrollParentRef = useRef<HTMLDivElement>(null);
 
+  // TanStack Virtual returns mutable instances the React Compiler can't memoize;
+  // the project doesn't enable the compiler, so this is informational only.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: sortedFiltered.length,
     getScrollElement: () => scrollParentRef.current,

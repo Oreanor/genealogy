@@ -15,7 +15,6 @@ type AdminPhotoGroupProps = {
   title: string;
   items: PhotoItem[];
   backIdxByFrontSrc: Map<string, number>;
-  photoIdxBySrc: Map<string, number>;
   t: TranslationFn;
   onSelectPhotoIdx: (idx: number) => void;
   onSetConfirmDeleteIdx: (idx: number) => void;
@@ -26,7 +25,6 @@ function AdminPhotoGroup({
   title,
   items,
   backIdxByFrontSrc,
-  photoIdxBySrc,
   t,
   onSelectPhotoIdx,
   onSetConfirmDeleteIdx,
@@ -141,7 +139,6 @@ function AdminPhotoGroup({
 type Props = {
   groups: AdminPhotoGroupSection[];
   backIdxByFrontSrc: Map<string, number>;
-  photoIdxBySrc: Map<string, number>;
   t: TranslationFn;
   onSelectPhotoIdx: (idx: number) => void;
   onSetConfirmDeleteIdx: (idx: number) => void;
@@ -151,7 +148,6 @@ type Props = {
 export function AdminPhotosGroups({
   groups,
   backIdxByFrontSrc,
-  photoIdxBySrc,
   t,
   onSelectPhotoIdx,
   onSetConfirmDeleteIdx,
@@ -165,7 +161,6 @@ export function AdminPhotosGroups({
           title={group.title}
           items={group.items}
           backIdxByFrontSrc={backIdxByFrontSrc}
-          photoIdxBySrc={photoIdxBySrc}
           t={t}
           onSelectPhotoIdx={onSelectPhotoIdx}
           onSetConfirmDeleteIdx={onSetConfirmDeleteIdx}

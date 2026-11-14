@@ -78,8 +78,9 @@ export function RichTextPhotoPickerDialog({
                         }}
                         title={photo.caption?.trim() || photo.src}
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <span className="block aspect-3/4 w-full overflow-hidden">
+                          {/* Admin-only thumbnail grid: plain <img> avoids the optimizer round-trip. */}
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={photo.src}
                             alt=""

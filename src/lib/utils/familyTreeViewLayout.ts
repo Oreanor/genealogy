@@ -1,4 +1,3 @@
-import type { Person } from '@/lib/types/person';
 
 /** Layout constants for the family tree canvas (percent-based positioning). */
 export const FAMILY_TREE_VIEW_LAYOUT: {

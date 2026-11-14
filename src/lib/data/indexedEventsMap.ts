@@ -11,7 +11,7 @@ import { getPhotoById } from '@/lib/data/photos';
 
 const ATTACHMENTS = eventAttachmentsBundle as IndexedEventAttachmentsFile;
 
-/** Только пути под `public/photos/…`, без внешних URL. */
+/** Only paths under `public/photos/…`, no external URLs. */
 function isSafePublicPhotoPath(src: string): boolean {
   return /^\/photos\/[\w\-./]+\.(jpe?g|png|gif|webp)$/i.test(src.trim());
 }
@@ -31,7 +31,7 @@ function resolveAttachmentImages(hitId: string): string[] {
   return imageUrls;
 }
 
-function renderAttachmentBlock(hitId: string, t: TranslationFn, locale: Locale): string {
+function renderAttachmentBlock(hitId: string, t: TranslationFn): string {
   const imageUrls = resolveAttachmentImages(hitId);
   if (imageUrls.length === 0) return '';
 
@@ -56,7 +56,7 @@ function popupPlacesForEvent(e: IndexedEvent): { main: string; secondary?: strin
   return { main: p, secondary: fallback };
 }
 
-/** Публичный URL FamilySearch для ссылок из относительных путей ARK. */
+/** Public FamilySearch URL for links built from relative ARK paths. */
 export const FAMILYSEARCH_PUBLIC_ORIGIN = 'https://www.familysearch.org';
 
 export type IndexedEvent = {
@@ -68,7 +68,7 @@ export type IndexedEvent = {
   placeKey: string;
   year: number;
   dateOriginal: string | null;
-  /** Уточнённое место (вшито в JSON вместе с координатами). */
+  /** Refined place (baked into the JSON together with coordinates). */
   precisePlace?: string;
   lat?: number;
   lon?: number;
@@ -77,11 +77,11 @@ export type IndexedEvent = {
 export const INDEXED_EVENTS = indexedEventsBundle.events as IndexedEvent[];
 
 export type IndexedEventGeoResolveOptions = {
-  /** Если сегменты места не сопоставились — показать маркер здесь (напр. «домашняя» точка линии). */
+  /** When no place segment matches, put the marker here (e.g. the family line's home point). */
   defaultWhenUnresolved?: GeocodedPoint;
 };
 
-/** «Donetsk Guberniya» → нет ключа целиком, но есть `donetsk`. */
+/** "Donetsk Guberniya" has no exact key, but `donetsk` exists. */
 function pointForNormalizedPlaceSegment(
   normalizedSegment: string,
   map: Record<string, GeocodedPoint>,
@@ -98,7 +98,7 @@ function pointForNormalizedPlaceSegment(
 }
 
 /**
- * Координаты события: из JSON или из placeFallbacks (совпадение по сегментам placeLabel / placeKey).
+ * Event coordinates: from the JSON or from placeFallbacks (matched by placeLabel / placeKey segments).
  */
 export function resolveIndexedEventGeo(
   e: IndexedEvent,
@@ -124,7 +124,7 @@ export function resolveIndexedEventGeo(
   return null;
 }
 
-/** Поиск по полю principalName: подстрока в исходном имени или в латинской транслитерации. */
+/** Matches principalName by substring in the original or its Latin transliteration. */
 export function indexedEventPrincipalMatchesSearch(principalName: string, normalizedQuery: string): boolean {
   const needle = normalizedQuery.trim().toLowerCase();
   if (needle.length === 0) return true;
@@ -160,15 +160,15 @@ export type IndexedMapMarker = {
   hitId: string;
   factType: string;
   year: number;
-  /** Реальные координаты места; плотность показывает MarkerCluster на карте. */
+  /** Real place coordinates; MarkerCluster shows density on the map. */
   latLng: { lat: number; lon: number };
-  /** Диаметр круга в px: больше, если в этой точке (placeKey) больше событий в текущей выборке. */
+  /** Circle diameter in px: larger when this point (placeKey) has more events in the current selection. */
   circlePx: number;
   color: string;
   popupHtml: string;
-  /** Имя для списка в попапе кластера (plain text, экранируется на карте). */
+  /** Name for the cluster popup list (plain text, escaped by the map). */
   listName: string;
-  /** Полный URL записи FamilySearch или null. */
+  /** Full FamilySearch record URL, or null. */
   recordUrl: string | null;
 };
 
@@ -266,7 +266,7 @@ export function buildIndexedMapMarkers(
 
     const listName = formatNameByLocale(e.principalName, locale);
     const displayName = escapeHtml(listName);
-    const extra = renderAttachmentBlock(e.hitId, t, locale);
+    const extra = renderAttachmentBlock(e.hitId, t);
     const popupHtml = `<div style="min-width:200px"><div style="font-weight:600;margin-bottom:4px">${displayName}</div><div style="font-size:12px;opacity:.9">${escapeHtml(fact)} · ${e.year}</div>${lineDate}${placeHtml}${url ? `<div style="margin-top:8px"><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="font-size:12px;text-decoration:underline">${escapeHtml(open)}</a></div>` : ''}${extra}</div>`;
 
     out.push({

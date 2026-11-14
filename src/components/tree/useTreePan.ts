@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, type RefObject, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type RefObject, type PointerEvent as ReactPointerEvent } from 'react';
 
 type PanState = { x: number; y: number };
 type DragState = {
@@ -38,10 +38,23 @@ type PinchSession = {
   startPan: PanState;
 };
 
-/** Zoom range: ~0.55 «далеко» … ~2.35 «крупно». */
+/** Zoom range: ~0.55 (zoomed out) … ~2.35 (close-up). */
 const SCALE_MIN = 0.55;
 const SCALE_MAX = 2.35;
 const WHEEL_ZOOM_SENS = 0.00135;
+
+function clampPanTo(
+  x: number,
+  y: number,
+  limitX: number,
+  limitYDown: number,
+  limitYUp: number
+): PanState {
+  return {
+    x: Math.max(-limitX, Math.min(limitX, x)),
+    y: Math.max(limitYUp, Math.min(limitYDown, y)),
+  };
+}
 
 function touchDistance(t: TouchList): number {
   if (t.length < 2) return 0;
@@ -56,10 +69,13 @@ export function useTreePan({
   limitYDown,
   limitYUp,
   dragStartThresholdPx,
-  resetKey,
+  resetKey: resetKeyParam,
   zoomRootRef,
   transformTargetRef,
 }: Params) {
+  // Pan/zoom reset whenever the tree identity or the initial offset changes.
+  // Derived during render instead of an effect, so there's no extra pass.
+  const resetKey = `${resetKeyParam}|${initialY}`;
   const [panStore, setPanStore] = useState<PanStore>({
     resetKey,
     pan: { x: 0, y: initialY },
@@ -71,18 +87,14 @@ export function useTreePan({
   const pinchActiveRef = useRef(false);
   const latestRef = useRef({ pan: panStore.pan, scale: panStore.scale, resetKey });
 
-  useEffect(() => {
-    setPanStore({ resetKey, pan: { x: 0, y: initialY }, scale: 1 });
-  }, [resetKey, initialY]);
-
   const pan = panStore.resetKey === resetKey ? panStore.pan : { x: 0, y: initialY };
   const scale = panStore.resetKey === resetKey ? panStore.scale : 1;
-  latestRef.current = { pan, scale, resetKey };
-
-  const clampPan = (x: number, y: number): PanState => ({
-    x: Math.max(-limitX, Math.min(limitX, x)),
-    y: Math.max(limitYUp, Math.min(limitYDown, y)),
+  // Touch handlers live in a long-lived effect and need the latest committed values.
+  useLayoutEffect(() => {
+    latestRef.current = { pan, scale, resetKey };
   });
+
+  const clampPan = (x: number, y: number) => clampPanTo(x, y, limitX, limitYDown, limitYUp);
 
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (pinchActiveRef.current) return;
@@ -167,9 +179,12 @@ export function useTreePan({
         const nextS = Math.min(SCALE_MAX, Math.max(SCALE_MIN, rawNext));
         if (nextS === oldS) return prev;
         const ratio = nextS / oldS;
-        const nextPan = clampPan(
+        const nextPan = clampPanTo(
           mx - (mx - oldP.x) * ratio,
-          my - (my - oldP.y) * ratio
+          my - (my - oldP.y) * ratio,
+          limitX,
+          limitYDown,
+          limitYUp
         );
         return { resetKey, scale: nextS, pan: nextPan };
       });
@@ -223,7 +238,13 @@ export function useTreePan({
           return { resetKey, pan: { x: 0, y: initialY }, scale: 1 };
         }
         const p0 = session.startPan;
-        const nextPan = clampPan(mx - (mx - p0.x) * ratio, my - (my - p0.y) * ratio);
+        const nextPan = clampPanTo(
+          mx - (mx - p0.x) * ratio,
+          my - (my - p0.y) * ratio,
+          limitX,
+          limitYDown,
+          limitYUp
+        );
         return { resetKey, scale: s, pan: nextPan };
       });
     };

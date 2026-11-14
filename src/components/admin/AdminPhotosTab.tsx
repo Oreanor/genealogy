@@ -32,7 +32,6 @@ export function AdminPhotosTab({
     persons,
     existingSeries,
     groups,
-    photoIdxBySrc,
     backIdxByFrontSrc,
     selectedPhotoIdx,
     setSelectedPhotoIdx,
@@ -92,7 +91,6 @@ export function AdminPhotosTab({
           <AdminPhotosGroups
             groups={groups}
             backIdxByFrontSrc={backIdxByFrontSrc}
-            photoIdxBySrc={photoIdxBySrc}
             t={t}
             onSelectPhotoIdx={setSelectedPhotoIdx}
             onSetConfirmDeleteIdx={setConfirmDeleteIdx}
