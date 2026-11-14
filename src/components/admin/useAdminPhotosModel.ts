@@ -55,8 +55,12 @@ export function useAdminPhotosModel({
 
   useEffect(() => {
     fetch('/api/admin/photos/scan')
-      .then((r) => r.json())
-      .then((data: { paths: string[] }) => {
+      .then((r) => {
+        // Unavailable in production: keep the photo list from data.json as is.
+        if (!r.ok) throw new Error(`Photo scan failed: ${r.status}`);
+        return r.json() as Promise<{ paths?: string[] }>;
+      })
+      .then((data) => {
         setPhotos((prev) => {
           const bySrc = new Map(prev.map((p) => [p.src, p]));
           const merged: PhotoEntry[] = [];
@@ -232,7 +236,6 @@ export function useAdminPhotosModel({
     persons,
     existingSeries,
     groups,
-    photoIdxBySrc,
     backIdxByFrontSrc,
     selectedPhotoIdx,
     setSelectedPhotoIdx,

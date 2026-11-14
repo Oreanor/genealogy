@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { readdirSync } from 'fs';
-import { join, resolve } from 'path';
+import { join, resolve, sep } from 'path';
+import { rejectIfDevOnlyApiDisabled } from '@/lib/server/devOnlyApi';
 
 const PHOTOS_DIR = resolve(process.cwd(), 'public', 'photos');
 const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.gif', '.webp']);
@@ -11,7 +12,7 @@ function scanImages(dir: string, basePath: string): string[] {
     const entries = readdirSync(dir, { withFileTypes: true });
     for (const e of entries) {
       const full = resolve(join(dir, e.name));
-      if (!full.startsWith(PHOTOS_DIR)) continue; // path traversal guard
+      if (full !== PHOTOS_DIR && !full.startsWith(PHOTOS_DIR + sep)) continue; // path traversal guard
       const rel = basePath ? `${basePath}/${e.name}` : e.name;
       if (e.isDirectory()) {
         results.push(...scanImages(full, rel));
@@ -31,6 +32,8 @@ function getExt(name: string): string {
 }
 
 export async function GET() {
+  const rejected = rejectIfDevOnlyApiDisabled();
+  if (rejected) return rejected;
   const paths = scanImages(PHOTOS_DIR, '');
   return NextResponse.json({ paths });
 }

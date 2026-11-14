@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { rejectIfDevOnlyApiDisabled } from '@/lib/server/devOnlyApi';
+
+const MAX_QUERY_LENGTH = 200;
 
 type NominatimItem = {
   lat: string;
@@ -6,8 +9,11 @@ type NominatimItem = {
 };
 
 export async function GET(req: NextRequest) {
+  const rejected = rejectIfDevOnlyApiDisabled();
+  if (rejected) return rejected;
+
   const q = (req.nextUrl.searchParams.get('q') ?? '').trim();
-  if (!q) {
+  if (!q || q.length > MAX_QUERY_LENGTH) {
     return NextResponse.json({ point: null });
   }
 
@@ -17,6 +23,7 @@ export async function GET(req: NextRequest) {
     const res = await fetch(url, {
       headers: {
         Accept: 'application/json',
+        // Nominatim usage policy requires an identifying User-Agent.
         'User-Agent': 'genealogy-map/1.0 (self-hosted app)',
       },
       cache: 'no-store',
