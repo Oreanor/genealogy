@@ -1,13 +1,12 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { BOOK_SPREAD_SHADOW_MD } from '@/lib/constants/theme';
 import { BookPage } from './BookPage';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import type { Locale } from '@/lib/i18n/config';
-import { getPersons } from '@/lib/data/persons';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
-import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
+import { usePersons } from '@/hooks/usePersons';
 import { getFamilyLineUiLabel } from '@/lib/data/familyLineLabels';
 import {
   getBookMapLayerOptions,
@@ -18,7 +17,7 @@ import { ArchiveIndexedMapBody } from './IndexedEventsMapSection';
 import { PodvigNarodaMapSection } from './PodvigNarodaMapSection';
 import { FamilyMapBody } from './MapSection';
 
-/** Значение селекта — `id` из `bookMapLayers.json`. */
+/** Select value: an `id` from `bookMapLayers.json`. */
 export type MapDataLayerId = string;
 
 function mapLayerSelectLabel(
@@ -33,7 +32,7 @@ function mapLayerSelectLabel(
 }
 
 /**
- * Вкладка «Карты»: слои и порядок — в `bookMapLayers.json`, загрузка indexed-бандлов — в `bookMapLayerRegistry.ts`.
+ * Maps tab: layers and their order come from `bookMapLayers.json`; indexed bundles are loaded in `bookMapLayerRegistry.ts`.
  */
 export function UnifiedMapSection() {
   const { t, locale } = useLocaleRoutes();
@@ -44,8 +43,7 @@ export function UnifiedMapSection() {
     () => resolveBookMapIndexedLayer(layer, placeFallbacks),
     [layer, placeFallbacks],
   );
-  const personsOverlayRev = usePersonsOverlayRevision();
-  const persons = useMemo(() => getPersons(), [personsOverlayRev]);
+  const persons = usePersons();
 
   return (
     <div className="flex min-w-0 flex-1 flex-col overflow-hidden min-h-[calc(100vh-10rem)] md:min-h-0 md:flex-none">

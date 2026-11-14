@@ -4,12 +4,20 @@ import appData from '@/data/data.json';
 import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n/config';
 import { mergePersonsForDisplay } from '@/lib/utils/personMerge';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
+import { readPersonNameLocksRaw } from '@/lib/utils/personNameLocks';
 
 const bundledPersons = (appData as { persons: Person[] }).persons;
 
 let adminWorkingPersons: Person[] | null = null;
+/** Bumped on every overlay change; lets React subscribe via `useSyncExternalStore`. */
+let overlayVersion = 0;
+let personsCache: { key: string; persons: Person[] } | null = null;
 
 const overlayListeners = new Set<() => void>();
+
+export function getPersonsOverlayVersion(): number {
+  return overlayVersion;
+}
 
 export function subscribePersonsOverlay(listener: () => void): () => void {
   overlayListeners.add(listener);
@@ -17,6 +25,7 @@ export function subscribePersonsOverlay(listener: () => void): () => void {
 }
 
 function notifyPersonsOverlay(): void {
+  overlayVersion += 1;
   overlayListeners.forEach((l) => l());
 }
 
@@ -46,10 +55,15 @@ function getClientLocaleForPersons(): Locale {
 
 /**
  * Persons for UI: template names for empty bundled rows (until locked), admin working copy when set.
+ * The result is cached until the overlay, the locale or the name locks change — treat it as read-only.
  */
 export function getPersons(): Person[] {
   const locale = getClientLocaleForPersons();
-  return mergePersonsForDisplay(bundledPersons, adminWorkingPersons, locale);
+  const key = `${overlayVersion}|${locale}|${readPersonNameLocksRaw()}`;
+  if (personsCache?.key !== key) {
+    personsCache = { key, persons: mergePersonsForDisplay(bundledPersons, adminWorkingPersons, locale) };
+  }
+  return personsCache.persons;
 }
 
 export function getPersonById(id: string): Person | null {

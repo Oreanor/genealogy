@@ -3,7 +3,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersons } from '@/lib/data/persons';
-import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
 import { getPlaceFallbacks } from '@/lib/data/mapFallbacks';
 import type { Locale } from '@/lib/i18n/config';
 import { buildMapEntries } from '@/lib/utils/mapSectionEntries';
@@ -16,7 +15,7 @@ type FamilyMapBodyProps = {
   persons: ReturnType<typeof getPersons>;
 };
 
-/** Только блок карты родственников (без обёртки BookPage) — для объединённой вкладки «Карты». */
+/** Family map body only (no BookPage wrapper) — used by the unified Maps tab. */
 export function FamilyMapBody({ locale, t, placeFallbacks, persons }: FamilyMapBodyProps) {
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);

@@ -28,8 +28,8 @@ vi.mock('@/lib/data/mapFallbacks', () => ({
   getPlaceFallbacks: () => ({}),
 }));
 
-vi.mock('@/hooks/usePersonsOverlayRevision', () => ({
-  usePersonsOverlayRevision: () => 0,
+vi.mock('@/hooks/usePersons', () => ({
+  usePersons: () => [person],
 }));
 
 vi.mock('@/lib/utils/mapSectionEntries', () => ({

@@ -3,8 +3,8 @@
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
-import { getPersons, getPersonById } from '@/lib/data/persons';
-import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
+import { getPersonById } from '@/lib/data/persons';
+import { usePersons } from '@/hooks/usePersons';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import {
   formatLifeDates,
@@ -186,11 +186,8 @@ function ChainArrow({ label, spouse }: Readonly<{ label: string; spouse?: boolea
 export function KinshipSpread() {
   const { t, locale } = useLocaleRoutes();
   const pathname = usePathname() ?? '';
-  const personsOverlayRev = usePersonsOverlayRevision();
-  const sorted = useMemo(() => {
-    void personsOverlayRev;
-    return sortPersonsBySurname(getPersons());
-  }, [personsOverlayRev]);
+  const persons = usePersons();
+  const sorted = useMemo(() => sortPersonsBySurname(persons), [persons]);
 
   const [idA, setIdA] = useState('');
   const [idB, setIdB] = useState('');

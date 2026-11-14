@@ -50,6 +50,7 @@ vi.mock('@/lib/data/persons', () => ({
   getPersons: () => [p1, p2, p3],
   getPersonById: (id: string) => getPersonById(id),
   subscribePersonsOverlay: () => () => {},
+  getPersonsOverlayVersion: () => 0,
 }));
 
 vi.mock('@/lib/data/familyRelations', () => ({

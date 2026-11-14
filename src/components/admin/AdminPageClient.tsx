@@ -2,9 +2,8 @@
 
 import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from '@/lib/i18n/context';
-import { usePersonsOverlayRevision } from '@/hooks/usePersonsOverlayRevision';
-import { getPersons } from '@/lib/data/persons';
+import { useTranslations } from '@/lib/i18n/context';
+import { usePersons } from '@/hooks/usePersons';
 import { useSetRootPersonId } from '@/lib/contexts/RootPersonContext';
 import type { AdminTabId } from './AdminTabs';
 import { AdminTabs } from './AdminTabs';
@@ -115,15 +114,9 @@ function AdminPageClientInner({
 }: InnerProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
-  const personsOverlayRev = usePersonsOverlayRevision();
   const t = useTranslations();
 
-  const personsForUi = useMemo(() => {
-    void locale;
-    void personsOverlayRev;
-    return getPersons();
-  }, [locale, personsOverlayRev]);
+  const personsForUi = usePersons();
   const setGlobalRoot = useSetRootPersonId();
   const {
     rootPersonId,

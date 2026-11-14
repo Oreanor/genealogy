@@ -1,5 +1,15 @@
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 
+/** Raw stored value; cheap to compare, used as a cache key. */
+export function readPersonNameLocksRaw(): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    return localStorage.getItem(STORAGE_KEYS.personNameLocks) ?? '';
+  } catch {
+    return '';
+  }
+}
+
 export function readPersonNameLocks(): Set<string> {
   if (typeof window === 'undefined') return new Set();
   try {
