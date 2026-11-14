@@ -76,7 +76,7 @@ function buildIndexedLayer(
   };
 }
 
-/** Слои селекта вкладки «Карты» — порядок из `bookMapLayers.json`; подписи indexed — `familyLineLabels.json`. */
+/** Layer options for the Maps tab, ordered as in `bookMapLayers.json`; indexed-layer labels come from `familyLineLabels.json`. */
 export function getBookMapLayerOptions(): BookMapLayerOption[] {
   const { layers } = manifest as { layers: LayerJson[] };
   return layers.map((L) =>
@@ -86,7 +86,7 @@ export function getBookMapLayerOptions(): BookMapLayerOption[] {
   );
 }
 
-/** Конфиг indexed-слоя по `id` из манифеста, или null. */
+/** Indexed-layer config by manifest `id`, or null. */
 export function resolveBookMapIndexedLayer(
   layerId: string,
   placeFallbacks: Record<string, GeocodedPoint>,

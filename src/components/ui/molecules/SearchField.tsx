@@ -9,7 +9,7 @@ const WRAPPER_CLASS =
 
 interface SearchFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   className?: string;
-  /** Доп. классы для внешней оболочки (например `h-8` для выравнивания с селектом). */
+  /** Extra classes for the outer wrapper (e.g. `h-8` to align with a select). */
   wrapperClassName?: string;
 }
 

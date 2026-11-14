@@ -1,5 +1,5 @@
 /**
- * Корень репозитория для node-скриптов (путь к каталогу, где лежит package.json).
+ * Repository root for node scripts (the directory containing package.json).
  */
 import path from "node:path";
 import { fileURLToPath } from "node:url";

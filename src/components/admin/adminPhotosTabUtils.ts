@@ -22,7 +22,7 @@ export function slugFromSrc(src: string): string {
   );
 }
 
-/** Состояние «только что из скана», без любых правок (подпись, лица, серия, категория, …). */
+/** Fresh from the scan, untouched (no caption, faces, series, category, …). */
 function isPristineUneditedPhoto(photo: PhotoEntry): boolean {
   if (photo.caption?.trim()) return false;
   if (photo.backCaption?.trim()) return false;

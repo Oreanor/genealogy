@@ -12,10 +12,10 @@ import { escapeHtml, formatPlaceLabelForLocale } from '@/lib/utils/mapPlace';
 import { formatNameByLocale } from '@/lib/utils/person';
 import { transliterateCyrillicToLatin } from '@/lib/utils/transliteration';
 
-/** Совпадает с маркером Leaflet для фокуса после выбора в поиске. */
+/** Matches the Leaflet marker used for focusing after a search pick. */
 export const PODVIG_NARODA_MAP_FACT_TYPE = 'podvig_person' as const;
 
-/** Официальный сайт ОБД: канонический хост без `www` (как в интерфейсе podvignaroda.ru). */
+/** Official database site: canonical host without `www` (as used by podvignaroda.ru). */
 const PODVIG_NARODA_PUBLIC_ORIGIN = 'https://podvignaroda.ru' as const;
 
 const PERSON_PLACE_SEP = '\u0002';
@@ -28,7 +28,7 @@ const RECORD_TYPE_POPUP_ORDER: Partial<Record<PodvigNarodaRecord['recordType'], 
   unknown: 4,
 };
 
-/** Год рождения из строки вида `__.__.1914` или полной даты. */
+/** Birth year from `__.__.1914` or a full date. */
 export function parsePodvigBirthYear(birthDateRaw?: string): number | null {
   if (!birthDateRaw?.trim()) return null;
   const m = birthDateRaw.match(/\b(1[0-9]{3}|20[0-9]{2})\b/);
@@ -45,8 +45,8 @@ function normalizeNamePart(s: string): string {
 }
 
 /**
- * Ключ личности для карты: ФИО + год рождения (без сырой строки даты),
- * чтобы «__.__.1914» и «01.01.1914» считались одним человеком.
+ * Person key for the map: full name + birth year (not the raw date string),
+ * so that "__.__.1914" and "01.01.1914" count as the same person.
  */
 export function podvigPersonMergeKey(person: PodvigNarodaRecord['person'], birthYear: number): string {
   return [
@@ -58,8 +58,8 @@ export function podvigPersonMergeKey(person: PodvigNarodaRecord['person'], birth
 }
 
 /**
- * Нормализация подписи места призыва для схлопывания вариантов с лишними запятыми,
- * «г.», разным порядком частей и т.п.
+ * Normalizes the draft-place label to collapse variants with extra commas,
+ * a "г." (city) prefix, different part order, etc.
  */
 export function normalizePodvigPlaceForMerge(raw: string): string {
   let s = raw.trim().toLowerCase().replaceAll('ё', 'е');
@@ -113,7 +113,7 @@ function jaccardWordOverlap(a: string, b: string): number {
   return uni > 0 ? inter / uni : 0;
 }
 
-/** Один человек, один год: разные строки одного и того же РВК/пункта. */
+/** Same person and year: different spellings of the same enlistment office. */
 function draftPlacesLikelySame(
   placeA: string,
   placeB: string,
@@ -176,7 +176,7 @@ function pickShortestPlaceLabel(labels: readonly string[]): string {
   return uniq[0]!;
 }
 
-/** Слияние строк одного человека и года с разными подписями одного РВК (см. `draftPlacesLikelySame`). */
+/** Merges rows of one person and year whose office labels differ (see `draftPlacesLikelySame`). */
 function mergePodvigRowGroupByDraftPlace(
   rows: PodvigMapTimelineRow[],
   placeFallbacks: Record<string, GeocodedPoint>,
@@ -270,14 +270,14 @@ function mergePodvigRowsByLikelySamePlace(
   return merged;
 }
 
-/** Публичная карточка на сайте ОБД (id — «номер в базе данных»). */
+/** Public record page on the database site (id is the "database number"). */
 export function buildPodvigNarodaRecordUrl(recordId: string): string | null {
   const id = recordId.trim();
   if (!id) return null;
   return `${PODVIG_NARODA_PUBLIC_ORIGIN}/?#id=${encodeURIComponent(id)}`;
 }
 
-/** Место для геокодинга: призывной пункт (награда), затем картотека / юбилейная. */
+/** Place to geocode: enlistment office (award record), then card index / jubilee record. */
 export function podvigGeoPlaceLabel(record: PodvigNarodaRecord): string | null {
   if (record.recordType === 'award' && record.award?.draftOffice?.trim()) {
     return record.award.draftOffice.trim().split('|')[0]!.trim();
@@ -361,19 +361,19 @@ function sortPodvigRecordsForPopup(records: PodvigNarodaRecord[]): PodvigNarodaR
 }
 
 export type PodvigMapTimelineRow = {
-  /** Стабильный id маркера: один человек в одном месте призыва. */
+  /** Stable marker id: one person at one enlistment place. */
   mapEntryId: string;
   personKey: string;
   birthYear: number;
   displayName: string;
   placeLabel: string;
-  /** Все карточки этого человека для данной точки (награды, картотеки и т.д.). */
+  /** All of this person's records at this point (awards, card index, etc.). */
   records: PodvigNarodaRecord[];
 };
 
 /**
- * Строки карты: уникальные люди по паре (личность, место призыва / учётная локация),
- * с годом рождения и геокодируемым местом.
+ * Map rows: unique people per (person, enlistment / registration place) pair,
+ * with birth year and a geocodable place.
  */
 export function buildPodvigTimelineRows(
   records: readonly PodvigNarodaRecord[],

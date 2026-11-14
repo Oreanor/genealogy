@@ -18,7 +18,7 @@ function coordKey(p: PrizyvMapPoint): string {
   return `${p.lat},${p.lon}`;
 }
 
-/** Небольшой разнос точек с одинаковыми координатами (без кластера). */
+/** Slightly spreads points with identical coordinates (no clustering). */
 function spreadLatLon(
   p: PrizyvMapPoint,
   indexAtCoord: number,
@@ -31,8 +31,8 @@ function spreadLatLon(
 }
 
 /**
- * Точки распределения по военкоматам (агрегат по данным «Память народа» / призыв.csv).
- * Каждая запись — отдельный маркер с подписью числа на карте.
+ * Draft distribution by enlistment office (aggregated from "Pamyat Naroda" / prizyv.csv).
+ * Each record is a separate marker labelled with its count.
  */
 export function usePrizyvPointsMap({ containerRef, locale, t, points }: Params) {
   const [tilesReady, setTilesReady] = useState(false);

@@ -1,6 +1,6 @@
 /**
- * Список людей из JSON выгрузки FamilySearch (search-flat: records[], principal, otherPersons) в формате,
- * близком к data.json (Person). Родители — из otherPersons (Father/Mother).
+ * Builds a person list from a FamilySearch JSON export (search-flat: records[], principal, otherPersons)
+ * in a shape close to data.json (Person). Parents come from otherPersons (Father/Mother).
  *
  * npm run fs-export-persons -- --json path/to/export.json
  */
@@ -11,7 +11,7 @@ import { __fsMediaRoot, fsOrigin } from "./fs-media-lib.mjs";
 const DEFAULT_OUT_PATH = path.join(__fsMediaRoot, "src", "lib", "data", "familysearchPersons.json");
 const DEFAULT_INDEXED_EVENTS_PATH = path.join(__fsMediaRoot, "src", "lib", "data", "indexedEvents.json");
 
-/** hitId → precisePlace из indexedEvents*.json (один раз при сборке, без работы на клиенте). */
+/** hitId → precisePlace from indexedEvents*.json (resolved once at build time, not on the client). */
 function loadPrecisePlaceByHitId(indexedEventsPath) {
   const map = new Map();
   if (!fs.existsSync(indexedEventsPath)) return map;
@@ -120,7 +120,7 @@ function scorePerson(p) {
   return s;
 }
 
-/** Ключ слияния: одно ФИО + один год (рожд. или смерти); иначе отдельная строка. */
+/** Merge key: same full name + same year (birth or death); otherwise a separate row. */
 function mergeClusterKey(p) {
   const nk = normNameKey(longestName(p.names));
   if (!nk) return `empty|${p.personKey}`;
@@ -239,7 +239,7 @@ function main() {
 
   const rawCount = byKey.size;
 
-  /** Слияние дубликатов по mergeClusterKey. */
+  /** Merges duplicates by mergeClusterKey. */
   const clusters = new Map();
   for (const p of byKey.values()) {
     const ck = mergeClusterKey(p);
@@ -247,9 +247,9 @@ function main() {
     clusters.get(ck).push(p);
   }
 
-  /** @type {Map<string, string>} старый personKey -> канонический personKey */
+  /** @type {Map<string, string>} old personKey -> canonical personKey */
   const canonicalOf = new Map();
-  /** @type {Map<string, any>} только канонические профили */
+  /** @type {Map<string, any>} canonical profiles only */
   const merged = new Map();
 
   for (const [, group] of clusters) {
@@ -263,7 +263,7 @@ function main() {
     }
   }
 
-  /** Переписать fatherKeys/motherKeys на канонические ключи и сжать множества. */
+  /** Rewrites fatherKeys/motherKeys to canonical keys and dedupes the sets. */
   function canonKeySet(set) {
     const out = new Set();
     for (const k of set) {
@@ -282,7 +282,7 @@ function main() {
 
   const afterDedupe = merged.size;
 
-  /** Якорь: был principal и есть Birth или Death в фактах. */
+  /** Anchor: was a principal and has a Birth or Death fact. */
   function isAnchor(p) {
     if (p.principalHitIds.size === 0) return false;
     return p.birthFacts.length > 0 || p.deathFacts.length > 0;
@@ -293,7 +293,7 @@ function main() {
     if (isAnchor(p)) keepKeys.add(p.personKey);
   }
 
-  /** + родители якорей (один уровень). */
+  /** + anchors' parents (one level). */
   const closure = new Set(keepKeys);
   for (const k of keepKeys) {
     const p = merged.get(k);
@@ -302,7 +302,7 @@ function main() {
     for (const mk of p.motherKeys) closure.add(mk);
   }
 
-  /** fatherId/motherId только если родитель тоже в closure. */
+  /** fatherId/motherId only when the parent is in the closure too. */
   function fatherMotherIds(p) {
     const fc = [...p.fatherKeys].filter((k) => closure.has(k));
     const mc = [...p.motherKeys].filter((k) => closure.has(k));

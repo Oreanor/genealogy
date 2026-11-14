@@ -81,7 +81,7 @@ export function AdminTabs({
 
   return (
     <div>
-      {/* Верхние вкладки скрыты на мобиле, показываем только на md+ */}
+      {/* Top tabs are hidden on mobile, shown on md+ only */}
       <nav className="relative z-50 hidden flex-wrap items-end justify-between gap-1 border-b border-(--border) md:-mt-3 md:flex">
         <div className="flex flex-wrap items-end gap-1">
           {ADMIN_TAB_IDS.map((id) => (

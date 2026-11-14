@@ -46,7 +46,7 @@ export function PersonSearchDropdown({
               <button
                 type="button"
                 onMouseDown={(e) => {
-                  // Обрабатываем выбор до blur инпута, чтобы клик не «терялся»
+                  // Handle the pick before the input blurs so the click isn't lost
                   e.preventDefault();
                   onSelectPerson(p);
                 }}

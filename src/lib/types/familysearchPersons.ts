@@ -1,6 +1,6 @@
 export type FamilySearchPersonEntry = {
   id: string;
-  /** principal с Birth/Death в записи; иначе только родитель якоря. */
+  /** Record principal with Birth/Death; otherwise only an anchor's parent. */
   kind?: 'anchor' | 'parentOnly';
   firstName: string;
   lastName?: string;
@@ -9,7 +9,7 @@ export type FamilySearchPersonEntry = {
   birthDate?: string;
   deathDate?: string;
   birthPlace?: string;
-  /** Уточнённое место из indexedEvents.json (подставляется скриптом fs-export-persons). */
+  /** Refined place from indexedEvents.json (filled in by the fs-export-persons script). */
   precisePlace?: string;
   fatherId?: string;
   motherId?: string;

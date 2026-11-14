@@ -3,7 +3,7 @@ import type { Person } from '@/lib/types/person';
 import appData from '@/data/data.json';
 import avatarCrops from '@/lib/data/avatarCrops.generated.json';
 
-/** Face rect + name parts for overlay (Ф, И, О from admin). */
+/** Face rect + name parts for overlay (last / first / patronymic from admin). */
 export type LightboxFace = {
   coords: [number, number, number, number];
   /** Fallback when no person (custom label). */

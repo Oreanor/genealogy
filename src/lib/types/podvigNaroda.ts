@@ -1,4 +1,4 @@
-/** Типы для `podvigNaroda.json` (выгрузка «Подвиг народа» / ЦАМО). */
+/** Types for `podvigNaroda.json` ("Podvig Naroda" / TsAMO export). */
 
 export type PodvigNarodaRecordType =
   | 'award'
@@ -13,7 +13,7 @@ export type PodvigNarodaPerson = {
   patronymic: string;
   birthDateRaw?: string;
   rank?: string;
-  /** Как в API (f7): призыв, гибель и т.д. */
+  /** As in the API (f7): enlistment, death, etc. */
   eventDateRaw?: string;
 };
 
@@ -68,13 +68,13 @@ export type PodvigNarodaRecommendationDetails = {
   externalFlag?: string;
 };
 
-/** Сырой объект строки как в ответе сайта (поля f2…, priznak, draftPlace…). */
+/** Raw row object as returned by the site (f2… fields, priznak, draftPlace…). */
 export type PodvigNarodaSourceApi = Record<string, string | undefined>;
 
-/** Заполняется `scripts/podvig-naroda-build.mjs`, чтобы рантайм карты не разбирал даты и типы карточек заново. */
+/** Filled in by `scripts/podvig-naroda-build.mjs` so the map doesn't re-parse dates and record types at runtime. */
 export type PodvigNarodaDerived = {
   birthYear: number;
-  /** Место для геокодинга (как `podvigGeoPlaceLabel` в рантайме). */
+  /** Place to geocode (same as `podvigGeoPlaceLabel` at runtime). */
   mapGeoPlaceLabel: string | null;
 };
 
@@ -84,12 +84,12 @@ export type PodvigNarodaRecordBase = {
   numChildItems?: number;
   recordType: PodvigNarodaRecordType;
   person: PodvigNarodaPerson;
-  /** Исходная сущность и полный ответ API — для полей вне основной схемы. */
+  /** Source entity and full API response, for fields outside the main schema. */
   source: {
     entityLabelRu: string;
     api: PodvigNarodaSourceApi;
   };
-  /** Есть у записей из сборки; тесты и ручные фрагменты могут обходиться без него. */
+  /** Present on built records; tests and hand-written fixtures may omit it. */
   derived?: PodvigNarodaDerived;
 };
 

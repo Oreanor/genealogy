@@ -1,6 +1,6 @@
 /**
- * Точки для карты «Призыв»: данные в `prizyvPoints.json` (сводка по `src/data/prizyv.csv`).
- * При обновлении CSV пересоберите JSON вручную или скриптом.
+ * Points for the Draft map: `prizyvPoints.json` (summary of `src/data/prizyv.csv`).
+ * Regenerate the JSON when the CSV changes.
  */
 import prizyvBundle from '@/lib/data/prizyvPoints.json';
 

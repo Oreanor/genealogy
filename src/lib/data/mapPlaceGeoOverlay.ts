@@ -13,8 +13,8 @@ type OverlayFile = {
 const file = raw as OverlayFile;
 
 /**
- * Подмешивает точки из `mapPlaceGeoOverlays.json` под `overlayId`, затем `base` (семейные фолбэки) перекрывают совпадения.
- * Для ключей из `mapSumyToKeys` подставляется `base.sumy`, если есть (как для «Kharkov» → Сумы).
+ * Mixes in points from `mapPlaceGeoOverlays.json` under `overlayId`; `base` (family fallbacks) wins on conflicts.
+ * Keys listed in `mapSumyToKeys` resolve to `base.sumy` when present (e.g. "Kharkov" → Sumy).
  */
 export function mergeMapPlaceGeoOverlay(
   base: Record<string, GeocodedPoint>,

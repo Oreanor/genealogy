@@ -111,9 +111,9 @@ function bloodKey(up: number, down: number, genderB: Gender | undefined): string
   // Grand-nephew/niece = sibling's grandchild (up 1, down 3)
   if (up === 1 && down === 3) return genderB === 'f' ? 'kinGreatNiece' : 'kinGreatNephew';
 
-  // Parent's first cousin (up 3, down 2) — двоюродный дядя/тётя
+  // Parent's first cousin (up 3, down 2) (first cousin once removed, upward)
   if (up === 3 && down === 2) return genderB === 'f' ? 'kinSecondAunt' : 'kinSecondUncle';
-  // First cousin's child (up 2, down 3) — двоюродный племянник/племянница
+  // First cousin's child (up 2, down 3) (first cousin once removed, downward)
   if (up === 2 && down === 3) return genderB === 'f' ? 'kinSecondNiece' : 'kinSecondNephew';
 
   // Second cousins

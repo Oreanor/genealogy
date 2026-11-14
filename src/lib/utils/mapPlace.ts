@@ -34,7 +34,7 @@ export function escapeHtml(text: string): string {
     .replaceAll("'", '&#39;');
 }
 
-/** Для латинских локалей — транслитерация кириллицы в подписях карт; иначе исходная строка. */
+/** Latin-script locales get Cyrillic map labels transliterated; others get the original. */
 export function formatPlaceLabelForLocale(raw: string, locale: Locale): string {
   const n = normalizePlace(raw);
   if (!n) return '';

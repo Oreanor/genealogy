@@ -15,7 +15,7 @@ export type FamilySearchPersonDatasetRow = {
   getBundle: () => FamilySearchPersonsFile;
 };
 
-/** Порядок, lineId и загрузчики — в `familySearchPersonDatasets.json`; подписи — `familyLineLabels.json`. */
+/** Order, lineId and loaders come from `familySearchPersonDatasets.json`; labels from `familyLineLabels.json`. */
 export function getFamilySearchPersonDatasets(): FamilySearchPersonDatasetRow[] {
   const { datasets } = manifest as {
     datasets: { id: string; bundle: string; lineId: FamilyLineId }[];

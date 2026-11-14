@@ -44,7 +44,7 @@ export function getCousins(personId: string): Person[] {
   return getPersons().filter((p) => cousinIds.has(p.id));
 }
 
-/** Second cousins: children of parents' first cousins (троюродные). */
+/** Second cousins: children of parents' first cousins (Russian: «троюродные»). */
 export function getSecondCousins(personId: string): Person[] {
   const person = getPersons().find((p) => p.id === personId);
   if (!person || (person.fatherId == null && person.motherId == null)) return [];

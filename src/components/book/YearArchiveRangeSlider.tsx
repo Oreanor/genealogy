@@ -3,25 +3,25 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { TranslationFn } from '@/lib/i18n/types';
 
-/** Порог сдвига по X: меньше — считаем кликом по году, больше (внутри выделения) — перенос интервала. */
+/** Horizontal threshold: below it a gesture is a click on a year, above it (inside the selection) it drags the range. */
 const HIST_PAN_THRESHOLD_PX = 6;
 
 const HIST_BAR_AREA_PX = 50;
 
 export type YearArchiveRangeSliderProps = {
-  /** Абсолютные границы данных (концы линии). */
+  /** Absolute data bounds (ends of the track). */
   minBound: number;
   maxBound: number;
-  /** Текущий выбранный интервал (годы включительно). */
+  /** Currently selected range (inclusive years). */
   low: number;
   high: number;
   onChange: (next: { low: number; high: number }) => void;
-  /** Число событий в текущем диапазоне — над центром выделенного участка. */
+  /** Number of events in the current range, shown above the selection's center. */
   eventCount: number;
   /**
-   * События по годам от minBound до maxBound включительно:
-   * `countsByYear[i]` — число событий в годe `minBound + i`.
-   * Столбчатая диаграмма той же ширины, что дорожка, высотой 50px; высота столбца пропорциональна count (масштаб по max).
+   * Events per year from minBound to maxBound inclusive:
+   * `countsByYear[i]` is the number of events in year `minBound + i`.
+   * Rendered as a 50px-high bar chart as wide as the track; bar height is proportional to count (scaled to max).
    */
   countsByYear: number[];
   className?: string;
@@ -29,8 +29,8 @@ export type YearArchiveRangeSliderProps = {
 };
 
 /**
- * Два ползунка на общей линии, выделенный диапазон между ними.
- * Перетаскивание полоски между ползунками сдвигает оба на одинаковую величину.
+ * Two thumbs on one track with the selected range between them.
+ * Dragging the bar between the thumbs moves both by the same amount.
  */
 export function YearArchiveRangeSlider({
   minBound,
@@ -44,7 +44,7 @@ export function YearArchiveRangeSlider({
   t,
 }: YearArchiveRangeSliderProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
-  /** Геометрия дорожки на момент старта перетаскивания — без layout на каждом pointermove. */
+  /** Track geometry captured at drag start, so pointermove doesn't force layout. */
   const trackGeomRef = useRef<{ left: number; width: number } | null>(null);
   const [drag, setDrag] = useState<'low' | 'high' | 'range' | null>(null);
   const [hoverYear, setHoverYear] = useState<number | null>(null);
@@ -271,9 +271,9 @@ export function YearArchiveRangeSlider({
             </>
           )}
         </div>
-        {/* Гистограмма (всегда интерактивна) + дорожка; перетаскивание интервала — полоса на дорожке и жест со столбцов внутри выделения. */}
+        {/* Histogram (always interactive) + track; the range is dragged by the track bar or by a gesture on bars inside the selection. */}
         <div className="relative flex w-full flex-col">
-          {/* Столбцы по годам — та же ширина, что у дорожки (px-2). Наведение: число событий над столбцом. */}
+          {/* Per-year bars, same width as the track (px-2). Hover shows the event count above a bar. */}
           <div
             className="relative z-[6] mb-0.5 flex w-full items-stretch px-2"
             style={{ height: HIST_BAR_AREA_PX }}
@@ -335,12 +335,12 @@ export function YearArchiveRangeSlider({
             role="group"
             aria-label={t('mapArchiveYearRangeGroupAria')}
           >
-            {/* вся линия */}
+            {/* full track */}
             <div
               className="pointer-events-none absolute left-2 right-2 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-(--accent)/25"
               aria-hidden
             />
-            {/* выбранный отрезок */}
+            {/* selected segment */}
             <div
               className="pointer-events-none absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full bg-(--accent) shadow-sm ring-1 ring-(--accent)/35"
               style={{
@@ -350,7 +350,7 @@ export function YearArchiveRangeSlider({
               }}
               aria-hidden
             />
-            {/* левый ползунок */}
+            {/* left thumb */}
             <button
               type="button"
               className="pointer-events-auto absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-(--paper) bg-(--accent) shadow-md hover:ring-2 hover:ring-(--accent)/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
@@ -358,7 +358,7 @@ export function YearArchiveRangeSlider({
               onPointerDown={startLow}
               aria-label={t('mapArchiveYearFromHandleAria', { year: low })}
             />
-            {/* правый ползунок */}
+            {/* right thumb */}
             <button
               type="button"
               className="pointer-events-auto absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-(--paper) bg-(--accent) shadow-md hover:ring-2 hover:ring-(--accent)/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--accent)"
@@ -367,7 +367,7 @@ export function YearArchiveRangeSlider({
               aria-label={t('mapArchiveYearToHandleAria', { year: high })}
             />
           </div>
-          {/* Перетаскивание всего интервала только по дорожке (столбцы не перекрываются — там hover/клик). */}
+          {/* Whole-range drag on the track only (bars aren't covered, they keep hover/click). */}
           <button
             type="button"
             tabIndex={-1}

@@ -1,4 +1,4 @@
-/** Одна декада оценки числа активных линий (семей) */
+/** Estimated number of active family lines in one decade */
 export interface LineDynamicsRow {
   decade: string;
   low: number;
@@ -8,7 +8,7 @@ export interface LineDynamicsRow {
   cluster_sumy: number;
 }
 
-/** Оценка числа семей по декадам; визуализация позже */
+/** Estimated family lines per decade (visualization planned) */
 export interface LineDynamicsDataset {
   title: string;
   description: string;

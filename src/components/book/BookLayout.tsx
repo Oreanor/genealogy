@@ -49,7 +49,7 @@ export function BookLayout({ children, alignTop = false }: BookLayoutProps) {
               isAdmin ? 'max-w-full' : bookMaxW
             }`}
           >
-            {/* Заголовок раздела показываем только на мобиле, на десктопе скрываем */}
+            {/* Section title is shown on mobile only */}
             {!isAdmin && currentSectionTitle && (
               <div className="flex w-full justify-center pt-3 pb-1 md:hidden">
                 <h1 className="font-serif text-base font-semibold text-(--ink) md:text-lg">

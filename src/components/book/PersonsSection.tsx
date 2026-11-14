@@ -129,7 +129,7 @@ export function PersonsSection() {
                 router.push(routes.person(p.id));
                 setPersonsSearch('');
                 setSearchFocused(false);
-                // Принудительно снимаем фокус, чтобы повторный клик по полю снова открывал список
+                // Blur explicitly so the next click on the field reopens the list
                 if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
                   document.activeElement.blur();
                 }

@@ -43,7 +43,7 @@ export function HistorySection() {
 
   return (
     <>
-      {/* Mobile: список текстов в одной колонке, контент в лайтбоксе */}
+      {/* Mobile: single-column list of entries, content opens in a lightbox */}
       <div className="flex min-h-0 flex-1 flex-col px-4 md:hidden">
         <div className="mt-2">
           <SearchField

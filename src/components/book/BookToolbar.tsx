@@ -76,10 +76,10 @@ export function BookToolbar() {
 
   return (
     <>
-      {/* Mobile: нижняя панель на серой полосе во всю ширину */}
+      {/* Mobile: full-width bottom bar on the grey strip */}
       <div className="pointer-events-none fixed inset-x-0 bottom-5 z-50 flex justify-center bg-(--book-bg) pb-[max(env(safe-area-inset-bottom),0px)] pt-1.5 md:hidden">
         <div className="pointer-events-auto flex w-full max-w-[640px] items-center gap-2 px-2">
-          {/* 1) Книга/админка */}
+          {/* 1) Book / admin */}
           <Tooltip label={isAdmin ? t('tooltipToBook') : t('adminTitle')} side="top">
             <div className="shrink-0">
               {isAdmin ? (
@@ -90,7 +90,7 @@ export function BookToolbar() {
             </div>
           </Tooltip>
 
-          {/* Выпадающий список разделов: книга или админ-вкладки */}
+          {/* Section dropdown: book sections or admin tabs */}
           {isAdmin ? (
             <select
               value={currentAdminTab}
@@ -125,21 +125,21 @@ export function BookToolbar() {
             </select>
           )}
 
-          {/* 3) Цвет страницы */}
+          {/* 3) Page color */}
           <Tooltip label={t('tooltipPageColor')} side="top">
             <div className="shrink-0">
               <PageColorPicker popupDirection="up" />
             </div>
           </Tooltip>
 
-          {/* 4) Язык */}
+          {/* 4) Language */}
           <Tooltip label={t('tooltipLanguage')} side="top">
             <div className="shrink-0">
               <LocaleSwitcher />
             </div>
           </Tooltip>
 
-          {/* 5) Помощь */}
+          {/* 5) Help */}
           {isAdmin ? (
             <Tooltip label={t('adminHelp')} side="top">
               <SquareIconButton

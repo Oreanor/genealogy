@@ -1,6 +1,6 @@
 /**
- * Сборка `src/lib/data/podvigNaroda.json` из пагинированных ответов API «Подвиг народа» (`docs/podvig/1.json` … `4.json`).
- * Для каждой записи с известным годом рождения добавляет `derived`: год и `mapGeoPlaceLabel` для карты (без повторного разбора на клиенте).
+ * Builds `src/lib/data/podvigNaroda.json` from paginated "Podvig Naroda" API responses (`docs/podvig/1.json` … `4.json`).
+ * For each record with a known birth year adds `derived`: the year and `mapGeoPlaceLabel` for the map (so the client doesn't re-parse).
  *
  *   node scripts/podvig-naroda-build.mjs
  */
@@ -46,7 +46,7 @@ function normalizePerson(raw) {
     patronymic: String(raw.f4 ?? '').trim(),
     birthDateRaw: emptyToUndef(raw.f5),
     rank: emptyToUndef(raw.f6),
-    /** Дата/период в источнике (призыв, гибель и т.п. — как в выгрузке). */
+    /** Date / period in the source (enlistment, death, etc., as exported). */
     eventDateRaw: emptyToUndef(raw.f7),
   };
 }
@@ -60,7 +60,7 @@ function normalizeAward(raw) {
     draftOffice: emptyToUndef(raw.f8),
     draftPlaceId: emptyToUndef(raw.draftPlaceId),
     draftPlaceLabel: emptyToUndef(raw.draftPlace),
-    /** Доп. дата в карточке награждения (напр. бой). */
+    /** Extra date on an award record (e.g. a battle). */
     secondaryDateRaw: emptyToUndef(raw.f24),
     registry: {
       fond: emptyToUndef(raw.f11),
@@ -131,7 +131,7 @@ function normalizeRecord(raw) {
     person: normalizePerson(raw),
     source: {
       entityLabelRu: String(raw.entity ?? ''),
-      /** Полная строка ответа API (f-поля, priznak, draftPlace…). */
+      /** Full API response row (f-fields, priznak, draftPlace…). */
       api: raw,
     },
   };
@@ -158,7 +158,7 @@ function parsePodvigBirthYear(birthDateRaw) {
   return m ? Number.parseInt(m[0], 10) : null;
 }
 
-/** Как `podvigGeoPlaceLabel` в `src/lib/data/podvigNarodaMap.ts` — одна точка правды по смыслу. */
+/** Mirrors `podvigGeoPlaceLabel` in `src/lib/data/podvigNarodaMap.ts` — keep them in sync. */
 function geoPlaceFromRecord(rec) {
   if (rec.recordType === 'award' && rec.award?.draftOffice?.trim()) {
     return rec.award.draftOffice.trim().split('|')[0].trim();

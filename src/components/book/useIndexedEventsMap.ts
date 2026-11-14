@@ -13,15 +13,15 @@ export type IndexedMapFocusTarget = {
   year: number;
 };
 
-/** Уход с маркера / с окна попапа — закрытие с задержкой, чтобы не «мигало». */
+/** Leaving a marker / popup closes it after a delay to avoid flicker. */
 const POPUP_HIDE_DELAY_MS = 600;
 /**
- * Уход с **иконки кластера** — попап в другом месте карты; нужна длинная задержка, пока курсор
- * дойдёт до списка по карте.
+ * Leaving a **cluster icon**: the popup sits elsewhere on the map, so allow a long delay while the cursor
+ * travels to the list.
  */
 const CLUSTER_ICON_LEAVE_HIDE_DELAY_MS = 1600;
 
-/** Как у ссылок в списке кластера архива: синий подчёркнутый текст, компактные строки. */
+/** Same as links in the archive cluster list: blue underlined text, compact rows. */
 const CLUSTER_LIST_NAME_LINK_STYLE =
   'font-size:12px;text-decoration:underline;color:#1a73e8;display:block;padding:3px 2px;margin:0;line-height:1.2;border-radius:3px;max-width:100%;box-sizing:border-box';
 
@@ -45,7 +45,7 @@ type IndexedMarkerOpts = {
   indexedYear?: number;
   indexedListName?: string;
   indexedRecordUrl?: string | null;
-  /** HTML одиночного маркера: непустой = строка кластера ведёт на точку по клику (Подвиг и т.д.). */
+  /** Single-marker HTML; when set, the cluster row zooms to the point on click (Podvig etc.). */
   indexedPopupHtml?: string;
 };
 
@@ -118,13 +118,13 @@ type Params = {
   locale: string;
   t: TranslationFn;
   markers: IndexedMapMarker[];
-  /** После появления маркеров — приблизить и открыть попап этого события. */
+  /** Once markers are rendered, zoom in and open this event's popup. */
   focusTarget?: IndexedMapFocusTarget | null;
   onFocusDone?: () => void;
 };
 
 /**
- * Leaflet + MarkerClusterGroup для индексированных событий (много точек в одних координатах).
+ * Leaflet + MarkerClusterGroup for indexed events (many points share coordinates).
  */
 export function useIndexedEventsMap({
   containerRef,
@@ -138,7 +138,7 @@ export function useIndexedEventsMap({
   const mapRef = useRef<LeafletMap | null>(null);
   const libRef = useRef<typeof import('leaflet') | null>(null);
   const clusterRef = useRef<Layer | null>(null);
-  /** Один раз подогнать границы при первой загрузке меток; смена годов не двигает карту. */
+  /** Fit bounds once on the first marker load; changing years doesn't move the map. */
   const initialFitDoneRef = useRef(false);
 
   useEffect(() => {

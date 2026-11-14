@@ -1,11 +1,11 @@
 /**
- * Ручные дополнения к записям архива (FamilySearch): снимки страниц.
- * Уточнённое место и координаты — в `indexedEvents.json` (поля precisePlace, lat, lon).
+ * Manual additions to archive (FamilySearch) records: page scans.
+ * Refined place and coordinates live in `indexedEvents.json` (precisePlace, lat, lon).
  */
 export type IndexedEventAttachment = {
-  /** Id фото из `data.json` (категория «документ/книга» и т.п.). */
+  /** Photo ids from `data.json` (e.g. document / book category). */
   photoIds?: string[];
-  /** Прямые пути под `public`, напр. `/photos/related/metric-p123.jpg`. */
+  /** Direct paths under `public`, e.g. `/photos/related/metric-p123.jpg`. */
   imageSrcs?: string[];
 };
 
