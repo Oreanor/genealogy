@@ -27,20 +27,3 @@ export function downloadFile(filename: string, content: string) {
 export function toCombinedJson(data: AdminDataSections): string {
   return JSON.stringify(data, null, 2);
 }
-
-interface StoredPayload {
-  data: AdminDataSections;
-  bundledHash: string;
-}
-
-export function loadStoredPayload(): StoredPayload | null {
-  // Admin data is no longer restored from localStorage.
-  // Always start from the bundled server data.
-  return null;
-}
-
-export function saveToStorage(data: AdminDataSections, bundledHash: string) {
-  // no-op: admin data is not persisted between sessions anymore
-  void data;
-  void bundledHash;
-}

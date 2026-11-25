@@ -11,17 +11,10 @@ import type { AdminDataSections } from './adminPageClientUtils';
 
 type Params = {
   initialData: AdminDataSections;
-  bundledHash: string;
   setGlobalRoot: (personId: string) => void;
-  saveToStorage: (data: AdminDataSections, bundledHash: string) => void;
 };
 
-export function useAdminPageState({
-  initialData,
-  bundledHash,
-  setGlobalRoot,
-  saveToStorage,
-}: Params) {
+export function useAdminPageState({ initialData, setGlobalRoot }: Params) {
   const [rootPersonId, setRootPersonId] = useState(initialData.rootPersonId);
   const [photos, setPhotos] = useState(initialData.photos);
   const [placeFallbacks, setPlaceFallbacks] = useState(initialData.placeFallbacks);
@@ -49,8 +42,6 @@ export function useAdminPageState({
     return () => setAdminWorkingPlaceFallbacks(null);
   }, [placeFallbacks]);
 
-  const persist = useCallback(() => saveToStorage(dataRef.current, bundledHash), [bundledHash, saveToStorage]);
-
   const handleAddRowActionChange = useCallback((action: (() => void) | null) => {
     setAddPersonRowAction(() => action);
   }, []);
@@ -63,9 +54,8 @@ export function useAdminPageState({
     (persons: Person[]) => {
       dataRef.current = { ...dataRef.current, persons };
       setAdminWorkingPersons(persons);
-      persist();
     },
-    [persist]
+    []
   );
 
   const handleRootChange = useCallback(
@@ -73,9 +63,8 @@ export function useAdminPageState({
       setRootPersonId(id);
       setGlobalRoot(id);
       dataRef.current = { ...dataRef.current, rootPersonId: id };
-      persist();
     },
-    [persist, setGlobalRoot]
+    [setGlobalRoot]
   );
 
   const handleAddTextEntryActionChange = useCallback((action: (() => void) | null) => {
@@ -85,9 +74,8 @@ export function useAdminPageState({
   const handleHistoryChange = useCallback(
     (history: HistoryEntry[]) => {
       dataRef.current = { ...dataRef.current, history };
-      persist();
     },
-    [persist]
+    []
   );
 
   const handleRefreshPhotosActionChange = useCallback((action: (() => void) | null) => {
@@ -106,9 +94,8 @@ export function useAdminPageState({
     (nextPhotos: PhotoEntry[]) => {
       dataRef.current = { ...dataRef.current, photos: nextPhotos };
       setPhotos(nextPhotos);
-      persist();
     },
-    [persist]
+    []
   );
 
   const handlePlaceFallbacksChange = useCallback(
@@ -116,9 +103,8 @@ export function useAdminPageState({
       setPlaceFallbacks(next);
       setAdminWorkingPlaceFallbacks(next);
       dataRef.current = { ...dataRef.current, placeFallbacks: next };
-      persist();
     },
-    [persist]
+    []
   );
 
   return {

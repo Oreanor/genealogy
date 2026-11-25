@@ -206,7 +206,7 @@
   "adminImportSuccess": "Данные импортированы",
   "adminImportNoChanges": "Нет изменений для импорта",
   "adminImportError": "Некорректный файл JSON",
-  "adminSiteUpdated": "Данные на сайте обновились",
+  "adminUnsavedChangesConfirm": "Есть несохранённые изменения. Сначала скачайте или скопируйте JSON, иначе они пропадут. Всё равно уйти?",
   "adminFirstName": "Имя",
   "adminPatronymic": "Отчество",
   "adminLastName": "Фамилия",

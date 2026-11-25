@@ -16,6 +16,7 @@ import { useLocale, useTranslations } from '@/lib/i18n/context';
 import Image from 'next/image';
 import { List, ListX } from 'lucide-react';
 import { PhotoThumbnails } from './PhotoThumbnails';
+import { SafeHtml } from './SafeHtml';
 import { CityPreviewMap } from '@/components/book/CityPreviewMap';
 
 interface PersonSpreadLeftContentProps {
@@ -319,9 +320,9 @@ export function PersonSpreadRightContent({
         <h3 className="book-serif text-xl font-semibold text-(--ink) mb-4">
           {historyEntry.title}
         </h3>
-        <div
+        <SafeHtml
           className={`book-serif prose-sm min-w-0 max-w-full text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
-          dangerouslySetInnerHTML={{ __html: historyEntry.richText }}
+          html={historyEntry.richText}
         />
       </div>
     );

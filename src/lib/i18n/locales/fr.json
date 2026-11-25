@@ -199,7 +199,7 @@
   "adminImportSuccess": "Données importées",
   "adminImportNoChanges": "Aucun changement à importer",
   "adminImportError": "Fichier JSON invalide",
-  "adminSiteUpdated": "Les données du site ont été mises à jour",
+  "adminUnsavedChangesConfirm": "Des modifications ne sont pas enregistrées. Téléchargez ou copiez d'abord le JSON, sinon elles seront perdues. Quitter quand même ?",
   "adminFirstName": "Prénom",
   "adminPatronymic": "Patronyme",
   "adminLastName": "Nom",

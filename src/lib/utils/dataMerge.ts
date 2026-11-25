@@ -227,19 +227,42 @@ export function changedKeys<T extends Record<string, unknown>>(
   return changed;
 }
 
-/** Legacy imports may omit `lineDynamics`; use `parseAdminImportData`. */
-const IMPORT_BASE_KEYS = [
-  'rootPersonId',
-  'persons',
-  'photos',
-  'history',
-  'placeFallbacks',
-] as const;
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
 
+function hasStringId(v: unknown): boolean {
+  return isPlainObject(v) && typeof v.id === 'string';
+}
+
+function isPhotoLike(v: unknown): boolean {
+  return hasStringId(v) && typeof (v as Record<string, unknown>).src === 'string';
+}
+
+/** `richText` / `personIds` may be missing in hand-written files; `parseAdminImportData` fills them. */
+function isHistoryLike(v: unknown): boolean {
+  if (!isPlainObject(v) || typeof v.title !== 'string') return false;
+  if (v.richText !== undefined && typeof v.richText !== 'string') return false;
+  return v.personIds === undefined || (Array.isArray(v.personIds) && v.personIds.every((id) => typeof id === 'string'));
+}
+
+/**
+ * Checks the shape the merge relies on (sections are arrays of records with ids, etc.), so a
+ * malformed file is reported as invalid instead of throwing later. Legacy imports may omit
+ * `lineDynamics`; use `parseAdminImportData`.
+ */
 export function validateImportData(data: unknown): boolean {
-  if (!data || typeof data !== 'object') return false;
-  const obj = data as Record<string, unknown>;
-  return IMPORT_BASE_KEYS.every((key) => key in obj);
+  if (!isPlainObject(data)) return false;
+  return (
+    typeof data.rootPersonId === 'string' &&
+    Array.isArray(data.persons) &&
+    data.persons.every(hasStringId) &&
+    Array.isArray(data.photos) &&
+    data.photos.every(isPhotoLike) &&
+    Array.isArray(data.history) &&
+    data.history.every(isHistoryLike) &&
+    isPlainObject(data.placeFallbacks)
+  );
 }
 
 function isLineDynamicsDataset(v: unknown): v is LineDynamicsDataset {
@@ -268,7 +291,12 @@ export function parseAdminImportData(raw: unknown): AdminDataSections | null {
     rootPersonId: obj.rootPersonId as string,
     persons: obj.persons as Person[],
     photos: obj.photos as PhotoEntry[],
-    history: obj.history as HistoryEntry[],
+    history: (obj.history as Partial<HistoryEntry>[]).map((h) => ({
+      ...h,
+      title: h.title as string,
+      richText: h.richText ?? '',
+      personIds: h.personIds ?? [],
+    })),
     placeFallbacks: obj.placeFallbacks as Record<string, GeocodedPoint>,
     lineDynamics: pickLineDynamics(obj),
   };

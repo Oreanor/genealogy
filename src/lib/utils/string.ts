@@ -18,10 +18,13 @@ export function stableModuloHash(seed: string, modulo: number): number {
   return hash % modulo;
 }
 
-/** Only relative paths and http(s) — blocks javascript:, data:, etc. */
+/**
+ * Only same-origin paths and http(s) — blocks javascript:, data:, etc., and protocol-relative
+ * `//host` / `/\host` (which browsers resolve to another origin).
+ */
 export function isSafeRichTextHref(href: string): boolean {
-  const trimmed = href.trim().toLowerCase();
-  if (trimmed.startsWith('/')) return true;
-  if (trimmed.startsWith('https://') || trimmed.startsWith('http://')) return true;
-  return false;
+  // Browsers drop tabs/newlines anywhere in a URL and trim leading controls/spaces, so "/\t/evil" is "//evil".
+  const s = href.replace(/[\t\n\r]/g, '').replace(/^[\u0000- ]+/, '').toLowerCase();
+  if (s.startsWith('/')) return s[1] !== '/' && s[1] !== '\\';
+  return s.startsWith('https://') || s.startsWith('http://');
 }

@@ -757,3 +757,33 @@ describe('changedKeys', () => {
     expect(changedKeys(a, b).sort((a, b) => a.localeCompare(b))).toEqual(['x', 'z']);
   });
 });
+
+// ---------------------------------------------------------------------------
+// import shape validation
+// ---------------------------------------------------------------------------
+
+describe('validateImportData shape checks', () => {
+  const base = () => makeData({ persons: [person('p1')], photos: [photo('ph1')], history: [history('A')] });
+
+  it('accepts a full valid export', () => {
+    expect(validateImportData(base())).toBe(true);
+  });
+
+  it.each([
+    ['persons is an object', { persons: {} }],
+    ['person without id', { persons: [{ firstName: 'x' }] }],
+    ['photos is a string', { photos: 'x' }],
+    ['photo without src', { photos: [{ id: 'ph1' }] }],
+    ['history entry without title', { history: [{ richText: '' }] }],
+    ['history personIds not an array', { history: [{ title: 'A', personIds: 'p1' }] }],
+    ['rootPersonId not a string', { rootPersonId: 1 }],
+    ['placeFallbacks is an array', { placeFallbacks: [] }],
+  ])('rejects when %s', (_label, patch) => {
+    expect(validateImportData({ ...base(), ...patch })).toBe(false);
+  });
+
+  it('fills missing richText / personIds in history', () => {
+    const parsed = parseAdminImportData({ ...base(), history: [{ title: 'A' }] });
+    expect(parsed?.history).toEqual([{ title: 'A', richText: '', personIds: [] }]);
+  });
+});

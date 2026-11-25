@@ -5,7 +5,8 @@ import { createContext, useContext, useMemo, useState, type ReactNode } from 're
 interface AdminToolbarActions {
   onCopy: () => void;
   onDownload: () => void;
-  onImport: (data: unknown) => void;
+  /** Raw text of the chosen file; parsing and validation errors are reported by the handler. */
+  onImport: (fileText: string) => void;
 }
 
 interface AdminToolbarContextValue {

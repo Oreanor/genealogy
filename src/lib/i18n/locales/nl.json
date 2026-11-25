@@ -199,7 +199,7 @@
   "adminImportSuccess": "Gegevens geïmporteerd",
   "adminImportNoChanges": "Geen wijzigingen om te importeren",
   "adminImportError": "Ongeldig JSON-bestand",
-  "adminSiteUpdated": "Sitegegevens zijn bijgewerkt",
+  "adminUnsavedChangesConfirm": "Er zijn niet-opgeslagen wijzigingen. Download of kopieer eerst de JSON, anders gaan ze verloren. Toch verlaten?",
   "adminFirstName": "Voornaam",
   "adminPatronymic": "Patroniem",
   "adminLastName": "Achternaam",

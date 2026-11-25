@@ -6,7 +6,7 @@ import { useAdminToolbar } from '@/lib/contexts/AdminToolbarContext';
 type Params = {
   handleCopy: () => Promise<void>;
   handleDownload: () => void;
-  handleImport: (raw: unknown) => void;
+  handleImport: (fileText: string) => void;
 };
 
 export function useAdminToolbarBindings({

@@ -199,7 +199,7 @@
   "adminImportSuccess": "Дані імпортовано",
   "adminImportNoChanges": "Немає змін для імпорту",
   "adminImportError": "Некоректний файл JSON",
-  "adminSiteUpdated": "Дані сайту оновлено",
+  "adminUnsavedChangesConfirm": "Є незбережені зміни. Спочатку завантажте або скопіюйте JSON, інакше їх буде втрачено. Все одно піти?",
   "adminFirstName": "Ім'я",
   "adminPatronymic": "По батькові",
   "adminLastName": "Прізвище",

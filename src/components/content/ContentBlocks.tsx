@@ -1,5 +1,6 @@
 import type { ContentBlock } from '@/lib/types/spread';
 import { RichText } from './RichText';
+import { SafeHtml } from './SafeHtml';
 
 interface ContentBlocksProps {
   blocks: ContentBlock[];
@@ -11,10 +12,10 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
       {blocks.map((block, index) => {
         if (block.type === 'html') {
           return (
-            <div
+            <SafeHtml
               key={index}
               className="prose prose-sm max-w-none text-(--ink) [&_a]:text-(--link) [&_a:hover]:underline"
-              dangerouslySetInnerHTML={{ __html: block.html }}
+              html={block.html}
             />
           );
         }

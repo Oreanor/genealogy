@@ -199,7 +199,7 @@
   "adminImportSuccess": "Daten importiert",
   "adminImportNoChanges": "Keine Änderungen zu importieren",
   "adminImportError": "Ungültige JSON-Datei",
-  "adminSiteUpdated": "Websitedaten wurden aktualisiert",
+  "adminUnsavedChangesConfirm": "Es gibt ungespeicherte Änderungen. Laden Sie zuerst das JSON herunter oder kopieren Sie es, sonst gehen sie verloren. Trotzdem verlassen?",
   "adminFirstName": "Vorname",
   "adminPatronymic": "Patronymikon",
   "adminLastName": "Nachname",

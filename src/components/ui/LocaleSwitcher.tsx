@@ -6,6 +6,7 @@ import { TOOLBAR_BUTTON_CLASS } from '@/lib/constants/theme';
 import { LOCALES } from '@/lib/i18n/config';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
 import { getPathSegments } from '@/lib/utils/path';
+import { confirmNavigation } from '@/lib/utils/navigationGuard';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
@@ -47,6 +48,10 @@ export function LocaleSwitcher() {
   const basePath = segments.slice(1).join('/');
 
   const goToLocale = (locale: string) => {
+    if (!confirmNavigation()) {
+      setOpen(false);
+      return;
+    }
     saveLocaleToStorage(locale);
     const search = searchParams?.toString();
     const href = `/${locale}${basePath ? `/${basePath}` : ''}${search ? `?${search}` : ''}`;

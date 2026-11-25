@@ -199,7 +199,7 @@
   "adminImportSuccess": "Data imported",
   "adminImportNoChanges": "No changes to import",
   "adminImportError": "Invalid JSON file",
-  "adminSiteUpdated": "Site data has been updated",
+  "adminUnsavedChangesConfirm": "You have unsaved changes. Download or copy the JSON first, otherwise they will be lost. Leave anyway?",
   "adminFirstName": "First name",
   "adminPatronymic": "Patronymic",
   "adminLastName": "Last name",

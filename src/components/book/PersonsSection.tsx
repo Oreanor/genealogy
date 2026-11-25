@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { BookSpread } from './BookSpread';
 import { BookPage } from './BookPage';
 import { PersonSpreadLeftContent, PersonSpreadRightContent } from '@/components/content/PersonSpreadContent';
+import { SafeHtml } from '@/components/content/SafeHtml';
 import { getPersons } from '@/lib/data/persons';
 import { formatPersonNameForLocale, sortPersonsBySurname, personMatchesSearch } from '@/lib/utils/person';
 import {
@@ -256,9 +257,9 @@ export function PersonsSection() {
             <h3 className="book-serif text-lg font-semibold text-(--ink)">
               {selectedHistoryEntry.title}
             </h3>
-            <div
+            <SafeHtml
               className={`book-serif prose-sm min-w-0 max-w-full text-(--ink) leading-relaxed ${HISTORY_RICH_HTML_IMAGE_CLASS}`}
-              dangerouslySetInnerHTML={{ __html: selectedHistoryEntry.richText }}
+              html={selectedHistoryEntry.richText}
             />
           </div>
           <div className="border-t border-(--border-subtle) bg-(--paper) px-4 py-2.5 flex justify-center">

@@ -199,7 +199,7 @@
   "adminImportSuccess": "Dati importati",
   "adminImportNoChanges": "Nessuna modifica da importare",
   "adminImportError": "File JSON non valido",
-  "adminSiteUpdated": "I dati del sito sono stati aggiornati",
+  "adminUnsavedChangesConfirm": "Ci sono modifiche non salvate. Scarica o copia prima il JSON, altrimenti andranno perse. Uscire comunque?",
   "adminFirstName": "Nome",
   "adminPatronymic": "Patronimico",
   "adminLastName": "Cognome",

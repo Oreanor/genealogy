@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef, useState, type RefObject } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from '@/lib/i18n/context';
 import { usePersons } from '@/hooks/usePersons';
@@ -17,15 +17,13 @@ import type { HistoryEntry } from '@/lib/types/history';
 import type { PhotoEntry } from '@/lib/types/photo';
 import type { GeocodedPoint } from '@/lib/constants/map';
 import type { LineDynamicsDataset } from '@/lib/types/lineDynamics';
-import {
-  saveToStorage,
-  setTabCookie,
-  type AdminDataSections,
-} from './adminPageClientUtils';
+import { setTabCookie, type AdminDataSections } from './adminPageClientUtils';
 import { useAdminPageBootstrap } from './useAdminPageBootstrap';
 import { useAdminPageState } from './useAdminPageState';
 import { useAdminImportFlow } from './useAdminImportFlow';
 import { useAdminToolbarBindings } from './useAdminToolbarBindings';
+import { UNSAVED_BASELINE, useUnsavedChangesGuard } from './useUnsavedChangesGuard';
+import { hashData } from '@/lib/utils/dataMerge';
 
 interface AdminPageClientProps {
   readonly rootPersonId: string;
@@ -38,8 +36,8 @@ interface AdminPageClientProps {
 }
 
 /**
- * Outer shell: resolves initial data from server props and wires
- * merge dialog when imported JSON differs from current data.
+ * Outer shell: resolves initial data from server props and remounts the editors when
+ * imported data replaces it. Owns the "last exported state" baseline so it survives remounts.
  */
 export function AdminPageClient({
   rootPersonId: serverRoot,
@@ -68,48 +66,41 @@ export function AdminPageClient({
       serverLineDynamics,
     ]
   );
-  const {
-    serverHash,
-    initialData,
-    dataVersion,
-    bundledConflict,
-    handleReload,
-    handleBundledMergeApply,
-    handleBundledMergeCancel,
-  } = useAdminPageBootstrap(serverData);
+  const { initialData, dataVersion, handleReload } = useAdminPageBootstrap(serverData);
+  // null = take the baseline once the editors have mounted (see useUnsavedChangesGuard).
+  const baselineHashRef = useRef<string | null>(null);
+
+  const handleImportedReload = useCallback(
+    (data: AdminDataSections) => {
+      // Imported data is not in data.json yet: it stays "unsaved" until exported.
+      baselineHashRef.current = UNSAVED_BASELINE;
+      handleReload(data);
+    },
+    [handleReload]
+  );
 
   return (
-    <>
-      <AdminPageClientInner
-        key={dataVersion}
-        initialData={initialData}
-        initialTab={initialTab}
-        bundledHash={serverHash}
-        onReload={handleReload}
-      />
-      {bundledConflict && (
-        <ImportMergeDialog
-          merge={bundledConflict.merge}
-          title="adminSiteUpdated"
-          onApply={handleBundledMergeApply}
-          onCancel={handleBundledMergeCancel}
-        />
-      )}
-    </>
+    <AdminPageClientInner
+      key={dataVersion}
+      initialData={initialData}
+      initialTab={initialTab}
+      baselineHashRef={baselineHashRef}
+      onReload={handleImportedReload}
+    />
   );
 }
 
 interface InnerProps {
   readonly initialData: AdminDataSections;
   readonly initialTab: AdminTabId;
-  readonly bundledHash: string;
+  readonly baselineHashRef: RefObject<string | null>;
   readonly onReload: (data: AdminDataSections) => void;
 }
 
 function AdminPageClientInner({
   initialData,
   initialTab,
-  bundledHash,
+  baselineHashRef,
   onReload,
 }: InnerProps) {
   const router = useRouter();
@@ -144,12 +135,18 @@ function AdminPageClientInner({
     handleDeleteAllPhotosActionChange,
     handlePhotosDataChange,
     handlePlaceFallbacksChange,
-  } = useAdminPageState({
-    initialData,
-    bundledHash,
-    setGlobalRoot,
-    saveToStorage,
+  } = useAdminPageState({ initialData, setGlobalRoot });
+  // The photo editor rewrites its list after the async folder scan; only then is the data "as loaded".
+  const [photosReady, setPhotosReady] = useState(false);
+  useUnsavedChangesGuard({
+    dataRef,
+    baselineHashRef,
+    ready: photosReady,
+    confirmMessage: t('adminUnsavedChangesConfirm'),
   });
+  const handleExported = useCallback(() => {
+    baselineHashRef.current = hashData(dataRef.current);
+  }, [baselineHashRef, dataRef]);
   const {
     alertMessage,
     setAlertMessage,
@@ -161,8 +158,8 @@ function AdminPageClientInner({
     handleMergeApply,
   } = useAdminImportFlow({
     dataRef,
-    bundledHash,
     onReload,
+    onExported: handleExported,
     t,
   });
 
@@ -220,6 +217,7 @@ function AdminPageClientInner({
             onToggleVisibilityActionChange={handleTogglePhotosVisibilityActionChange}
             onDeleteAllActionChange={handleDeleteAllPhotosActionChange}
             onHasHiddenChange={setPhotosHaveHidden}
+            onReadyChange={setPhotosReady}
             onDataChange={handlePhotosDataChange}
           />
         </div>

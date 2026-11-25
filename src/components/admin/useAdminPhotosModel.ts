@@ -21,6 +21,8 @@ type Params = {
   onToggleVisibilityActionChange?: (action: (() => void) | null) => void;
   onDeleteAllActionChange?: (action: (() => void) | null) => void;
   onHasHiddenChange?: (hasHidden: boolean) => void;
+  /** True once the initial folder scan has been applied (or failed): the photo list is settled. */
+  onReadyChange?: (ready: boolean) => void;
 };
 
 export function useAdminPhotosModel({
@@ -31,6 +33,7 @@ export function useAdminPhotosModel({
   onToggleVisibilityActionChange,
   onDeleteAllActionChange,
   onHasHiddenChange,
+  onReadyChange,
 }: Params) {
   const [loading, setLoading] = useState(true);
   const [selectedPhotoIdx, setSelectedPhotoIdx] = useState<number | null>(null);
@@ -161,6 +164,11 @@ export function useAdminPhotosModel({
   useEffect(() => {
     onDataChange?.(photos);
   }, [photos, onDataChange]);
+
+  // Declared after the onDataChange effect so the scanned list is reported first.
+  useEffect(() => {
+    onReadyChange?.(!loading);
+  }, [loading, onReadyChange]);
 
   useEffect(() => {
     onHasHiddenChange?.(photos.some((p) => p.hidden));

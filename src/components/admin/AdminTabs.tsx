@@ -67,14 +67,9 @@ export function AdminTabs({
     if (!file || !actions) return;
 
     const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const parsed: unknown = JSON.parse(reader.result as string);
-        actions.onImport(parsed);
-      } catch {
-        /* invalid JSON — ignored, AdminPageClient validates */
-      }
-    };
+    // Parsing and validation happen in the import handler, which reports errors to the user.
+    reader.onload = () => actions.onImport(typeof reader.result === 'string' ? reader.result : '');
+    reader.onerror = () => actions.onImport('');
     reader.readAsText(file);
     e.target.value = '';
   };

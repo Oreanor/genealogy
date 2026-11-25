@@ -15,6 +15,7 @@ interface AdminPhotosTabProps {
   onToggleVisibilityActionChange?: (action: (() => void) | null) => void;
   onDeleteAllActionChange?: (action: (() => void) | null) => void;
   onHasHiddenChange?: (hasHidden: boolean) => void;
+  onReadyChange?: (ready: boolean) => void;
 }
 
 export function AdminPhotosTab({
@@ -24,6 +25,7 @@ export function AdminPhotosTab({
   onToggleVisibilityActionChange,
   onDeleteAllActionChange,
   onHasHiddenChange,
+  onReadyChange,
 }: AdminPhotosTabProps) {
   const t = useTranslations();
   const {
@@ -63,6 +65,7 @@ export function AdminPhotosTab({
     onToggleVisibilityActionChange,
     onDeleteAllActionChange,
     onHasHiddenChange,
+    onReadyChange,
   });
 
   if (loading) {

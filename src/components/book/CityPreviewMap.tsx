@@ -28,16 +28,17 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
   const routeLayerRef = useRef<import('leaflet').LayerGroup | null>(null);
   const selectedMarkerRef = useRef<import('leaflet').Marker | null>(null);
   const geocodedByCityRef = useRef<Map<string, GeocodedPoint>>(new Map());
-  const [isLoading, setIsLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  // The map is (re)built per data key; while the stored result belongs to another key it is loading.
+  const dataKey = JSON.stringify([locale, person.id, person.birthPlace, person.residenceCity]);
+  const [result, setResult] = useState<{ key: string; notFound: boolean } | null>(null);
+  const isLoading = result?.key !== dataKey;
+  const notFound = !isLoading && result.notFound;
   const [mapDataRevision, setMapDataRevision] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
+    let foundNothing = false;
     const mapHost = mapRef.current;
-    setIsLoading(true);
-    setNotFound(false);
-    setMapDataRevision(0);
     geocodedByCityRef.current = new Map();
 
     const run = async () => {
@@ -58,7 +59,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
         }
 
         if (chain.length === 0) {
-          setNotFound(true);
+          foundNothing = true;
           return;
         }
 
@@ -76,7 +77,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
           .filter((x): x is { city: string; point: GeocodedPoint } => x.point != null);
 
         if (points.length === 0) {
-          setNotFound(true);
+          foundNothing = true;
           return;
         }
 
@@ -114,7 +115,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
         // Let selected-city effect re-run after full map data is ready.
         setMapDataRevision((v) => v + 1);
       } finally {
-        if (isMounted) setIsLoading(false);
+        if (isMounted) setResult({ key: dataKey, notFound: foundNothing });
       }
     };
 
@@ -128,7 +129,7 @@ export function CityPreviewMap({ person, selectedCity }: CityPreviewMapProps) {
       leafletRef.current = null;
       destroyLeafletMap(mapHost);
     };
-  }, [locale, person.id, person.birthPlace, person.residenceCity, placeFallbacks]);
+  }, [dataKey, locale, person.id, person.birthPlace, person.residenceCity, placeFallbacks]);
 
   useEffect(() => {
     const L = leafletRef.current;
