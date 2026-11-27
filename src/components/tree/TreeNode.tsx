@@ -12,7 +12,7 @@ import { truncateWithEllipsis } from '@/lib/utils/string';
 import type { Person } from '@/lib/types/person';
 import { getAvatarForPerson, getAvatarCropStyles } from '@/lib/data/photos';
 import { getSiblings } from '@/lib/data/familyRelations';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 
 const MAX_NAME_LEN = 22;
 /** md:w-[5.8rem] — main oval width on desktop. */

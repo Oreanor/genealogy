@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { polygonPoints } from '@/lib/utils/svg';
 import type { ImageConfig } from '@/lib/types/spread';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { useRouter } from 'next/navigation';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 import { getPersonById } from '@/lib/data/persons';

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { ChevronDown } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { PhotoEntry } from '@/lib/types/photo';

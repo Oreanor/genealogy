@@ -5,6 +5,7 @@ import { DEFAULT_LOCALE, isLocale } from '@/lib/i18n/config';
 import { mergePersonsForDisplay } from '@/lib/utils/personMerge';
 import { STORAGE_KEYS } from '@/lib/constants/storage';
 import { readPersonNameLocksRaw } from '@/lib/utils/personNameLocks';
+import { stripBasePath } from '@/lib/utils/basePath';
 
 const bundledPersons = (appData as { persons: Person[] }).persons;
 
@@ -42,7 +43,7 @@ export function getBundledPersons(): Person[] {
 
 function getClientLocaleForPersons(): Locale {
   if (typeof window === 'undefined') return DEFAULT_LOCALE;
-  const seg = window.location.pathname.split('/').filter(Boolean)[0];
+  const seg = stripBasePath(window.location.pathname).split('/').filter(Boolean)[0];
   if (isLocale(seg)) return seg;
   try {
     const stored = localStorage.getItem(STORAGE_KEYS.locale);

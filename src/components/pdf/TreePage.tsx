@@ -8,6 +8,7 @@ import { getSiblings, getCousins } from '@/lib/data/familyRelations';
 import { getTreeRoleKey } from '@/lib/utils/relationship';
 import { getAvatarForPerson } from '@/lib/data/photos';
 import { s, A4_LANDSCAPE_PT, COLORS } from './styles';
+import { withBasePath } from '@/lib/utils/basePath';
 
 const PAD = 24;
 const TITLE_H = 28;
@@ -113,7 +114,7 @@ export function TreePage({ labels }: { labels: TreeLabels }) {
                 {avatar && (
                   // eslint-disable-next-line jsx-a11y/alt-text
                   <Image
-                    src={avatar.src}
+                    src={withBasePath(avatar.src)}
                     style={{ width: OVAL_W, height: OVAL_H, objectFit: 'cover' }}
                   />
                 )}

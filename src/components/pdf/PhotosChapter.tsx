@@ -6,6 +6,7 @@ import { getPhotos, getPhotosByPerson } from '@/lib/data/photos';
 import { getRootPersonId } from '@/lib/data/root';
 import { buildTreeMatrix } from '@/lib/utils/tree';
 import { s, COLORS } from './styles';
+import { withBasePath } from '@/lib/utils/basePath';
 
 export interface PhotosLabels {
   chapterPhotos: string;
@@ -99,7 +100,7 @@ export function PhotosChapter({ labels }: { labels: PhotosLabels }) {
           )}
           {/* eslint-disable-next-line jsx-a11y/alt-text */}
           <Image
-            src={photo.src}
+            src={withBasePath(photo.src)}
             style={{ maxWidth: '100%', maxHeight: seriesHeader ? '78%' : '85%', objectFit: 'contain' }}
           />
           {photo.caption && (

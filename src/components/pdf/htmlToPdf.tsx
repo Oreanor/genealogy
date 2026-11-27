@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, Image, Link } from '@react-pdf/renderer';
 import { COLORS } from './styles';
+import { withBasePath } from '@/lib/utils/basePath';
 
 interface HtmlNode {
   tag: string;
@@ -284,7 +285,7 @@ function renderNode(node: HtmlNode, baseSize: number): React.ReactNode {
       if (!src) return null;
       return (
         // eslint-disable-next-line jsx-a11y/alt-text
-        <Image key={key} src={src} style={{ maxWidth: '100%', maxHeight: 300, marginVertical: 6, objectFit: 'contain' }} />
+        <Image key={key} src={withBasePath(src)} style={{ maxWidth: '100%', maxHeight: 300, marginVertical: 6, objectFit: 'contain' }} />
       );
     }
     case 'span':

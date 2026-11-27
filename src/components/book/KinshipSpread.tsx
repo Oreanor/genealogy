@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { useLocale, useLocaleRoutes } from '@/lib/i18n/context';
 import { getPersonById } from '@/lib/data/persons';
 import { usePersons } from '@/hooks/usePersons';

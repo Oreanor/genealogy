@@ -13,7 +13,7 @@ export function proxy(request: NextRequest) {
     if (!searchParams.has('tab')) {
       const tab = request.cookies.get(ADMIN_TAB_COOKIE)?.value;
       const validTab = tab && isAdminTabId(tab) ? tab : 'persons';
-      const url = new URL(request.url);
+      const url = request.nextUrl.clone();
       url.searchParams.set('tab', validTab);
       const res = NextResponse.redirect(url);
       res.cookies.set(ADMIN_TAB_COOKIE, validTab, { path: '/', maxAge: 60 * 60 * 24 * 365 });
@@ -30,12 +30,13 @@ export function proxy(request: NextRequest) {
   // /, /admin, /chapter/... — redirect to /{DEFAULT_LOCALE}/...
   const locale = DEFAULT_LOCALE;
   const newPath = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
-  const url = new URL(request.url);
+  const url = request.nextUrl.clone();
   url.pathname = newPath;
   return NextResponse.redirect(url);
 }
 
 /** Matcher: all pages except _next, api and static assets. */
 export const config = {
-  matcher: ['/((?!_next|api|_next/static|_next/image|favicon\\.ico|.*\\.[a-zA-Z0-9]+$).*)'],
+  // '/' is listed on its own: under a basePath the catch-all pattern no longer matches the bare root.
+  matcher: ['/', '/((?!_next|api|_next/static|_next/image|favicon\\.ico|.*\\.[a-zA-Z0-9]+$).*)'],
 };

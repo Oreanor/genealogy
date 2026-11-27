@@ -10,6 +10,7 @@ import {
   type AdminPhotoGroupSection,
   type PhotoItem,
 } from './adminPhotosTabUtils';
+import { withBasePath } from '@/lib/utils/basePath';
 
 type AdminPhotoGroupProps = {
   title: string;
@@ -72,7 +73,7 @@ function AdminPhotoGroup({
                 >
                   <span className="block aspect-3/4 w-full overflow-hidden bg-(--paper-light)">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={photo.src} alt="" className="h-full w-full object-cover" />
+                    <img src={withBasePath(photo.src)} alt="" className="h-full w-full object-cover" />
                   </span>
 
                   <div className="absolute left-2 top-2 z-10 flex flex-col items-start gap-1">

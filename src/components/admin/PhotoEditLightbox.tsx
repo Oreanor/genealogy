@@ -8,6 +8,7 @@ import type { PhotoCategory, PhotoEntry } from '@/lib/types/photo';
 import { Eye, EyeOff } from 'lucide-react';
 import { Button, Input, Select } from '@/components/ui/atoms';
 import { pxToPercent } from '@/lib/utils/numbers';
+import { withBasePath } from '@/lib/utils/basePath';
 
 const DRAG_THRESHOLD_PX = 5;
 
@@ -254,7 +255,7 @@ export function PhotoEditLightbox({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={photo.src}
+              src={withBasePath(photo.src)}
               alt=""
               className="block h-full w-full select-none object-contain pointer-events-none"
               draggable={false}

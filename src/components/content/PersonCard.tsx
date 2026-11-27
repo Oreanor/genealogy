@@ -11,7 +11,7 @@ import type { Person } from '@/lib/types/person';
 import { useLocaleRoutes } from '@/lib/i18n/context';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { ImageLightbox } from '@/components/ui/ImageLightbox';
 
 interface PersonCardProps {

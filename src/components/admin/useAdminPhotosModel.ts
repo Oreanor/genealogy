@@ -10,6 +10,7 @@ import {
   buildPhotoIndexMaps,
   slugFromSrc,
 } from './adminPhotosTabUtils';
+import { BASE_PATH } from '@/lib/utils/basePath';
 
 type PeopleEditorState = { photoIdx: number; personIdx: number | null };
 
@@ -57,7 +58,7 @@ export function useAdminPhotosModel({
   const groups = useMemo(() => buildAdminPhotoGroups(photos, photoIdxBySrc, t), [photos, photoIdxBySrc, t]);
 
   useEffect(() => {
-    fetch('/api/admin/photos/scan')
+    fetch(`${BASE_PATH}/api/admin/photos/scan`)
       .then((r) => {
         // Unavailable in production: keep the photo list from data.json as is.
         if (!r.ok) throw new Error(`Photo scan failed: ${r.status}`);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { List, ListX } from 'lucide-react';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
 import type { LightboxFace } from '@/lib/data/photos';

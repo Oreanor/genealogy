@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useTranslations } from '@/lib/i18n/context';
 import { pxToPercent } from '@/lib/utils/numbers';
+import { withBasePath } from '@/lib/utils/basePath';
 
 /** Rect coords: [left%, top%, right%, bottom%] for face/avatar area. */
 interface PhotoHotspotEditorProps {
@@ -77,7 +78,7 @@ export function PhotoHotspotEditor({
         onMouseLeave={handleMouseUp}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="h-full w-full object-cover" />
+        <img src={withBasePath(src)} alt="" className="h-full w-full object-cover" />
         {hasRect && (
           <div className="absolute inset-0 pointer-events-none">
             <span

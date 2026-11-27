@@ -8,6 +8,7 @@ import indexedEventsBundle from '@/lib/data/indexedEvents.json';
 import eventAttachmentsBundle from '@/lib/data/indexedEventAttachments.json';
 import type { IndexedEventAttachmentsFile } from '@/lib/types/indexedEventAttachment';
 import { getPhotoById } from '@/lib/data/photos';
+import { withBasePath } from '@/lib/utils/basePath';
 
 const ATTACHMENTS = eventAttachmentsBundle as IndexedEventAttachmentsFile;
 
@@ -41,7 +42,7 @@ function renderAttachmentBlock(hitId: string, t: TranslationFn): string {
   inner += imageUrls
     .map(
       (src) =>
-        `<a href="${escapeHtml(src)}" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:4px;line-height:0"><img src="${escapeHtml(src)}" alt="" width="240" style="max-width:100%;height:auto;border-radius:4px" loading="lazy"/></a>`,
+        `<a href="${escapeHtml(withBasePath(src))}" target="_blank" rel="noopener noreferrer" style="display:block;margin-top:4px;line-height:0"><img src="${escapeHtml(withBasePath(src))}" alt="" width="240" style="max-width:100%;height:auto;border-radius:4px" loading="lazy"/></a>`,
     )
     .join('');
 

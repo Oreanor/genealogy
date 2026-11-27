@@ -13,7 +13,7 @@ import { getChildren, getCousins, getSecondCousins, getSpouse, getSiblings } fro
 import type { Person } from '@/lib/types/person';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { useLocale, useTranslations } from '@/lib/i18n/context';
-import Image from 'next/image';
+import Image from '@/components/ui/AppImage';
 import { List, ListX } from 'lucide-react';
 import { PhotoThumbnails } from './PhotoThumbnails';
 import { SafeHtml } from './SafeHtml';

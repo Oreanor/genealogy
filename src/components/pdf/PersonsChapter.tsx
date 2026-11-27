@@ -10,6 +10,7 @@ import { getPersonById } from '@/lib/data/persons';
 import { getAvatarForPerson } from '@/lib/data/photos';
 import { getHistoryEntriesByPerson } from '@/lib/data/history';
 import { s, COLORS } from './styles';
+import { withBasePath } from '@/lib/utils/basePath';
 
 export interface PersonsLabels {
   chapterPersons: string;
@@ -154,7 +155,7 @@ function PersonPhotoPage({ person }: { person: Person }) {
     <Page size="A5" style={[s.pageA5, { justifyContent: 'center', alignItems: 'center' }]}>
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
-        src={avatar.src}
+        src={withBasePath(avatar.src)}
         style={{ maxWidth: '100%', maxHeight: '85%', objectFit: 'contain' }}
       />
       <Text style={[s.caption, { marginTop: 8 }]}>{getFullName(person)}</Text>

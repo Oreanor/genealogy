@@ -1,12 +1,13 @@
 import { StyleSheet, Font } from '@react-pdf/renderer';
+import { withBasePath } from '@/lib/utils/basePath';
 
 Font.register({
   family: 'PTSerif',
   fonts: [
-    { src: '/fonts/PTSerif-Regular.ttf', fontWeight: 400 },
-    { src: '/fonts/PTSerif-Bold.ttf', fontWeight: 700 },
-    { src: '/fonts/PTSerif-Italic.ttf', fontWeight: 400, fontStyle: 'italic' },
-    { src: '/fonts/PTSerif-BoldItalic.ttf', fontWeight: 700, fontStyle: 'italic' },
+    { src: withBasePath('/fonts/PTSerif-Regular.ttf'), fontWeight: 400 },
+    { src: withBasePath('/fonts/PTSerif-Bold.ttf'), fontWeight: 700 },
+    { src: withBasePath('/fonts/PTSerif-Italic.ttf'), fontWeight: 400, fontStyle: 'italic' },
+    { src: withBasePath('/fonts/PTSerif-BoldItalic.ttf'), fontWeight: 700, fontStyle: 'italic' },
   ],
 });
 

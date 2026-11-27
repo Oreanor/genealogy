@@ -10,6 +10,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Sub-path hosting (e.g. /genealogy on the home server); unset for a domain root such as Vercel.
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || undefined,
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   poweredByHeader: false,
   experimental: {
     // Inline the (single, ~15 KB gzip) global stylesheet into the HTML <head>

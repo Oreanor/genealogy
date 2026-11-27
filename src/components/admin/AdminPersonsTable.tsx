@@ -25,6 +25,7 @@ import { AdminPersonsTableHeader } from './AdminPersonsTableHeader';
 import { AdminPersonsTableRow } from './AdminPersonsTableRow';
 import { AvatarPickerDialog } from './AvatarPickerDialog';
 import { CityReviewDialog } from './CityReviewDialog';
+import { BASE_PATH, withBasePath } from '@/lib/utils/basePath';
 
 function FaceThumbnail({ source, size = 40 }: { source: AvatarSource; size?: number }) {
   const { src, faceRect } = source;
@@ -49,7 +50,7 @@ function FaceThumbnail({ source, size = 40 }: { source: AvatarSource; size?: num
       style={wrapperStyle}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" className="h-full w-full object-cover" />
+      <img src={withBasePath(src)} alt="" className="h-full w-full object-cover" />
     </span>
   );
 }
@@ -221,7 +222,7 @@ export function AdminPersonsTable({
 
   const geocodeCity = useCallback(async (city: string): Promise<GeocodedPoint | null> => {
     const ask = async (q: string) => {
-      const res = await fetch(`/api/map/geocode?q=${encodeURIComponent(q)}`, {
+      const res = await fetch(`${BASE_PATH}/api/map/geocode?q=${encodeURIComponent(q)}`, {
         headers: { Accept: 'application/json' },
       });
       if (!res.ok) return null;

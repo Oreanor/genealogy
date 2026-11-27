@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/atoms';
 import type { TranslationFn } from '@/lib/i18n/types';
 import type { PhotoEntry } from '@/lib/types/photo';
 import { buildAdminPhotoGroups, buildPhotoIndexMaps } from './adminPhotosTabUtils';
+import { withBasePath } from '@/lib/utils/basePath';
 
 export interface RichTextPhotoPickerDialogProps {
   open: boolean;
@@ -82,7 +83,7 @@ export function RichTextPhotoPickerDialog({
                           {/* Admin-only thumbnail grid: plain <img> avoids the optimizer round-trip. */}
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={photo.src}
+                            src={withBasePath(photo.src)}
                             alt=""
                             className={`h-full w-full object-cover ${photo.hidden ? 'opacity-50' : ''}`}
                           />

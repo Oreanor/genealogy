@@ -2,6 +2,7 @@ import type { PhotoEntry, PhotoCategory } from '@/lib/types/photo';
 import type { Person } from '@/lib/types/person';
 import appData from '@/data/data.json';
 import avatarCrops from '@/lib/data/avatarCrops.generated.json';
+import { withBasePath } from '@/lib/utils/basePath';
 
 /** Face rect + name parts for overlay (last / first / patronymic from admin). */
 export type LightboxFace = {
@@ -223,7 +224,7 @@ const CROP_DPR = 2;
 /** URL of `src` resized by the Next.js image optimizer to at least `minWidthPx` (WebP/AVIF by Accept). */
 export function getOptimizedImageUrl(src: string, minWidthPx: number): string {
   const w = OPTIMIZER_WIDTHS.find((x) => x >= minWidthPx) ?? OPTIMIZER_WIDTHS[OPTIMIZER_WIDTHS.length - 1];
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=75`;
+  return withBasePath(`/_next/image?url=${encodeURIComponent(withBasePath(src))}&w=${w}&q=75`);
 }
 
 type AvatarCrop = { url: string; size: number; posX: number };
@@ -254,7 +255,7 @@ export function getAvatarCropStyles(
   const imageUrl = (bgSizePercent: number) =>
     displayWidthPx
       ? `url("${getOptimizedImageUrl(src, displayWidthPx * (bgSizePercent / 100) * CROP_DPR)}")`
-      : `url(${encodeURI(src)})`;
+      : `url(${encodeURI(withBasePath(src))})`;
   if (w < MIN_RECT_SIZE || h < MIN_RECT_SIZE) {
     return {
       backgroundImage: imageUrl(100),
@@ -273,7 +274,7 @@ export function getAvatarCropStyles(
   const crop = displayWidthPx ? getAvatarCrop(src, faceRect) : null;
   if (crop) {
     return {
-      backgroundImage: `url("${crop.url}")`,
+      backgroundImage: `url("${withBasePath(crop.url)}")`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: `${crop.size}% auto`,
       backgroundPosition: `${crop.posX}% ${posY}%`,

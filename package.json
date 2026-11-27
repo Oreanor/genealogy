@@ -19,7 +19,8 @@
     "fs-export-persons": "node scripts/familysearch-export-persons.mjs",
     "fs-kanivets-build": "node scripts/fs-kanivets-build.mjs",
     "podvig-naroda-build": "node scripts/podvig-naroda-build.mjs",
-    "avatar-crops": "node scripts/build-avatar-crops.mjs"
+    "avatar-crops": "node scripts/build-avatar-crops.mjs",
+    "deploy": "node --env-file-if-exists=.env.deploy scripts/deploy.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
